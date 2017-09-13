@@ -1,0 +1,1 @@
+Cart<span class="badge badge-danger">{{ \App\TempProductout::count()  }}</span>

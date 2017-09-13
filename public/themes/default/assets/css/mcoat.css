@@ -1,0 +1,26 @@
+
+
+
+.card-container {
+    box-shadow: 0 0px 0px 0 rgba(0,0,0,0.2);
+    background: #ffffff;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+
+a{
+    color: #fa9539;
+    text-decoration: none;
+}
+
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    border-right: 6px solid  #e74c3c;
+
+}
+.sidebar ul li a.active {
+
+    border-right: 6px solid  #e74c3c;
+}
