@@ -135,7 +135,11 @@
     .address span{
         margin-left: 20px;
     }
-    .delivered_to,.address,.print-info{
+    .received-goods{
+        text-align: right;
+        font-style: italic;
+    }
+    .delivered_to,.address,.print-info,.received-goods{
         font-size: 12px;
     }
     .delivered_to span,.address span{
@@ -154,6 +158,7 @@
     }
     .print-info{
         padding-top: 20px;
+
     }
     .print-info div:nth-child(1) span{
         margin-left: 20px;
@@ -169,6 +174,31 @@
     }
     .print-info div:nth-child(3){
        font-style: italic;
+    }
+    .received-by{
+        position: relative;
+        text-align: right;
+        top:-25px;
+    }
+    .signature{
+        margin-right: 50px;
+    }
+    .date-received{
+        position: relative;
+        top:-45px;
+    }
+    .prepared-by{
+        position: relative;
+        top:-15px;
+    }
+    .prepared-by span{
+        margin-left: 10px;
+        border-bottom: 1px solid black;
+    }
+    .invoice-follow{
+        position: relative;
+        top:-15px;
+        font-style: italic;
     }
 </style>
 
@@ -240,16 +270,31 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="received-goods">
+            Received the above goods in good order and condition
+        </div>
         <div class="print-info">
             <div class="">
                 Check by: <span>______________________________________</span>
             </div>
-            <div class="">
+            <div class="received-by">
+                    Received by: <span>______________________________________</span>
+
+            </div>
+            <div class="received-by signature">
+                Name & Authorized Signature
+
+            </div>
+
+            <div class="prepared-by">
                 Prepared by: <span>John Paul B. Inhog</span>
             </div>
-            <div class="">
+            <div class="invoice-follow">
                Invoice to follow
+            </div>
+            <div class="received-by date-received">
+                Date received: <span>______________________________________</span>
+
             </div>
         </div>
 
