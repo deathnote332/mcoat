@@ -175,10 +175,12 @@
     .print-info div:nth-child(3){
        font-style: italic;
     }
+
     .received-by{
         position: relative;
         text-align: right;
         top:-25px;
+
     }
     .signature{
         margin-right: 50px;
