@@ -39,4 +39,4 @@ Route::post('/removeToCart', 'ProductController@removeToCart');
 
 //print
 Route::get('/invoice/{id}', 'ProductController@invoice');
-Route::post('/saveProductout', 'ProductController@saveProductout');
+Route::get('/saveProductout', 'ProductController@saveProductout');

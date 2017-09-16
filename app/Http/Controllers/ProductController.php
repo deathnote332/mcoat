@@ -123,18 +123,30 @@ class ProductController extends Controller
     public function saveProductout(){
         $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
             ->select('temp_product_out.qty as temp_qty','tblproducts.*')
-            ->get()->chunk(20);
-        $product_arr = [];
-        foreach($products as $key=> $val){
-            array_push($product_arr,$val);
-        }
+            ->get()->chunk(2);
 
+        $product_arr=[];
+
+        foreach($products as $key=> $product){
+            $id = Productout::orderBy('id','desc')->first()->id + 1;
+            $receipt ='MC-'.date('Y').'-'.str_pad($id, 6, '0', STR_PAD_LEFT);
+            $total = 0;
+            foreach ($product as $key=>$val){
+                $total = $total + $val->temp_qty *  $val->unit_price;
+                $prod_id[]=$val->id;
+            }
+            //insrt to product_out_items
+            //delete
+            //Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>1,'printed_by'=>Auth::user()->id]);
+            $rec_no[]=$receipt;
+        }
 
 
         //open popup window to download all PDFs to client browser.
         echo "<script type='text/javascript'>";
-        for($i=0;$i<count($product_arr); $i++){
-            echo "window.open('/invoice/MC-2017-00001');" ;
+        for($i=0;$i<count($rec_no); $i++){
+            $path = '/invoice/'.$rec_no[$i];
+            echo "window.open('.$path');" ;
         }
         echo "</script>";
         //receipt format
