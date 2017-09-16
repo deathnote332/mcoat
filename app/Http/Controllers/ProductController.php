@@ -32,7 +32,7 @@ class ProductController extends Controller
                         data-unit="'.$val->unit.'">Add to Cart</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
-                'quantity_1'=>$val->quantity_1,'unit_price'=>$val->unit_price,'action'=>$action];
+                'quantity_1'=>$val->quantity_1,'unit_price'=>'P '.number_format($val->unit_price, 2),'action'=>$action];
         }
         return json_encode(['data'=>$data]);
 
