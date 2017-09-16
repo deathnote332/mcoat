@@ -23,14 +23,36 @@
         border-radius: 4px;
     }
     .btn-print{
-        text-align: center;
+
         margin-top: 20px;
     }
+    .branches{
+        font-size: 18px;
+        margin-left: 15px;
+        margin-top: 10px;
+    }
     .btn-print .btn{
-        width:160px;
+        width:300px;
+        font-size: 20px;
+
     }
     #remove-cart{
         cursor: pointer;
+    }
+    .total-amount{
+        padding: 5px;
+        /* border: 1px solid red; */
+        width: 300px;
+        /* text-align: right; */
+        position: relative;
+        /* right: -22px; */
+        float: right;
+        text-align: center;
+        background: black;
+        color: white;
+        font-size: 24px;
+        margin-top: 10px;
+
     }
 </style>
 
@@ -66,7 +88,7 @@
                     <th>Unit</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
-                    <th>Total</th>
+                    <th>Amount</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -75,7 +97,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 col-md-offset-9">
+        <div class="col-md-3">
+            <select class="branches form-control">
+                <option selected disabled>Choose Location</option>
+                @foreach(\App\Branches::orderBy('name','asc')->get() as $key=>$val)
+                    <option value="{{$val->name}}" data-address="{{$val->address}}">{{$val->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3 col-md-offset-6">
+            <div class="total-amount">
+                {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->first()->total, 2) }}
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9 text-right">
             <div class="btn-print">
 
                 <button type="button" class="btn btn-primary">Print</button>
@@ -139,6 +177,20 @@
         $('body').on('click','#remove-cart',function () {
             removeToCart($(this).data('id'),$(this).data('product_id'),$(this).data('qty'))
         })
+
+        $('.btn-print .btn').on('click',function () {
+            var branch = $('.branches option:selected').val();
+            if(branch=="Choose Location"){
+                swal({
+                    title: "",
+                    text: "Please choose delivery location",
+                    type: "error"
+                });
+            }else{
+
+            }
+        })
+
     });
 
     function removeToCart(id,product_id,qty) {

@@ -38,4 +38,5 @@ Route::post('/addToCart', 'ProductController@addToCart');
 Route::post('/removeToCart', 'ProductController@removeToCart');
 
 //print
-Route::get('/printInvoice', 'ProductController@printInvoice');
+Route::get('/invoice/{id}', 'ProductController@invoice');
+Route::post('/saveProductout', 'ProductController@saveProductout');

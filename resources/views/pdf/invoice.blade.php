@@ -143,6 +143,7 @@
         font-size: 12px;
     }
     .delivered_to span,.address span{
+        text-transform: uppercase;
         border-bottom: 1px solid black;
     }
     table tr th{border-right: 1px solid white !important}
@@ -195,7 +196,8 @@
     }
     .prepared-by span{
         margin-left: 10px;
-        border-bottom: 1px solid black;
+        text-transform: capitalize;
+        font-weight: bold;
     }
     .invoice-follow{
         position: relative;
@@ -204,9 +206,6 @@
     }
 </style>
 
-{{--<?php $ctr= 0; ?>--}}
-{{--@foreach ($receipt_no as $key => $rec_no)--}}
-    <?php $ctr++; ?>
     @for($i = 1;$i <= 3;$i++)
 
         <div class="header">
@@ -227,16 +226,16 @@
             MCOAT PASIG
         </div>
         <div class="inv-number">
-            NO. <span>MC-2017-0001</span>
+            NO. <span>{{$invoice['receipt_no']}}</span>
         </div>
         <div class="date">
             Date: 10/27/13
         </div>
         <div class="delivered_to">
-            Delivered To: <span>MCOAT-PAINT COMMERCIAL ANG GENERAL MERCHANDISE</span>
+            Delivered To: <span>{{ \App\Branches::find($invoice['branch'])->name  }}</span>
         </div>
         <div class="address">
-            Address: <span>185 R. Jabson St. Bambang, Pasig City</span>
+            Address: <span>{{ \App\Branches::find($invoice['branch'])->address  }}</span>
         </div>
 
         <div class="table-location">
@@ -253,13 +252,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->select('temp_product_out.qty as temp_qty','tblproducts.*')->get() as $key=> $val)
+                    @foreach($invoice['products'] as $key=>$val)
                         <tr>
-                            <td>{{ $val->temp_qty }} {{ $val->unit }}</td>
+                            <td>{{ $val->product_qty }} {{ $val->unit }}</td>
                             <td>{{ $val->code }}</td>
                             <td>{{ $val->brand.' '.$val->category.' '.$val->description }}</td>
-                            <td>{{ $val->unit_price }}</td>
-                            <td>{{ $val->unit_price * $val->temp_qty }}</td>
+                            <td>{{ 'P '.number_format($val->unit_price , 2) }}</td>
+                            <td>{{  'P '.number_format($val->unit_price * $val->product_qty, 2)}}</td>
                         </tr>
                     @endforeach
                 <tr id="total">
@@ -267,7 +266,7 @@
                     <td></td>
                     <td></td>
                     <td>TOTAL</td>
-                    <td>{{ \App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->first()->total }}</td>
+                    <td>{{ 'P '.number_format($invoice['total'], 2) }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -289,7 +288,7 @@
             </div>
 
             <div class="prepared-by">
-                Prepared by: <span>John Paul B. Inhog</span>
+                Prepared by: <span>{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
             </div>
             <div class="invoice-follow">
                Invoice to follow
@@ -303,19 +302,17 @@
 
         <div class="page-copy">
             @if( $i == 1 )
-                <p>This the original copy</p>
+                <p>*This is the original copy</p>
             @elseif( $i == 2 )
-                <p>This the second copy</p>
+                <p>**This is the second copy</p>
             @else
-                <p>This the third copy</p>
+                <p>***This is the third copy</p>
             @endif
         </div>
 
-        {{--@if($ctr <= count($receipt_no))--}}
-            <div class="page-break"></div>
-        {{--@endif--}}
+        <div class="page-break"></div>
+
     @endfor
-{{--@endforeach--}}
 
 
 

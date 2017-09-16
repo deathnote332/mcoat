@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Productout;
 use App\TempProductout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Theme;
 use PDF;
@@ -32,7 +34,7 @@ class ProductController extends Controller
                         data-unit="'.$val->unit.'">Add to Cart</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
-                'quantity_1'=>$val->quantity_1,'unit_price'=>'P '.number_format($val->unit_price, 2),'action'=>$action];
+                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action];
         }
         return json_encode(['data'=>$data]);
 
@@ -77,7 +79,7 @@ class ProductController extends Controller
             $action = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="remove-cart">Remove</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,
-                'temp_qty'=>$val->temp_qty,'unit_price'=>$val->unit_price,'total'=>$val->unit_price * $val->temp_qty,'action'=>$action];
+                'temp_qty'=>$val->temp_qty,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'total'=>'₱ '.number_format($val->unit_price * $val->temp_qty, 2),'action'=>$action];
         }
         return json_encode(['data'=>$data]);
     }
@@ -118,21 +120,38 @@ class ProductController extends Controller
     }
 
 
-    public function printInvoice(){
+    public function saveProductout(){
+        $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
+            ->select('temp_product_out.qty as temp_qty','tblproducts.*')
+            ->get()->chunk(20);
+        $product_arr = [];
+        foreach($products as $key=> $val){
+            array_push($product_arr,$val);
+        }
 
-            $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
-                ->select('temp_product_out.qty as temp_qty','tblproducts.*')
-                ->get()->chunk(25);
-            $product_arr = [];
-            foreach($products as $key=> $val){
-                array_push($product_arr,$val);
-            }
 
-//            DD($product_arr);
-            $pdf = PDF::loadView('pdf.invoice',['products'=>$product_arr])->setPaper('a4')->setWarnings(false);
-            return $pdf->stream();
-//        return $pdf->download('invoice.pdf');
 
+        //open popup window to download all PDFs to client browser.
+        echo "<script type='text/javascript'>";
+        for($i=0;$i<count($product_arr); $i++){
+            echo "window.open('/invoice/MC-2017-00001');" ;
+        }
+        echo "</script>";
+        //receipt format
+//        $receipt ='MC-'.date('Y').'-'.str_pad(10, 6, '0', STR_PAD_LEFT);
+
+
+    }
+
+    public function invoice(Request $request){
+
+
+        $invoice = Productout::where('product_out.receipt_no',$request->id)->first();
+        $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
+        $data =['total'=>$invoice->total,'branch'=>$invoice->branch,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'products'=>$products];
+
+        $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
+        return $pdf->stream();
 
     }
 
