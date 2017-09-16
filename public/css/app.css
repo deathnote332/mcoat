@@ -35,11 +35,16 @@ html,body{
     background: transparent;
     font-weight: bold !important;
     width: 19vh;
-    border: 2px solid #86cee9 !important;
-    color: #86cee9;
+    border: 2px solid #f35b32 !important;
+    color: #fff;
+    background: #f35b32;
 }
 .con-reg {
     margin: 3vh auto;
+
+}
+.con-reg a{
+    color:#f35b32;
 }
 
 

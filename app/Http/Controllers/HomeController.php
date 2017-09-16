@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
         return $theme->scope('mcoatstocks')->render();
     }
 }

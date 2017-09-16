@@ -77,7 +77,7 @@
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
             <div class="btn-print">
-                <button type="button" class="btn btn-primary">Print</button>
+
                 <button type="button" class="btn btn-primary">Print</button>
             </div>
 
