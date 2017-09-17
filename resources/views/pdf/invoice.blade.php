@@ -288,7 +288,7 @@
             </div>
 
             <div class="prepared-by">
-                Prepared by: <span></span>
+                Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
             </div>
             <div class="invoice-follow">
                Invoice to follow

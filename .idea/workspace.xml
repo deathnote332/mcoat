@@ -7,6 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0f943004-ed49-49cb-8020-7689446467bd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env" afterPath="$PROJECT_DIR$/.env" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pdf/invoice.blade.php" afterPath="$PROJECT_DIR$/resources/views/pdf/invoice.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -74,8 +75,8 @@
       <file leaf-file-name="invoice.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/pdf/invoice.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="218" column="18" lean-forward="true" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
+            <state relative-caret-position="291">
+              <caret line="290" column="89" lean-forward="false" selection-start-line="290" selection-start-column="35" selection-end-line="290" selection-end-column="89" />
               <folding />
             </state>
           </provider>
@@ -513,12 +514,12 @@
       <workItem from="1505279965059" duration="1962000" />
       <workItem from="1505282103875" duration="7611000" />
       <workItem from="1505518803643" duration="14046000" />
-      <workItem from="1505605358333" duration="12653000" />
+      <workItem from="1505605358333" duration="12812000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70993000" />
+    <option name="totallyTimeSpent" value="71152000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -989,8 +990,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/pdf/invoice.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="218" column="18" lean-forward="true" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
+        <state relative-caret-position="291">
+          <caret line="290" column="89" lean-forward="false" selection-start-line="290" selection-start-column="35" selection-end-line="290" selection-end-column="89" />
           <folding />
         </state>
       </provider>
