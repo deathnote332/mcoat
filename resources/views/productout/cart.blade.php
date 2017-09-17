@@ -258,10 +258,10 @@
                     text: "Receipt successfully created",
                     type:"success"
                 })
-                
+
                 var i =0;
                 for(i=0;i<data.length; i++){
-                    var path = '/invoice/'+ data[i];
+                    var path = BASEURL+'/invoice/'+ data[i];
                     window.open(path);
                 }
                 }
