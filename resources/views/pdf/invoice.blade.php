@@ -226,16 +226,16 @@
             MCOAT PASIG
         </div>
         <div class="inv-number">
-            NO. <span>{{$invoice['receipt_no']}}</span>
+            NO. <span>{!! $invoice['receipt_no'] !!}</span>
         </div>
         <div class="date">
             Date: 10/27/13
         </div>
         <div class="delivered_to">
-            Delivered To: <span>{{ \App\Branches::find($invoice['branch'])->name  }}</span>
+            Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>
         </div>
         <div class="address">
-            Address: <span>{{ \App\Branches::find($invoice['branch'])->address  }}</span>
+            Address: <span>{!! \App\Branches::find($invoice['branch'])->address !!}</span>
         </div>
 
         <div class="table-location">
@@ -254,11 +254,11 @@
                 <tbody>
                     @foreach($invoice['products'] as $key=>$val)
                         <tr>
-                            <td>{{ $val->product_qty }} {{ $val->unit }}</td>
-                            <td>{{ $val->code }}</td>
-                            <td>{{ $val->brand.' '.$val->category.' '.$val->description }}</td>
-                            <td>{{ 'P '.number_format($val->unit_price , 2) }}</td>
-                            <td>{{  'P '.number_format($val->unit_price * $val->product_qty, 2)}}</td>
+                            <td>{!! $val->product_qty !!}   {!!  $val->unit !!}</td>
+                            <td>{!! $val->code !!} </td>
+                            <td>{!! $val->brand.' '.$val->category.' '.$val->description  !!}</td>
+                            <td>{!! 'P '.number_format($val->unit_price , 2) !!}</td>
+                            <td>{!! 'P '.number_format($val->unit_price * $val->product_qty, 2) !!}</td>
                         </tr>
                     @endforeach
                 <tr id="total">
@@ -266,7 +266,7 @@
                     <td></td>
                     <td></td>
                     <td>TOTAL</td>
-                    <td>{{ 'P '.number_format($invoice['total'], 2) }}</td>
+                    <td>{!! 'P '.number_format($invoice['total'], 2) !!}</td>
                 </tr>
                 </tbody>
             </table>
@@ -288,7 +288,7 @@
             </div>
 
             <div class="prepared-by">
-                Prepared by: <span>{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+                Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
             </div>
             <div class="invoice-follow">
                Invoice to follow

@@ -2,11 +2,12 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/public/themes/default/views/productout.blade.php" line="45" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/resources/views/pdf/invoice.blade.php" line="260" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f943004-ed49-49cb-8020-7689446467bd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env" afterPath="$PROJECT_DIR$/.env" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/productout/cart.blade.php" afterPath="$PROJECT_DIR$/resources/views/productout/cart.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/pdf/invoice.blade.php" afterPath="$PROJECT_DIR$/resources/views/pdf/invoice.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -70,6 +71,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="invoice.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/pdf/invoice.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="218" column="18" lean-forward="true" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ForgotPasswordController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -93,7 +104,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cart.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cart.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/productout/cart.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="626">
@@ -102,16 +113,6 @@
                 <marker date="1505617753583" expanded="true" signature="3362:3570" ph="..." />
                 <marker date="1505617753583" expanded="true" signature="3382:3568" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DashboardController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DashboardController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -165,7 +166,6 @@
         <option value="$PROJECT_DIR$/app/Branch.php" />
         <option value="$PROJECT_DIR$/app/Branches.php" />
         <option value="$PROJECT_DIR$/app/Productout.php" />
-        <option value="$PROJECT_DIR$/resources/views/pdf/invoice.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/productout/cartcountin.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/productout/cartin.blade.php" />
         <option value="$PROJECT_DIR$/public/themes/default/views/productout.blade.php" />
@@ -192,6 +192,7 @@
         <option value="$PROJECT_DIR$/public/themes/default/views/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" />
         <option value="$PROJECT_DIR$/resources/views/productout/cart.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/pdf/invoice.blade.php" />
       </list>
     </option>
   </component>
@@ -512,12 +513,12 @@
       <workItem from="1505279965059" duration="1962000" />
       <workItem from="1505282103875" duration="7611000" />
       <workItem from="1505518803643" duration="14046000" />
-      <workItem from="1505605358333" duration="12305000" />
+      <workItem from="1505605358333" duration="12653000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70645000" />
+    <option name="totallyTimeSpent" value="70993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -724,16 +725,6 @@
         <state relative-caret-position="476">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/pdf/invoice.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="304" column="27" lean-forward="false" selection-start-line="304" selection-start-column="27" selection-end-line="304" selection-end-column="27" />
-          <folding>
-            <marker date="1505529411206" expanded="true" signature="6350:6392" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -993,6 +984,14 @@
             <marker date="1505617753583" expanded="true" signature="3362:3570" ph="..." />
             <marker date="1505617753583" expanded="true" signature="3382:3568" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/pdf/invoice.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="218" column="18" lean-forward="true" selection-start-line="218" selection-start-column="18" selection-end-line="218" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
