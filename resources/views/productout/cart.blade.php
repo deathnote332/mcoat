@@ -257,14 +257,13 @@
                     title: "",
                     text: "Receipt successfully created",
                     type:"success"
-                }).then(function () {
-
-                    var i =0;
-                    for(i=0;i<data.length; i++){
-                        var path = '/invoice/'+ data[i];
-                        window.open(path);
-                    }
                 })
+                
+                var i =0;
+                for(i=0;i<data.length; i++){
+                    var path = '/invoice/'+ data[i];
+                    window.open(path);
+                }
                 }
             });
         });

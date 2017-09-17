@@ -7,6 +7,7 @@
     <list default="true" id="0f943004-ed49-49cb-8020-7689446467bd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env" afterPath="$PROJECT_DIR$/.env" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/productout/cart.blade.php" afterPath="$PROJECT_DIR$/resources/views/productout/cart.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -80,13 +81,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProductController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProductController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+            <state relative-caret-position="17">
+              <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding>
-                <marker date="1505616991222" expanded="true" signature="805:1076" ph="..." />
+                <element signature="e#40#56#0#PHP" expanded="true" />
+                <marker date="1505617282432" expanded="true" signature="805:1076" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cart.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/productout/cart.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="558">
+              <caret line="260" column="16" lean-forward="false" selection-start-line="260" selection-start-column="16" selection-end-line="260" selection-end-column="16" />
+              <folding>
+                <marker date="1505617530181" expanded="true" signature="3362:3570" ph="..." />
+                <marker date="1505617530181" expanded="true" signature="3382:3568" ph="..." />
               </folding>
             </state>
           </provider>
@@ -112,22 +127,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="morris-data.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/themes/default/assets/js/morris-data.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>$redirectTo</find>
       <find>home</find>
+      <find>80</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,7 +174,6 @@
         <option value="$PROJECT_DIR$/resources/views/productout/cartcount.blade.php" />
         <option value="$PROJECT_DIR$/public/themes/default/views/productin.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/productout/receiptcount.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/productout/cart.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/productout/productout.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/productin/productin.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/productin/cartin.blade.php" />
@@ -187,6 +192,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Auth/ResetPasswordController.php" />
         <option value="$PROJECT_DIR$/public/themes/default/views/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" />
+        <option value="$PROJECT_DIR$/resources/views/productout/cart.blade.php" />
       </list>
     </option>
   </component>
@@ -507,12 +513,12 @@
       <workItem from="1505279965059" duration="1962000" />
       <workItem from="1505282103875" duration="7611000" />
       <workItem from="1505518803643" duration="14046000" />
-      <workItem from="1505605358333" duration="11548000" />
+      <workItem from="1505605358333" duration="12087000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69888000" />
+    <option name="totallyTimeSpent" value="70427000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -799,17 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/productout/cart.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <marker date="1505612965202" expanded="true" signature="3362:3570" ph="..." />
-            <marker date="1505612965202" expanded="true" signature="3382:3568" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/productout/receiptcount.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -964,14 +959,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/themes/default/views/dashboard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -980,12 +967,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/ForgotPasswordController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ProductController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="36" lean-forward="false" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        <state relative-caret-position="17">
+          <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
-            <marker date="1505616991222" expanded="true" signature="805:1076" ph="..." />
+            <element signature="e#40#56#0#PHP" expanded="true" />
+            <marker date="1505617282432" expanded="true" signature="805:1076" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/productout/cart.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="260" column="16" lean-forward="false" selection-start-line="260" selection-start-column="16" selection-end-line="260" selection-end-column="16" />
+          <folding>
+            <marker date="1505617530181" expanded="true" signature="3362:3570" ph="..." />
+            <marker date="1505617530181" expanded="true" signature="3382:3568" ph="..." />
           </folding>
         </state>
       </provider>

@@ -156,7 +156,6 @@ class ProductController extends Controller
                 $insertProductoutITems = DB::table('product_out_items')->insert(['product_id'=>$val->id,'quantity'=>$val->temp_qty,'receipt_no'=>$receipt]);
             }
             //delete temp_product_out
-
             $deleteTempProductout = DB::table('temp_product_out')->wherein('id',$temp_id)->delete();
             Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>$branch_id,'printed_by'=>Auth::user()->id]);
             $rec_no[]=$receipt;
