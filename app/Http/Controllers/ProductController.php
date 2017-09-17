@@ -77,7 +77,7 @@ class ProductController extends Controller
     }
 
     public function getCart(Request $request){
-        $user_id = Auth::user()->id;
+
         $getCart = TempProductout::join('tblproducts','product_id','tblproducts.id')
             ->select('tblproducts.*','temp_product_out.qty as temp_qty','temp_product_out.id as temp_id')
             ->where('temp_product_out.type',$request->id)
