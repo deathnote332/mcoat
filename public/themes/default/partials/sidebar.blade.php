@@ -119,7 +119,7 @@
                         {{--<!-- /input-group -->--}}
                     {{--</li>--}}
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Products<span class="fa arrow"></span></a>
@@ -137,7 +137,7 @@
                         <a href={{ URL('productout')  }}><i class="fa fa-dashboard fa-fw"></i> Product out</a>
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Product in</a>
+                        <a href={{ URL('productin')  }}><i class="fa fa-dashboard fa-fw"></i> Product in</a>
                     </li>
 
                 </ul>

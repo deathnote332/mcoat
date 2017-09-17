@@ -9,11 +9,10 @@
         padding-top: 30px;
     }
 
-    #productout-list_wrapper .row:nth-child(1){
+    #productin-list_wrapper .row:nth-child(1){
         display: none;
     }
-
-    #productout-list_wrapper tbody tr td:nth-child(8){
+    #productin-list_wrapper tbody tr td:nth-child(8){
         text-align: center;
     }
     .search-inputs{
@@ -54,7 +53,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table id="productout-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <table id="productin-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
 
@@ -76,79 +75,79 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add to cart</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="product_id"  value="">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Brand</label>
-                                <p class="form-control-static" id="brand">Test</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <p class="form-control-static" id="category">Test</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Code</label>
-                                <p class="form-control-static" id="code">Test</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Description</label>
-                                <p class="form-control-static" id="description">Test</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Unit</label>
-                                <p class="form-control-static" id="unit">Test</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Current quantity</label>
-                                <p class="form-control-static" id="current_qty">Test</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-groupx">
-                                <input class="form-control" placeholder="Enter quantity" id="add-qty" maxlength="5">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btn-addCart">Add to cart</button>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add to cart</h4>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-body">
+                <input type="hidden" id="product_id"  value="">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <p class="form-control-static" id="brand">Test</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <p class="form-control-static" id="category">Test</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Code</label>
+                            <p class="form-control-static" id="code">Test</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <p class="form-control-static" id="description">Test</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Unit</label>
+                            <p class="form-control-static" id="unit">Test</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Current quantity</label>
+                            <p class="form-control-static" id="current_qty">Test</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-groupx">
+                            <input class="form-control" placeholder="Enter quantity" id="add-qty" maxlength="5">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-addCart">Add to cart</button>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 
@@ -157,7 +156,7 @@
     $('document').ready(function(){
 
 
-        var product = $('#productout-list').DataTable({
+        var product = $('#productin-list').DataTable({
             ajax: BASEURL + '/getProducts',
             order: [],
             iDisplayLength: 14,
@@ -242,7 +241,7 @@
 
         $('#btn-addCart').on('click',function () {
 
-            if(parseInt($('#current_qty').text()) < parseInt($('#add-qty').val()) || parseInt($('#add-qty').val()) <= 0) {
+            if( parseInt($('#add-qty').val()) <= 0) {
                 swal({
                     title: "",
                     text: "Invalid quantity",
@@ -262,51 +261,50 @@
 
     function addToCart(id,qty,current) {
 
-            swal({
-                title: "Are you sure?",
-                text: "You want to add this product to cart.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: 'Okay',
-                closeOnConfirm: false
-            }).then(function () {
+        swal({
+            title: "Are you sure?",
+            text: "You want to add this product to cart.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
 
-                $.ajax({
-                    url:BASEURL+'/addToCart',
-                    type:'POST',
-                    data: {
-                        _token: $('meta[name="csrf_token"]').attr('content'),
-                        id: id,
-                        qty: qty,
-                        current_qty:current,
-                        type:1,
-                    },
-                    success: function(data){
-                        var productout = $('#productout-list').DataTable();
-                        productout.ajax.reload();
+            $.ajax({
+                url:BASEURL+'/addToCart',
+                type:'POST',
+                data: {
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    id: id,
+                    qty: qty,
+                    current_qty:current,
+                    type:2,
+                },
+                success: function(data){
+                    var productout = $('#productout-list').DataTable();
+                    productout.ajax.reload();
 
-                        swal({
-                            title: "",
-                            text: "Product addded to cart",
-                            type:"success"
-                        }).then(function () {
-                            $('#addToCartModal').modal('hide');
-                        });
-
-
-                        $.ajax({
-                            url:BASEURL + '/cartCount',
-                            type: 'GET',
-                            success: function (data){
-                                $('#tab-productout li:nth-child(2) a').html(data);
-                            }
-                        });
+                    swal({
+                        title: "",
+                        text: "Product addded to cart",
+                        type:"success"
+                    }).then(function () {
+                        $('#addToCartModal').modal('hide');
+                    });
 
 
-                    }
-                });
+                    $.ajax({
+                        url:BASEURL + '/cartCountIn',
+                        type: 'GET',
+                        success: function (data){
+                            $('#tab-productout li:nth-child(2) a').html(data);
+                        }
+                    });
+
+                }
             });
+        });
 
 
     }
@@ -316,8 +314,8 @@
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
-        var productout = $('#productout-list').DataTable();
-        productout.ajax.reload();
+        var productin = $('#productin-list').DataTable();
+        productin.ajax.reload();
     };
 
 </script>

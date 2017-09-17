@@ -9,19 +9,22 @@
         padding-top: 30px;
     }
 
-    #cart-list_wrapper .row:nth-child(1){
-         display: none;
-     }
-    #cart-list_wrapper tbody tr td:nth-child(9){
+    #cartIn-list_wrapper .row:nth-child(1){
+        display: none;
+    }
+
+    #cartIn-list_wrapper tbody tr td:nth-child(9){
         text-align: center;
     }
-    .search-inputs{
+    .search-inputs,.receiptin-details{
         padding-left: 15px;
         padding-bottom: 10px;
     }
+
+
     .alert {
         padding: 2px 10px;
-         margin-bottom: 0px;
+        margin-bottom: 0px;
         border: 1px solid transparent;
         border-radius: 4px;
     }
@@ -29,18 +32,10 @@
 
         margin-top: 20px;
     }
-    .branches,.print-count{
+    .branches{
+        font-size: 18px;
         margin-left: 15px;
         margin-top: 10px;
-    }
-    .print-count{
-        font-weight: bold;
-        color: #2980b9;
-        margin-bottom: 10px;
-        font-size: 16px;
-    }
-    .print-count span{
-        color: red;
     }
     .btn-print .btn{
         width:300px;
@@ -88,7 +83,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table id="cart-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <table id="cartIn-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
 
@@ -107,36 +102,24 @@
             </table>
         </div>
     </div>
+
     <div class="row">
+        <div class="receiptin-details">
+            <div class="col-md-3">
 
-        <div class="col-md-12">
-            <div class="print-count">
-                Total Receipt ( <span>1</span> )
+                <input type="text" class="form-control" name="invoice_number" placeholder="Invoice number">
             </div>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <select class="branches form-control">
-                <option selected disabled>Choose Location</option>
-                @foreach(\App\Branches::orderBy('name','asc')->get() as $key=>$val)
-                    <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-3 col-md-offset-6">
-            <div class="total-amount">
-                {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->first()->total, 2) }}
+            <div class="col-md-3">
+                <input type="text" class="form-control" name="invoice_number" placeholder="Invoice number">
             </div>
-
         </div>
+
     </div>
     <div class="row">
         <div class="col-md-3 col-md-offset-9 text-right">
             <div class="btn-print">
 
-                <button type="button" class="btn btn-primary" id="print">Print</button>
+                <button type="button" class="btn btn-primary" id="save">Save</button>
             </div>
 
         </div>
@@ -146,12 +129,9 @@
     var BASEURL = $('#baseURL').val();
     $('document').ready(function(){
 
-        //receipt count
-        receiptCount();
 
-
-        var cart = $('#cart-list').DataTable({
-            ajax: BASEURL + '/getCart/1',
+        var cart = $('#cartIn-list').DataTable({
+            ajax: BASEURL + '/getCart/2',
             order: [],
             iDisplayLength: 10,
             bLengthChange: false,
@@ -239,32 +219,30 @@
                     branch_id: branch_id,
 
                 },
-            success: function(data){
-                var productout = $('#cart-list').DataTable();
-                productout.ajax.reload();
-                $('.total-amount').text('₱ 0.00')
-                receiptCount();
+                success: function(data){
+                    var productout = $('#cart-list').DataTable();
+                    productout.ajax.reload();
+                    $('.total-amount').text('₱ 0.00')
+                    $.ajax({
+                        url:BASEURL + '/cartCount',
+                        type: 'GET',
+                        success: function (data){
+                            $('#tab-productout li:nth-child(2) a').html(data);
+                        }
+                    });
 
-                $.ajax({
-                    url:BASEURL + '/cartCount',
-                    type: 'GET',
-                    success: function (data){
-                        $('#tab-productout li:nth-child(2) a').html(data);
-                    }
-                });
+                    swal({
+                        title: "",
+                        text: "Receipt successfully created",
+                        type:"success"
+                    }).then(function () {
 
-                swal({
-                    title: "",
-                    text: "Receipt successfully created",
-                    type:"success"
-                }).then(function () {
-
-                    var i =0;
-                    for(i=0;i<data.length; i++){
-                        var path = '/invoice/'+ data[i];
-                        window.open(path);
-                    }
-                })
+                        var i =0;
+                        for(i=0;i<data.length; i++){
+                            var path = '/invoice/'+ data[i];
+                            window.open(path);
+                        }
+                    })
                 }
             });
         });
@@ -291,11 +269,11 @@
                     temp_id: id,
                     product_id: product_id,
                     qty: qty,
-                    type: 1
+                    type: 2
 
                 },
                 success: function(data){
-                    var productout = $('#cart-list').DataTable();
+                    var productout = $('#cartIn-list').DataTable();
                     productout.ajax.reload();
 
                     swal({
@@ -306,7 +284,7 @@
 
 
                     $.ajax({
-                        url:BASEURL + '/cartCount',
+                        url:BASEURL + '/cartCountIn',
                         type: 'GET',
                         success: function (data){
                             $('#tab-productout li:nth-child(2) a').html(data);
@@ -320,24 +298,11 @@
 
     }
 
-    function  receiptCount() {
-        $.ajax({
-            url:BASEURL + '/receiptCount',
-            type: 'GET',
-            success: function (data){
-                $('.print-count').html(data);
-                if(data == 0){
-                    $('#print').attr('disabled','disabled')
-                }
-            }
-        });
-    }
-
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
-        var cart = $('#cart-list').DataTable();
-        cart.ajax.reload();
+        var cartIn = $('#cartIn-list').DataTable();
+        cartIn.ajax.reload();
     };
 
 </script>

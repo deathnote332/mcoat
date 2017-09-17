@@ -16,6 +16,9 @@
 //});
 Route::get('/admin', 'HomeController@index');
 
+//dashboard
+Route::get('/dashboard', 'DashboardController@index');
+
 Auth::routes();
 
 
@@ -25,18 +28,26 @@ Route::get('/getProducts', 'ProductController@getProducts');
 
 Route::get('/mcoat', 'ProductController@mcoatStocksPage');
 Route::get('/allied', 'ProductController@alliedStocksPage');
-Route::get('/productout', 'ProductController@productoutPage');
 
-//ajax
+
+//productout
+Route::get('/productout', 'ProductController@productoutPage');
 Route::get('/productoutList', 'ProductController@ajaxProductList');
 Route::get('/cartList', 'ProductController@ajaxCartList');
 Route::get('/cartCount', 'ProductController@ajaxCartCount');
+Route::get('/receiptCount', 'ProductController@ajaxReceiptCount');
 
 //cart
-Route::get('/getCart', 'ProductController@getCart');
+Route::get('/getCart/{id}', 'ProductController@getCart');
 Route::post('/addToCart', 'ProductController@addToCart');
 Route::post('/removeToCart', 'ProductController@removeToCart');
 
 //print
 Route::get('/invoice/{id}', 'ProductController@invoice');
-Route::get('/saveProductout', 'ProductController@saveProductout');
+Route::post('/saveProductout', 'ProductController@saveProductout');
+
+//productin
+Route::get('/productinList', 'ProductController@ajaxProductInList');
+Route::get('/productin', 'ProductController@productInPage');
+Route::get('/cartListIn', 'ProductController@ajaxCartInList');
+Route::get('/cartCountIn', 'ProductController@ajaxCartInCount');

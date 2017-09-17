@@ -25,7 +25,7 @@ class ProductController extends Controller
     {
 
         $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
-
+        $data=[];
         foreach($products as $key=>$val){
 
 
@@ -38,7 +38,7 @@ class ProductController extends Controller
         }
         return json_encode(['data'=>$data]);
 
-        return json_encode(['data'=>$products]);
+
     }
 
     public function mcoatStocksPage(){
@@ -68,43 +68,59 @@ class ProductController extends Controller
         return view('productout.cartcount');
     }
 
-    public function getCart(){
+    public function ajaxReceiptCount(){
+        $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
+            ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
+            ->get()->chunk(20);
+        return view('productout.receiptcount',['receipt_count'=>count($products)]);
+
+    }
+
+    public function getCart(Request $request){
         $user_id = Auth::user()->id;
         $getCart = TempProductout::join('tblproducts','product_id','tblproducts.id')
             ->select('tblproducts.*','temp_product_out.qty as temp_qty','temp_product_out.id as temp_id')
+            ->where('temp_product_out.type',$request->id)
             ->get();
-
+        $data=[];
         foreach($getCart as $key=>$val){
-
             $action = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="remove-cart">Remove</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,
                 'temp_qty'=>$val->temp_qty,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'total'=>'₱ '.number_format($val->unit_price * $val->temp_qty, 2),'action'=>$action];
         }
+
         return json_encode(['data'=>$data]);
     }
 
     public function  addToCart(Request $request){
-
+        $type = $request->type;
+        //product out
         $product_id = $request->id;
         $product_qty = $request->qty;
         $newQty  = $request->current_qty - $product_qty;
 
-        $temp = TempProductout::where('product_id',$product_id)->where('user_id',Auth::user()->id)->first();
-        if(empty($temp)){
-            TempProductout::insert(['product_id'=>$product_id,'user_id'=>Auth::user()->id,'qty'=>$product_qty]);
-        }else{
-            TempProductout::where('product_id',$product_id)->where('user_id',Auth::user()->id)->update(['qty'=>$temp->qty + $product_qty]);
-        }
+
         //add to cart
+        $temp = TempProductout::where('product_id',$product_id)->where('type',$type)->where('user_id',Auth::user()->id)->first();
+        if(empty($temp)){
+            TempProductout::insert(['product_id'=>$product_id,'user_id'=>Auth::user()->id,'qty'=>$product_qty,'type'=>$type]);
+        }else{
+            TempProductout::where('product_id',$product_id)->where('type',$type)->where('user_id',Auth::user()->id)->update(['qty'=>$temp->qty + $product_qty]);
+        }
 
 
-        //minus to the current stock
-        Product::where('id',$product_id)->update(['quantity'=>$newQty]);
+        if($type == 1){
+            //minus to the current stock
+            Product::where('id',$product_id)->update(['quantity'=>$newQty]);
+        }
+
 
     }
 
     public function removeToCart(Request $request){
+        $type = $request->type;
+
        $temp_id= $request->temp_id ;
        $product_id= $request->product_id ;
        $qty= $request->qty ;
@@ -113,19 +129,21 @@ class ProductController extends Controller
         $oldqty = Product::find($product_id)->quantity;
         $newQty = $oldqty + $qty;
 
-        //update this product
-        Product::where('id',$product_id)->update(['quantity'=>$newQty]);
+        if($type == 1){
+            //update this product
+            Product::where('id',$product_id)->update(['quantity'=>$newQty]);
+        }
+
         //delete temp
         TempProductout::where('id',$temp_id)->delete();
     }
 
 
-    public function saveProductout(){
+    public function saveProductout(Request $request){
+        $branch_id = $request->branch_id;
         $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
-            ->select('temp_product_out.qty as temp_qty','tblproducts.*')
-            ->get()->chunk(2);
-
-        $product_arr=[];
+            ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
+            ->get()->chunk(20);
 
         foreach($products as $key=> $product){
             $id = Productout::orderBy('id','desc')->first()->id + 1;
@@ -133,24 +151,16 @@ class ProductController extends Controller
             $total = 0;
             foreach ($product as $key=>$val){
                 $total = $total + $val->temp_qty *  $val->unit_price;
-                $prod_id[]=$val->id;
+                $temp_id[]=$val->temp_id;
+                //insert to product_out_items
+                $insertProductoutITems = DB::table('product_out_items')->insert(['product_id'=>$val->id,'quantity'=>$val->temp_qty,'receipt_no'=>$receipt]);
             }
-            //insrt to product_out_items
-            //delete
-            //Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>1,'printed_by'=>Auth::user()->id]);
+            //delete temp_product_out
+            $deleteTempProductout = DB::table('temp_product_out')->wherein('id',$temp_id)->delete();
+            Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>$branch_id,'printed_by'=>Auth::user()->id]);
             $rec_no[]=$receipt;
         }
-
-
-        //open popup window to download all PDFs to client browser.
-        echo "<script type='text/javascript'>";
-        for($i=0;$i<count($rec_no); $i++){
-            $path = '/invoice/'.$rec_no[$i];
-            echo "window.open('.$path');" ;
-        }
-        echo "</script>";
-        //receipt format
-//        $receipt ='MC-'.date('Y').'-'.str_pad(10, 6, '0', STR_PAD_LEFT);
+        return $rec_no;
 
 
     }
@@ -166,5 +176,27 @@ class ProductController extends Controller
         return $pdf->stream();
 
     }
+
+
+    public function productInPage(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
+        return $theme->scope('productin')->render();
+    }
+
+    public function ajaxProductInList(){
+        return view('productin.productin');
+    }
+
+
+    public function ajaxCartInList(){
+        return view('productin.cartin');
+    }
+
+    public function ajaxCartInCount(){
+        return view('productin.cartcountin');
+    }
+
+
+
 
 }

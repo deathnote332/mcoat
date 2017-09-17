@@ -15,7 +15,13 @@
         <ul class="nav nav-tabs" id="tab-productout">
             <li class="active"><a href="#stocks" data-toggle="tab" data-id="1">Stocks</a>
             </li>
-            <li><a href="#cart" data-toggle="tab" data-id="2">Cart<span class="badge badge-danger">{{ \App\TempProductout::count()  }}</span></a>
+            <li><a href="#cart" data-toggle="tab" data-id="2">
+                    Cart
+                    @if(\App\TempProductout::where('type',1)->count() != 0)
+                        <span class="badge badge-danger">{{\App\TempProductout::where('type',1)->count()}}</span>
+
+                    @endif
+                </a>
             </li>
 
         </ul>
