@@ -173,7 +173,7 @@ class ProductController extends Controller
         $data =['total'=>$invoice->total,'branch'=>$invoice->branch,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'products'=>$products];
 
         $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
-        return $pdf->stream();
+        return @$pdf->stream();
 
     }
 
