@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Productin;
 use App\Productout;
 use App\TempProductout;
 use Illuminate\Http\Request;
@@ -167,7 +168,6 @@ class ProductController extends Controller
 
     public function invoice(Request $request){
 
-
         $invoice = Productout::where('product_out.receipt_no',$request->id)->first();
         $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
         $data =['total'=>$invoice->total,'branch'=>$invoice->branch,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'products'=>$products];
@@ -196,7 +196,22 @@ class ProductController extends Controller
         return view('productin.cartcountin');
     }
 
+    public function saveProductin(Request$request){
+        $receipt_no = $request->receipt_no;
+        $supplier_id = $request->supplier_id;
+        $id = Productin::insertGetId(['receipt_no'=>$receipt_no,'supplier_id'=>$supplier_id,'entered_by'=>Auth::user()->id]);
+        $getAllinTemp = TempProductout::where('type',2)->where('user_id',Auth::user()->id)->get();
+        foreach ($getAllinTemp as $key=>$val) {
+            DB::table('product_in_items')->insert(['product_id'=>$val->product_id,'quantity'=>$val->qty,'receipt_no'=>$receipt_no,'product_in_id'=>$id]);
 
+            //getoldqty of product
+            $oldqty = Product::find($val->product_id)->quantity;
+            $newqty = $oldqty + $val->qty;
+            Product::where('id',$val->product_id)->update(['quantity'=>$newqty]);
+        }
+        //delete
+        TempProductout::where('type',2)->where('user_id',Auth::user()->id)->delete();
+    }
 
 
 }

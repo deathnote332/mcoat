@@ -28,18 +28,16 @@
         border: 1px solid transparent;
         border-radius: 4px;
     }
-    .btn-print{
 
-        margin-top: 20px;
-    }
     .branches{
         font-size: 18px;
         margin-left: 15px;
         margin-top: 10px;
     }
     .btn-print .btn{
-        width:300px;
-        font-size: 20px;
+
+        font-size: 16px;
+
 
     }
     #remove-cart{
@@ -59,6 +57,9 @@
         font-size: 24px;
         margin-top: 10px;
 
+    }
+    .receiptin-details input, .receiptin-details select, .receiptin-details .btn{
+        margin-top: 15px;
     }
 </style>
 
@@ -107,21 +108,25 @@
         <div class="receiptin-details">
             <div class="col-md-3">
 
-                <input type="text" class="form-control" name="invoice_number" placeholder="Invoice number">
+                <select class="form-control" id="suppliers">
+                    <option selected disabled value="0">Choose supplier</option>
+                    @foreach(\App\Supplier::orderBy('name','asc')->get() as $key=>$val)
+                        <option value="{{$val->name}}" data-id="{{$val->id}}" data-address="{{$val->address}}">{{$val->name}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="col-md-3">
-                <input type="text" class="form-control" name="invoice_number" placeholder="Invoice number">
+                <input type="text" class="form-control" name="invoice_number" id="invoice_number" placeholder="Invoice number">
             </div>
-        </div>
 
-    </div>
-    <div class="row">
-        <div class="col-md-3 col-md-offset-9 text-right">
+
+        <div class="col-md-2 col-md-offset-4">
             <div class="btn-print">
 
-                <button type="button" class="btn btn-primary" id="save">Save</button>
+                <button type="button" class="form-control btn btn-primary" id="save">Save</button>
             </div>
 
+        </div>
         </div>
     </div>
 </div>
@@ -154,7 +159,7 @@
             cart.search( '' )
                 .columns().search( '' )
                 .draw();
-            alert()
+
         })
 
         $('#search_cart').on('input',function () {
@@ -182,27 +187,25 @@
         })
 
         $('.btn-print .btn').on('click',function () {
-            var branch = $('.branches option:selected');
-            if(branch.val()=="Choose Location"){
+            var suppliers = $('#suppliers option:selected');
+            if(suppliers.val()=="Choose supplier"){
                 swal({
                     title: "",
-                    text: "Please choose delivery location",
+                    text: "Please choose from suppliers",
                     type: "error"
                 });
             }else{
-                printReceipt(branch.data('id'))
+                addToStocks($('#invoice_number').val(),suppliers.data('id'))
             }
         })
 
-
-
     });
 
-    function printReceipt(branch_id) {
+    function addToStocks(receipt_no,supplier_id) {
 
         swal({
             title: "Are you sure?",
-            text: "You want to print",
+            text: "You want to update the stokcs",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -212,19 +215,23 @@
         }).then(function () {
 
             $.ajax({
-                url:BASEURL+'/saveProductout',
+                url:BASEURL+'/saveProductin',
                 type:'POST',
                 data: {
                     _token: $('meta[name="csrf_token"]').attr('content'),
-                    branch_id: branch_id,
+                    receipt_no: receipt_no,
+                    supplier_id: supplier_id,
 
                 },
                 success: function(data){
-                    var productout = $('#cart-list').DataTable();
+                    var productout = $('#cartIn-list').DataTable();
                     productout.ajax.reload();
-                    $('.total-amount').text('₱ 0.00')
+
+                    var productin = $('#productin-list').DataTable();
+                    productin.ajax.reload();
+
                     $.ajax({
-                        url:BASEURL + '/cartCount',
+                        url:BASEURL + '/cartCountIn',
                         type: 'GET',
                         success: function (data){
                             $('#tab-productout li:nth-child(2) a').html(data);
@@ -233,16 +240,12 @@
 
                     swal({
                         title: "",
-                        text: "Receipt successfully created",
+                        text: "Stocks are now updated",
                         type:"success"
-                    }).then(function () {
-
-                        var i =0;
-                        for(i=0;i<data.length; i++){
-                            var path = '/invoice/'+ data[i];
-                            window.open(path);
-                        }
                     })
+
+                    $('#invoice_number').val('');
+                    $('#suppliers').val('0');
                 }
             });
         });

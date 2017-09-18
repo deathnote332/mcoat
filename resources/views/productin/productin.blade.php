@@ -29,7 +29,10 @@
 
     }
 
-
+    .alert-info{
+        background-color: #31708f;
+        color: white;
+    }
 </style>
 
 <div class="card-container">
@@ -174,7 +177,7 @@
             ],
             "createdRow": function ( row, data, index ) {
                 if (data.quantity == 0) {
-                    $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
+
                     $(row).css({
                         'background-color': '#e74c3c',
                         'color': '#fff'
@@ -282,8 +285,6 @@
                     type:2,
                 },
                 success: function(data){
-                    var productout = $('#productout-list').DataTable();
-                    productout.ajax.reload();
 
                     swal({
                         title: "",

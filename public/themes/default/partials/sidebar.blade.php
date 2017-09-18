@@ -122,7 +122,7 @@
                         <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Products<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-list fa-fw"></i> Products<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href={{ URL('mcoat')  }}>MCOAT STOCKS</a>
@@ -134,12 +134,17 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href={{ URL('productout')  }}><i class="fa fa-dashboard fa-fw"></i> Product out</a>
+                        <a href={{ URL('productout')  }}><i class="fa fa-files-o fa-fw"></i> Product out</a>
                     </li>
                     <li>
-                        <a href={{ URL('productin')  }}><i class="fa fa-dashboard fa-fw"></i> Product in</a>
+                        <a href={{ URL('productin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in</a>
                     </li>
-
+                    <li>
+                        <a href={{ URL('receipts')  }}><i class="fa fa-files-o fa-fw"></i> Receipts</a>
+                    </li>
+                    <li>
+                        <a href={{ URL('productin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in receipt</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

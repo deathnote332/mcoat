@@ -51,3 +51,8 @@ Route::get('/productinList', 'ProductController@ajaxProductInList');
 Route::get('/productin', 'ProductController@productInPage');
 Route::get('/cartListIn', 'ProductController@ajaxCartInList');
 Route::get('/cartCountIn', 'ProductController@ajaxCartInCount');
+Route::post('/saveProductin', 'ProductController@saveProductin');
+
+//receipts
+Route::get('/receipts', 'ReceiptController@receipt');
+Route::post('/getReciepts', 'ReceiptController@getReciepts');
