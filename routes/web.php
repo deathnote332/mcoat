@@ -56,3 +56,19 @@ Route::post('/saveProductin', 'ProductController@saveProductin');
 //receipts
 Route::get('/receipts', 'ReceiptController@receipt');
 Route::post('/getReciepts', 'ReceiptController@getReciepts');
+
+Route::get('/receiptin', 'ReceiptController@receiptin');
+Route::post('/getRecieptsIn', 'ReceiptController@getRecieptsIn');
+
+//edit receipt
+Route::get('/editReceipt/{id}', 'ReceiptController@editReceipt');
+Route::post('/getcartReceipt', 'ReceiptController@getcartReceipt');
+Route::get('/editProductList', 'ReceiptController@ajaxEditProductList');
+Route::post('/editCartList', 'ReceiptController@ajaxEditCartList');
+Route::post('/editReceiptCount', 'ReceiptController@ajaxEditReceiptCount');
+Route::post('/editCartCount', 'ReceiptController@ajaxCartCount');
+Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
+Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
+
+//invoicereceiptin
+Route::get('/invoiceReceiptin/{id}', 'ProductController@invoiceReceiptin');

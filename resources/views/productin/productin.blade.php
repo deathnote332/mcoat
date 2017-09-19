@@ -162,7 +162,7 @@
         var product = $('#productin-list').DataTable({
             ajax: BASEURL + '/getProducts',
             order: [],
-            iDisplayLength: 14,
+            iDisplayLength: 12,
             bLengthChange: false,
             columns: [
 

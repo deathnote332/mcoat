@@ -120,6 +120,7 @@
         text-align: right;
         top: -30px;
         background-color: white;
+        font-size: 13px;
     }
     .delivered_to{
         position: fixed;
@@ -140,7 +141,7 @@
         font-style: italic;
     }
     .delivered_to,.address,.print-info,.received-goods{
-        font-size: 12px;
+        font-size: 13px;
     }
     .delivered_to span,.address span{
         text-transform: uppercase;
@@ -229,7 +230,7 @@
             NO. <span>{!! $invoice['receipt_no'] !!}</span>
         </div>
         <div class="date">
-            Date: 10/27/13
+           Date printed: {!! $invoice['created_at'] !!}
         </div>
         <div class="delivered_to">
             Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>
@@ -247,7 +248,7 @@
                     <th>Description</th>
 
 
-                    <th>unit proce</th>
+                    <th>unit price</th>
                     <th>Amount</th>
                 </tr>
                 </thead>

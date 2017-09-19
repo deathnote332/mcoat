@@ -9,10 +9,10 @@
         padding-top: 30px;
     }
 
-    #cart-list_wrapper .row:nth-child(1){
-         display: none;
-     }
-    #cart-list_wrapper tbody tr td:nth-child(9){
+    #editcart-list_wrapper .row:nth-child(1){
+        display: none;
+    }
+    #editcart-list_wrapper tbody tr td:nth-child(9){
         text-align: center;
     }
     .search-inputs{
@@ -21,14 +21,11 @@
     }
     .alert {
         padding: 2px 10px;
-         margin-bottom: 0px;
+        margin-bottom: 0px;
         border: 1px solid transparent;
         border-radius: 4px;
     }
-    .btn-print{
 
-        margin-top: 20px;
-    }
     .branches,.print-count{
         margin-left: 15px;
         margin-top: 10px;
@@ -42,11 +39,7 @@
     .print-count span{
         color: red;
     }
-    .btn-print .btn{
-        width:300px;
-        font-size: 20px;
 
-    }
     #remove-cart{
         cursor: pointer;
     }
@@ -64,6 +57,13 @@
         font-size: 24px;
         margin-top: 10px;
 
+    }
+    .btn {
+        margin-top: 20px;
+        font-size: 16px;
+        padding: 20px;
+        text-align: center;
+        line-height: 1px;
     }
 </style>
 
@@ -88,7 +88,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table id="cart-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <table id="editcart-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
 
@@ -120,26 +120,34 @@
         <div class="col-md-3">
             <select class="branches form-control">
                 <option selected disabled>Choose Location</option>
+                {{ $branch = \App\Branches::find(\App\Productout::where('receipt_no',$receipt_no)->first()->branch)->name }}
                 @foreach(\App\Branches::orderBy('name','asc')->get() as $key=>$val)
-                    <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
+                    @if($branch == $val->name)
+                        <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}" selected>{{$val->name}}</option>
+                    @else
+                        <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
+                    @endif
+
                 @endforeach
             </select>
         </div>
         <div class="col-md-3 col-md-offset-6">
             <div class="total-amount">
-                {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->first()->total, 2) }}
+                {{ '₱ '.number_format(\Illuminate\Support\Facades\DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->where('product_out_items.receipt_no',$receipt_no)->select(DB::raw('sum(product_out_items.quantity * tblproducts.unit_price) as total'))->first()->total, 2) }}
             </div>
 
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 col-md-offset-9 text-right">
-            <div class="btn-print">
 
-                <button type="button" class="btn btn-primary" id="print">Print</button>
-            </div>
+        <div class="col-md-2 col-md-offset-8">
+            <a href="{{URL('receipts')}}"><button type="button" class="btn btn-primary form-control" id="cancel">Cancel</button></a>
 
         </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary form-control" id="print">Print</button>
+        </div>
+
     </div>
 </div>
 <script>
@@ -150,8 +158,15 @@
         receiptCount();
 
 
-        var cart = $('#cart-list').DataTable({
-            ajax: BASEURL + '/getCart/1',
+        var cart = $('#editcart-list').DataTable({
+            ajax: {
+                url:BASEURL + '/getcartReceipt',
+                type: "POST",
+                data:{
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    receipt_no: $('#receipt_no').val(),
+                }
+            },
             order: [],
             iDisplayLength: 10,
             bLengthChange: false,
@@ -201,7 +216,7 @@
             removeToCart($(this).data('id'),$(this).data('product_id'),$(this).data('qty'))
         })
 
-        $('.btn-print .btn').on('click',function () {
+        $('#print').on('click',function () {
             var branch = $('.branches option:selected');
             if(branch.val()=="Choose Location"){
                 swal({
@@ -210,7 +225,7 @@
                     type: "error"
                 });
             }else{
-                printReceipt(branch.data('id'))
+                window.open(BASEURL+'/invoice/'+$('#receipt_no').val());
             }
         })
 
@@ -218,57 +233,7 @@
 
     });
 
-    function printReceipt(branch_id) {
 
-        swal({
-            title: "Are you sure?",
-            text: "You want to print",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: 'Okay',
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true,
-        }).then(function () {
-
-            $.ajax({
-                url:BASEURL+'/saveProductout',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    branch_id: branch_id,
-
-                },
-            success: function(data){
-                var productout = $('#cart-list').DataTable();
-                productout.ajax.reload();
-                $('.total-amount').text('₱ 0.00')
-                receiptCount();
-
-                $.ajax({
-                    url:BASEURL + '/cartCount',
-                    type: 'GET',
-                    success: function (data){
-                        $('#tab-productout li:nth-child(2) a').html(data);
-                    }
-                });
-
-                swal({
-                    title: "",
-                    text: "Receipt successfully created",
-                    type:"success"
-                })
-
-                var i =0;
-                for(i=0;i<data.length; i++){
-                    var path = BASEURL+'/invoice/'+ data[i];
-                    window.open(path);
-                }
-                }
-            });
-        });
-
-    }
 
     function removeToCart(id,product_id,qty) {
 
@@ -282,25 +247,23 @@
             closeOnConfirm: false
         }).then(function () {
 
-
-
             $.ajax({
-                url:BASEURL+'/removeToCart',
+                url:BASEURL+'/editRemoveToCart',
                 type:'POST',
                 data: {
                     _token: $('meta[name="csrf_token"]').attr('content'),
                     temp_id: id,
                     product_id: product_id,
                     qty: qty,
-                    type: 1
+                    receipt_no:$('#receipt_no').val()
 
                 },
                 success: function(data){
-                    var productout = $('#cart-list').DataTable();
-                    productout.ajax.reload();
+                    var editproduct = $('#editproduct-list').DataTable();
+                    editproduct.ajax.reload();
 
-                    var productout = $('#productout-list').DataTable();
-                    productout.ajax.reload();
+                    var editcart = $('#editcart-list').DataTable();
+                    editcart.ajax.reload();
 
                     swal({
                         title: "",
@@ -310,14 +273,22 @@
 
 
                     $.ajax({
-                        url:BASEURL + '/cartCount',
-                        type: 'GET',
+                        url:BASEURL + '/editCartCount',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            receipt_no: $('#receipt_no').val()
+                        },
                         success: function (data){
                             $('#tab-productout li:nth-child(2) a').html(data);
                         }
                     });
 
+                    receiptCount()
+
                     $('.total-amount').text( '₱ '+data)
+
+                    $('#cancel').hide()
 
                 }
             });
@@ -328,13 +299,15 @@
 
     function  receiptCount() {
         $.ajax({
-            url:BASEURL + '/receiptCount',
-            type: 'GET',
+            url:BASEURL + '/editReceiptCount',
+            type: 'POST',
+            data:{
+                _token: $('meta[name="csrf_token"]').attr('content'),
+                receipt_no: $('#receipt_no').val(),
+            },
             success: function (data){
                 $('.print-count').html(data);
-                if(data == 0){
-                    $('#print').attr('disabled','disabled')
-                }
+
             }
         });
     }
@@ -342,8 +315,8 @@
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
-        var cart = $('#cart-list').DataTable();
-        cart.ajax.reload();
+        var editcart = $('#editcart-list').DataTable();
+        editcart.ajax.reload();
     };
 
 </script>
