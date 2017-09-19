@@ -65,7 +65,7 @@
         var product = $('#mcoat-list').DataTable({
             ajax: BASEURL + '/getProducts',
             order: [],
-            iDisplayLength: 20,
+            iDisplayLength: 12,
             bLengthChange: false,
             columns: [
 
