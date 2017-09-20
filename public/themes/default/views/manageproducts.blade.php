@@ -109,13 +109,13 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Brand</label>
-                                <input  type="text" class="form-control" id="brand"/>
+                                <input  type="text" class="form-control" id="brand" name="brand"/>
                             </div>
                         </div>
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Category</label>
-                                <input  type="text" class="form-control" id="category"/>
+                                <input  type="text" class="form-control" id="category" name="category"/>    
                             </div>
                         </div>
                     </div>
@@ -123,13 +123,13 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Code</label>
-                                <input  type="text" class="form-control" id="code"/>
+                                <input  type="text" class="form-control" id="code" name="code"/>
                             </div>
                         </div>
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Description</label>
-                                <input  type="text" class="form-control" id="description"/>
+                                <input  type="text" class="form-control" id="description" name="description"/>
                             </div>
                         </div>
                     </div>
@@ -137,19 +137,19 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Unit</label>
-                                <input  type="text" class="form-control" id="unit"/>
+                                <input  type="text" class="form-control" id="unit" name="unit"/>
                             </div>
                         </div>
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Unit price</label>
-                                <input  type="text" class="form-control" id="unit_price"/>
+                                <input  type="text" class="form-control" id="unit_price" name="unit_price"/>
                             </div>
                         </div>
                         <div class="col-md-12 col-xs-12">
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input  type="text" class="form-control" id="quantity"/>
+                                <input  type="text" class="form-control" id="quantity" name="quantity"/>
                             </div>
                         </div>
                     </div>
@@ -263,8 +263,8 @@
 
         });
 
-        $('#btn-addCart').on('click',function () {
-
+        $('#btn-update').on('click',function () {
+            updateProduct()
 
         })
 
@@ -274,7 +274,38 @@
     });
 
 
+    function updateProduct() {
 
+
+        swal({
+            title: "Are you sure?",
+            text: "You want to save this stock.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+            var data_save = $('#update-products').serializeArray();
+            data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+            $.ajax({
+                url:BASEURL+'/updateProduct',
+                type:'POST',
+                data: data_save,
+                success: function(data){
+                    swal({
+                        title: "",
+                        text: "Stock saved successfully",
+                        type:"success"
+                    }).then(function () {
+                        $("#add-stocks")[0].reset()
+                    });
+                }
+            });
+        });
+
+
+    }
 
 
     //New error event handling has been added in Datatables v1.10.5

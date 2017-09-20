@@ -235,4 +235,7 @@ class ProductController extends Controller
         return $theme->scope('manageproducts')->render();
     }
 
+    public function updateProduct(Request $request){
+        dd($request->all());
+    }
 }
