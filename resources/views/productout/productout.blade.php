@@ -91,13 +91,13 @@
                 <div class="modal-body">
                     <input type="hidden" id="product_id"  value="">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Brand</label>
                                 <p class="form-control-static" id="brand">Test</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Category</label>
                                 <p class="form-control-static" id="category">Test</p>
@@ -105,13 +105,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Code</label>
                                 <p class="form-control-static" id="code">Test</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Description</label>
                                 <p class="form-control-static" id="description">Test</p>
@@ -119,13 +119,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Unit</label>
                                 <p class="form-control-static" id="unit">Test</p>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Current quantity</label>
                                 <p class="form-control-static" id="current_qty">Test</p>

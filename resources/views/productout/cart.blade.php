@@ -317,6 +317,8 @@
                         }
                     });
 
+                    receiptCount()
+
                     $('.total-amount').text( '₱ '+data)
 
                 }
@@ -331,9 +333,10 @@
             url:BASEURL + '/receiptCount',
             type: 'GET',
             success: function (data){
-                $('.print-count').html(data);
+                $('.print-count').html("Total Receipt ( <span>"+data+"</span> )");
+
                 if(data == 0){
-                    $('#print').attr('disabled','disabled')
+                    $('#print').prop('disabled',true);
                 }
             }
         });

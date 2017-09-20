@@ -61,6 +61,11 @@
     .receiptin-details input, .receiptin-details select, .receiptin-details .btn{
         margin-top: 15px;
     }
+
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+        /* background-color: #eee; */
+        background-color: #337ab7;
+    }
 </style>
 
 <div class="card-container">
@@ -133,7 +138,9 @@
 <script>
     var BASEURL = $('#baseURL').val();
     $('document').ready(function(){
+        $('#save').prop('disabled',true);
 
+        cartCount()
 
         var cart = $('#cartIn-list').DataTable({
             ajax: BASEURL + '/getCart/2',
@@ -230,13 +237,7 @@
                     var productin = $('#productin-list').DataTable();
                     productin.ajax.reload();
 
-                    $.ajax({
-                        url:BASEURL + '/cartCountIn',
-                        type: 'GET',
-                        success: function (data){
-                            $('#tab-productout li:nth-child(2) a').html(data);
-                        }
-                    });
+
 
                     swal({
                         title: "",
@@ -276,6 +277,8 @@
 
                 },
                 success: function(data){
+                    cartCount()
+
                     var productout = $('#cartIn-list').DataTable();
                     productout.ajax.reload();
 
@@ -286,19 +289,30 @@
                     })
 
 
-                    $.ajax({
-                        url:BASEURL + '/cartCountIn',
-                        type: 'GET',
-                        success: function (data){
-                            $('#tab-productout li:nth-child(2) a').html(data);
-                        }
-                    });
+
 
                 }
             });
         });
 
 
+    }
+
+     function cartCount() {
+         $.ajax({
+             url:BASEURL + '/cartCountIn',
+             type: 'GET',
+             success: function (data){
+
+                 if(data == 0){
+                     $('#save').prop('disabled',true);
+                     $('#tab-productout li:nth-child(2) a').html("Cart")
+                 }else{
+                     $('#tab-productout li:nth-child(2) a').html("Cart  <span class='badge badge-danger'>"+ data + "</span>");
+                     $('#save').prop('disabled',false);
+                 }
+             }
+         });
     }
 
     //New error event handling has been added in Datatables v1.10.5

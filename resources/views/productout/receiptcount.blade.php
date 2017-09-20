@@ -1,1 +1,1 @@
-Total Receipt ( <span>{{$receipt_count}}</span> )
+{{$receipt_count}}

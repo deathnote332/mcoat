@@ -2,7 +2,7 @@
 <style>
 
     @page {
-        margin: 180px 50px;
+        margin: 180px 50px 10px 50px;
     }
 
 
@@ -16,7 +16,7 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid black;
-        font-size: 12px;
+        font-size: 13px;
         margin: 0px;
     }
 
@@ -70,7 +70,7 @@
         text-transform: uppercase;
         padding: 8px 5px 0px 5px;
         background-color: white;
-        font-weight: 700;
+        font-weight: bolder;
     }
 
     .inv-number{
@@ -107,12 +107,21 @@
     }
 
     .page-copy{
-        position: fixed;
-        text-align: left;
-        bottom: -140px;
-        background-color: white;
+         position: absolute;
+         text-align: left;
+         bottom: -10px;
+
+         font-size: 12px;
+         font-style: italic;
+     }
+     .warehouse{
+        position: absolute;
+        text-align: right;
+        bottom: -10px;
+
         font-size: 12px;
         font-style: italic;
+
     }
 
     .date{
@@ -304,13 +313,24 @@
         <div class="page-copy">
             @if( $i == 1 )
                 <p>*This is the original copy</p>
+
             @elseif( $i == 2 )
-                <p>**This is the second copy</p>
+                <p>**This is the duplicate copy</p>
+
             @else
-                <p>***This is the third copy</p>
+                <p>***This is the triplicate copy</p>
+
             @endif
         </div>
-
+        <div class="warehouse">
+            @if( $i == 1 )
+                <p>*M-Coat Pasig Warehouse</p>
+            @elseif( $i == 2 )
+                <p>*M-Coat Pasig Warehouse</p>
+            @else
+                <p>*M-Coat Pasig Warehouse</p>
+            @endif
+        </div>
         <div class="page-break"></div>
 
     @endfor

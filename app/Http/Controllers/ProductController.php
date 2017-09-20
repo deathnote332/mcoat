@@ -72,7 +72,7 @@ class ProductController extends Controller
     public function ajaxReceiptCount(){
         $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
             ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
-            ->get()->chunk(20);
+            ->get()->chunk(25);
         return view('productout.receiptcount',['receipt_count'=>count($products)]);
 
     }
@@ -146,7 +146,7 @@ class ProductController extends Controller
         $branch_id = $request->branch_id;
         $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
             ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
-            ->get()->chunk(20);
+            ->get()->chunk(25);
 
         foreach($products as $key=> $product){
             $id = Productout::orderBy('id','desc')->first()->id + 1;
