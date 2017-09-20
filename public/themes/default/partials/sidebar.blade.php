@@ -134,6 +134,9 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
+                        <a href={{ URL('manageProduct')  }}><i class="fa fa-list fa-fw"></i> Manage Products</a>
+                    </li>
+                    <li>
                         <a href={{ URL('productout')  }}><i class="fa fa-files-o fa-fw"></i> Product out</a>
                     </li>
                     <li>

@@ -33,6 +33,14 @@
         background-color: #31708f;
         color: white;
     }
+    label#add-to-cart {
+        padding: 5px 20px;
+        margin: 0;
+    }
+    .btn-add {
+        padding:5px 20px;
+
+    }
 
 </style>
 
@@ -51,6 +59,12 @@
         </div>
         <div class="col-md-3">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+        </div>
+        <div class="col-md-2 col-md-offset-5">
+            <div class="btn-add">
+                <button type="button" class="btn btn-primary form-control add-new"><span class="fa fa-plus"> Add new product</span></button>
+            </div>
+
         </div>
     </div>
 
@@ -86,67 +100,70 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add to cart</h4>
+                <h4 class="modal-title" id="myModalLabel">Update product</h4>
             </div>
-            <div class="modal-body">
-                <input type="hidden" id="product_id"  value="">
-                <div class="row">
-                    <div class="col-md-6 col-xs-6">
-                        <div class="form-group">
-                            <label>Brand</label>
-                            <p class="form-control-static" id="brand">Test</p>
+            <form id="update-products">
+                <div class="modal-body">
+                    <input type="hidden" id="product_id"  value="">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group">
+                                <label>Brand</label>
+                                <input  type="text" class="form-control" id="brand"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <input  type="text" class="form-control" id="category"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xs-6">
-                        <div class="form-group">
-                            <label>Category</label>
-                            <p class="form-control-static" id="category">Test</p>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group">
+                                <label>Code</label>
+                                <input  type="text" class="form-control" id="code"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input  type="text" class="form-control" id="description"/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-xs-6">
-                        <div class="form-group">
-                            <label>Code</label>
-                            <p class="form-control-static" id="code">Test</p>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group">
+                                <label>Unit</label>
+                                <input  type="text" class="form-control" id="unit"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="form-group">
+                                <label>Unit price</label>
+                                <input  type="text" class="form-control" id="unit_price"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input  type="text" class="form-control" id="quantity"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xs-6">
-                        <div class="form-group">
-                            <label>Description</label>
-                            <p class="form-control-static" id="description">Test</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-xs-6">
-                        <div class="form-group">
-                            <label>Unit</label>
-                            <p class="form-control-static" id="unit">Test</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xs-6">
-                        <div class="form-group">
-                            <label>Current quantity</label>
-                            <p class="form-control-static" id="current_qty">Test</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-groupx">
-                            <input class="form-control" placeholder="Enter quantity" id="add-qty" maxlength="5">
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn-addCart">Add to cart</button>
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btn-update">Update</button>
+                </div>
+            </form>
         </div>
+
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
@@ -177,8 +194,9 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
+                $('td', row).eq(7).find('.alert').text('Update');
                 if (data.quantity == 0) {
-                    $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
+
                     $(row).css({
                         'background-color': '#e74c3c',
                         'color': '#fff'
@@ -228,16 +246,18 @@
             var category =$(this).data('category');
             var code = $(this).data('code');
             var description = $(this).data('description');
+            var unit_price = $(this).data('unit_price');
             var quantity = $(this).data('quantity');
             var unit = $(this).data('unit');
 
             $('#addToCartModal').modal('show');
-            $('#brand').text(brand)
-            $('#category').text(category)
-            $('#code').text(code)
-            $('#description').text(description)
-            $('#unit').text(unit)
-            $('#current_qty').text(quantity)
+            $('#brand').val(brand)
+            $('#category').val(category)
+            $('#unit_price').val(unit_price)
+            $('#code').val(code)
+            $('#description').val(description)
+            $('#unit').val(unit)
+            $('#quantity').val(quantity)
 
             $('#product_id').val(id);
 
@@ -245,21 +265,11 @@
 
         $('#btn-addCart').on('click',function () {
 
-            if(parseInt($('#current_qty').text()) < parseInt($('#add-qty').val()) || parseInt($('#add-qty').val()) <= 0) {
-                swal({
-                    title: "",
-                    text: "Invalid quantity",
-                    type: "error"
-                });
-            }else{
-                addToCart($('#product_id').val(),$('#add-qty').val(),$('#current_qty').text())
-            }
-
 
         })
 
         //numeric input
-        $('#add-qty').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+        $('#quantity').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
     });
 

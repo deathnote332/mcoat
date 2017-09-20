@@ -74,4 +74,4 @@ Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
 Route::get('/invoiceReceiptin/{id}', 'ProductController@invoiceReceiptin');
 
 //manage product
-Route::get('/productout', 'ProductController@productoutPage');
+Route::get('/manageProduct', 'ProductController@manageProduct');

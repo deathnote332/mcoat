@@ -22,7 +22,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getProducts()
+    public function getProducts(Request $request)
     {
 
         $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
@@ -30,8 +30,9 @@ class ProductController extends Controller
         foreach($products as $key=>$val){
 
 
+
             $action = '<label id="add-to-cart" class="alert alert-info" data-id="'.$val->id.'" data-brand="'.$val->brand.'"
-                        data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-unit_price="'.$val->unit_price.'"
+                        data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-unit_price="'.'₱ '.number_format($val->unit_price, 2).'"
                         data-unit="'.$val->unit.'">Add to Cart</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
@@ -225,6 +226,13 @@ class ProductController extends Controller
         $pdf = PDF::loadView('pdf.receiptin',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         return @$pdf->stream();
 
+    }
+
+
+    //manage product
+    public function manageProduct(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
+        return $theme->scope('manageproducts')->render();
     }
 
 }
