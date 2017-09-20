@@ -26,7 +26,7 @@
                     <option>Brand</option>
                     <option>Category</option>
                     <option>Code</option>
-                    <option>Descripion</option>
+                    <option>Description</option>
                     <option selected>All</option>
                 </select>
             </div>
@@ -67,6 +67,9 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
+            "scrollY":        "60vh",
+            "scrollCollapse": true,
+            "paging":         false,
             columns: [
 
                 { data: 'brand',"orderable": false },
