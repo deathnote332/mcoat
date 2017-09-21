@@ -78,10 +78,10 @@
 <div class="row">
 
     <!-- /.col-lg-6 -->
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                STORE ORDER GRAPH
+                BRANCH ORDER GRAPH
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -91,47 +91,62 @@
         </div>
         <!-- /.panel -->
     </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                STORE SALES GRAPH
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="morris-donut-chart"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.panel -->
+</div>
     <!-- /.col-lg-6 -->
 
 </div>
 <script>
+    var BASEURL = $('#baseURL').val();
     $(document).ready(function () {
-        Morris.Bar({
+        var chart = Morris.Bar({
             element: 'morris-bar-chart',
-            data: [{
-                y: '2006',
-                a: 100,
-                b: 90
-            }, {
-                y: '2007',
-                a: 75,
-                b: 65
-            }, {
-                y: '2008',
-                a: 50,
-                b: 40
-            }, {
-                y: '2009',
-                a: 75,
-                b: 65
-            }, {
-                y: '2010',
-                a: 50,
-                b: 40
-            }, {
-                y: '2011',
-                a: 75,
-                b: 65
-            }, {
-                y: '2012',
-                a: 100,
-                b: 90
-            }],
-            xkey: 'y',
-            ykeys: ['a', 'b'],
-            labels: ['Mcoat', 'Dagupan'],
+            data:[0,0],
+            xkey: ['label'],
+            ykeys: ['value'],
+            ymax: 100,
+            labels: ['Order Percentage'],
             hideHover: 'auto',
             resize: true
         });
+
+        $.ajax({
+            url:BASEURL + '/fastMovingProducts',
+            type: 'GET',
+            success: function (data){
+
+                chart.setData(data);
+            }
+        });
+
+        Morris.Donut({
+            element: 'morris-donut-chart',
+            data: [{
+                label: "Mcoat Sales",
+                value: 60
+            }, {
+                label: "Dagupan Sales",
+                value: 40
+            }],
+            resize: true
+        });
+
     })
+
+
+
+
 </script>

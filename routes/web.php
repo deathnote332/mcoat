@@ -77,3 +77,7 @@ Route::get('/invoiceReceiptin/{id}', 'ProductController@invoiceReceiptin');
 Route::get('/manageProduct', 'ProductController@manageProduct');
 Route::post('/updateProduct', 'ProductController@updateProduct');
 Route::post('/addNewProduct', 'ProductController@addNewProduct');
+
+//graph
+
+Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');

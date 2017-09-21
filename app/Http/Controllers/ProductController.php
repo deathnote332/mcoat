@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Branches;
 use App\Product;
 use App\Productin;
 use App\Productout;
@@ -245,5 +246,16 @@ class ProductController extends Controller
     public function updateProduct(Request $request){
         Product::where('id',$request->product_id)->update(['brand'=>$request->brand,'category'=>$request->category,
             'code'=>$request->code,'description'=>$request->description,'quantity'=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+    }
+
+    public function fastMovingProducts(){
+        $graph = Productout::groupBy('branch')->select('branch',DB::raw('COUNT(receipt_no) as total_receipt'))->get();
+        $totalReceipt = Productout::count();
+        $data = array();
+        foreach ($graph as $key=>$val){
+            $percentage = ($val->total_receipt / $totalReceipt) * 100;
+            $data[]=['label'=>Branches::find($val->branch)->name,'value'=>number_format($percentage,1)];
+        }
+       return $data;
     }
 }
