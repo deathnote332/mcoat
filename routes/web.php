@@ -81,3 +81,6 @@ Route::post('/addNewProduct', 'ProductController@addNewProduct');
 //graph
 
 Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
+Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
+//users
+Route::get('/users', 'UserController@userPage');

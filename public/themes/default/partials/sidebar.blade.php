@@ -148,6 +148,9 @@
                     <li>
                         <a href={{ URL('receiptin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in receipt</a>
                     </li>
+                    <li>
+                        <a href={{ URL('users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
