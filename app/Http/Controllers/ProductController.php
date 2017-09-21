@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Theme;
 use PDF;
+
+
+
 class ProductController extends Controller
 {
     /**
@@ -32,14 +35,13 @@ class ProductController extends Controller
 
 
             $action = '<label id="add-to-cart" class="alert alert-info" data-id="'.$val->id.'" data-brand="'.$val->brand.'"
-                        data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-unit_price="'.'₱ '.number_format($val->unit_price, 2).'"
+                        data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-unit_price="'.number_format($val->unit_price, 2).'"
                         data-unit="'.$val->unit.'">Add to Cart</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
                 'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action];
         }
         return json_encode(['data'=>$data]);
-
 
     }
 
@@ -89,7 +91,7 @@ class ProductController extends Controller
             $action = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="remove-cart">Remove</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,
-                'temp_qty'=>$val->temp_qty,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'total'=>'₱ '.number_format($val->unit_price * $val->temp_qty, 2),'action'=>$action];
+                'temp_qty'=>$val->temp_qty,'unit_price'=>number_format($val->unit_price, 2),'total'=>number_format($val->unit_price * $val->temp_qty, 2),'action'=>$action];
         }
 
         return json_encode(['data'=>$data]);
@@ -235,7 +237,13 @@ class ProductController extends Controller
         return $theme->scope('manageproducts')->render();
     }
 
+    public function addNewProduct(Request $request){
+        Product::insert(['brand'=>$request->brand,'category'=>$request->category,
+            'code'=>$request->code,'description'=>$request->description,'quantity'=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+    }
+
     public function updateProduct(Request $request){
-        dd($request->all());
+        Product::where('id',$request->product_id)->update(['brand'=>$request->brand,'category'=>$request->category,
+            'code'=>$request->code,'description'=>$request->description,'quantity'=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
     }
 }

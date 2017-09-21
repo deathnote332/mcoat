@@ -67,9 +67,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
-            "scrollY":        "60vh",
-            "scrollCollapse": true,
-            "paging":         false,
+
             columns: [
 
                 { data: 'brand',"orderable": false },

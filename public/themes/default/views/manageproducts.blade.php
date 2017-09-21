@@ -25,7 +25,7 @@
     }
 
     .modal{
-        position: absolute;
+
         top: 15%;
 
     }
@@ -41,7 +41,11 @@
         padding:5px 20px;
 
     }
-
+    label.error{
+        color: red;
+        font-size: 12px;
+        font-style: italic;
+    }
 </style>
 
 <div class="card-container">
@@ -104,18 +108,18 @@
             </div>
             <form id="update-products">
                 <div class="modal-body">
-                    <input type="hidden" id="product_id"  value="">
+                    <input type="hidden" id="product_id" name="product_id"  value="">
                     <div class="row">
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Brand</label>
-                                <input  type="text" class="form-control" id="brand" name="brand"/>
+                                <input  type="text" class="form-control" id="brand" name="brand" required/>
                             </div>
                         </div>
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Category</label>
-                                <input  type="text" class="form-control" id="category" name="category"/>    
+                                <input  type="text" class="form-control" id="category" name="category" required/>
                             </div>
                         </div>
                     </div>
@@ -123,13 +127,13 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Code</label>
-                                <input  type="text" class="form-control" id="code" name="code"/>
+                                <input  type="text" class="form-control" id="code" name="code" required/>
                             </div>
                         </div>
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Description</label>
-                                <input  type="text" class="form-control" id="description" name="description"/>
+                                <input  type="text" class="form-control" id="description" name="description" required/>
                             </div>
                         </div>
                     </div>
@@ -137,19 +141,19 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Unit</label>
-                                <input  type="text" class="form-control" id="unit" name="unit"/>
+                                <input  type="text" class="form-control" id="unit" name="unit" required/>
                             </div>
                         </div>
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group">
                                 <label>Unit price</label>
-                                <input  type="text" class="form-control" id="unit_price" name="unit_price"/>
+                                <input  type="text" class="form-control" id="unit_price" name="unit_price" required/>
                             </div>
                         </div>
                         <div class="col-md-12 col-xs-12">
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input  type="text" class="form-control" id="quantity" name="quantity"/>
+                                <input  type="text" class="form-control" id="quantity" name="quantity" required/>
                             </div>
                         </div>
                     </div>
@@ -176,6 +180,7 @@
     var BASEURL = $('#baseURL').val();
     $('document').ready(function(){
 
+        var validator = $('#update-products').validate();
 
         var product = $('#productout-list').DataTable({
             ajax: BASEURL + '/getProducts',
@@ -238,8 +243,22 @@
 
         })
 
+        $('body').on('click','.add-new',function() {
+            $('#addToCartModal').modal('show');
+            $('.modal-title').text('Add new product');
+            $('#addToCartModal').find('#btn-update').text('Add')
+
+        });
+
+        $('#addToCartModal').on('hidden.bs.modal', function(){
+            validator.resetForm();
+            $("#update-products")[0].reset();
+        });
 
         $('body').on('click','#add-to-cart',function() {
+            $('.modal-title').text('Update product');
+            $('#addToCartModal').find('#btn-update').text('Update')
+
             $('#add-qty').val('')
             var id = $(this).data('id');
             var brand = $(this).data('brand');
@@ -264,22 +283,59 @@
         });
 
         $('#btn-update').on('click',function () {
-            updateProduct()
-
+            var form = $('#update-products');
+            if(form.valid()){
+                var action = ($(this).text() == 'Add') ? addNewProduct(): updateProduct();
+            }
         })
 
         //numeric input
-        $('#quantity').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+        $('#quantity,#unit_price').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
     });
+
+    function addNewProduct() {
+
+        swal({
+            title: "Are you sure?",
+            text: "You want to add this product.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+            var data_save = $('#update-products').serializeArray();
+            data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+            $.ajax({
+                url:BASEURL+'/addNewProduct',
+                type:'POST',
+                data: data_save,
+                success: function(data){
+                    var productout = $('#productout-list').DataTable();
+                    productout.ajax.reload(null,false);
+                    $('#addToCartModal').modal('hide');
+
+                    swal({
+                        title: "",
+                        text: "Product added successfully",
+                        type:"success"
+                    }).then(function () {
+                        $("#update-products")[0].reset()
+                    });
+                }
+            });
+        });
+
+
+    }
 
 
     function updateProduct() {
 
-
         swal({
             title: "Are you sure?",
-            text: "You want to save this stock.",
+            text: "You want to update this product.",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -293,12 +349,16 @@
                 type:'POST',
                 data: data_save,
                 success: function(data){
+                    var productout = $('#productout-list').DataTable();
+                    productout.ajax.reload(null,false);
+                    $('#addToCartModal').modal('hide');
+
                     swal({
                         title: "",
-                        text: "Stock saved successfully",
+                        text: "Product updated successfully",
                         type:"success"
                     }).then(function () {
-                        $("#add-stocks")[0].reset()
+                        $("#update-products")[0].reset()
                     });
                 }
             });

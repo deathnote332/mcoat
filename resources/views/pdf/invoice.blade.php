@@ -132,7 +132,8 @@
         font-size: 13px;
     }
     .delivered_to{
-        position: fixed;
+        position: absolute;
+
         top: -20px;
         padding-left: 8px;
 
@@ -164,6 +165,9 @@
        border-top: 1px solid black !important;
 
    }
+    #total td:nth-child(4){
+        font-weight:700;
+    }
     #total td:nth-child(1),#total td:nth-child(2),#total td:nth-child(3){
         border-right: 0 !important;
     }
@@ -188,9 +192,10 @@
     }
 
     .received-by{
+        font-style: normal;
         position: relative;
         text-align: right;
-        top:-25px;
+        top:-45px;
 
     }
     .signature{
@@ -198,11 +203,11 @@
     }
     .date-received{
         position: relative;
-        top:-45px;
+        top:-55px;
     }
     .prepared-by{
         position: relative;
-        top:-15px;
+        top:0px;
     }
     .prepared-by span{
         margin-left: 10px;
@@ -211,7 +216,7 @@
     }
     .invoice-follow{
         position: relative;
-        top:-15px;
+        top:-25px;
         font-style: italic;
     }
 </style>
@@ -285,8 +290,12 @@
             Received the above goods in good order and condition
         </div>
         <div class="print-info">
+            <div class="prepared-by">
+                Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
+            </div>
+
             <div class="">
-                Check by: <span>______________________________________</span>
+                Checked by: <span>______________________________________</span>
             </div>
             <div class="received-by">
                     Received by: <span>______________________________________</span>
@@ -297,9 +306,7 @@
 
             </div>
 
-            <div class="prepared-by">
-                Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
-            </div>
+
             <div class="invoice-follow">
                Invoice to follow
             </div>

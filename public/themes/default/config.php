@@ -122,7 +122,8 @@ return array(
                 $theme->asset()->usePath()->add('morris.min.js', 'js/morris.min.js');
                 $theme->asset()->usePath()->add('morris-data.js', 'js/morris-data.js');
 
-
+                //validate
+                $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
             }
 
 

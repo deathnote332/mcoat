@@ -24,7 +24,7 @@
     }
 
     .modal{
-        position: absolute;
+
         top: 15%;
 
     }
@@ -164,9 +164,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
-            "scrollY":        "60vh",
-            "scrollCollapse": true,
-            "paging":         false,
+            deferRender:    true,
             columns: [
 
                 { data: 'brand',"orderable": false },
@@ -289,17 +287,18 @@
                 },
                 success: function(data){
 
+                    var productin = $('#productin-list').DataTable();
+                    productin.ajax.reload(null, false );
+
+                    $('#addToCartModal').modal('hide');
+
                     swal({
                         title: "",
                         text: "Product addded to cart",
                         type:"success"
-                    }).then(function () {
-                        $('#addToCartModal').modal('hide');
-                    });
-
+                    })
 
                    cartCount()
-
                 }
             });
         });
