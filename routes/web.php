@@ -101,5 +101,7 @@ Route::get('/alliedmanageproduct', 'ProductController@alliedManageProduct');
 
 Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
 Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
+
 //users
 Route::get('/users', 'UserController@userPage');
+Route::get('/getusers', 'UserController@getUsers');
