@@ -9,7 +9,7 @@
         padding-top: 30px;
     }
 
-    #productout-list_wrapper .row:nth-child(1){
+    #alliedmanage-list_wrapper .row:nth-child(1){
         display: none;
     }
 
