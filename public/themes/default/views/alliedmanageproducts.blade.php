@@ -13,7 +13,7 @@
         display: none;
     }
 
-    #productout-list_wrapper tbody tr td:nth-child(8){
+    #alliedmanage-list_wrapper tbody tr td:nth-child(8){
         text-align: center;
     }
     .search-inputs{
@@ -75,7 +75,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table id="productout-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <table id="alliedmanage-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
 
@@ -182,32 +182,30 @@
 
         var validator = $('#update-products').validate();
 
-        var product = $('#productout-list').DataTable({
+        var product = $('#alliedmanage-list').DataTable({
             ajax: BASEURL + '/getProducts',
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
             columns: [
-
                 { data: 'brand',"orderable": false },
                 { data: 'category',"orderable": false},
                 { data: 'code',"orderable": false },
                 { data: 'description',"orderable": false },
                 { data: 'unit',"orderable": false },
-                { data: 'quantity',"orderable": false },
+                { data: 'quantity_1',"orderable": false },
                 { data: 'unit_price',"orderable": false },
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
                 $('td', row).eq(7).find('.alert').text('Update');
-                if (data.quantity == 0) {
-
+                if (data.quantity_1 == 0) {
                     $(row).css({
                         'background-color': '#e74c3c',
                         'color': '#fff'
                     });
 
-                }else if (data.quantity <= 3 && data.quantity >= 1){
+                }else if (data.quantity_1 <= 3 && data.quantity_1 >= 1){
                     $(row).css({
                         'background-color': '#95a5a6',
                         'color': '#fff'
@@ -266,7 +264,7 @@
             var code = $(this).data('code');
             var description = $(this).data('description');
             var unit_price = $(this).data('unit_price');
-            var quantity = $(this).data('quantity');
+            var quantity = $(this).data('quantity_1');
             var unit = $(this).data('unit');
 
             $('#addToCartModal').modal('show');
@@ -307,13 +305,13 @@
         }).then(function () {
             var data_save = $('#update-products').serializeArray();
             data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-            data_save.push({ name : "type", value: 1})
+            data_save.push({ name : "type", value: 2})
             $.ajax({
                 url:BASEURL+'/addNewProduct',
                 type:'POST',
                 data: data_save,
                 success: function(data){
-                    var productout = $('#productout-list').DataTable();
+                    var productout = $('#alliedmanage-list').DataTable();
                     productout.ajax.reload(null,false);
                     $('#addToCartModal').modal('hide');
 
@@ -345,13 +343,13 @@
         }).then(function () {
             var data_save = $('#update-products').serializeArray();
             data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-            data_save.push({ name : "type", value: 1})
+            data_save.push({ name : "type", value: 2})
             $.ajax({
                 url:BASEURL+'/updateProduct',
                 type:'POST',
                 data: data_save,
                 success: function(data){
-                    var productout = $('#productout-list').DataTable();
+                    var productout = $('#alliedmanage-list').DataTable();
                     productout.ajax.reload(null,false);
                     $('#addToCartModal').modal('hide');
 
@@ -373,7 +371,7 @@
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
-        var productout = $('#productout-list').DataTable();
+        var productout = $('#alliedmanage-list').DataTable();
         productout.ajax.reload();
     };
 

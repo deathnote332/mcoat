@@ -134,14 +134,43 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href={{ URL('manageProduct')  }}><i class="fa fa-list fa-fw"></i> Manage Products</a>
+                        <a href="#"><i class="fa fa-list fa-fw"></i> Manage Products<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href={{ URL('manageProduct')  }}>MCOAT STOCKS</a>
+                            </li>
+                            <li>
+                                <a href={{ URL('alliedmanageproduct')  }}>ALLIED STOCKS</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Product out<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href={{ URL('productout')  }}>MCOAT Product out</a>
+                            </li>
+                            <li>
+                                <a href={{ URL('alliedproductout')  }}>ALLIED Product out</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href={{ URL('productout')  }}><i class="fa fa-files-o fa-fw"></i> Product out</a>
+                        <a href="#"><i class="fa fa-file-text-o fa-fw"></i> Product in<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href={{ URL('productin')  }}>MCOAT Product in</a>
+                            </li>
+                            <li>
+                                <a href={{ URL('alliedproductin')  }}>ALLIED Product in</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
                     </li>
-                    <li>
-                        <a href={{ URL('productin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in</a>
-                    </li>
+
                     <li>
                         <a href={{ URL('receipts')  }}><i class="fa fa-files-o fa-fw"></i> Receipts</a>
                     </li>

@@ -2,7 +2,7 @@
 <style>
 
     @page {
-        margin: 180px 50px;
+        margin: 180px 50px 10px 50px;
     }
 
 
@@ -16,7 +16,7 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid black;
-        font-size: 12px;
+        font-size: 13px;
         margin: 0px;
     }
 
@@ -70,12 +70,12 @@
         text-transform: uppercase;
         padding: 8px 5px 0px 5px;
         background-color: white;
-        font-weight: 700;
+        font-weight: bolder;
     }
 
     .inv-number{
         position: fixed;
-        left: 0;
+        right: 0;
         top: -85px;
         border: 1px solid black;
         height: 30px;
@@ -87,17 +87,19 @@
         background-color: white;
         border-radius: 5px;
     }
-
+    .inv-number span{
+        color: red;
+    }
 
     .deliver-receipt{
         position: fixed;
-        left: 0;
+        right: 0;
         top: -125px;
         background-color: black;
         color: #fff;
         height: 30px;
         font-size: 16px;
-        width: 250px;
+        width: 200px;
         text-align: center;
         padding: 8px 5px 0px 5px;
         font-weight: bold;
@@ -105,50 +107,55 @@
     }
 
     .page-copy{
-        position: fixed;
+        position: absolute;
         text-align: left;
-        bottom: -140px;
-        background-color: white;
+        bottom: -10px;
+
         font-size: 12px;
         font-style: italic;
+    }
+    .warehouse{
+        position: absolute;
+        text-align: right;
+        bottom: -10px;
+
+        font-size: 12px;
+        font-style: italic;
+
     }
 
     .date{
         position: fixed;
         text-align: right;
-        top: -70px;
+        top: -30px;
         background-color: white;
-        font-size: 14px;
+        font-size: 13px;
     }
     .delivered_to{
-        position: fixed;
-        top: -70px;
-        padding-left: 8px;
+        position: absolute;
 
+        top: -20px;
+        padding-left: 8px;
 
     }
     .address{
-        position: fixed;
-        top: -40px;
-        padding-left: 8px;
 
+        padding-left: 8px;
+        padding-bottom: 20px;
     }
     .address span{
         margin-left: 20px;
-
     }
     .received-goods{
         text-align: right;
         font-style: italic;
     }
     .delivered_to,.address,.print-info,.received-goods{
-        font-size: 14px;
+        font-size: 13px;
     }
-    .delivered_to span{
-
+    .delivered_to span,.address span{
         text-transform: uppercase;
-        font-weight: bold;
-
+        border-bottom: 1px solid black;
     }
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
@@ -158,6 +165,9 @@
         border-top: 1px solid black !important;
 
     }
+    #total td:nth-child(4){
+        font-weight:700;
+    }
     #total td:nth-child(1),#total td:nth-child(2),#total td:nth-child(3){
         border-right: 0 !important;
     }
@@ -166,9 +176,7 @@
 
     }
     .print-info div:nth-child(1) span{
-        margin-left: 10px;
-        text-transform: uppercase;
-        font-weight: bold;
+        margin-left: 20px;
 
     }
     .print-info div:nth-child(2){
@@ -184,9 +192,10 @@
     }
 
     .received-by{
+        font-style: normal;
         position: relative;
         text-align: right;
-        top:-25px;
+        top:-45px;
 
     }
     .signature{
@@ -194,11 +203,11 @@
     }
     .date-received{
         position: relative;
-        top:-45px;
+        top:-55px;
     }
     .prepared-by{
         position: relative;
-        top:-15px;
+        top:0px;
     }
     .prepared-by span{
         margin-left: 10px;
@@ -207,26 +216,40 @@
     }
     .invoice-follow{
         position: relative;
-        top:-15px;
+        top:-25px;
         font-style: italic;
     }
 </style>
 
+@for($i = 1;$i <= 3;$i++)
 
-
-
+    <div class="header">
+        <h1>ALLIED PAINT COMMERCIAL & GENERAL MERCHANDISE</h1>
+        <div class="sub-header">
+            <h3>320 KM Caranglaan Dagupan Pangasinan</h3>
+            <h3>Ludilyn De Jesus - Prop.</h3>
+            <h3>Tel: (075)515-6259 Cel: 09999466846</h3>
+            <h3>Vat. Reg. TIN: 146-286-510-001</h3>
+        </div>
+    </div>
     <div class="deliver-receipt">
-        DELIVERY RECEIPT  NO. <span>{!! $invoice['receipt_no'] !!}</span>
+        DELIVERY RECEIPT
     </div>
 
+    <div class="branch-name">
+        CDJ Mangaldan
+    </div>
+    <div class="inv-number">
+        NO. <span>{!! $invoice['receipt_no'] !!}</span>
+    </div>
     <div class="date">
-        Date entered: {!! $invoice['created_at'] !!}
+        Date printed: {!! $invoice['created_at'] !!}
     </div>
     <div class="delivered_to">
-        Delivered From: <span>{!! \App\Supplier::find($invoice['supplier_id'])->name !!}</span>
+        Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>
     </div>
     <div class="address">
-        Address: <span>{!! \App\Supplier::find($invoice['supplier_id'])->address !!}</span>
+        Address: <span>{!! \App\Branches::find($invoice['branch'])->address !!}</span>
     </div>
 
     <div class="table-location">
@@ -236,6 +259,8 @@
                 <th>Qty/Unit</th>
                 <th>Code</th>
                 <th>Description</th>
+
+
                 <th>unit price</th>
                 <th>Amount</th>
             </tr>
@@ -250,21 +275,71 @@
                     <td>{!! 'P '.number_format($val->unit_price * $val->product_qty, 2) !!}</td>
                 </tr>
             @endforeach
+            <tr id="total">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>TOTAL</td>
+                <td>{!! 'P '.number_format($invoice['total'], 2) !!}</td>
+            </tr>
             </tbody>
         </table>
     </div>
-
+    <div class="received-goods">
+        Received the above goods in good order and condition
+    </div>
     <div class="print-info">
-        <div class="">
-            Entered by: <span>{!! \App\User::find($invoice['entered_by'])->name !!}</span>
-        </div>
-        <div class="">
-            Warehouse: <span>{!! ($invoice['warehouse'] == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse' !!}</span>
+        <div class="prepared-by">
+            Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
         </div>
 
+        <div class="">
+            Checked by: <span>______________________________________</span>
+        </div>
+        <div class="received-by">
+            Received by: <span>______________________________________</span>
+
+        </div>
+        <div class="received-by signature">
+            Name & Authorized Signature
+
+        </div>
+
+
+        <div class="invoice-follow">
+            Invoice to follow
+        </div>
+        <div class="received-by date-received">
+            Date received: <span>______________________________________</span>
+
+        </div>
     </div>
 
 
+    <div class="page-copy">
+        @if( $i == 1 )
+            <p>*This is the original copy</p>
+
+        @elseif( $i == 2 )
+            <p>**This is the duplicate copy</p>
+
+        @else
+            <p>***This is the triplicate copy</p>
+
+        @endif
+    </div>
+    <div class="warehouse">
+        @if( $i == 1 )
+            <p>*Dagupan Warehouse</p>
+        @elseif( $i == 2 )
+            <p>*Dagupan Warehouse</p>
+        @else
+            <p>*Dagupan Warehouse</p>
+        @endif
+    </div>
+    <div class="page-break"></div>
+
+@endfor
 
 
 

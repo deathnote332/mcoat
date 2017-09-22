@@ -9,35 +9,42 @@
         padding-top: 30px;
     }
 
-    #cartIn-list_wrapper .row:nth-child(1){
-        display: none;
-    }
-
-    #cartIn-list_wrapper tbody tr td:nth-child(9){
+    #cart-list_wrapper .row:nth-child(1){
+         display: none;
+     }
+    #cart-list_wrapper tbody tr td:nth-child(9){
         text-align: center;
     }
-    .search-inputs,.receiptin-details{
+    .search-inputs{
         padding-left: 15px;
         padding-bottom: 10px;
     }
-
-
     .alert {
         padding: 2px 10px;
-        margin-bottom: 0px;
+         margin-bottom: 0px;
         border: 1px solid transparent;
         border-radius: 4px;
     }
+    .btn-print{
 
-    .branches{
-        font-size: 18px;
+        margin-top: 20px;
+    }
+    .branches,.print-count{
         margin-left: 15px;
         margin-top: 10px;
     }
-    .btn-print .btn{
-
+    .print-count{
+        font-weight: bold;
+        color: #2980b9;
+        margin-bottom: 10px;
         font-size: 16px;
-
+    }
+    .print-count span{
+        color: red;
+    }
+    .btn-print .btn{
+        width:300px;
+        font-size: 20px;
 
     }
     #remove-cart{
@@ -57,14 +64,6 @@
         font-size: 24px;
         margin-top: 10px;
 
-    }
-    .receiptin-details input, .receiptin-details select, .receiptin-details .btn{
-        margin-top: 15px;
-    }
-
-    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
-        /* background-color: #eee; */
-        background-color: #337ab7;
     }
 </style>
 
@@ -89,7 +88,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <table id="cartIn-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+            <table id="cart-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
 
@@ -108,42 +107,51 @@
             </table>
         </div>
     </div>
-
     <div class="row">
-        <div class="receiptin-details">
-            <div class="col-md-3">
 
-                <select class="form-control" id="suppliers">
-                    <option selected disabled value="0">Choose supplier</option>
-                    @foreach(\App\Supplier::orderBy('name','asc')->get() as $key=>$val)
-                        <option value="{{$val->name}}" data-id="{{$val->id}}" data-address="{{$val->address}}">{{$val->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-3">
-                <input type="text" class="form-control" name="invoice_number" id="invoice_number" placeholder="Invoice number">
-            </div>
-
-
-        <div class="col-md-2 col-md-offset-4">
-            <div class="btn-print">
-
-                <button type="button" class="form-control btn btn-primary" id="save">Save</button>
+        <div class="col-md-12">
+            <div class="print-count">
+                Total Receipt ( <span>1</span> )
             </div>
 
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <select class="branches form-control">
+                <option selected disabled>Choose Location</option>
+                @foreach(\App\Branches::orderBy('name','asc')->get() as $key=>$val)
+                    <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3 col-md-offset-6">
+            <div class="total-amount">
+                {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('type',3)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->first()->total, 2) }}
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9 text-right">
+            <div class="btn-print">
+
+                <button type="button" class="btn btn-primary" id="print">Print</button>
+            </div>
+
         </div>
     </div>
 </div>
 <script>
     var BASEURL = $('#baseURL').val();
     $('document').ready(function(){
-        $('#save').prop('disabled',true);
 
-        cartCount()
+        //receipt count
+        receiptCount();
 
-        var cart = $('#cartIn-list').DataTable({
-            ajax: BASEURL + '/getCart/2',
+
+        var cart = $('#cart-list').DataTable({
+            ajax: BASEURL + '/getCart/3',
             order: [],
             iDisplayLength: 10,
             bLengthChange: false,
@@ -166,7 +174,7 @@
             cart.search( '' )
                 .columns().search( '' )
                 .draw();
-
+            alert()
         })
 
         $('#search_cart').on('input',function () {
@@ -194,25 +202,27 @@
         })
 
         $('.btn-print .btn').on('click',function () {
-            var suppliers = $('#suppliers option:selected');
-            if(suppliers.val()=="Choose supplier"){
+            var branch = $('.branches option:selected');
+            if(branch.val()=="Choose Location"){
                 swal({
                     title: "",
-                    text: "Please choose from suppliers",
+                    text: "Please choose delivery location",
                     type: "error"
                 });
             }else{
-                addToStocks($('#invoice_number').val(),suppliers.data('id'))
+                printReceipt(branch.data('id'))
             }
         })
 
+
+
     });
 
-    function addToStocks(receipt_no,supplier_id) {
+    function printReceipt(branch_id) {
 
         swal({
             title: "Are you sure?",
-            text: "You want to update the stokcs",
+            text: "You want to print",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -222,31 +232,38 @@
         }).then(function () {
 
             $.ajax({
-                url:BASEURL+'/saveProductin',
+                url:BASEURL+'/saveProductout',
                 type:'POST',
                 data: {
                     _token: $('meta[name="csrf_token"]').attr('content'),
-                    receipt_no: receipt_no,
-                    supplier_id: supplier_id,
-
+                    branch_id: branch_id,
+                    type:3
                 },
-                success: function(data){
-                    var productout = $('#cartIn-list').DataTable();
-                    productout.ajax.reload();
+            success: function(data){
+                var productout = $('#cart-list').DataTable();
+                productout.ajax.reload();
+                $('.total-amount').text('₱ 0.00')
+                receiptCount();
 
-                    var productin = $('#productin-list').DataTable();
-                    productin.ajax.reload();
+                $.ajax({
+                    url:BASEURL + '/cartCount',
+                    type: 'GET',
+                    success: function (data){
+                        $('#tab-productout li:nth-child(2) a').html(data);
+                    }
+                });
 
+                swal({
+                    title: "",
+                    text: "Receipt successfully created",
+                    type:"success"
+                })
 
-
-                    swal({
-                        title: "",
-                        text: "Stocks are now updated",
-                        type:"success"
-                    })
-
-                    $('#invoice_number').val('');
-                    $('#suppliers').val('0');
+                var i =0;
+                for(i=0;i<data.length; i++){
+                    var path = BASEURL+'/invoice/'+ data[i];
+                    window.open(path);
+                }
                 }
             });
         });
@@ -265,6 +282,8 @@
             closeOnConfirm: false
         }).then(function () {
 
+
+
             $.ajax({
                 url:BASEURL+'/removeToCart',
                 type:'POST',
@@ -273,13 +292,14 @@
                     temp_id: id,
                     product_id: product_id,
                     qty: qty,
-                    type: 2
+                    type: 3
 
                 },
                 success: function(data){
-                    cartCount()
+                    var productout = $('#cart-list').DataTable();
+                    productout.ajax.reload();
 
-                    var productout = $('#cartIn-list').DataTable();
+                    var productout = $('#alliedproductout-list').DataTable();
                     productout.ajax.reload();
 
                     swal({
@@ -289,7 +309,17 @@
                     })
 
 
+                    $.ajax({
+                        url:BASEURL + '/alliedcartcount',
+                        type: 'GET',
+                        success: function (data){
+                            $('#tab-productout li:nth-child(2) a').html(data);
+                        }
+                    });
 
+                    receiptCount()
+
+                    $('.total-amount').text( '₱ '+data)
 
                 }
             });
@@ -298,28 +328,25 @@
 
     }
 
-     function cartCount() {
-         $.ajax({
-             url:BASEURL + '/cartCountIn',
-             type: 'GET',
-             success: function (data){
+    function  receiptCount() {
+        $.ajax({
+            url:BASEURL + '/alliedreceiptcount',
+            type: 'GET',
+            success: function (data){
+                $('.print-count').html("Total Receipt ( <span>"+data+"</span> )");
 
-                 if(data == 0){
-                     $('#save').prop('disabled',true);
-                     $('#tab-productout li:nth-child(2) a').html("Cart")
-                 }else{
-                     $('#tab-productout li:nth-child(2) a').html("Cart  <span class='badge badge-danger'>"+ data + "</span>");
-                     $('#save').prop('disabled',false);
-                 }
-             }
-         });
+                if(data == 0){
+                    $('#print').prop('disabled',true);
+                }
+            }
+        });
     }
 
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
-        var cartIn = $('#cartIn-list').DataTable();
-        cartIn.ajax.reload();
+        var cart = $('#cart-list').DataTable();
+        cart.ajax.reload();
     };
 
 </script>

@@ -37,6 +37,14 @@ Route::get('/cartList', 'ProductController@ajaxCartList');
 Route::get('/cartCount', 'ProductController@ajaxCartCount');
 Route::get('/receiptCount', 'ProductController@ajaxReceiptCount');
 
+//alliedproductout
+Route::get('/alliedproductout', 'ProductController@alliedProductoutPage');
+Route::get('/alliedproductoutlist', 'ProductController@ajaxAlliedProductList');
+Route::get('/alliedcartlist', 'ProductController@ajaxAlliedCartList');
+Route::get('/alliedcartcount', 'ProductController@ajaxAlliedCartCount');
+Route::get('/alliedreceiptcount', 'ProductController@ajaxAlliedReceiptCount');
+
+
 //cart
 Route::get('/getCart/{id}', 'ProductController@getCart');
 Route::post('/addToCart', 'ProductController@addToCart');
@@ -52,6 +60,14 @@ Route::get('/productin', 'ProductController@productInPage');
 Route::get('/cartListIn', 'ProductController@ajaxCartInList');
 Route::get('/cartCountIn', 'ProductController@ajaxCartInCount');
 Route::post('/saveProductin', 'ProductController@saveProductin');
+
+//alliedproductin
+Route::get('/alliedproductinlist', 'ProductController@ajaxAlliedProductInList');
+Route::get('/alliedproductin', 'ProductController@productAlliedInPage');
+Route::get('/alliedcartlistin', 'ProductController@ajaxAlliedCartInList');
+Route::get('/alliedcartcountin', 'ProductController@ajaxAlliedCartInCount');
+
+
 
 //receipts
 Route::get('/receipts', 'ReceiptController@receipt');
@@ -77,6 +93,9 @@ Route::get('/invoiceReceiptin/{id}', 'ProductController@invoiceReceiptin');
 Route::get('/manageProduct', 'ProductController@manageProduct');
 Route::post('/updateProduct', 'ProductController@updateProduct');
 Route::post('/addNewProduct', 'ProductController@addNewProduct');
+
+//allied manage product
+Route::get('/alliedmanageproduct', 'ProductController@alliedManageProduct');
 
 //graph
 

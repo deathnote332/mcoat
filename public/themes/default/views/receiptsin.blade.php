@@ -65,6 +65,7 @@
 
                     <th>Receipt no.</th>
                     <th>Delivered from</th>
+                    <th>Warehouse</th>
                     <th>Updated by</th>
                     <th>Date created</th>
                     <th>Action</th>
@@ -108,12 +109,13 @@
                 }
             },
             order: [],
-            iDisplayLength: 20,
+            iDisplayLength: 12,
             bLengthChange: false,
             columns: [
 
                 { data: 'receipt_no',"orderable": false },
                 { data: 'delivered_from',"orderable": false},
+                { data: 'warehouse',"orderable": false},
                 { data: 'created_by',"orderable": false },
                 { data: 'created_at',"orderable": false },
                 { data: 'action',"orderable": false }
