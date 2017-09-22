@@ -84,7 +84,7 @@ class ProductController extends Controller
     //allied productout
     public function alliedProductoutPage(){
         $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Allied Product out');
-        return $theme->scope('ALLIEDproductout')->render();
+        return $theme->scope('alliedproductout')->render();
     }
 
     public function ajaxAlliedProductList(){
