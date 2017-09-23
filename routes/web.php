@@ -105,3 +105,13 @@ Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
 //users
 Route::get('/users', 'UserController@userPage');
 Route::get('/getusers', 'UserController@getUsers');
+
+//suppliers
+Route::get('/suppliers', 'SupplierBranchController@supplierPage');
+Route::get('/getsuppliers', 'SupplierBranchController@getSuppliers');
+Route::post('/updatesupplier', 'SupplierBranchController@updateSupplier');
+
+//branches
+Route::get('/branches', 'SupplierBranchController@branchPage');
+Route::get('/getbranches', 'SupplierBranchController@getBranches');
+Route::post('/updatebranch', 'SupplierBranchController@updateBranch');

@@ -34,6 +34,7 @@
         color: white;
     }
 
+
 </style>
 
 <div class="card-container">
@@ -44,7 +45,7 @@
                     <option>Brand</option>
                     <option>Category</option>
                     <option>Code</option>
-                    <option>Descripion</option>
+                    <option>Description</option>
                     <option selected>All</option>
                 </select>
             </div>

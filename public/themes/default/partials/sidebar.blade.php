@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">MCOAT PAINT COMMERCIAL AND GENERAL MERCHANDISE</a>
+            <a class="navbar-brand" href="{{ url('dashboard') }}">MCOAT PAINT COMMERCIAL AND GENERAL MERCHANDISE</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -174,8 +174,16 @@
                     <li>
                         <a href={{ URL('receipts')  }}><i class="fa fa-files-o fa-fw"></i> Receipts</a>
                     </li>
+
                     <li>
                         <a href={{ URL('receiptin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in receipt</a>
+                    </li>
+
+                    <li>
+                        <a href={{ URL('branches')  }}><i class="fa fa-user fa-fw"></i> Branches</a>
+                    </li>
+                    <li>
+                        <a href={{ URL('suppliers')  }}><i class="fa fa-user fa-fw"></i> Suppliers</a>
                     </li>
                     <li>
                         <a href={{ URL('users')  }}><i class="fa fa-user fa-fw"></i> Users</a>

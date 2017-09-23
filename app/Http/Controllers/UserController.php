@@ -26,9 +26,15 @@ class UserController extends Controller
         $users = User::get();
         $userList = array();
         foreach ($users as $key => $val){
-            $userList[]=['email'=>$val->email,'name'=>$val->name,'created_at'=>date('M d,Y',strtotime($val->created_at))];
+            $approved = '<label id="approve" class="alert alert-info" data-id="'.$val->id.'">Approved</label>';
+            $disapproved = '<label id="approve" class="alert alert-danger" data-id="'.$val->id.'">Disapproved</label>';
+            $userList[]=['email'=>$val->email,'name'=>$val->name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$approved.$disapproved];
         }
 
         return json_encode(['data'=>$userList]);
+    }
+
+    public function approveDisapproveUser(Request $request){
+        User::where('id',$request->id)->update(['status',$request->status]);
     }
 }
