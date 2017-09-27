@@ -115,3 +115,9 @@ Route::post('/updatesupplier', 'SupplierBranchController@updateSupplier');
 Route::get('/branches', 'SupplierBranchController@branchPage');
 Route::get('/getbranches', 'SupplierBranchController@getBranches');
 Route::post('/updatebranch', 'SupplierBranchController@updateBranch');
+
+
+//stocksreport
+Route::get('/stocksreport', 'ReceiptController@stocksReport');
+Route::get('/pricelist/{brand}/{category}', 'ReceiptController@priceList');
+Route::post('/brandCategory', 'ReceiptController@brandCategory');

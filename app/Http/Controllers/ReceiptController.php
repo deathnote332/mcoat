@@ -8,6 +8,7 @@ use App\Productin;
 use App\Productout;
 use App\Supplier;
 use App\User;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Theme;
@@ -149,6 +150,35 @@ class ReceiptController extends Controller
     }
 
 
+    //stocksreport
 
+    public function stocksReport(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
+        return $theme->scope('stocksreport')->render();
+    }
+
+    public function priceList(Request $request){
+      $products = Product::where('brand',$request->brand)->where('category',$request->category)->orderBy('brand')
+            ->orderBy('category')
+            ->orderBy('description')
+            ->orderBy('unit')
+            ->get();
+
+        $data = ['data'=>$products,'title'=>$request->brand.' '.$request->categoy];
+        $pdf = PDF::loadView('pdf.pricelist',$data)->setPaper('a4')->setWarnings(false);
+        return @$pdf->stream();
+    }
+
+    public function brandCategory(Request $request){
+
+        $products = Product::where('brand', $request->brand)
+
+            ->select('category')
+            ->distinct()
+            ->orderBy('category')
+            ->get();
+
+        return view('ajax.category', ['data' => $products]);
+    }
 
 }
