@@ -89,7 +89,7 @@
 </div>
 
 <div class="title">
-    PRICELIST OF {{$title}}
+    PRICELIST OF {{ $title }}
 </div>
 
 

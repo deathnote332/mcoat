@@ -163,8 +163,10 @@ class ReceiptController extends Controller
             ->orderBy('description')
             ->orderBy('unit')
             ->get();
+        $title = $request->brand.' - '.$request->category;
 
-        $data = ['data'=>$products,'title'=>$request->brand.' '.$request->categoy];
+        $data = ['data'=>$products,'title'=>$title];
+
         $pdf = PDF::loadView('pdf.pricelist',$data)->setPaper('a4')->setWarnings(false);
         return @$pdf->stream();
     }
