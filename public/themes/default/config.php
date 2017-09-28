@@ -59,10 +59,13 @@ return array(
         {
 
 
+            $theme->asset()->usePath()->add('jquery.min.js', 'js/jquery.min.js');
+            $theme->asset()->usePath()->add('bootstrap.min.js', 'js/bootstrap.min.js');
+            $theme->asset()->usePath()->add('bootstrap.min.css', 'css/bootstrap.min.css');
 
 
-            $theme->asset()->usePath()->add('mcoat.css', 'css/mcoat.css');
 
+            $theme->asset()->usePath()->add('font-awesome.min.css', 'css/font-awesome.min.css');
 
 
             // You may use this event to set up your assets.
@@ -84,14 +87,20 @@ return array(
             'default' => function($theme)
             {
                 // $theme->asset()->usePath()->add('ipad', 'css/layouts/ipad.css');
+                $theme->asset()->usePath()->add('style.css', 'home/style.css');
+                $theme->asset()->usePath()->add('custom.js', 'home/custom.js');
+                $theme->asset()->usePath()->add('easing.min.js', 'home/easing.min.js');
+                $theme->asset()->usePath()->add('morphext.min.js', 'home/morphext.min.js');
+                $theme->asset()->usePath()->add('animate.min.css', 'home/animate.min.css');
+                $theme->asset()->usePath()->add('hoverIntent.js', 'home/hoverIntent.js');
+                $theme->asset()->usePath()->add('sticky.js', 'home/sticky.js');
+                $theme->asset()->usePath()->add('superfish.min.js', 'home/superfish.min.js');
+                $theme->asset()->usePath()->add('wow.min.js', 'home/wow.min.js');
+
             },
             'defaultadmin' => function($theme){
 
-                $theme->asset()->usePath()->add('jquery.min.js', 'js/jquery.min.js');
-                $theme->asset()->usePath()->add('bootstrap.min.js', 'js/bootstrap.min.js');
-                $theme->asset()->usePath()->add('bootstrap.min.css', 'css/bootstrap.min.css');
-
-                $theme->asset()->usePath()->add('font-awesome.min.css', 'css/font-awesome.min.css');
+                $theme->asset()->usePath()->add('mcoat.css', 'css/mcoat.css');
 
                 $theme->asset()->usePath()->add('metisMenu.min.css', 'css/metisMenu.min.css');
                 $theme->asset()->usePath()->add('metisMenu.min.js', 'js/metisMenu.min.js');

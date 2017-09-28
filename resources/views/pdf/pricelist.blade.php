@@ -34,13 +34,15 @@
     table tbody tr td{
         padding: 5px 0px;
     }
+    table th, table td {
+        border: 1px solid #000;
+    }
 
 
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
     table tr td{ border-right: 1px solid black !important; font-size: 13px }
     table tbody tr td:nth-child(2),table tbody tr td:nth-child(3){ text-align: left;padding-left: 10px }
-
 
     .header{
         text-align: center;
@@ -95,7 +97,7 @@
 
 
 <div class="table-location">
-    <table class="table" id="sample" width="100%">
+    <table class="table" id="sample" width="100%" >
         <thead>
         <tr>
             <th>Unit</th>
