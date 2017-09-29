@@ -40,6 +40,7 @@
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#team">Proponents</a></li>
                 <li><a href="#contact">Contact Us</a></li>
+                <li><a href="{{url('login')}}">Sign in</a></li>
             </ul>
         </nav><!-- #nav-menu-container -->
     </div>
@@ -54,14 +55,13 @@
             <div class="col-md-12">
                 <h3 class="section-title">About Us</h3>
                 <div class="section-title-divider"></div>
-                <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
-            </div>
+           </div>
         </div>
     </div>
     <div class="container about-container wow fadeInUp">
         <div class="row">
-            <div class="col-md-6 col-md-push-6 about-content">
-                <h2 class="about-title">We provide great services and ideass</h2>
+            <div class="col-md-6 about-content">
+                <h2 class="about-title">We mix color you want</h2>
                 <p class="about-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
                 </p>
@@ -71,6 +71,9 @@
                 <p class="about-text">
                     Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
                 </p>
+            </div>
+            <div class="col-md-4 col-md-offset-1 about-content">
+                <img class="img-responsive " src="../images/mcoat-bg.jpg">
             </div>
         </div>
     </div>
@@ -85,41 +88,31 @@
             <div class="col-md-12">
                 <h3 class="section-title">Our Services</h3>
                 <div class="section-title-divider"></div>
-                <p class="section-description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
-            </div>
+           </div>
         </div>
 
         <div class="row">
-            <div class="col-md-4 service-item">
-                <div class="service-icon"><i class="fa fa-desktop"></i></div>
-                <h4 class="service-title"><a href="">Lorem Ipsum</a></h4>
-                <p class="service-description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+            <div class="col-md-4 col-md-offset-1 service-item">
+                <div class="service-icon"><i class="fa fa-money"></i></div>
+                <h4 class="service-title"><a href="">Budget Friendly</a></h4>
+                <p class="service-description">We retail and whole sale a budget friendly paint and hardware products.</p>
             </div>
-            <div class="col-md-4 service-item">
-                <div class="service-icon"><i class="fa fa-bar-chart"></i></div>
-                <h4 class="service-title"><a href="">Dolor Sitema</a></h4>
-                <p class="service-description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+            <div class="col-md-4 col-md-offset-2 service-item">
+                <div class="service-icon"><i class="fa fa-home"></i></div>
+                <h4 class="service-title"><a href="">House Paints</a></h4>
+                <p class="service-description">We provide quality paints for your house needs.</p>
             </div>
-            <div class="col-md-4 service-item">
-                <div class="service-icon"><i class="fa fa-paper-plane"></i></div>
-                <h4 class="service-title"><a href="">Sed ut perspiciatis</a></h4>
-                <p class="service-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+            <div class="col-md-4 col-md-offset-1 service-item">
+                <div class="service-icon"><i class="fa fa-car"></i></div>
+                <h4 class="service-title"><a href="">Car Paints</a></h4>
+                <p class="service-description">We provide quality paints for your cars maintenance and needs.</p>
             </div>
-            <div class="col-md-4 service-item">
-                <div class="service-icon"><i class="fa fa-photo"></i></div>
-                <h4 class="service-title"><a href="">Magni Dolores</a></h4>
-                <p class="service-description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            <div class="col-md-4  col-md-offset-2 service-item">
+                <div class="service-icon"><i class="fa fa-truck"></i></div>
+                <h4 class="service-title"><a href="">Truck Delivery</a></h4>
+                <p class="service-description">We deliver your products at your home/store for bulk orders around metro manila.</p>
             </div>
-            <div class="col-md-4 service-item">
-                <div class="service-icon"><i class="fa fa-road"></i></div>
-                <h4 class="service-title"><a href="">Nemo Enim</a></h4>
-                <p class="service-description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-            </div>
-            <div class="col-md-4 service-item">
-                <div class="service-icon"><i class="fa fa-shopping-bag"></i></div>
-                <h4 class="service-title"><a href="">Eiusmod Tempor</a></h4>
-                <p class="service-description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-            </div>
+
         </div>
     </div>
 </section>
@@ -150,8 +143,7 @@
             <div class="col-md-12">
                 <h3 class="section-title">Portfolio</h3>
                 <div class="section-title-divider"></div>
-                <p class="section-description">Si stante, hoc natura videlicet vult, salvam esse se, quod concedimus ses haec dicturum fuisse</p>
-            </div>
+           </div>
         </div>
 
         <div class="row">
@@ -240,8 +232,7 @@
             <div class="col-md-12">
                 <h3 class="section-title">Testimonials</h3>
                 <div class="section-title-divider"></div>
-                <p class="section-description">Erdo lide, nora porodo filece, salvam esse se, quod concedimus ses haec dicturum fuisse</p>
-            </div>
+          </div>
         </div>
 
         <div class="row">
@@ -284,68 +275,58 @@
     <div class="container wow fadeInUp">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="section-title">Our Team</h3>
+                <h3 class="section-title">Proponents</h3>
                 <div class="section-title-divider"></div>
-                <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="member">
                     <div class="pic"><img src="img/team-1.jpg" alt=""></div>
-                    <h4>Walter White</h4>
+                    <h4>Clint D. De Jesus</h4>
                     <span>Chief Executive Officer</span>
-                    <div class="social">
-                        <a href=""><i class="fa fa-twitter"></i></a>
-                        <a href=""><i class="fa fa-facebook"></i></a>
-                        <a href=""><i class="fa fa-google-plus"></i></a>
-                        <a href=""><i class="fa fa-linkedin"></i></a>
-                    </div>
+                    <p>MCOAT Paint Commercial & Gen. Mdse.</p>
+                    {{--<div class="social">--}}
+                        {{--<a href=""><i class="fa fa-twitter"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-facebook"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-google-plus"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-linkedin"></i></a>--}}
+                    {{--</div>--}}
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="member">
                     <div class="pic"><img src="img/team-2.jpg" alt=""></div>
-                    <h4>Sarah Jhinson</h4>
-                    <span>Product Manager</span>
-                    <div class="social">
-                        <a href=""><i class="fa fa-twitter"></i></a>
-                        <a href=""><i class="fa fa-facebook"></i></a>
-                        <a href=""><i class="fa fa-google-plus"></i></a>
-                        <a href=""><i class="fa fa-linkedin"></i></a>
-                    </div>
+                    <h4>Ludilyn De Jesus</h4>
+                    <span>Chief Executive Officer</span>
+                    <p>ALLIED Paint Commercial & Gen. Mdse.</p>
+                    {{--<div class="social">--}}
+                        {{--<a href=""><i class="fa fa-twitter"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-facebook"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-google-plus"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-linkedin"></i></a>--}}
+                    {{--</div>--}}
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="member">
                     <div class="pic"><img src="img/team-3.jpg" alt=""></div>
-                    <h4>William Anderson</h4>
-                    <span>CTO</span>
-                    <div class="social">
-                        <a href=""><i class="fa fa-twitter"></i></a>
-                        <a href=""><i class="fa fa-facebook"></i></a>
-                        <a href=""><i class="fa fa-google-plus"></i></a>
-                        <a href=""><i class="fa fa-linkedin"></i></a>
-                    </div>
+                    <h4>Celyca De Jesus</h4>
+                    <span>Chief Executive Officer</span>
+                    <p>ALLIED Paint Commercial & Gen. Mdse.</p>
+                    {{--<div class="social">--}}
+                        {{--<a href=""><i class="fa fa-twitter"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-facebook"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-google-plus"></i></a>--}}
+                        {{--<a href=""><i class="fa fa-linkedin"></i></a>--}}
+                    {{--</div>--}}
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="member">
-                    <div class="pic"><img src="img/team-4.jpg" alt=""></div>
-                    <h4>Amanda Jepson</h4>
-                    <span>Accountant</span>
-                    <div class="social">
-                        <a href=""><i class="fa fa-twitter"></i></a>
-                        <a href=""><i class="fa fa-facebook"></i></a>
-                        <a href=""><i class="fa fa-google-plus"></i></a>
-                        <a href=""><i class="fa fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
@@ -360,27 +341,27 @@
             <div class="col-md-12">
                 <h3 class="section-title">Contact Us</h3>
                 <div class="section-title-divider"></div>
-                <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
-            </div>
+           </div>
         </div>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="info">
                     <div>
                         <i class="fa fa-map-marker"></i>
-                        <p>A108 Adam Street<br>New York, NY 535022</p>
+                        <p>185 R. Jabson St. Bambang, Pasig City</p>
                     </div>
 
                     <div>
                         <i class="fa fa-envelope"></i>
-                        <p>info@example.com</p>
+                        <p>cdjpaintcenter@gmail.com</p>
                     </div>
 
                     <div>
                         <i class="fa fa-phone"></i>
-                        <p>+1 5589 55488 55s</p>
-                    </div>
+                        <p>509-3387</p>
+
+                  </div>
 
                 </div>
             </div>
@@ -411,7 +392,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div id="map"></div>
             </div>
 

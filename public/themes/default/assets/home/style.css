@@ -156,8 +156,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .btn-get-started {
-  background: #f89406;
-  border: 2px solid #f89406;
+  background: none;
+  border: 2px solid #fff;
   color: #fff;
 }
 
@@ -173,9 +173,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .btn-services:hover {
-  background: #03C4EB;
-  border: 2px solid #03C4EB;
+   background: #03C4EB;
+   border: 2px solid #03C4EB;
+ }
+#hero .btn-get-started:hover {
+  background: #f89406;
+  border: 2px solid #f89406;
 }
+
 
 /*--------------------------------------------------------------
 # Header
@@ -505,6 +510,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 0;
 }
 
+
 /* Services Section
 --------------------------------*/
 #services {
@@ -536,7 +542,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #services .service-item:hover .service-icon i {
-  color: #03C4EB;
+  color: #f89406;
 }
 
 #services .service-title {
@@ -738,10 +744,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 15px;
   overflow: hidden;
   height: 260px;
+  border: 1px solid black;
+
 }
 
 #team .member .pic img {
   max-width: 100%;
+
 }
 
 #team .member h4 {

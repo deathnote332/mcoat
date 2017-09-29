@@ -47,16 +47,15 @@
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="stocks-report">
-                        <select class="form-control">
+                        <select class="form-control" id="stock-brand1">
                             <option selected disabled>Choose Brand</option>
                             @foreach( \App\Product::select('brand')->distinct()->orderBy('brand','asc')->get() as $key=>$val)
                                 <option value="{{ $val->brand }}">{{ $val->brand }}</option>
                             @endforeach
                         </select>
-                        <select class="form-control">
+                        <select class="form-control" id="category1">
                             <option selected disabled>Choose Category</option>
-                            <option> OUT OF STOCKS</option>
-                            <option> 1-3 STOCKS</option>
+
                         </select>
                         <select class="form-control" id="stocks-report">
                             <option selected disabled>Choose stocks range</option>
@@ -88,6 +87,20 @@
                 success: function(data){
                     $('#category').prop('disabled',false)
                     $('#category').html(data)
+                }
+            });
+        })
+
+        $('#stock-brand1').on('change',function () {
+            $.ajax({
+                url:BASEURL+'/brandCategory',
+                type:'POST',
+                data: {
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    brand: $('#stock-brand1 option:selected').val()
+                },
+                success: function(data){
+                    $('#category1').html(data)
                 }
             });
         })

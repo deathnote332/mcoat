@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('dashboard') }}">MCOAT PAINT COMMERCIAL AND GENERAL MERCHANDISE</a>
+            <a class="navbar-brand" href="{{ url('/') }}">MCOAT PAINT COMMERCIAL AND GENERAL MERCHANDISE</a>
         </div>
         <!-- /.navbar-header -->
 

@@ -219,6 +219,10 @@
         top:-25px;
         font-style: italic;
     }
+    table tbody tr:nth-of-type(5n) td {
+        border-bottom: 1px dashed red;
+
+    }
 </style>
 
     @for($i = 1;$i <= 3;$i++)

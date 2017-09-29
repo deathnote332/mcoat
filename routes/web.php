@@ -21,7 +21,7 @@ Route::get('/dashboard', 'DashboardController@index');
 
 
 Auth::routes();
-
+Route::post('login', 'Auth\LoginController@authenticate')->name('login');
 
 Route::get('/getProducts', 'ProductController@getProducts');
 
@@ -106,6 +106,7 @@ Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
 //users
 Route::get('/users', 'UserController@userPage');
 Route::get('/getusers', 'UserController@getUsers');
+Route::post('/approveDisapproveUser', 'UserController@approveDisapproveUser');
 
 //suppliers
 Route::get('/suppliers', 'SupplierBranchController@supplierPage');

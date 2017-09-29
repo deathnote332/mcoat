@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -45,4 +47,25 @@ class LoginController extends Controller
         $this->performLogout($request);
         return redirect()->route('login');
     }
+    public function authenticate(Request $request)
+    {
+        $credentials = array(
+            'email' => $request->email,
+            'password' => $request->password,
+            'status'=>1
+
+        );
+
+
+        if (Auth::attempt($credentials))
+        {
+            return redirect()->intended('dashboard');
+        }
+        else {
+            return Redirect::to('login')
+                ->withMessage(['Invalid username or password','Account need to be approve first by the admin']);
+        }
+    }
+
+
 }

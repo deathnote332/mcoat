@@ -29,6 +29,12 @@
         margin-left: 20px;
         cursor: pointer;
     }
+    #approve{
+        cursor: pointer;
+    }
+    #pending-status{
+        color:
+    }
 </style>
 <div class="card-container">
     <div class="row">
@@ -44,6 +50,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Status</th>
                 <th>Created at</th>
                 <th>Action</th>
 
@@ -67,12 +74,56 @@ $(document).ready(function () {
 
             { data: 'name',"orderable": false },
             { data: 'email',"orderable": false},
+            { data: 'status',"orderable": false},
             { data: 'created_at',"orderable": false },
             { data: 'action',"orderable": false },
 
 
         ]
     });
+
+    $('body').on('click','#approve',function () {
+        approveDisapprove($(this).data('id'),$(this).data('approve'))
+    })
 });
 
+    function approveDisapprove(id,status) {
+        var message = (status == 1) ? 'approve' :'disapprove'
+        swal({
+            title: "Are you sure?",
+            text: "You want to "+ message +" this supplier.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+            $.ajax({
+                url:BASEURL+'/approveDisapproveUser',
+                type:'POST',
+                data: {
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    status: status,
+                    id: id
+                },
+                success: function(data){
+                    var supplier = $('#user-list').DataTable();
+                    supplier.ajax.reload(null, false );
+
+                    swal({
+                        title: "",
+                        text: "User successfully "+ message,
+                        type:"success"
+                    })
+                }
+            });
+        });
+
+    }
+    //New error event handling has been added in Datatables v1.10.5
+    $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
+        console.log(message);
+        var supplier = $('#user-list').DataTable();
+        supplier.ajax.reload();
+    };
 </script>

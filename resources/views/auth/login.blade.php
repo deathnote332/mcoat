@@ -6,6 +6,15 @@
                 <img src="../images/mcoat-logo.png" width="100%" height="100%">
             </div>
             <div class="container-logins">
+                @if (Session::has('message'))
+
+                    <div class="alert alert-danger">
+                        <ul>
+                            <li>{{ Session::get('message')[0] }}</li>
+                            <li>{{ Session::get('message')[1] }}</li>
+                        </ul>
+                    </div>
+                @endif
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}
 
