@@ -128,13 +128,13 @@
                     type:"error"
                 })
             }else{
-                generatePriceList($('#stock-brand').val(),$('#category').val())
+                generatePriceList($('#stock-brand').val(),$('#category option:selected').val())
             }
 
         })
     });
 
-    
+
 
     function generatePriceList(brand,category) {
         swal({
@@ -146,11 +146,13 @@
             confirmButtonText: 'Okay',
             closeOnConfirm: false
         }).then(function () {
+
             var path = '';
             if(category == 'Choose Category') {
-                path= BASEURL+'/pricelist/'+ brand +'/' + category;
-            }else{
+
                 path= BASEURL+'/pricelist/'+ brand;
+            }else{
+                path= BASEURL+'/pricelist/'+ brand +'/' + category;
             }
 
             window.open(path);
