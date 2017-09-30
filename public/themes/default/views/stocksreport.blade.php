@@ -55,11 +55,26 @@
                         </select>
                         <select class="form-control" id="category1">
                             <option selected disabled>Choose Category</option>
-
+                            @foreach( \App\Product::select('category')->distinct()->orderBy('category','asc')->get() as $key=>$val)
+                                <option value="{{ $val->category }}">{{ $val->category }}</option>
+                            @endforeach
+                        </select>
+                        <select class="form-control" id="description1">
+                            <option selected disabled>Choose Description</option>
+                            @foreach( \App\Product::select('description')->distinct()->orderBy('description','asc')->get() as $key=>$val)
+                                <option value="{{ $val->description }}">{{ $val->description }}</option>
+                            @endforeach
+                        </select>
+                        <select class="form-control" id="unit1">
+                            <option selected disabled>Choose Unit</option>
+                            @foreach( \App\Product::select('unit')->distinct()->orderBy('unit','asc')->get() as $key=>$val)
+                                <option value="{{ $val->unit }}">{{ $val->unit }}</option>
+                            @endforeach
                         </select>
                         <select class="form-control" id="stocks-report">
                             <option selected disabled>Choose stocks range</option>
                             <option value="0"> OUT OF STOCKS</option>
+                            <option value="0"> STOCKS FROM 1-3</option>
                             <option value="1"> ALL </option>
                         </select>
                         <button class="btn btn-primary form-control generate-stocks1">Generate</button>
@@ -106,9 +121,20 @@
         })
         
         $('.generate-stocks').on('click',function () {
-            generatePriceList($('#stock-brand').val(),$('#category').val())
+            if($('#stock-brand option:selected').val() == 'Choose Brand'){
+                swal({
+                    title: "",
+                    text: "Please choose from the field",
+                    type:"error"
+                })
+            }else{
+                generatePriceList($('#stock-brand').val(),$('#category').val())
+            }
+
         })
     });
+
+    
 
     function generatePriceList(brand,category) {
         swal({
@@ -120,10 +146,14 @@
             confirmButtonText: 'Okay',
             closeOnConfirm: false
         }).then(function () {
+            var path = '';
+            if(category == 'Choose Category') {
+                path= BASEURL+'/pricelist/'+ brand +'/' + category;
+            }else{
+                path= BASEURL+'/pricelist/'+ brand;
+            }
 
-            var path = BASEURL+'/pricelist/'+ brand +'/' + category;
             window.open(path);
-
             swal({
                 title: "",
                 text: "Pricelist successfully generated",

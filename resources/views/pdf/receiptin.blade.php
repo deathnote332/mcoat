@@ -212,9 +212,6 @@
     }
 </style>
 
-
-
-
     <div class="deliver-receipt">
         DELIVERY RECEIPT  NO. <span>{!! $invoice['receipt_no'] !!}</span>
     </div>

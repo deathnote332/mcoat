@@ -158,12 +158,23 @@ class ReceiptController extends Controller
     }
 
     public function priceList(Request $request){
-      $products = Product::where('brand',$request->brand)->where('category',$request->category)->orderBy('brand')
-            ->orderBy('category')
-            ->orderBy('description')
-            ->orderBy('unit')
-            ->get();
-        $title = $request->brand.' - '.$request->category;
+        if(empty($request->category)){
+            $products = Product::where('brand',$request->brand)->orderBy('brand')
+                ->orderBy('category')
+                ->orderBy('description')
+                ->orderBy('unit')
+                ->get();
+            $title = $request->brand;
+        }else{
+            $products = Product::where('brand',$request->brand)->where('category',$request->category)->orderBy('brand')
+                ->orderBy('category')
+                ->orderBy('description')
+                ->orderBy('unit')
+                ->get();
+            $title = $request->brand.' - '.$request->category;
+        }
+
+
 
         $data = ['data'=>$products,'title'=>$title];
 

@@ -42,8 +42,8 @@
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
     table tr td{ border-right: 1px solid black !important; font-size: 13px }
-    table tbody tr td:nth-child(2),table tbody tr td:nth-child(3){ text-align: left;padding-left: 10px }
-
+    table tbody tr td:nth-child(2),table tbody tr td:nth-child(3),table tbody tr td:nth-child(5){ text-align: left;padding-left: 10px }
+    table tbody tr td:nth-child(3) span{margin-left: 2em}
     .header{
         text-align: center;
         position: fixed;
@@ -75,10 +75,7 @@
     }
 
 </style>
-
-
-
-
+<title>MCOAT Pricelist - {{$title}}</title>
 <div class="header">
     <h1>mcoat paint commercial & general merchandise</h1>
     <div class="sub-header">
@@ -100,20 +97,20 @@
     <table class="table" id="sample" width="100%" >
         <thead>
         <tr>
-            <th>Unit</th>
-            <th>Code</th>
+           <th>Code</th>
             <th>Category</th>
             <th>Description</th>
+            <th>Unit</th>
             <th>unit price</th>
         </tr>
         </thead>
         <tbody>
         @foreach($data as $key=>$val)
             <tr>
-                <td>{!! $val->unit !!} </td>
-                <td>{!! $val->code !!} </td>
+               <td>{!! $val->code !!} </td>
                 <td>{!! $val->category !!} </td>
-                <td>{!! $val->brand.' '.$val->description  !!}</td>
+                <td>{!! '<span>'.$val->brand.'<span> '.$val->description  !!}</td>
+                <td>{!! $val->unit !!} </td>
                 <td>{!! 'P '.number_format($val->unit_price , 2) !!}</td>
            </tr>
         @endforeach

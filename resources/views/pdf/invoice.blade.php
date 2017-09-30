@@ -130,6 +130,7 @@
         top: -30px;
         background-color: white;
         font-size: 13px;
+        font-weight: bold;
     }
     .delivered_to{
         position: absolute;
@@ -224,7 +225,7 @@
 
     }
 </style>
-
+<title>MCOAT - {!! $invoice['receipt_no'] !!}</title>
     @for($i = 1;$i <= 3;$i++)
 
         <div class="header">
@@ -248,7 +249,7 @@
             NO. <span>{!! $invoice['receipt_no'] !!}</span>
         </div>
         <div class="date">
-           Date printed: {!! $invoice['created_at'] !!}
+           Date Printed: {!! $invoice['created_at'] !!}
         </div>
         <div class="delivered_to">
             Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>

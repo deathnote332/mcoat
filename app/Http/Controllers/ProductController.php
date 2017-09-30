@@ -225,9 +225,9 @@ class ProductController extends Controller
         $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
         $data =['total'=>$invoice->total,'branch'=>$invoice->branch,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products];
         if($invoice->type == 1){
-            $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
+            $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('letter')->setWarnings(false);
         }else{
-            $pdf = PDF::loadView('pdf.alliedinvoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
+            $pdf = PDF::loadView('pdf.alliedinvoice',['invoice'=>$data])->setPaper('letter')->setWarnings(false);
         }
 
         return @$pdf->stream();
@@ -313,7 +313,7 @@ class ProductController extends Controller
         $invoice = Productin::where('id',$request->id)->first();
         $data =['receipt_no'=>$invoice->receipt_no,'supplier_id'=>$invoice->supplier_id,'warehouse'=>$invoice->warehouse,'entered_by'=>$invoice->entered_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$producin_items];
 
-        $pdf = PDF::loadView('pdf.receiptin',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
+        $pdf = PDF::loadView('pdf.receiptin',['invoice'=>$data])->setPaper('letter')->setWarnings(false);
         return @$pdf->stream();
 
     }
