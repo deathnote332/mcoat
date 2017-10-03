@@ -214,11 +214,20 @@
         text-transform: capitalize;
         font-weight: bold;
     }
+
+    .checked-by span{
+        background: white;
+    }
     .invoice-follow{
         position: relative;
         top:-25px;
         font-style: italic;
     }
+    table tbody tr:nth-of-type(5n) td {
+        border-bottom: 1px dashed red;
+
+    }
+
 </style>
 <title>MCOAT - {!! $invoice['receipt_no'] !!}</title>
 @for($i = 1;$i <= 3;$i++)
@@ -293,8 +302,8 @@
             Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
         </div>
 
-        <div class="">
-            Checked by: <span>______________________________________</span>
+        <div class="checked-by">
+            Checked by: ______________________________________
         </div>
         <div class="received-by">
             Received by: <span>______________________________________</span>

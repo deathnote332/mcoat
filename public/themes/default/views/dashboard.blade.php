@@ -4,6 +4,7 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+@if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-4 col-md-6">
@@ -109,6 +110,7 @@
     <!-- /.col-lg-6 -->
 
 </div>
+@endif
 <script>
     var BASEURL = $('#baseURL').val();
     $(document).ready(function () {

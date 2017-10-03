@@ -10,32 +10,35 @@
 
 </style>
 <div class="card-container">
-    <div class="row"><div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    GENERATE PRICE LIST
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="stocks-report1">
-                        <select class="form-control" id="stock-brand">
-                            <option selected disabled>Choose Brand</option>
-                            @foreach( \App\Product::select('brand')->distinct()->orderBy('brand','asc')->get() as $key=>$val)
-                                <option value="{{ $val->brand }}">{{ $val->brand }}</option>
-                            @endforeach
-                        </select>
-                        <select class="form-control" id="category" disabled>
-                            <option selected disabled>Choose Category</option>
-
-                        </select>
-
-                        <button class="btn btn-primary form-control generate-stocks">Generate</button>
+    <div class="row">
+        @if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        GENERATE PRICE LIST
                     </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="stocks-report1">
+                            <select class="form-control" id="stock-brand">
+                                <option selected disabled>Choose Brand</option>
+                                @foreach( \App\Product::select('brand')->distinct()->orderBy('brand','asc')->get() as $key=>$val)
+                                    <option value="{{ $val->brand }}">{{ $val->brand }}</option>
+                                @endforeach
+                            </select>
+                            <select class="form-control" id="category" disabled>
+                                <option selected disabled>Choose Category</option>
+
+                            </select>
+
+                            <button class="btn btn-primary form-control generate-stocks">Generate</button>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
                 </div>
-                <!-- /.panel-body -->
+                <!-- /.panel -->
             </div>
-            <!-- /.panel -->
-        </div>
+        @endif
         <!-- /.panel -->
         <!-- /.col-lg-6 -->
         <div class="col-lg-6">

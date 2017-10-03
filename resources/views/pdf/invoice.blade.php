@@ -299,8 +299,8 @@
                 Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
             </div>
 
-            <div class="">
-                Checked by: <span>______________________________________</span>
+            <div class="checked-by">
+                Checked by: ______________________________________
             </div>
             <div class="received-by">
                     Received by: <span>______________________________________</span>
