@@ -34,7 +34,7 @@ class ReceiptController extends Controller
         $receiptData =array();
         foreach ($receipts as $key=>$val){
 
-            $view = "<a href='invoice/$val->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
+            $view = "<a href='invoice/1/$val->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
             $edit = "<a href='editReceipt/$val->receipt_no'><label id='edit-receipt' class='alert alert-warning' data-id='.$val->id.'>Edit</label></a>";
 
             $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_to'=>Branches::find($val->branch)->name,'total'=>'₱ '.number_format($val->total, 2),'created_by'=>User::find($val->printed_by)->name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$view.$edit];

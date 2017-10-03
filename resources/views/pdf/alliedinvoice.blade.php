@@ -130,7 +130,17 @@
         top: -30px;
         background-color: white;
         font-size: 13px;
+        font-weight: bold;
     }
+
+    .date1{
+        position: relative;
+        text-align: right;
+        top: 0px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
     .delivered_to{
         position: absolute;
 
@@ -165,7 +175,7 @@
         border-top: 1px solid black !important;
 
     }
-    #total td:nth-child(4){
+    #total td:nth-child(4),#total td:nth-child(5){
         font-weight:700;
     }
     #total td:nth-child(1),#total td:nth-child(2),#total td:nth-child(3){
@@ -254,6 +264,12 @@
     <div class="date">
         Date printed: {!! $invoice['created_at'] !!}
     </div>
+    @if($invoice['view'] == 1)
+        <div class="date1">
+            Date Reprinted: {!! date('M d,Y') !!}
+        </div>
+    @endif
+
     <div class="delivered_to">
         Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>
     </div>
