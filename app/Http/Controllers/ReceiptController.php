@@ -16,6 +16,11 @@ use Theme;
 class ReceiptController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function receipt()
     {
         $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
