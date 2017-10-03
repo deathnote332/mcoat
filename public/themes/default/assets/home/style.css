@@ -7,6 +7,7 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
 body {
   background: #fff;
   color: #666666;
@@ -870,4 +871,9 @@ body.mobile-nav-active #mobile-nav-toggle {
   text-align: center;
   font-size: 13px;
   color: #ccc;
+}
+#map{
+  height: 350px;
+  width: 100%;
+  margin-bottom: 40px;
 }

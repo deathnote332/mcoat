@@ -148,7 +148,7 @@
 
         <div class="row">
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-1.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 1</h4>
                         <span>Alored dono par</span>
@@ -157,7 +157,7 @@
             </div>
 
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-2.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 2</h4>
                         <span>Alored dono par</span>
@@ -166,7 +166,7 @@
             </div>
 
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-3.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 3</h4>
                         <span>Alored dono par</span>
@@ -175,7 +175,7 @@
             </div>
 
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-4.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 4</h4>
                         <span>Alored dono par</span>
@@ -184,7 +184,7 @@
             </div>
 
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-5.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 5</h4>
                         <span>Alored dono par</span>
@@ -193,7 +193,7 @@
             </div>
 
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-6.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 6</h4>
                         <span>Alored dono par</span>
@@ -202,7 +202,7 @@
             </div>
 
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-7.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 7</h4>
                         <span>Alored dono par</span>
@@ -211,7 +211,7 @@
             </div>
 
             <div class="col-md-3">
-                <a class="portfolio-item" style="background-image: url(img/portfolio-8.jpg);" href="">
+                <a class="portfolio-item" style="background-image: url(../images/mcoat-bg.jpg);" href="">
                     <div class="details">
                         <h4>Portfolio 8</h4>
                         <span>Alored dono par</span>
@@ -345,58 +345,58 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4">
-                <div class="info">
-                    <div>
-                        <i class="fa fa-map-marker"></i>
-                        <p>185 R. Jabson St. Bambang, Pasig City</p>
-                    </div>
-
-                    <div>
-                        <i class="fa fa-envelope"></i>
-                        <p>cdjpaintcenter@gmail.com</p>
-                    </div>
-
-                    <div>
-                        <i class="fa fa-phone"></i>
-                        <p>509-3387</p>
-
-                  </div>
-
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form">
-                    <div id="sendmessage">Your message has been sent. Thank you!</div>
-                    <div id="errormessage"></div>
-                    <form action="" method="post" role="form" class="contactForm">
-                        <div class="form-group">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                            <div class="validation"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                            <div class="validation"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                            <div class="validation"></div>
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                            <div class="validation"></div>
-                        </div>
-                        <div class="text-center"><button type="submit">Send Message</button></div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div id="map"></div>
             </div>
-
         </div>
+       <div class="row">
+
+           <div class="col-md-4">
+               <div class="info">
+                   <div>
+                       <i class="fa fa-map-marker"></i>
+                       <p>185 R. Jabson St. Bambang, Pasig City</p>
+                   </div>
+
+                   <div>
+                       <i class="fa fa-envelope"></i>
+                       <p>cdjpaintcenter@gmail.com</p>
+                   </div>
+
+                   <div>
+                       <i class="fa fa-phone"></i>
+                       <p>509-3387</p>
+
+                   </div>
+
+               </div>
+           </div>
+           <div class="col-md-8">
+               <div class="form">
+                   <div id="sendmessage">Your message has been sent. Thank you!</div>
+                   <div id="errormessage"></div>
+                   <form action="" method="post" role="form" class="contactForm">
+                       <div class="form-group">
+                           <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                           <div class="validation"></div>
+                       </div>
+                       <div class="form-group">
+                           <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                           <div class="validation"></div>
+                       </div>
+                       <div class="form-group">
+                           <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                           <div class="validation"></div>
+                       </div>
+                       <div class="form-group">
+                           <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                           <div class="validation"></div>
+                       </div>
+                       <div class="text-center"><button type="submit">Send Message</button></div>
+                   </form>
+               </div>
+           </div>
+       </div>
     </div>
 </section>
 
@@ -425,13 +425,11 @@
 </footer><!-- #footer -->
 
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
 <script>
-
     function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+        var uluru = {lat: 14.5568771, lng: 121.0757283};
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
+            zoom: 16,
             center: uluru
         });
         var marker = new google.maps.Marker({
@@ -439,4 +437,7 @@
             map: map
         });
     }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeZK89ItLNZTIQLtYfsa59cTyto50RTfc&callback=initMap">
 </script>
