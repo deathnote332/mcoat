@@ -246,7 +246,7 @@
     </div>
 
     <div class="branch-name">
-        CDJ Mangaldan
+        {!! \App\Branches::find($invoice['branch'])->name !!}
     </div>
     <div class="inv-number">
         NO. <span>{!! $invoice['receipt_no'] !!}</span>

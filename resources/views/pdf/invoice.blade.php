@@ -243,7 +243,7 @@
         </div>
 
         <div class="branch-name">
-            MCOAT PASIG
+            {!! \App\Branches::find($invoice['branch'])->name !!}
         </div>
         <div class="inv-number">
             NO. <span>{!! $invoice['receipt_no'] !!}</span>
