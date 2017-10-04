@@ -1,5 +1,17 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        @media (min-width: 768px){
+
+            .form-horizontal .control-label {
+                text-align: left;
+
+            }
+        }
+        .warehouse{
+            color:#a94442;
+        }
+    </style>
     <div class="wrapper-login">
         <div class="panel-body">
 
@@ -11,7 +23,7 @@
                         <label for="name" class="col-md-4 control-label">Name</label>
 
                         <div class="col-md-8">
-                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" >
 
                             @if ($errors->has('name'))
                                 <span class="help-block">
@@ -48,6 +60,24 @@
                             @endif
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="warehouse_select" class="col-md-4 control-label">Warehouse</label>
+
+                        <div class="col-md-8">
+                            <select id="warehouse_select"  class="form-control" name="warehouse_select" required>
+                                <option selected disabled>Select warehouse</option>
+                                <option value="1">MCOAT</option>
+                                <option value="2">DAGUPAN</option>
+                            </select>
+
+                            @if ($errors->has('warehouse_select'))
+                                <span class="help-block">
+                                        <strong class="warehouse">{{ $errors->first('warehouse_select') }}</strong>
+                                    </span>
+                            @endif
+
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
@@ -58,7 +88,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-md-3 col-md-offset-4 ">
+                        <div class="col-md-5">
                             <button type="submit" class="form-control btn btn-primary" style="margin-top: 5px">
                                 Register
                             </button>
