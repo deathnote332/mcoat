@@ -72,7 +72,7 @@ class ReceiptController extends Controller
             }
             $receipts = Productout::where('type',$type)->orderBy('id','desc')->get();
         }
-        
+
         $receiptData =array();
         foreach ($receipts as $key=>$val){
 
