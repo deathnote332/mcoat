@@ -247,7 +247,7 @@
         <div class="sub-header">
             <h3>320 KM Caranglaan Dagupan Pangasinan</h3>
             <h3>Ludilyn De Jesus - Prop.</h3>
-            <h3>Tel: (075)515-6259 Cel: 09999466846</h3>
+            <h3>Tel: (075)515-6259</h3>
             <h3>Vat. Reg. TIN: 146-286-510-001</h3>
         </div>
     </div>

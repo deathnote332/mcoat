@@ -125,3 +125,5 @@ Route::get('/stocksreport', 'ReceiptController@stocksReport');
 Route::get('/pricelist/{brand}/{category}', 'ReceiptController@priceList');
 Route::get('/pricelist/{brand}', 'ReceiptController@priceList');
 Route::post('/brandCategory', 'ReceiptController@brandCategory');
+
+Route::get('/stocklist/{stock}/{brand}/{category}/{description}/{unit}', 'ReceiptController@stockList');
