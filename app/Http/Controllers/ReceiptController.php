@@ -30,7 +30,17 @@ class ReceiptController extends Controller
 
     public function getReciepts(Request $request){
 
-        $receipts = Productout::orderBy('id','desc')->get();
+        if(Auth::user()->user_type ==1){
+            $receipts = Productout::orderBy('id','desc')->get();
+        }else{
+            if(Auth::user()->warehouse == 1){
+                $type = 1;
+            }elseif(Auth::user()->warehouse == 2){
+                $type=3;
+            }
+            $receipts = Productout::where('type',$type)->orderBy('id','desc')->get();
+        }
+
 
         $receiptData =array();
         foreach ($receipts as $key=>$val){
@@ -52,8 +62,17 @@ class ReceiptController extends Controller
 
     public function getRecieptsIn(Request $request){
 
-        $receipts = Productin::orderBy('id','desc')->get();
-
+        if(Auth::user()->user_type ==1){
+            $receipts = Productout::orderBy('id','desc')->get();
+        }else{
+            if(Auth::user()->warehouse == 1){
+                $type = 1;
+            }elseif(Auth::user()->warehouse == 2){
+                $type=3;
+            }
+            $receipts = Productout::where('type',$type)->orderBy('id','desc')->get();
+        }
+        
         $receiptData =array();
         foreach ($receipts as $key=>$val){
 
