@@ -59,7 +59,7 @@ class UserController extends Controller
             }
 
             if(Auth::user()->user_type != $val->id){
-                $userList[]=['email'=>$val->email,'name'=>$val->name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$action,'status'=>$status,'user_status'=>$user_status];
+                $userList[]=['email'=>$val->email,'name'=>$val->first_name.' '.$val->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$action,'status'=>$status,'user_status'=>$user_status];
             }
 
         }
