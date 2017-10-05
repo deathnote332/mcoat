@@ -108,6 +108,7 @@ Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
 Route::get('/users', 'UserController@userPage');
 Route::get('/getusers', 'UserController@getUsers');
 Route::post('/approveDisapproveUser', 'UserController@approveDisapproveUser');
+Route::post('/approveDisapproveUserAdmin', 'UserController@approveDisapproveUserAdmin');
 
 //suppliers
 Route::get('/suppliers', 'SupplierBranchController@supplierPage');

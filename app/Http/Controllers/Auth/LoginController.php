@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        User::where('id',Auth::user()->id)->update(['active'=>0]);
         $this->performLogout($request);
         return redirect()->route('login');
     }
@@ -58,6 +60,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials))
         {
+            User::where('id',Auth::user()->id)->update(['active'=>1]);
             return redirect()->intended('dashboard');
         }
         else {

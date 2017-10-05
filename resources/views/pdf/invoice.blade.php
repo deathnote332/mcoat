@@ -309,7 +309,7 @@
         </div>
         <div class="print-info">
             <div class="prepared-by">
-                Prepared by: <span>{!! \Illuminate\Support\Facades\Auth::user()->name !!}</span>
+                Prepared by: <span>{!! \App\User::find($invoice['user'])->first_name.' '.\App\User::find($invoice['user'])->last_name !!}</span>
             </div>
 
             <div class="checked-by">

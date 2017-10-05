@@ -75,7 +75,7 @@
     }
 
 </style>
-
+<title>MCOAT Pricelist - {{$title}}</title>
 <div class="header">
     <h1>mcoat paint commercial & general merchandise</h1>
     <div class="sub-header">
@@ -88,7 +88,7 @@
 </div>
 
 <div class="title">
-
+    STOCK LIST OF {{ $title }}
 </div>
 
 
@@ -105,12 +105,12 @@
         </tr>
         </thead>
         <tbody>
-
         @foreach($data as $key=>$val)
             <tr>
                 <td>{!! $val->code !!} </td>
                 <td>{!! $val->category !!} </td>
                 <td>{!! '<span>'.$val->brand.'<span> '.$val->description  !!}</td>
+
                 @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
                     <td>{!! $val->quantity !!} </td>
                 @else

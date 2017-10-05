@@ -32,9 +32,19 @@
     #approve{
         cursor: pointer;
     }
-    #pending-status{
-        color:
+    .pending,.approved,.online,.offline{
+        padding: 5px 10px !important;
+        border: none;
+        background: none;
+        cursor: none;
     }
+    .offline{
+        color:red;
+    }
+    .online{
+        color:blue;
+    }
+
 </style>
 <div class="card-container">
     <div class="row">
@@ -50,6 +60,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>User Status</th>
                 <th>Status</th>
                 <th>Created at</th>
                 <th>Action</th>
@@ -75,6 +86,7 @@ $(document).ready(function () {
             { data: 'name',"orderable": false },
             { data: 'email',"orderable": false},
             { data: 'status',"orderable": false},
+            { data: 'user_status',"orderable": false},
             { data: 'created_at',"orderable": false },
             { data: 'action',"orderable": false },
 
@@ -85,13 +97,16 @@ $(document).ready(function () {
     $('body').on('click','#approve',function () {
         approveDisapprove($(this).data('id'),$(this).data('approve'))
     })
+    $('body').on('click','#admin',function () {
+        approveDisapproveAdmin($(this).data('id'),$(this).data('approve'))
+    })
 });
 
     function approveDisapprove(id,status) {
         var message = (status == 1) ? 'approve' :'disapprove'
         swal({
             title: "Are you sure?",
-            text: "You want to "+ message +" this supplier.",
+            text: "You want to "+ message +" this user.",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -113,6 +128,40 @@ $(document).ready(function () {
                     swal({
                         title: "",
                         text: "User successfully "+ message,
+                        type:"success"
+                    })
+                }
+            });
+        });
+
+    }
+
+    function approveDisapproveAdmin(id,status) {
+        var message = (status == 1) ? 'appoint' :'revoke'
+        swal({
+            title: "Are you sure?",
+            text: "You want to "+ message +" this user as administrator.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+            $.ajax({
+                url:BASEURL+'/approveDisapproveUserAdmin',
+                type:'POST',
+                data: {
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    status: status,
+                    id: id
+                },
+                success: function(data){
+                    var supplier = $('#user-list').DataTable();
+                    supplier.ajax.reload(null, false );
+
+                    swal({
+                        title: "",
+                        text: "User successfully "+ message+'ed being administrator' ,
                         type:"success"
                     })
                 }

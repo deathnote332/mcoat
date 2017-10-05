@@ -38,7 +38,7 @@ class ReceiptController extends Controller
             $view = "<a href='invoice/1/$val->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
             $edit = "<a href='editReceipt/$val->receipt_no'><label id='edit-receipt' class='alert alert-warning' data-id='.$val->id.'>Edit</label></a>";
 
-            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_to'=>Branches::find($val->branch)->name,'total'=>'₱ '.number_format($val->total, 2),'created_by'=>User::find($val->printed_by)->name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$view.$edit];
+            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_to'=>Branches::find($val->branch)->name,'total'=>'₱ '.number_format($val->total, 2),'created_by'=>User::find($val->printed_by)->first_name.' '.User::find($val->printed_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$view.$edit];
         }
 
         return json_encode(['data'=>$receiptData]);
@@ -60,7 +60,7 @@ class ReceiptController extends Controller
             $view = "<a href='invoiceReceiptin/$val->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
 
 
-            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_from'=>Supplier::find($val->supplier_id)->name,'created_by'=>User::find($val->entered_by)->name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'warehouse'=>($val->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse','action'=>$view];
+            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_from'=>Supplier::find($val->supplier_id)->name,'created_by'=>User::find($val->printed_by)->first_name.' '.User::find($val->printed_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'warehouse'=>($val->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse','action'=>$view];
         }
 
         return json_encode(['data'=>$receiptData]);
@@ -227,6 +227,7 @@ class ReceiptController extends Controller
                })
                ->where('brand', $queryBrand)
                ->get();
+           $title = $queryBrand;
        //not empty category
        }elseif($queryBrand == 'na' && $queryCategory != 'na' && $queryDescription == 'na' && $queryUnit == 'na'){
 
@@ -239,6 +240,7 @@ class ReceiptController extends Controller
                })
                ->where('category',$queryCategory)
                ->get();
+           $title = $queryCategory;
        //not empty description
        }elseif($queryBrand == 'na' && $queryCategory== 'na' && $queryDescription != 'na' && $queryUnit == 'na'){
            $products = Product::orderBy('brand')
@@ -250,6 +252,7 @@ class ReceiptController extends Controller
                })
                ->where('description',$queryDescription)
                ->get();
+           $title = $queryDescription;
         //not empty unit
        }elseif($queryBrand == 'na' && $queryCategory== 'na' && $queryDescription== 'na' && $queryUnit != 'na'){
            $products = Product::orderBy('brand')
@@ -261,6 +264,7 @@ class ReceiptController extends Controller
                })
                ->where('unit',$queryUnit)
                ->get();
+           $title = $queryUnit;
        //not empty brand and category
        }elseif($queryBrand != 'na' && $queryCategory != 'na' && $queryDescription =='na' && $queryUnit =='na'){
 
@@ -274,6 +278,7 @@ class ReceiptController extends Controller
                ->where('brand',$queryBrand)
                ->where('category',$queryCategory)
                ->get();
+           $title = $queryBrand.'-'.$queryCategory;
        //not empty brand and description
        }elseif($queryBrand != 'na' && $queryCategory=='na' && $queryDescription !='na' && $queryUnit=='na'){
            $products = Product::orderBy('brand')
@@ -286,6 +291,7 @@ class ReceiptController extends Controller
                ->where('brand',$queryBrand)
                ->where('description',$queryDescription)
                ->get();
+           $title = $queryBrand.'-'.$queryDescription;
         //not empty brand and unit
        }elseif($queryBrand != 'na' && $queryCategory=='na' && $queryDescription =='na' && $queryUnit != 'na'){
            $products = Product::orderBy('brand')
@@ -298,6 +304,7 @@ class ReceiptController extends Controller
                ->where('brand',$queryBrand)
                ->where('unit',$queryUnit)
                ->get();
+           $title = $queryBrand.'-'.$queryUnit;
         //not empty category and description
        }elseif($queryBrand == 'na' && $queryCategory != 'na' && $queryDescription != 'na' && $queryUnit =='na'){
            $products = Product::orderBy('brand')
@@ -310,6 +317,7 @@ class ReceiptController extends Controller
                ->where('category',$queryCategory)
                ->where('description',$queryDescription)
                ->get();
+           $title = $queryCategory.'-'.$queryDescription;
         //not empty category and unit
        }elseif($queryBrand =='na' && $queryCategory !='na' && $queryDescription =='na' && $queryUnit !='na'){
            $products = Product::orderBy('brand')
@@ -322,6 +330,7 @@ class ReceiptController extends Controller
                ->where('category',$queryCategory)
                ->where('unit',$queryUnit)
                ->get();
+           $title = $queryCategory.'-'.$queryUnit;
         //not empty description and unit
        }elseif($queryBrand == 'na' && $queryCategory =='na' && $queryDescription != 'na' && $queryUnit != 'na'){
            $products = Product::orderBy('brand')
@@ -334,6 +343,7 @@ class ReceiptController extends Controller
                ->where('description',$queryDescription)
                ->where('unit',$queryUnit)
                ->get();
+           $title = $queryDescription.'-'.$queryUnit;
         //not empty brand and description and unit
        }elseif($queryBrand != 'na' && $queryCategory =='na' && $queryDescription != 'na' && $queryUnit != 'na'){
            $products = Product::orderBy('brand')
@@ -347,6 +357,7 @@ class ReceiptController extends Controller
                ->where('description',$queryDescription)
                ->where('unit',$queryUnit)
                ->get();
+           $title = $queryBrand.'-'.$queryDescription.'-'.$queryUnit;
         //not empty brand  and category and unit
        }elseif($queryBrand != 'na' && $queryCategory != 'na' && $queryDescription =='na' && $queryUnit != 'na'){
            $products = Product::orderBy('brand')
@@ -360,6 +371,7 @@ class ReceiptController extends Controller
                ->where('description',$queryDescription)
                ->where('category',$queryCategory)
                ->get();
+           $title = $queryBrand.'-'.$queryCategory.'-'.$queryUnit;
         //not empty brand  and category and description
        }elseif($queryBrand != 'na' && $queryCategory != 'na' && $queryDescription != 'na' && $queryUnit =='na'){
            $products = Product::orderBy('brand')
@@ -373,6 +385,7 @@ class ReceiptController extends Controller
                ->where('description',$queryDescription)
                ->where('category',$queryCategory)
                ->get();
+           $title = $queryBrand.'-'.$queryCategory.'-'.$queryDescription;
        //not empty category  and description and unit
        }elseif($queryBrand =='na' && $queryCategory != 'na' && $queryDescription != 'na' && $queryUnit !='na'){
            $products = Product::orderBy('brand')
@@ -386,6 +399,7 @@ class ReceiptController extends Controller
                ->where('description',$queryDescription)
                ->where('unit',$queryUnit)
                ->get();
+           $title = $queryDescription.'-'.$queryDescription.'-'.$queryUnit;
         //not empty all
        }elseif($queryBrand != 'na' && $queryCategory !='na' && $queryDescription != 'na' && $queryUnit !='na'){
            $products = Product::orderBy('brand')
@@ -400,9 +414,10 @@ class ReceiptController extends Controller
                ->where('category',$queryCategory)
                ->where('unit',$queryUnit)
                ->get();
+           $title = $queryBrand.'-'.$queryDescription.'-'.$queryDescription.'-'.$queryUnit;
        }
 
-        $data = ['data'=>$products,'title'=>''];
+        $data = ['data'=>$products,'title'=>$title];
         $pdf = PDF::loadView('pdf.stocklist',$data)->setPaper('a4');
         return @$pdf->stream();
     }
