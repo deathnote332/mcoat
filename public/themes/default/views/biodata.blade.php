@@ -40,6 +40,12 @@
             top: 0;
             opacity: 0;
         }
+        #partner{
+            display: none;
+        }
+        #children-group{
+            display: none;
+        }
         .add-child-row{
             margin: 5vh 3vh 0 3vh;
         }
@@ -51,14 +57,14 @@
            color:#3097D1;
             font-size: 24px;
         }
-        #children-group .form-group .col-md-4:nth-child(1) label{
+        #children-group .form-group .col-md-4:nth-child(1) label,#children-group1 .form-group .col-md-4:nth-child(1) label{
             padding-top: 0px;
         }
-        #children-group .form-group .col-md-4 label{
+        #children-group .form-group .col-md-4 label,#children-group .form-group .col-md-3 label,#children-group1 .form-group .col-md-4 label,#children-group1 .form-group .col-md-3 label{
             padding-top: 15px;
         }
 
-        #children-group .form-group .col-md-4 .remove{
+        #children-group .form-group .col-md-4 .remove,#children-group1 .form-group .col-md-4 .remove{
             color:red;
             cursor: pointer;
         }
@@ -67,6 +73,12 @@
             vertical-align: bottom;
         }
 
+        #parents{
+            padding: 3vh 0px;
+        }
+        #button-submit{
+            padding: 5vh 0;
+        }
     </style>
     <div class="wrapper-login">
         <div class="panel-body">
@@ -116,6 +128,28 @@
                                 </div>
                             </div>
                             <div class="form-group">
+
+                                <div class="col-md-6">
+                                    <label for="gender" class="control-label">Gender</label>
+                                    <select id="gender" class="form-control" name="gender"  required>
+                                        <option selected disabled>Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="status" class="control-label">Status</label>
+                                    <select id="status"  class="form-control" name="status"  required>
+                                        <option selected disabled>Select Status</option>
+                                        <option value="single">Single</option>
+                                        <option value="married">Married</option>
+                                        <option value="divorced">Divorced</option>
+                                        <option value="widowed">Widowed</option>
+                                        <option value="single_parent">Single Parent</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="birthdate" class="control-label">Birth Date</label>
                                     <input id="birthdate" type="text" class="form-control" name="birthdate" required>
@@ -154,24 +188,24 @@
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="tin" class="control-label">TIN no.</label>
-                                    <input id="tin" type="text" class="form-control" name="tin" required>
+                                    <input id="tin" type="text" class="form-control" name="tin" >
 
                                 </div>
                                 <div class="col-md-6">
                                     <label for="philhealth" class="control-label">PhilHealth no.</label>
-                                    <input id="philhealth" type="text" class="form-control" name="philhealth"  required>
+                                    <input id="philhealth" type="text" class="form-control" name="philhealth"  >
 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label for="sss" class="control-label">SSS no.</label>
-                                    <input id="sss" type="text" class="form-control" name="sss" required>
+                                    <input id="sss" type="text" class="form-control" name="sss" >
 
                                 </div>
                                 <div class="col-md-6">
                                     <label for="pagibig" class="control-label">Pag Ibig no.</label>
-                                    <input id="pagibig" type="text" class="form-control" name="pagibig"  required>
+                                    <input id="pagibig" type="text" class="form-control" name="pagibig"  >
 
                                 </div>
                             </div>
@@ -181,7 +215,7 @@
                     <div class="bio-title">
                         <h4>Background</h4>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group"id="partner">
                         <div class="col-md-6">
                             <label for="spouse_first_name" class="control-label">Spouse First Name</label>
                             <input id="spouse_first_name" type="text" class="form-control" name="spouse_first_name" required>
@@ -189,6 +223,18 @@
                         <div class="col-md-6">
                             <label for="spouse_last_name" class="control-label">Spouse Last Name</label>
                             <input id="spouse_last_name" type="text" class="form-control" name="spouse_last_name" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="spouse_address" class="control-label">Address</label>
+                            <input id="spouse_address" type="text" class="form-control" name="spouse_address" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="spouse_occupation" class="control-label">Occupation</label>
+                            <input id="spouse_occupation" type="text" class="form-control" name="spouse_occupation" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="spouse_contact" class="control-label">Contact</label>
+                            <input id="spouse_contact" type="text" class="form-control" name="spouse_contact" >
                         </div>
                     </div>
                     <div class="form-group" id="children-group">
@@ -198,90 +244,179 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">1</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" required>
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" required>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" required>
+                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">2</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" required>
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" required>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" required>
+                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">3</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" required>
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" required>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
+                            </div>
+                            <div class="col-md-3">
+                                <label for="child_age" class="control-label">Age</label>
+                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="parents">
+                        <div class="col-md-6">
+                            <label for="father_last_name" class="control-label">Father Last Name</label>
+                            <input id="father_last_name" type="text" class="form-control" name="father_last_name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="father_first_name" class="control-label">Father First Name</label>
+                            <input id="father_first_name" type="text" class="form-control" name="father_first_name" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="father_address" class="control-label">Address</label>
+                            <input id="father_address" type="text" class="form-control" name="father_address" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="father_occupation" class="control-label">Occupation</label>
+                            <input id="father_occupation" type="text" class="form-control" name="father_occupation" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="father_contact" class="control-label">Contact</label>
+                            <input id="father_contact" type="text" class="form-control" name="father_contact" >
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="mother_last_name" class="control-label">Mother Last Name</label>
+                            <input id="mother_last_name" type="text" class="form-control" name="mother_last_name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mother_first_name" class="control-label">Mother First Name</label>
+                            <input id="mother_first_name" type="text" class="form-control" name="mother_first_name" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="mother_address" class="control-label">Address</label>
+                            <input id="mother_address" type="text" class="form-control" name="mother_address" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mother_occupation" class="control-label">Occupation</label>
+                            <input id="mother_occupation" type="text" class="form-control" name="mother_occupation" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mother_contact" class="control-label">Contact</label>
+                            <input id="mother_contact" type="text" class="form-control" name="mother_contact" >
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="children-group1">
+                        <div class="col-md-12">
+                            <label for="spouse_first_name" class="control-label">Name of children/s from parents.</label>
+                            <span><button type="button" class="btn btn-primary add-child-row1">Add more row</button></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4 col-md-offset-1">
+                                <label for="child_last_name" class="control-label"><span class="child-number">1</span>. Last Name</label>
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
                             </div>
                             <div class="col-md-4">
+                                <label for="child_first_name" class="control-label">First Nme</label>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
+                            </div>
+                            <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" required>
+                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4">
-                                <label for="child_last_name" class="control-label"><span class="child-number">4</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" required>
+                            <div class="col-md-4 col-md-offset-1">
+                                <label for="child_last_name" class="control-label"><span class="child-number">2</span>. Last Name</label>
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" required>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" required>
+                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-4">
-                                <label for="child_last_name" class="control-label"><span class="child-number">5</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" required>
+                            <div class="col-md-4 col-md-offset-1">
+                                <label for="child_last_name" class="control-label"><span class="child-number">3</span>. Last Name</label>
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" required>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" required>
+                                <input id="child_age" type="text" class="form-control" name="child_age[]1" >
                             </div>
                         </div>
                     </div>
 
 
-
-
-
+                    <div class="bio-title">
+                        <h4>In Case of Emergency</h4>
+                    </div>
                     <div class="form-group">
-                        <div class="col-md-5">
+                        <div class="col-md-6">
+                            <label for="emergency_last_name" class="control-label">Last Name</label>
+                            <input id="emergency_last_name" type="text" class="form-control" name="emergency_last_name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emergency_first_name" class="control-label">First Name</label>
+                            <input id="emergency_first_name" type="text" class="form-control" name="emergency_first_name" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="emergency_address" class="control-label">Address</label>
+                            <input id="emergency_address" type="text" class="form-control" name="emergency_address" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emergency_relationship" class="control-label">Relationship</label>
+                            <input id="emergency_relationship" type="text" class="form-control" name="emergency_relationship" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emergency_contact" class="control-label">Contact</label>
+                            <input id="emergency_contact" type="text" class="form-control" name="emergency_contact" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="button-submit">
+                        <div class="col-md-6">
                             <button type="submit" class="form-control btn btn-primary" style="margin-top: 5px">
                                 Register
                             </button>
                         </div>
-                        <div class="col-md-5 ">
+                        <div class="col-md-6">
 
-                            <a href="{{ url('login') }}" style="position: relative;top:12px;color:red;font-weight: 700">I already have an account</a>
+                            <a href="{{ url('login') }}" style="position: relative;top:12px;color:red;font-weight: 700">Back</a>
 
                         </div>
                     </div>
@@ -297,17 +432,17 @@
 
                 $('#bio-data').find('#children-group').append(
                     '<div class="form-group">' +
-                    '<div class="col-md-4">' +
+                    '<div class="col-md-4 col-md-offset-1">' +
                     '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
-                    '<input id="child_last_name" type="text" class="form-control" name="child_last_name[]" required>' +
+                    '<input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >' +
                     '</div>' +
                     '<div class="col-md-4">' +
                     '<label for="child_first_name" class="control-label">First Nme</label>' +
-                    '<input id="child_first_name" type="text" class="form-control" name="child_first_name[]" required>' +
+                    '<input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >' +
                     '</div>' +
-                    '<div class="col-md-4">' +
+                    '<div class="col-md-3">' +
                     '<label for="child_age" class="control-label">Age</label>' +
-                    '<input id="child_age" type="text" class="form-control" name="child_age[]" required>' +
+                    '<input id="child_age" type="text" class="form-control" name="child_age[]" >' +
                     '</div>' +
                     '</div>'
                 );
@@ -316,6 +451,45 @@
 
             $('body').delegate('#children-group .form-group .col-md-4 .remove','click',function () {
               $(this).parent().closest('.form-group').remove()
+            })
+
+            $('.add-child-row1').on('click',function () {
+
+                var count = parseInt($('#bio-data').find('#children-group .form-group:last-child .col-md-4 .child-number').text()) + 1;
+
+                $('#bio-data').find('#children-group1').append(
+                    '<div class="form-group">' +
+                    '<div class="col-md-4 col-md-offset-1">' +
+                    '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
+                    '<input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >' +
+                    '</div>' +
+                    '<div class="col-md-4">' +
+                    '<label for="child_first_name" class="control-label">First Nme</label>' +
+                    '<input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >' +
+                    '</div>' +
+                    '<div class="col-md-3">' +
+                    '<label for="child_age" class="control-label">Age</label>' +
+                    '<input id="child_age" type="text" class="form-control" name="child_age1[]" >' +
+                    '</div>' +
+                    '</div>'
+                );
+            })
+
+
+            $('body').delegate('#children-group1 .form-group .col-md-4 .remove','click',function () {
+                $(this).parent().closest('.form-group').remove()
+            })
+
+            $('#status').on('change',function (){
+
+                if($(this).val()=='single'){
+                    $('#partner').hide();
+                    $('#children-group').hide()
+                }else{
+                    $('#partner').show();
+                    $('#children-group').show()
+                }
+
             })
         })
     </script>
