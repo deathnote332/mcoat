@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,5 +73,31 @@ class UserController extends Controller
     }
     public function approveDisapproveUserAdmin(Request $request){
         User::where('id',$request->id)->update(['user_type'=>$request->status]);
+    }
+
+    public function employeePage()
+    {
+//
+//        <th>Name</th>
+//                    <th>Position</th>
+//                    <th>Date Hired</th>
+//                    <th>Branch Hired</th>
+//                    <th>Action</th>
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
+        return $theme->scope('employees')->render();
+    }
+
+
+    public function getEmployee(){
+        $employee = Employee::get();
+        $userList = array();
+        foreach ($employee as $key=>$val){
+           $employee_data = json_decode($val->record);
+            $action = '<label id="approve" class="alert alert-info" data-id="'.$val->id.'" >View</label>';
+
+            $userList[]=['name'=>$employee_data->first_name.' '.$employee_data->last_name,'position'=>$employee_data->position,'date_hired'=>$employee_data->date_hired,'branch_hired'=>$employee_data->branch_hired,'action'=>$action];
+        }
+
+        return json_encode(['data'=>$userList]);
     }
 }

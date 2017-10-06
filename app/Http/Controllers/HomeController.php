@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use Illuminate\Http\Request;
 use Theme;
 
@@ -31,6 +32,9 @@ class HomeController extends Controller
     }
 
     public function saveBioData(Request $request){
-        dd($request->all());
+        $data = json_encode($request->all());
+        Employee::insert(['record'=>$data]);
+
+
     }
 }

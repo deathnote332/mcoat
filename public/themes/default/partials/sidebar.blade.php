@@ -193,6 +193,9 @@
                     <li>
                         <a href={{ URL('users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
                     </li>
+                        <li>
+                            <a href={{ URL('employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
+                        </li>
                     @else
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>

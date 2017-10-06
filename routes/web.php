@@ -114,6 +114,10 @@ Route::get('/getusers', 'UserController@getUsers');
 Route::post('/approveDisapproveUser', 'UserController@approveDisapproveUser');
 Route::post('/approveDisapproveUserAdmin', 'UserController@approveDisapproveUserAdmin');
 
+//employee
+Route::get('/employees', 'UserController@employeePage');
+Route::get('/getemployee', 'UserController@getEmployee');
+
 //suppliers
 Route::get('/suppliers', 'SupplierBranchController@supplierPage');
 Route::get('/getsuppliers', 'SupplierBranchController@getSuppliers');

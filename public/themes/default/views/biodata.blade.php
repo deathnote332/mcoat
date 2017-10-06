@@ -118,6 +118,9 @@
             font-style: italic;
         }
 
+        #button-submit .back,#button-submit .submit-biodata{
+            margin: 10px 0;
+        }
     </style>
     <div class="wrapper-login">
         <input type="hidden" id="baseURL" value="{{ url('') }}" >
@@ -175,19 +178,19 @@
                                     <label for="gender" class="control-label">Gender</label>
                                     <select id="gender" class="form-control" name="gender"  required>
                                         <option selected disabled>Select Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="status" class="control-label">Status</label>
                                     <select id="status"  class="form-control" name="status"  required>
                                         <option selected disabled>Select Status</option>
-                                        <option value="single">Single</option>
-                                        <option value="married">Married</option>
-                                        <option value="divorced">Divorced</option>
-                                        <option value="widowed">Widowed</option>
-                                        <option value="single_parent">Single Parent</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Widowed">Widowed</option>
+                                        <option value="Single Parent">Single Parent</option>
                                     </select>
                                 </div>
                             </div>
@@ -216,13 +219,23 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="position" class="control-label">Position</label>
-                                    <input id="position" type="text" class="form-control" name="position"  required>
+                                    <select id="position"  class="form-control" name="position"  required>
+                                        <option selected disabled>Select Positon</option>
+                                        <option value="Secretary">Secretary</option>
+                                        <option value="Tinter">Tintern</option>
+                                        <option value="Helper">Helper</option>
+                                        <option value="Driver">Driver</option>
+                                        <option value="IT">IT</option>
+                                    </select>
 
                                 </div>
                                 <div class="col-md-4">
                                     <label for="branch_hired" class="control-label">Branch Hired</label>
                                     <select id="branch_hired"  class="form-control" name="branch_hired"  required>
                                         <option selected disabled>Select Branch</option>
+                                        @foreach(\App\Branches::get() as $key=>$val)
+                                            <option value="{{ $val->name }}">{{$val->name}}</option>
+                                        @endforeach
                                     </select>
 
                                 </div>
@@ -530,7 +543,7 @@
 
         $('#status').on('change',function (){
 
-            if($(this).val()=='single'){
+            if($(this).val()=='Single'){
                 $('#partner').hide();
                 $('#children-group').hide()
             }else{
