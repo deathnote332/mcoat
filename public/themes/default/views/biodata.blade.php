@@ -1,9 +1,25 @@
-{!! Theme::asset()->styles() !!}
-{!! Theme::asset()->scripts() !!}
-@extends('layouts.app')
-@section('content')
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
     <style>
+
+        html,body{
+            height: 100%;
+        }
+
+        .wrapper-login{
+            display: table;
+            width: 100%;
+            height: 100%;
+            background: url(../../../../../images/mcoat-bg.jpg);
+        }
+
+        .panel-body{
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .con-employee a{
+            color:#f35b32;
+        }
 
         .warehouse{
             color:#a94442;
@@ -96,6 +112,12 @@
             background-color: #2579a9;
             border-color: #1f648b;
         }
+        label.error{
+            color:red;
+            font-size: 11px;
+            font-style: italic;
+        }
+
     </style>
     <div class="wrapper-login">
         <input type="hidden" id="baseURL" value="{{ url('') }}" >
@@ -444,111 +466,112 @@
             </div>
         </div>
     </div>
-    <script>
-        var BASEURL = $('#baseURL').val();
-        $(document).ready(function () {
-
-            var validator = $('#bio-data').validate();
-
-            $('.add-child-row').on('click',function () {
-
-                var count = parseInt($('#bio-data').find('#children-group .form-group:last-child .col-md-4 .child-number').text()) + 1;
-
-                $('#bio-data').find('#children-group').append(
-                    '<div class="form-group">' +
-                    '<div class="col-md-4 col-md-offset-1">' +
-                    '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
-                    '<input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >' +
-                    '</div>' +
-                    '<div class="col-md-4">' +
-                    '<label for="child_first_name" class="control-label">First Nme</label>' +
-                    '<input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >' +
-                    '</div>' +
-                    '<div class="col-md-3">' +
-                    '<label for="child_age" class="control-label">Age</label>' +
-                    '<input id="child_age" type="text" class="form-control" name="child_age[]" >' +
-                    '</div>' +
-                    '</div>'
-                );
-            })
 
 
-            $('body').delegate('#children-group .form-group .col-md-4 .remove','click',function () {
-              $(this).parent().closest('.form-group').remove()
-            })
+<script>
+    var BASEURL = $('#baseURL').val();
+    $(document).ready(function () {
 
-            $('.add-child-row1').on('click',function () {
+        var validator = $('#bio-data').validate();
 
-                var count = parseInt($('#bio-data').find('#children-group1 .form-group:last-child .col-md-4 .child-number').text()) + 1;
+        $('.add-child-row').on('click',function () {
 
-                $('#bio-data').find('#children-group1').append(
-                    '<div class="form-group">' +
-                    '<div class="col-md-4 col-md-offset-1">' +
-                    '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
-                    '<input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >' +
-                    '</div>' +
-                    '<div class="col-md-4">' +
-                    '<label for="child_first_name" class="control-label">First Nme</label>' +
-                    '<input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >' +
-                    '</div>' +
-                    '<div class="col-md-3">' +
-                    '<label for="child_age" class="control-label">Age</label>' +
-                    '<input id="child_age" type="text" class="form-control" name="child_age1[]" >' +
-                    '</div>' +
-                    '</div>'
-                );
-            })
+            var count = parseInt($('#bio-data').find('#children-group .form-group:last-child .col-md-4 .child-number').text()) + 1;
 
-
-            $('body').delegate('#children-group1 .form-group .col-md-4 .remove','click',function () {
-                $(this).parent().closest('.form-group').remove()
-            })
-
-            $('#status').on('change',function (){
-
-                if($(this).val()=='single'){
-                    $('#partner').hide();
-                    $('#children-group').hide()
-                }else{
-                    $('#partner').show();
-                    $('#children-group').show()
-                }
-            })
-
-            $('.submit-biodata').on('click',function () {
-                var form = $('#bio-data');
-                if(form.valid()){
-                    saveEmployeeRecord()
-                }
-            })
+            $('#bio-data').find('#children-group').append(
+                '<div class="form-group">' +
+                '<div class="col-md-4 col-md-offset-1">' +
+                '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
+                '<input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >' +
+                '</div>' +
+                '<div class="col-md-4">' +
+                '<label for="child_first_name" class="control-label">First Nme</label>' +
+                '<input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >' +
+                '</div>' +
+                '<div class="col-md-3">' +
+                '<label for="child_age" class="control-label">Age</label>' +
+                '<input id="child_age" type="text" class="form-control" name="child_age[]" >' +
+                '</div>' +
+                '</div>'
+            );
         })
 
-        function saveEmployeeRecord(){
-            swal({
-                title: "Are you sure?",
-                text: "You want to update this product.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: 'Okay',
-                closeOnConfirm: false
-            }).then(function () {
-                var data_save = $('#bio-data').serializeArray();
-                $.ajax({
-                    url:BASEURL+'/employeebiodata',
-                    type:'POST',
-                    data: data_save,
-                    success: function(data){
 
-                        swal({
-                            title: "",
-                            text: "Product updated successfully",
-                            type:"success"
-                        })
-                    }
-                });
+        $('body').delegate('#children-group .form-group .col-md-4 .remove','click',function () {
+          $(this).parent().closest('.form-group').remove()
+        })
+
+        $('.add-child-row1').on('click',function () {
+
+            var count = parseInt($('#bio-data').find('#children-group1 .form-group:last-child .col-md-4 .child-number').text()) + 1;
+
+            $('#bio-data').find('#children-group1').append(
+                '<div class="form-group">' +
+                '<div class="col-md-4 col-md-offset-1">' +
+                '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
+                '<input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >' +
+                '</div>' +
+                '<div class="col-md-4">' +
+                '<label for="child_first_name" class="control-label">First Nme</label>' +
+                '<input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >' +
+                '</div>' +
+                '<div class="col-md-3">' +
+                '<label for="child_age" class="control-label">Age</label>' +
+                '<input id="child_age" type="text" class="form-control" name="child_age1[]" >' +
+                '</div>' +
+                '</div>'
+            );
+        })
+
+
+        $('body').delegate('#children-group1 .form-group .col-md-4 .remove','click',function () {
+            $(this).parent().closest('.form-group').remove()
+        })
+
+        $('#status').on('change',function (){
+
+            if($(this).val()=='single'){
+                $('#partner').hide();
+                $('#children-group').hide()
+            }else{
+                $('#partner').show();
+                $('#children-group').show()
+            }
+        })
+
+        $('.submit-biodata').on('click',function () {
+            var form = $('#bio-data');
+            if(form.valid()){
+                saveEmployeeRecord()
+            }
+        })
+    })
+
+    function saveEmployeeRecord(){
+        swal({
+            title: "Are you sure?",
+            text: "You want to update this product.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+            var data_save = $('#bio-data').serializeArray();
+            $.ajax({
+                url:BASEURL+'/employeebiodata',
+                type:'POST',
+                data: data_save,
+                success: function(data){
+
+                    swal({
+                        title: "",
+                        text: "Product updated successfully",
+                        type:"success"
+                    })
+                }
             });
-        }
-    </script>
+        });
+    }
+</script>
 
-@endsection

@@ -60,8 +60,11 @@ return array(
 
 
             $theme->asset()->usePath()->add('jquery.min.js', 'js/jquery.min.js');
+            $theme->asset()->usePath()->add('jquery.js', 'js/jquery.js');
             $theme->asset()->usePath()->add('bootstrap.min.js', 'js/bootstrap.min.js');
             $theme->asset()->usePath()->add('bootstrap.min.css', 'css/bootstrap.min.css');
+            //validate
+            $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
 
 
 
@@ -70,7 +73,6 @@ return array(
             //sweetalert
             $theme->asset()->usePath()->add('sweetalert2.min.css', 'css/sweetalert2.min.css');
             $theme->asset()->usePath()->add('sweetalert2.min.css', 'js/sweetalert2.min.js');
-
 
 
             // You may use this event to set up your assets.
@@ -103,9 +105,6 @@ return array(
                 $theme->asset()->usePath()->add('wow.min.js', 'home/wow.min.js');
                 $theme->asset()->usePath()->add('jquery.min.js', 'js/jquery.min.js');
 
-                //validate
-                $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
-
 
             },
             'defaultadmin' => function($theme){
@@ -137,8 +136,7 @@ return array(
                 $theme->asset()->usePath()->add('morris.min.js', 'js/morris.min.js');
                 $theme->asset()->usePath()->add('morris-data.js', 'js/morris-data.js');
 
-                //validate
-                $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
+
             }
 
 
