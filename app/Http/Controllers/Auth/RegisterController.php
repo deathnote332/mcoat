@@ -6,7 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Theme;
 class RegisterController extends Controller
 {
     /*
@@ -73,5 +73,11 @@ class RegisterController extends Controller
             'warehouse' => $data['warehouse_select'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function employeeeBiodata()
+    {
+        $theme = Theme::uses('default')->layout('default')->setTitle('MCOAT');
+        return $theme->scope('biodata')->render();
     }
 }

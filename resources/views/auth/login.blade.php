@@ -53,6 +53,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-12 center-block">
+                            <div class="con-employee">
+                                <a href="{{ url('/employee') }}">SIGN UP FOR EMPLOYEE RECORD  SIGNUP</a>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

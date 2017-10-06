@@ -16,6 +16,8 @@
 //});
 Route::get('/', 'HomeController@index');
 
+Route::get('/employee', 'Auth\RegisterController@employeeeBiodata');
+
 //dashboard
 Route::get('/dashboard', 'DashboardController@index');
 
@@ -128,3 +130,5 @@ Route::get('/pricelist/{brand}', 'ReceiptController@priceList');
 Route::post('/brandCategory', 'ReceiptController@brandCategory');
 
 Route::get('/stocklist/{stock}/{brand}/{category}/{description}/{unit}', 'ReceiptController@stockList');
+
+
