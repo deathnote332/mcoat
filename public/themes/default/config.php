@@ -67,6 +67,11 @@ return array(
 
             $theme->asset()->usePath()->add('font-awesome.min.css', 'css/font-awesome.min.css');
 
+            //sweetalert
+            $theme->asset()->usePath()->add('sweetalert2.min.css', 'css/sweetalert2.min.css');
+            $theme->asset()->usePath()->add('sweetalert2.min.css', 'js/sweetalert2.min.js');
+
+
 
             // You may use this event to set up your assets.
             // $theme->asset()->usePath()->add('core', 'core.js');
@@ -96,6 +101,11 @@ return array(
                 $theme->asset()->usePath()->add('sticky.js', 'home/sticky.js');
                 $theme->asset()->usePath()->add('superfish.min.js', 'home/superfish.min.js');
                 $theme->asset()->usePath()->add('wow.min.js', 'home/wow.min.js');
+                $theme->asset()->usePath()->add('jquery.min.js', 'js/jquery.min.js');
+
+                //validate
+                $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
+
 
             },
             'defaultadmin' => function($theme){
@@ -107,10 +117,6 @@ return array(
 
                 $theme->asset()->usePath()->add('sb-admin-2.min.css', 'sbadmin/css/sb-admin-2.min.css');
                 $theme->asset()->usePath()->add('sb-admin-2.min.js', 'sbadmin/js/sb-admin-2.min.js');
-
-                //sweetalert
-                $theme->asset()->usePath()->add('sweetalert2.min.css', 'css/sweetalert2.min.css');
-                $theme->asset()->usePath()->add('sweetalert2.min.css', 'js/sweetalert2.min.js');
 
 
 

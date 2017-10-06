@@ -42,7 +42,6 @@
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
     table tr td{ border-right: 1px solid black !important; font-size: 13px }
-    table tbody tr td:nth-child(2),table tbody tr td:nth-child(3),table tbody tr td:nth-child(5){ text-align: left;padding-left: 10px }
     table tbody tr td:nth-child(3) span{margin-left: 2em}
     .header{
         text-align: center;
@@ -98,9 +97,10 @@
         <thead>
         <tr>
            <th>Code</th>
+            <th>Brand</th>
+            <th>Unit</th>
             <th>Category</th>
             <th>Description</th>
-            <th>Unit</th>
             <th>unit price</th>
         </tr>
         </thead>
@@ -108,9 +108,10 @@
         @foreach($data as $key=>$val)
             <tr>
                <td>{!! $val->code !!} </td>
-                <td>{!! $val->category !!} </td>
-                <td>{!! '<span>'.$val->brand.'<span> '.$val->description  !!}</td>
+               <td>{!! $val->brand !!} </td>
                 <td>{!! $val->unit !!} </td>
+                <td>{!! $val->category !!} </td>
+                <td>{!! $val->description !!} </td>
                 <td>{!! 'P '.number_format($val->unit_price , 2) !!}</td>
            </tr>
         @endforeach

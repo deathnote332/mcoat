@@ -182,6 +182,7 @@
 
         var validator = $('#update-products').validate();
 
+
         var product = $('#productout-list').DataTable({
             ajax: BASEURL + '/getProducts',
             order: [],

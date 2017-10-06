@@ -1,5 +1,8 @@
+{!! Theme::asset()->styles() !!}
+{!! Theme::asset()->scripts() !!}
 @extends('layouts.app')
 @section('content')
+
     <style>
 
         .warehouse{
@@ -79,15 +82,27 @@
         #button-submit{
             padding: 5vh 0;
         }
+
+        .back{
+            background: #3097D1;
+            text-align: center;
+            color:white;
+            text-decoration: none;
+        }
+        .back:hover{
+
+            color:white;
+            text-decoration: none;
+            background-color: #2579a9;
+            border-color: #1f648b;
+        }
     </style>
     <div class="wrapper-login">
+        <input type="hidden" id="baseURL" value="{{ url('') }}" >
         <div class="panel-body">
             <div class="container">
-
                 <form class="form-horizontal" id="bio-data">
                     {{ csrf_field() }}
-
-
                     <div class="bio-title">
                         <h4>Personal Information</h4>
                     </div>
@@ -105,14 +120,19 @@
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="last_name" class="control-label">Last Name</label>
                                     <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
 
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="first_name" class="control-label">First Name</label>
                                     <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="middle_name" class="control-label">Middle Name</label>
+                                    <input id="middle_name" type="text" class="form-control" name="middle_name" value="{{ old('first_name') }}" >
 
                                 </div>
                             </div>
@@ -310,7 +330,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="mother_last_name" class="control-label">Mother Last Name</label>
+                            <label for="mother_last_name" class="control-label">Mother Maiden's Last Name</label>
                             <input id="mother_last_name" type="text" class="form-control" name="mother_last_name" required>
                         </div>
                         <div class="col-md-6">
@@ -409,23 +429,27 @@
                     </div>
 
                     <div class="form-group" id="button-submit">
-                        <div class="col-md-6">
-                            <button type="submit" class="form-control btn btn-primary" style="margin-top: 5px">
-                                Register
+                        <div class="col-md-3 col-md-offset-6">
+                            <a href="{{ url('login') }}" class="back form-control">Back</a>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="form-control btn btn-primary submit-biodata">
+                                Submit
                             </button>
-                        </div>
-                        <div class="col-md-6">
-
-                            <a href="{{ url('login') }}" style="position: relative;top:12px;color:red;font-weight: 700">Back</a>
 
                         </div>
+
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <script>
+        var BASEURL = $('#baseURL').val();
         $(document).ready(function () {
+
+            var validator = $('#bio-data').validate();
+
             $('.add-child-row').on('click',function () {
 
                 var count = parseInt($('#bio-data').find('#children-group .form-group:last-child .col-md-4 .child-number').text()) + 1;
@@ -455,7 +479,7 @@
 
             $('.add-child-row1').on('click',function () {
 
-                var count = parseInt($('#bio-data').find('#children-group .form-group:last-child .col-md-4 .child-number').text()) + 1;
+                var count = parseInt($('#bio-data').find('#children-group1 .form-group:last-child .col-md-4 .child-number').text()) + 1;
 
                 $('#bio-data').find('#children-group1').append(
                     '<div class="form-group">' +
@@ -489,9 +513,42 @@
                     $('#partner').show();
                     $('#children-group').show()
                 }
+            })
 
+            $('.submit-biodata').on('click',function () {
+                var form = $('#bio-data');
+                if(form.valid()){
+                    saveEmployeeRecord()
+                }
             })
         })
+
+        function saveEmployeeRecord(){
+            swal({
+                title: "Are you sure?",
+                text: "You want to update this product.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: 'Okay',
+                closeOnConfirm: false
+            }).then(function () {
+                var data_save = $('#bio-data').serializeArray();
+                $.ajax({
+                    url:BASEURL+'/employeebiodata',
+                    type:'POST',
+                    data: data_save,
+                    success: function(data){
+
+                        swal({
+                            title: "",
+                            text: "Product updated successfully",
+                            type:"success"
+                        })
+                    }
+                });
+            });
+        }
     </script>
 
 @endsection

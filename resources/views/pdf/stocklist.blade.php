@@ -42,7 +42,6 @@
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
     table tr td{ border-right: 1px solid black !important; font-size: 13px }
-    table tbody tr td:nth-child(2),table tbody tr td:nth-child(3),table tbody tr td:nth-child(5){ text-align: left;padding-left: 10px }
     table tbody tr td:nth-child(3) span{margin-left: 2em}
     .header{
         text-align: center;
@@ -75,7 +74,7 @@
     }
 
 </style>
-<title>MCOAT Pricelist - {{$title}}</title>
+<title>MCOAT Stocklist - {{$title}}</title>
 <div class="header">
     <h1>mcoat paint commercial & general merchandise</h1>
     <div class="sub-header">
@@ -98,25 +97,27 @@
         <thead>
         <tr>
             <th>Code</th>
+            <th>Brand</th>
+            <th>Unit</th>
             <th>Category</th>
             <th>Description</th>
             <th>Quantity</th>
-            <th>Unit</th>
         </tr>
         </thead>
         <tbody>
         @foreach($data as $key=>$val)
             <tr>
                 <td>{!! $val->code !!} </td>
+                <td>{!! $val->brand !!} </td>
                 <td>{!! $val->category !!} </td>
-                <td>{!! '<span>'.$val->brand.'<span> '.$val->description  !!}</td>
-
+                <td>{!! $val->description !!} </td>
+                <td>{!! $val->unit !!} </td>
                 @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
                     <td>{!! $val->quantity !!} </td>
                 @else
                     <td>{!! $val->quantity1 !!} </td>
                 @endif
-                <td>{!! $val->unit !!} </td>
+
             </tr>
         @endforeach
         </tbody>

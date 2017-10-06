@@ -29,4 +29,8 @@ class HomeController extends Controller
         $theme = Theme::uses('default')->layout('default')->setTitle('MCOAT');
         return $theme->of('home')->render();
     }
+
+    public function saveBioData(Request $request){
+        dd($request->all());
+    }
 }

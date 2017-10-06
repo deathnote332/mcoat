@@ -18,6 +18,8 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/employee', 'Auth\RegisterController@employeeeBiodata');
 
+Route::post('/employeebiodata', 'HomeController@saveBioData');
+
 //dashboard
 Route::get('/dashboard', 'DashboardController@index');
 
