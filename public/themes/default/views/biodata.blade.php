@@ -123,11 +123,11 @@
         }
     </style>
     <div class="wrapper-login">
-        <input type="hidden" id="baseURL" value="{{ url('') }}" >
+        <input type="hidden" id="record" value="{{ $record }}" >
         <div class="panel-body">
             <div class="container">
                 <form class="form-horizontal" id="bio-data">
-                    {{ csrf_field() }}
+
                     <div class="bio-title">
                         <h4>Personal Information</h4>
                     </div>
@@ -135,11 +135,11 @@
                     <div class="form-group">
                         <div class="col-md-3">
                             <div class="img-container">
-                                <img src="" class="img-responsive">
+                                <img src="{{ (json_decode($record)->img_profile != '') ?  url('images/'.json_decode($record)->img_profile) : url('images/mcoat-bg.jg') }}" class="img-responsive img-profile">
                             </div>
                             <div class="upload-btn-wrapper btn-upload">
                                 <button class=" btn btn-primary btn-width">Upload a file</button>
-                                <input type="file" name="myfile" class="form-control" />
+                                <input type="file"  id="profile_picture" class="form-control" />
                             </div>
 
                         </div>
@@ -147,17 +147,17 @@
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="last_name" class="control-label">Last Name</label>
-                                    <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
+                                    <input id="last_name" type="text" class="form-control" name="last_name" value="{{ \Illuminate\Support\Facades\Auth::user()->last_name }}" required autofocus>
 
                                 </div>
                                 <div class="col-md-4">
                                     <label for="first_name" class="control-label">First Name</label>
-                                    <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required>
+                                    <input id="first_name" type="text" class="form-control" name="first_name" value="{{ \Illuminate\Support\Facades\Auth::user()->first_name }}" required>
 
                                 </div>
                                 <div class="col-md-4">
                                     <label for="middle_name" class="control-label">Middle Name</label>
-                                    <input id="middle_name" type="text" class="form-control" name="middle_name" value="{{ old('first_name') }}" >
+                                    <input id="middle_name" type="text" class="form-control" name="middle_name" value="{{ \Illuminate\Support\Facades\Auth::user()->middle_name }}" >
 
                                 </div>
                             </div>
@@ -178,19 +178,19 @@
                                     <label for="gender" class="control-label">Gender</label>
                                     <select id="gender" class="form-control" name="gender"  required>
                                         <option selected disabled>Select Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="status" class="control-label">Status</label>
                                     <select id="status"  class="form-control" name="status"  required>
                                         <option selected disabled>Select Status</option>
-                                        <option value="Single">Single</option>
-                                        <option value="Married">Married</option>
-                                        <option value="Divorced">Divorced</option>
-                                        <option value="Widowed">Widowed</option>
-                                        <option value="Single Parent">Single Parent</option>
+                                        <option value="single">Single</option>
+                                        <option value="married">Married</option>
+                                        <option value="divorced">Divorced</option>
+                                        <option value="widowed">Widowed</option>
+                                        <option value="single parent">Single Parent</option>
                                     </select>
                                 </div>
                             </div>
@@ -221,11 +221,11 @@
                                     <label for="position" class="control-label">Position</label>
                                     <select id="position"  class="form-control" name="position"  required>
                                         <option selected disabled>Select Positon</option>
-                                        <option value="Secretary">Secretary</option>
-                                        <option value="Tinter">Tintern</option>
-                                        <option value="Helper">Helper</option>
-                                        <option value="Driver">Driver</option>
-                                        <option value="IT">IT</option>
+                                        <option value="secretary">Secretary</option>
+                                        <option value="tinter">Tintern</option>
+                                        <option value="helper">Helper</option>
+                                        <option value="driver">Driver</option>
+                                        <option value="it">IT</option>
                                     </select>
 
                                 </div>
@@ -301,43 +301,43 @@
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">1</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
+                                <input id="child_age" type="text" class="form-control" name="child_age1" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">2</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name2" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name2" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
+                                <input id="child_age" type="text" class="form-control" name="child_age2" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">3</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name3" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name3" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
+                                <input id="child_age" type="text" class="form-control" name="child_age3" >
                             </div>
                         </div>
                     </div>
@@ -395,43 +395,43 @@
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">1</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1_1" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1_1" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
+                                <input id="child_age" type="text" class="form-control" name="child_age1_1" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">2</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1_2" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1_2" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
+                                <input id="child_age" type="text" class="form-control" name="child_age1_2" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">3</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1_3" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1_3" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age[]1" >
+                                <input id="child_age" type="text" class="form-control" name="child_age1_3" >
                             </div>
                         </div>
                     </div>
@@ -485,6 +485,16 @@
     var BASEURL = $('#baseURL').val();
     $(document).ready(function () {
 
+        parseData(JSON.parse($('#record').val()))
+
+        if($('#status').val()=='single'){
+            $('#partner').hide();
+            $('#children-group').hide()
+        }else{
+            $('#partner').show();
+            $('#children-group').show()
+        }
+
         var validator = $('#bio-data').validate();
 
         $('.add-child-row').on('click',function () {
@@ -495,15 +505,15 @@
                 '<div class="form-group">' +
                 '<div class="col-md-4 col-md-offset-1">' +
                 '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
-                '<input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >' +
+                '<input id="child_last_name" type="text" class="form-control" name="child_last_name'+count+'" >' +
                 '</div>' +
                 '<div class="col-md-4">' +
                 '<label for="child_first_name" class="control-label">First Nme</label>' +
-                '<input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >' +
+                '<input id="child_first_name" type="text" class="form-control" name="child_first_name'+count+'" >' +
                 '</div>' +
                 '<div class="col-md-3">' +
                 '<label for="child_age" class="control-label">Age</label>' +
-                '<input id="child_age" type="text" class="form-control" name="child_age[]" >' +
+                '<input id="child_age" type="text" class="form-control" name="child_age'+count+'" >' +
                 '</div>' +
                 '</div>'
             );
@@ -522,15 +532,15 @@
                 '<div class="form-group">' +
                 '<div class="col-md-4 col-md-offset-1">' +
                 '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
-                '<input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >' +
+                '<input id="child_last_name" type="text" class="form-control" name="child_last_name1_'+count+'" >' +
                 '</div>' +
                 '<div class="col-md-4">' +
                 '<label for="child_first_name" class="control-label">First Nme</label>' +
-                '<input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >' +
+                '<input id="child_first_name" type="text" class="form-control" name="child_first_name1_'+count+'" >' +
                 '</div>' +
                 '<div class="col-md-3">' +
                 '<label for="child_age" class="control-label">Age</label>' +
-                '<input id="child_age" type="text" class="form-control" name="child_age1[]" >' +
+                '<input id="child_age" type="text" class="form-control" name="child_age1_'+count+'" >' +
                 '</div>' +
                 '</div>'
             );
@@ -543,7 +553,7 @@
 
         $('#status').on('change',function (){
 
-            if($(this).val()=='Single'){
+            if($(this).val()=='single'){
                 $('#partner').hide();
                 $('#children-group').hide()
             }else{
@@ -560,31 +570,65 @@
         })
     })
 
+    $('#profile_picture').change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+
+        }
+    });
+
     function saveEmployeeRecord(){
         swal({
             title: "Are you sure?",
-            text: "You want to update this product.",
+            text: "You want to update your record",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
             confirmButtonText: 'Okay',
             closeOnConfirm: false
         }).then(function () {
-            var data_save = $('#bio-data').serializeArray();
+            var form = $('#bio-data');
+            var form_data = new FormData(form[0]);
+
+            form_data.append('file', $('#profile_picture')[0].files[0]);
+            form_data.append('_token', $('meta[name="csrf_token"]').attr('content'));
+
+
             $.ajax({
-                url:BASEURL+'/employeebiodata',
+                url:BASEURL+'/savebio',
                 type:'POST',
-                data: data_save,
+                data: form_data,
+                contentType:false,
+                cache: false,
+                processData:false,
                 success: function(data){
 
                     swal({
                         title: "",
-                        text: "Product updated successfully",
+                        text: "Profile successfully updated",
                         type:"success"
                     })
+                    location.reload();
                 }
             });
         });
     }
+
+    function parseData(json){
+        $.each(json,function (name,value) {
+
+            if(name!='_token'){
+                $('[name="'+name+'"]').val(value)
+            }
+        })
+
+    }
+    function imageIsLoaded(e) {
+        $('.img-profile').attr('src', e.target.result);
+    };
+
+
 </script>
 

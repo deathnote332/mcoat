@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Theme;
-
+use File;
 class UserController extends Controller
 {
 
@@ -99,5 +99,55 @@ class UserController extends Controller
         }
 
         return json_encode(['data'=>$userList]);
+    }
+
+    public function employeeeBiodata(Request $request)
+    {
+
+        $employee = Employee::where('user_id',$request->id)->first();
+        $data = '';
+        if($employee != null){
+            $data = $employee->record;
+        }
+
+        $theme = Theme::uses('default')->layout('default')->setTitle('MCOAT');
+        return $theme->scope('biodata',['record'=>$data])->render();
+    }
+
+
+    public function saveBioData(Request $request){
+
+        $employee = Employee::where('user_id',$request->id)->first();
+
+
+        $path = 'images';
+        if( $request->file != ''){
+            try {
+                $extension = $request->file->getClientOriginalExtension();
+                $filename = pathinfo($request->file->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $extension;
+                $new_filename = round(microtime(true)) . '.' . $extension;
+                $request->file->move($path, $new_filename);
+            } catch (\Exception $ex) {
+                $extension = $request->file->getClientOriginalExtension();
+                $filename = pathinfo($request->file->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $extension;
+                $new_filename = round(microtime(true)) . '.' . $extension;
+                 $request->file->move($path, $new_filename);
+            }
+        }else{
+            $new_filename = 'mcoat-bg.jpg';
+        }
+
+
+        $record = $request->all();
+        unset($record['profile_picture']);
+        $record['img_profile'] = $new_filename;
+        $data = json_encode($record);
+
+        if($employee != null){
+            Employee::insert(['record'=>$data,'user_id'=>Auth::user()->id]);
+        }else{
+            Employee::where('user_id',Auth::user()->id)->update(['record'=>$data]);
+        }
+        return $data;
     }
 }

@@ -75,9 +75,5 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function employeeeBiodata()
-    {
-        $theme = Theme::uses('default')->layout('default')->setTitle('MCOAT');
-        return $theme->scope('biodata')->render();
-    }
+
 }

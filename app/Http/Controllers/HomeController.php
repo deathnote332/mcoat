@@ -31,10 +31,4 @@ class HomeController extends Controller
         return $theme->of('home')->render();
     }
 
-    public function saveBioData(Request $request){
-        $data = json_encode($request->all());
-        Employee::insert(['record'=>$data]);
-
-
-    }
 }

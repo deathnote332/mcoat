@@ -109,7 +109,7 @@
     .page-copy{
         position: absolute;
         text-align: left;
-        bottom: -10px;
+        bottom: 0px;
 
         font-size: 12px;
         font-style: italic;
@@ -117,7 +117,7 @@
     .warehouse{
         position: absolute;
         text-align: right;
-        bottom: -10px;
+        bottom: 0px;
 
         font-size: 12px;
         font-style: italic;

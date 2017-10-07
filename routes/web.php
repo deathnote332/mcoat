@@ -16,10 +16,6 @@
 //});
 Route::get('/', 'HomeController@index');
 
-Route::get('/employee', 'Auth\RegisterController@employeeeBiodata');
-
-Route::post('/employeebiodata', 'HomeController@saveBioData');
-
 //dashboard
 Route::get('/dashboard', 'DashboardController@index');
 
@@ -117,6 +113,8 @@ Route::post('/approveDisapproveUserAdmin', 'UserController@approveDisapproveUser
 //employee
 Route::get('/employees', 'UserController@employeePage');
 Route::get('/getemployee', 'UserController@getEmployee');
+Route::post('/savebio', 'UserController@saveBioData');
+Route::get('/employees/{id}', 'UserController@employeeeBiodata');
 
 //suppliers
 Route::get('/suppliers', 'SupplierBranchController@supplierPage');
