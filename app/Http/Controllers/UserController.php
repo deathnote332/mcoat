@@ -139,8 +139,11 @@ class UserController extends Controller
 
 
         $record = $request->all();
-        unset($record['profile_picture']);
+
         $record['img_profile'] = $new_filename;
+
+        User::where('id',Auth::user()->id)->update(['first_name'=>$record['first_name'],'last_name'=>$record['last_name'],'middle_name'=>$record['middle_name']]);
+
         $data = json_encode($record);
 
         if($employee != null){
@@ -148,6 +151,8 @@ class UserController extends Controller
         }else{
             Employee::where('user_id',Auth::user()->id)->update(['record'=>$data]);
         }
+
+
         return $data;
     }
 }
