@@ -110,7 +110,7 @@ class UserController extends Controller
             $data = $employee->record;
         }
 
-        $theme = Theme::uses('default')->layout('default')->setTitle('MCOAT');
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
         return $theme->scope('biodata',['record'=>$data])->render();
     }
 
@@ -121,7 +121,7 @@ class UserController extends Controller
 
 
         $path = 'images';
-        if( $request->file != ''){
+        if($request->file != ''){
             try {
                 $extension = $request->file->getClientOriginalExtension();
                 $filename = pathinfo($request->file->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $extension;

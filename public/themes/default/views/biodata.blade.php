@@ -122,10 +122,9 @@
             margin: 10px 0;
         }
     </style>
-    <div class="wrapper-login">
+    <div class="">
         <input type="hidden" id="record" value="{{ $record }}" >
-        <div class="panel-body">
-            <div class="container">
+
                 <form class="form-horizontal" id="bio-data">
 
                     <div class="bio-title">
@@ -464,10 +463,8 @@
                     </div>
 
                     <div class="form-group" id="button-submit">
-                        <div class="col-md-3 col-md-offset-6">
-                            <a href="{{ url('login') }}" class="back form-control">Back</a>
-                        </div>
-                        <div class="col-md-3">
+
+                        <div class="col-md-3 col-md-offset-9">
                             <button type="button" class="form-control btn btn-primary submit-biodata">
                                 Submit
                             </button>
@@ -476,8 +473,7 @@
 
                     </div>
                 </form>
-            </div>
-        </div>
+
     </div>
 
 
@@ -592,7 +588,12 @@
             var form = $('#bio-data');
             var form_data = new FormData(form[0]);
 
-            form_data.append('file', $('#profile_picture')[0].files[0]);
+            if($('#profile_picture').val() != ''){
+                form_data.append('file', $('#profile_picture')[0].files[0]);
+            }else{
+                form_data.append('file', '');
+            }
+
             form_data.append('_token', $('meta[name="csrf_token"]').attr('content'));
 
 
