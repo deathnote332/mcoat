@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Theme;
 use File;
+use PDF;
 class UserController extends Controller
 {
 
@@ -116,6 +117,7 @@ class UserController extends Controller
 
 
     public function saveBioData(Request $request){
+        dd($request->all());
 
         $employee = Employee::where('user_id',$request->id)->first();
 
@@ -144,7 +146,7 @@ class UserController extends Controller
 
         User::where('id',Auth::user()->id)->update(['first_name'=>$record['first_name'],'last_name'=>$record['last_name'],'middle_name'=>$record['middle_name']]);
 
-        $data = json_encode($record);
+        $data = $record;
 
         if($employee != null){
             Employee::insert(['record'=>$data,'user_id'=>Auth::user()->id]);
@@ -154,5 +156,11 @@ class UserController extends Controller
 
 
         return $data;
+    }
+
+    public function pdfBiodata(Request $request){
+        $biodata = Employee::where('user_id',$request->id)->first();
+        $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record)])->setPaper('legal')->setWarnings(false);
+        return @$pdf->stream();
     }
 }
