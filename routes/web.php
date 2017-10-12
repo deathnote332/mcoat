@@ -115,6 +115,7 @@ Route::get('/employees', 'UserController@employeePage');
 Route::get('/getemployee', 'UserController@getEmployee');
 Route::post('/savebio', 'UserController@saveBioData');
 Route::get('/employees/{id}', 'UserController@employeeeBiodata');
+Route::get('/biodata/{id}', 'UserController@pdfBiodata');
 
 //suppliers
 Route::get('/suppliers', 'SupplierBranchController@supplierPage');
@@ -125,6 +126,7 @@ Route::post('/updatesupplier', 'SupplierBranchController@updateSupplier');
 Route::get('/branches', 'SupplierBranchController@branchPage');
 Route::get('/getbranches', 'SupplierBranchController@getBranches');
 Route::post('/updatebranch', 'SupplierBranchController@updateBranch');
+
 
 
 //stocksreport

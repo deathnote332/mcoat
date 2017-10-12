@@ -87,7 +87,7 @@
                     <i class="fa fa-user fa-fw"></i> <span class="user-name">{{ \Illuminate\Support\Facades\Auth::user()->first_name.' '.\Illuminate\Support\Facades\Auth::user()->last_name }}</span> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="{{ url('employees').'/'.\Illuminate\Support\Facades\Auth::user()->id }}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href=""><i class="fa fa-cog fa-fw"></i> Account settings</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="{{ url('/logout') }}"
@@ -196,7 +196,7 @@
                         <li>
                             <a href={{ URL('employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
                         </li>
-                    @else
+                    @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
@@ -255,8 +255,28 @@
                         <li>
                             <a href={{ URL('suppliers')  }}><i class="fa fa-user fa-fw"></i> Suppliers</a>
                         </li>
+                        <li>
+                            <a href={{ URL('employees').'/'.\Illuminate\Support\Facades\Auth::user()->id  }}><i class="fa fa-user fa-fw"></i> Bio-data</a>
+                        </li>
 
+                    @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 3)
+                        <li>
+                            <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
+                            <li>
+                                <a href={{ URL('mcoat')  }}><i class="fa fa-list fa-fw"></i> Products</a>
+                            </li>
+                        @else
+                            <li>
+                                <a href={{ URL('allied')  }}><i class="fa fa-list fa-fw"></i> Allied Stocks</a>
+                            </li>
+                        @endif
+                        <li>
+                            <a href={{ URL('employees').'/'.\Illuminate\Support\Facades\Auth::user()->id  }}><i class="fa fa-user fa-fw"></i> Bio-data</a>
+                        </li>
                     @endif
+
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

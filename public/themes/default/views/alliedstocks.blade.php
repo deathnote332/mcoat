@@ -19,6 +19,7 @@
 </style>
 
 <div class="card-container">
+    <input type="hidden" id="user_type" value="{{ \Illuminate\Support\Facades\Auth::user()->user_type }}">
     <div class="row">
         <div class="col-md-2">
             <div class="search-inputs">
@@ -78,19 +79,27 @@
                 { data: 'unit_price',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
-                if (data.quantity_1 == 0) {
-                    $(row).css({
-                        'background-color': '#e74c3c',
-                        'color': '#fff'
-                    });
-                }else if (data.quantity <= 3 && data.quantity >= 1){
-                    $(row).css({
-                        'background-color': '#95a5a6',
-                        'color': '#fff'
-                    });
+                if($('#user_type').val() != 3){
+                    if (data.quantity_1 == 0) {
+                        $(row).css({
+                            'background-color': '#e74c3c',
+                            'color': '#fff'
+                        });
+                    }else if (data.quantity <= 3 && data.quantity >= 1){
+                        $(row).css({
+                            'background-color': '#95a5a6',
+                            'color': '#fff'
+                        });
+                    }
                 }
+
             }
         });
+
+        if($('#user_type').val() == 3){
+            product.columns(5).visible(false);
+        }
+
         $('#searchBy').on('change',function () {
             $('#search').val('')
             product.search( '' )

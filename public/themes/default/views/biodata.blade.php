@@ -122,10 +122,9 @@
             margin: 10px 0;
         }
     </style>
-    <div class="wrapper-login">
+    <div class="">
         <input type="hidden" id="record" value="{{ $record }}" >
-        <div class="panel-body">
-            <div class="container">
+
                 <form class="form-horizontal" id="bio-data">
 
                     <div class="bio-title">
@@ -135,7 +134,7 @@
                     <div class="form-group">
                         <div class="col-md-3">
                             <div class="img-container">
-                                <img src="{{ (json_decode($record)->img_profile != '') ?  url('images/'.json_decode($record)->img_profile) : url('images/mcoat-bg.jg') }}" class="img-responsive img-profile">
+                                <img src="" class="img-responsive img-profile">
                             </div>
                             <div class="upload-btn-wrapper btn-upload">
                                 <button class=" btn btn-primary btn-width">Upload a file</button>
@@ -301,43 +300,43 @@
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">1</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1" >
+                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">2</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name2" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name2" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age2" >
+                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">3</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name3" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >
                             </div>
                             <div class="col-md-4">
                                 <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name3" >
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age3" >
+                                <input id="child_age" type="text" class="form-control" name="child_age[]" >
                             </div>
                         </div>
                     </div>
@@ -395,43 +394,43 @@
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">1</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1_1" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
                             </div>
                             <div class="col-md-4">
-                                <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1_1" >
+                                <label for="child_first_name" class="control-label">First Name</label>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1_1" >
+                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">2</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1_2" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
                             </div>
                             <div class="col-md-4">
-                                <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1_2" >
+                                <label for="child_first_name" class="control-label">First Name</label>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]  " >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1_2" >
+                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
                                 <label for="child_last_name" class="control-label"><span class="child-number">3</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1_3" >
+                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
                             </div>
                             <div class="col-md-4">
-                                <label for="child_first_name" class="control-label">First Nme</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1_3" >
+                                <label for="child_first_name" class="control-label">First Name</label>
+                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
                             </div>
                             <div class="col-md-3">
                                 <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1_3" >
+                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
                             </div>
                         </div>
                     </div>
@@ -464,10 +463,8 @@
                     </div>
 
                     <div class="form-group" id="button-submit">
-                        <div class="col-md-3 col-md-offset-6">
-                            <a href="{{ url('login') }}" class="back form-control">Back</a>
-                        </div>
-                        <div class="col-md-3">
+
+                        <div class="col-md-3 col-md-offset-9">
                             <button type="button" class="form-control btn btn-primary submit-biodata">
                                 Submit
                             </button>
@@ -476,8 +473,7 @@
 
                     </div>
                 </form>
-            </div>
-        </div>
+
     </div>
 
 
@@ -592,7 +588,12 @@
             var form = $('#bio-data');
             var form_data = new FormData(form[0]);
 
-            form_data.append('file', $('#profile_picture')[0].files[0]);
+            if($('#profile_picture').val() != ''){
+                form_data.append('file', $('#profile_picture')[0].files[0]);
+            }else{
+                form_data.append('file', '');
+            }
+
             form_data.append('_token', $('meta[name="csrf_token"]').attr('content'));
 
 
@@ -622,6 +623,33 @@
             if(name!='_token'){
                 $('[name="'+name+'"]').val(value)
             }
+
+
+        })
+
+        $.each(json['child_last_name'],function (index,value){
+           $('[name="child_last_name[]"]').val(value)
+        })
+        $.each(json['child_first_name'],function (index,value){
+
+            $('[name="child_first_name[]"]').val(value)
+        })
+        $.each(json['child_age'],function (index,value){
+
+            $('[name="child_age[]"]').val(value)
+        })
+
+        $.each(json['child_last_name1'],function (index,value){
+
+            $('[name="child_last_name1[]"]').val(value)
+        })
+        $.each(json['child_first_name1'],function (index,value){
+
+            $('[name="child_first_name1[]"]').val(value)
+        })
+        $.each(json['child_age1'],function (index,value){
+
+            $('[name="child_age1[]"]').val(value)
         })
 
     }
