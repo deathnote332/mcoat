@@ -171,7 +171,7 @@ class UserController extends Controller
              json_decode($biodata->record)->child_last_name_1,
             json_decode($biodata->record)->child_age_1,
         ];
-       
+
         $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record),'child'=>$child,'child_1'=>$child1])->setPaper('legal')->setWarnings(false);
         return @$pdf->stream();
     }

@@ -1,11 +1,6 @@
 
 <style>
-    @font-face {
-        font-family: 'Open Sans';
-        font-style: normal;
-        font-weight: normal;
-        src: url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
-    }
+
 
 
     @page {

@@ -2,7 +2,8 @@
 <style>
 
     @page {
-        margin: 180px 15px 0px 20px;
+        margin: 160px 15px 0px 20px;
+
     }
 
 
@@ -108,14 +109,14 @@
     .page-copy{
         position: absolute;
         text-align: left;
-        bottom: 50px;
+        bottom: 60px;
         font-size: 12px;
         font-style: italic;
     }
     .warehouse{
         position: absolute;
         text-align: right;
-        bottom: 50px;
+        bottom: 60px;
         font-size: 12px;
         font-style: italic;
 
