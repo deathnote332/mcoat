@@ -208,15 +208,16 @@ class ProductController extends Controller
 
             $receipt =$receipt_title.date('Y').'-'.str_pad($id, 6, '0', STR_PAD_LEFT);
 
-            $total = 0;
+           // $total = 0;
             foreach ($product as $key=>$val){
-                $total = $total + $val->temp_qty *  $val->unit_price;
+              //  $total = $total + $val->temp_qty *  $val->unit_price;
                 $temp_id[]=$val->temp_id;
                 //insert to product_out_items
                 $insertProductoutITems = DB::table('product_out_items')->insert(['product_id'=>$val->id,'quantity'=>$val->temp_qty,'receipt_no'=>$receipt]);
             }
             //delete temp_product_out
             $deleteTempProductout = DB::table('temp_product_out')->wherein('id',$temp_id)->delete();
+            $total = DB::table('product_out_items')->join('tblproducts','product_out_items.product_id','tblproducts.id')->where('product_out_items.receipt_no',$receipt)->groupBy('product_out_items.receipt_no')->select(DB::raw('sum(product_out_items.quantity * tblproducts.unit_price) as total'))->first()->total;
             Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>$branch_id,'printed_by'=>Auth::user()->id,'type'=>$type]);
             $rec_no[]=$receipt;
         }
@@ -230,9 +231,9 @@ class ProductController extends Controller
         $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
         $data =['total'=>$invoice->total,'branch'=>$invoice->branch,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products,'view'=>$request->view,'user'=>$invoice->printed_by];
         if($invoice->type == 1){
-            $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setWarnings(false);
+            $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         }else{
-            $pdf = PDF::loadView('pdf.alliedinvoice',['invoice'=>$data])->setWarnings(false);
+            $pdf = PDF::loadView('pdf.alliedinvoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         }
 
         return @$pdf->stream();

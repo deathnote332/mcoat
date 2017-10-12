@@ -2,9 +2,8 @@
 <style>
 
     @page {
-        margin: 180px 50px 10px 50px;
+        margin: 180px 15px 0px 20px;
     }
-
 
 
     h1,h3{
@@ -31,7 +30,7 @@
     }
 
     table tbody tr td{
-        padding: 5px 0px;
+        padding: 3px 0px;
     }
 
     .page-break {
@@ -109,16 +108,14 @@
     .page-copy{
         position: absolute;
         text-align: left;
-        bottom: 0px;
-
+        bottom: 50px;
         font-size: 12px;
         font-style: italic;
     }
     .warehouse{
         position: absolute;
         text-align: right;
-        bottom: 0px;
-
+        bottom: 50px;
         font-size: 12px;
         font-style: italic;
 
@@ -143,7 +140,6 @@
 
     .delivered_to{
         position: absolute;
-
         top: -20px;
         padding-left: 8px;
 
@@ -170,7 +166,7 @@
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
     table tr td{ border-right: 1px solid black !important; }
-    table tbody tr td:nth-child(3){ text-align: left;padding-left: 10px }
+    table tbody tr td:nth-child(3),table tbody tr td:nth-child(2),table tbody tr td:nth-child(1),table tbody tr td:nth-child(4),table tbody tr td:nth-child(5){ text-align: left;padding-left: 15px }
     #total td{
         border-top: 1px solid black !important;
 

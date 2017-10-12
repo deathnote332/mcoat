@@ -1,11 +1,17 @@
 
 <style>
-
-    @page {
-        margin: 180px 50px 0px 50px;
+    @font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: normal;
+        src: url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3aCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
     }
 
 
+    @page {
+        margin: 160px 15px 0px 20px;
+
+    }
 
     h1,h3{
         margin: 0;
@@ -18,6 +24,7 @@
         border: 1px solid black;
         font-size: 13px;
         margin: 0px;
+
     }
 
     thead tr th {
@@ -31,7 +38,7 @@
     }
 
     table tbody tr td{
-        padding: 5px 0px;
+        padding: 3px 0px;
     }
 
     .page-break {
@@ -109,15 +116,14 @@
     .page-copy{
          position: absolute;
          text-align: left;
-         bottom: 0px;
-
+         bottom: 60px;
          font-size: 12px;
          font-style: italic;
      }
      .warehouse{
         position: absolute;
         text-align: right;
-        bottom: 0px;
+        bottom: 60px;
         font-size: 12px;
         font-style: italic;
 
@@ -143,7 +149,6 @@
 
     .delivered_to{
         position: absolute;
-        font-weight: bold;
         top: -20px;
         padding-left: 8px;
 
@@ -170,7 +175,7 @@
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
     table tr td{ border-right: 1px solid black !important; }
-    table tbody tr td:nth-child(3){ text-align: left;padding-left: 10px }
+    table tbody tr td:nth-child(3),table tbody tr td:nth-child(2),table tbody tr td:nth-child(1),table tbody tr td:nth-child(4),table tbody tr td:nth-child(5){ text-align: left;padding-left: 15px; }
    #total td{
        border-top: 1px solid black !important;
 
@@ -182,7 +187,7 @@
         border-right: 0 !important;
     }
     .print-info{
-        padding-top: 20px;
+        padding: 20px 20px 0 40px;
 
     }
     .print-info div:nth-child(1) span{
@@ -235,129 +240,132 @@
     }
 </style>
 <title>MCOAT - {!! $invoice['receipt_no'] !!}</title>
-    @for($i = 1;$i <= 3;$i++)
+@for($i = 1;$i <= 3;$i++)
 
-        <div class="header">
-            <h1>mcoat paint commercial & general merchandise</h1>
-            <div class="sub-header">
-                <h3>185 R. Jabson St. Bambang, Pasig City</h3>
-                <h3>Clint D. De Jesus - Prop.</h3>
-                <h3>Tel: 509-3387 Telefax: 570-5527</h3>
-                <h3>Cel: 09423512001; 09178657629</h3>
-                <h3>Vat. Reg. TIN: 146-286-502-001</h3>
-            </div>
+    <div class="header">
+        <h1>mcoat paint commercial & general merchandise</h1>
+        <div class="sub-header">
+            <h3>185 R. Jabson St. Bambang, Pasig City</h3>
+            <h3>Clint D. De Jesus - Prop.</h3>
+            <h3>Tel: 509-3387 Telefax: 570-5527</h3>
+            <h3>Cel: 09423512001; 09178657629</h3>
+            <h3>Vat. Reg. TIN: 146-286-502-001</h3>
         </div>
-        <div class="deliver-receipt">
-            DELIVERY RECEIPT
-        </div>
+    </div>
+    <div class="deliver-receipt">
+        DELIVERY RECEIPT
+    </div>
 
-        <div class="branch-name">
-            {!! \App\Branches::find($invoice['branch'])->name !!}
-        </div>
-        <div class="inv-number">
-            NO. <span>{!! $invoice['receipt_no'] !!}</span>
-        </div>
-        <div class="date">
-           Date Printed: {!! $invoice['created_at'] !!}
-        </div>
+    <div class="branch-name">
+        {!! \App\Branches::find($invoice['branch'])->name !!}
+    </div>
+    <div class="inv-number">
+        NO. <span>{!! $invoice['receipt_no'] !!}</span>
+    </div>
+    <div class="date">
+        Date Printed: {!! $invoice['created_at'] !!}
+    </div>
+    @if($invoice['view'] == 1)
         <div class="date1">
             Date Reprinted: {!! date('M d,Y') !!}
         </div>
-        <div class="delivered_to">
-            Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>
-        </div>
-        <div class="address">
-            Address: <span>{!! \App\Branches::find($invoice['branch'])->address !!}</span>
-        </div>
+    @endif
+    <div class="delivered_to">
+        Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>
+    </div>
+    <div class="address">
+        Address: <span>{!! \App\Branches::find($invoice['branch'])->address !!}</span>
+    </div>
 
-        <div class="table-location">
-            <table class="table" id="sample" width="100%">
-                <thead>
+    <div class="table-location">
+        <table class="table" id="sample" width="100%">
+            <thead>
+            <tr>
+                <th>Qty/Unit</th>
+                <th>Code</th>
+                <th>Description</th>
+
+
+                <th>unit price</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($invoice['products'] as $key=>$val)
                 <tr>
-                    <th>Qty/Unit</th>
-                    <th>Code</th>
-                    <th>Description</th>
-
-
-                    <th>unit price</th>
-                    <th>Amount</th>
+                    <td>{!! $val->product_qty !!}   {!!  $val->unit !!}</td>
+                    <td>{!! $val->code !!} </td>
+                    <td>{!! $val->brand.' '.$val->category.' '.$val->description  !!}</td>
+                    <td>{!! 'P '.number_format($val->unit_price , 2) !!}</td>
+                    <td>{!! 'P '.number_format($val->unit_price * $val->product_qty, 2) !!}</td>
                 </tr>
-                </thead>
-                <tbody>
-                    @foreach($invoice['products'] as $key=>$val)
-                        <tr>
-                            <td>{!! $val->product_qty !!}   {!!  $val->unit !!}</td>
-                            <td>{!! $val->code !!} </td>
-                            <td>{!! $val->brand.' '.$val->category.' '.$val->description  !!}</td>
-                            <td>{!! 'P '.number_format($val->unit_price , 2) !!}</td>
-                            <td>{!! 'P '.number_format($val->unit_price * $val->product_qty, 2) !!}</td>
-                        </tr>
-                    @endforeach
-                <tr id="total">
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>TOTAL</td>
-                    <td>{!! 'P '.number_format($invoice['total'], 2) !!}</td>
-                </tr>
-                </tbody>
-            </table>
+            @endforeach
+            <tr id="total">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>TOTAL</td>
+                <td>{!! 'P '.number_format($invoice['total'], 2) !!}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="received-goods">
+        Received the above goods in good order and condition
+    </div>
+    <div class="print-info">
+        <div class="prepared-by">
+            Prepared by: <span>{!! \App\User::find($invoice['user'])->first_name.' '.\App\User::find($invoice['user'])->last_name !!}</span>
         </div>
-        <div class="received-goods">
-            Received the above goods in good order and condition
+
+        <div class="checked-by">
+            Checked by: ______________________________________
         </div>
-        <div class="print-info">
-            <div class="prepared-by">
-                Prepared by: <span>{!! \App\User::find($invoice['user'])->first_name.' '.\App\User::find($invoice['user'])->last_name !!}</span>
-            </div>
+        <div class="received-by">
+            Received by: <span>______________________________________</span>
 
-            <div class="checked-by">
-                Checked by: ______________________________________
-            </div>
-            <div class="received-by">
-                    Received by: <span>______________________________________</span>
+        </div>
+        <div class="received-by signature">
+            Name & Authorized Signature
 
-            </div>
-            <div class="received-by signature">
-                Name & Authorized Signature
-
-            </div>
-
-
-            <div class="invoice-follow">
-               Invoice to follow
-            </div>
-            <div class="received-by date-received">
-                Date received: <span>______________________________________</span>
-
-            </div>
         </div>
 
 
-        <div class="page-copy">
-            @if( $i == 1 )
-                <p>*This is the original copy</p>
-
-            @elseif( $i == 2 )
-                <p>**This is the duplicate copy</p>
-
-            @else
-                <p>***This is the triplicate copy</p>
-
-            @endif
+        <div class="invoice-follow">
+            Invoice to follow
         </div>
-        <div class="warehouse">
-            @if( $i == 1 )
-                <p>*M-Coat Pasig Warehouse</p>
-            @elseif( $i == 2 )
-                <p>*M-Coat Pasig Warehouse</p>
-            @else
-                <p>*M-Coat Pasig Warehouse</p>
-            @endif
-        </div>
-        <div class="page-break"></div>
+        <div class="received-by date-received">
+            Date received: <span>______________________________________</span>
 
-    @endfor
+        </div>
+    </div>
+
+    <div class="page-copy">
+        @if( $i == 1 )
+            <p>*This is the original copy</p>
+
+        @elseif( $i == 2 )
+            <p>**This is the duplicate copy</p>
+
+        @else
+            <p>***This is the triplicate copy</p>
+
+        @endif
+    </div>
+    <div class="warehouse">
+        @if( $i == 1 )
+            <p>*M-Coat Pasig Warehouse</p>
+        @elseif( $i == 2 )
+            <p>*M-Coat Pasig Warehouse</p>
+        @else
+            <p>*M-Coat Pasig Warehouse</p>
+        @endif
+    </div>
+
+    <div class="page-break"></div>
+
+@endfor
+
 
 
 

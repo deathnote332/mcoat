@@ -85,7 +85,7 @@
 <div class="row">
 
     <!-- /.col-lg-6 -->
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 BRANCH ORDER GRAPH
@@ -93,19 +93,6 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div id="morris-bar-chart"></div>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-    </div>
-    <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                STORE SALES GRAPH
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div id="morris-donut-chart"></div>
             </div>
             <!-- /.panel-body -->
         </div>
@@ -140,17 +127,6 @@
             }
         });
 
-        Morris.Donut({
-            element: 'morris-donut-chart',
-            data: [{
-                label: "Mcoat Sales",
-                value: 60
-            }, {
-                label: "Dagupan Sales",
-                value: 40
-            }],
-            resize: true
-        });
 
     })
 

@@ -134,7 +134,7 @@ return array(
                 $theme->asset()->usePath()->add('morris.css', 'css/morris.css');
                 $theme->asset()->usePath()->add('raphael.min.js', 'js/raphael.min.js');
                 $theme->asset()->usePath()->add('morris.min.js', 'js/morris.min.js');
-                $theme->asset()->usePath()->add('morris-data.js', 'js/morris-data.js');
+
 
 
 
