@@ -117,7 +117,6 @@ class UserController extends Controller
 
 
     public function saveBioData(Request $request){
-        dd($request->all());
 
         $employee = Employee::where('user_id',$request->id)->first();
 
@@ -146,12 +145,14 @@ class UserController extends Controller
 
         User::where('id',Auth::user()->id)->update(['first_name'=>$record['first_name'],'last_name'=>$record['last_name'],'middle_name'=>$record['middle_name']]);
 
-        $data = $record;
+        $data = json_encode($record);
 
         if($employee != null){
             Employee::insert(['record'=>$data,'user_id'=>Auth::user()->id]);
         }else{
+
             Employee::where('user_id',Auth::user()->id)->update(['record'=>$data]);
+
         }
 
 
@@ -160,7 +161,17 @@ class UserController extends Controller
 
     public function pdfBiodata(Request $request){
         $biodata = Employee::where('user_id',$request->id)->first();
-        $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record)])->setPaper('legal')->setWarnings(false);
+        $child = [
+          'first_name' => json_decode($biodata->record)->child_first_name,
+          'last_name' => json_decode($biodata->record)->child_last_name,
+          'age' => json_decode($biodata->record)->child_age,
+        ];
+        $child1 = [
+            'first_name' => json_decode($biodata->record)->child_first_name_1,
+            'last_name' => json_decode($biodata->record)->child_last_name_1,
+            'age' => json_decode($biodata->record)->child_age_1,
+        ];
+        $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record),'child'=>$child,'child_1'=>$child1])->setPaper('legal')->setWarnings(false);
         return @$pdf->stream();
     }
 }

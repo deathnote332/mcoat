@@ -199,9 +199,10 @@
         <h4>Name of children/s</h4>
         <div class="childern-1">
 
+            @foreach($child as $key=>$value)
             <div class="row">
                 <div class="last-name width-3">
-                    <span>Last Name :</span> Inhog
+                    <span>Last Name :</span> {!! $value['first_name'] !!}
                 </div>
                 <div class="last-name width-3">
                     <span>First Name :</span> John Paul
@@ -210,7 +211,7 @@
                     <span>Age :</span> 22
                 </div>
             </div>
-
+            @endforeach
         </div>
     </div>
     <div class="row">

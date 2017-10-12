@@ -393,44 +393,44 @@
 
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
-                                <label for="child_last_name" class="control-label"><span class="child-number">1</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
+                                <label for="child_last_name1" class="control-label"><span class="child-number">1</span>. Last Name</label>
+                                <input id="child_last_name1" type="text" class="form-control" name="child_last_name_1[]" >
                             </div>
                             <div class="col-md-4">
-                                <label for="child_first_name" class="control-label">First Name</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
+                                <label for="child_first_name1" class="control-label">First Name</label>
+                                <input id="child_first_name1" type="text" class="form-control" name="child_first_name_1[]" >
                             </div>
                             <div class="col-md-3">
-                                <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
+                                <label for="child_age1" class="control-label">Age</label>
+                                <input id="child_age1" type="text" class="form-control" name="child_age_1[]" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
-                                <label for="child_last_name" class="control-label"><span class="child-number">2</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
+                                <label for="child_last_name1" class="control-label"><span class="child-number">2</span>. Last Name</label>
+                                <input id="child_last_name1" type="text" class="form-control" name="child_last_name_1[]" >
                             </div>
                             <div class="col-md-4">
-                                <label for="child_first_name" class="control-label">First Name</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]  " >
+                                <label for="child_first_name1" class="control-label">First Name</label>
+                                <input id="child_first_name1" type="text" class="form-control" name="child_first_name_1[]" >
                             </div>
                             <div class="col-md-3">
-                                <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
+                                <label for="child_age1" class="control-label">Age</label>
+                                <input id="child_age1" type="text" class="form-control" name="child_age_1[]" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
-                                <label for="child_last_name" class="control-label"><span class="child-number">3</span>. Last Name</label>
-                                <input id="child_last_name" type="text" class="form-control" name="child_last_name1[]" >
+                                <label for="child_last_name1" class="control-label"><span class="child-number">3</span>. Last Name</label>
+                                <input id="child_last_name1" type="text" class="form-control" name="child_last_name_1[]" >
                             </div>
                             <div class="col-md-4">
-                                <label for="child_first_name" class="control-label">First Name</label>
-                                <input id="child_first_name" type="text" class="form-control" name="child_first_name1[]" >
+                                <label for="child_first_name1" class="control-label">First Name</label>
+                                <input id="child_first_name1" type="text" class="form-control" name="child_first_name_1[]" >
                             </div>
                             <div class="col-md-3">
-                                <label for="child_age" class="control-label">Age</label>
-                                <input id="child_age" type="text" class="form-control" name="child_age1[]" >
+                                <label for="child_age1" class="control-label">Age</label>
+                                <input id="child_age1" type="text" class="form-control" name="child_age_1[]" >
                             </div>
                         </div>
                     </div>
@@ -501,15 +501,15 @@
                 '<div class="form-group">' +
                 '<div class="col-md-4 col-md-offset-1">' +
                 '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
-                '<input id="child_last_name" type="text" class="form-control" name="child_last_name'+count+'" >' +
+                '<input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >' +
                 '</div>' +
                 '<div class="col-md-4">' +
                 '<label for="child_first_name" class="control-label">First Nme</label>' +
-                '<input id="child_first_name" type="text" class="form-control" name="child_first_name'+count+'" >' +
+                '<input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >' +
                 '</div>' +
                 '<div class="col-md-3">' +
                 '<label for="child_age" class="control-label">Age</label>' +
-                '<input id="child_age" type="text" class="form-control" name="child_age'+count+'" >' +
+                '<input id="child_age" type="text" class="form-control" name="child_age[]" >' +
                 '</div>' +
                 '</div>'
             );
@@ -528,15 +528,15 @@
                 '<div class="form-group">' +
                 '<div class="col-md-4 col-md-offset-1">' +
                 '<label for="child_last_name" class="control-label"><span class="child-number">'+ count +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
-                '<input id="child_last_name" type="text" class="form-control" name="child_last_name1_'+count+'" >' +
+                '<input id="child_last_name" type="text" class="form-control" name="child_last_name_1[]" >' +
                 '</div>' +
                 '<div class="col-md-4">' +
                 '<label for="child_first_name" class="control-label">First Nme</label>' +
-                '<input id="child_first_name" type="text" class="form-control" name="child_first_name1_'+count+'" >' +
+                '<input id="child_first_name" type="text" class="form-control" name="child_first_name_1[]" >' +
                 '</div>' +
                 '<div class="col-md-3">' +
                 '<label for="child_age" class="control-label">Age</label>' +
-                '<input id="child_age" type="text" class="form-control" name="child_age1_'+count+'" >' +
+                '<input id="child_age" type="text" class="form-control" name="child_age_1[]" >' +
                 '</div>' +
                 '</div>'
             );
@@ -611,7 +611,7 @@
                         text: "Profile successfully updated",
                         type:"success"
                     })
-                    location.reload();
+                   // location.reload();
                 }
             });
         });
@@ -627,29 +627,74 @@
 
         })
 
+        if(json['child_last_name'].length >= 4){
+            var i;
+            for(i= 1; i<=(json['child_last_name'].length - 3);i++){
+                $('#bio-data').find('#children-group').append(
+                    '<div class="form-group">' +
+                    '<div class="col-md-4 col-md-offset-1">' +
+                    '<label for="child_last_name" class="control-label"><span class="child-number">'+ (parseInt(i) + 3) +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
+                    '<input id="child_last_name" type="text" class="form-control" name="child_last_name[]" >' +
+                    '</div>' +
+                    '<div class="col-md-4">' +
+                    '<label for="child_first_name" class="control-label">First Nme</label>' +
+                    '<input id="child_first_name" type="text" class="form-control" name="child_first_name[]" >' +
+                    '</div>' +
+                    '<div class="col-md-3">' +
+                    '<label for="child_age" class="control-label">Age</label>' +
+                    '<input id="child_age" type="text" class="form-control" name="child_age[]" >' +
+                    '</div>' +
+                    '</div>'
+                );
+            }
+        }
+
+
+        if(json['child_last_name_1'].length >= 4){
+            var i;
+            for(i= 1; i<=(json['child_last_name_1'].length - 3);i++){
+                $('#bio-data').find('#children-group1').append(
+                    '<div class="form-group">' +
+                    '<div class="col-md-4 col-md-offset-1">' +
+                    '<label for="child_last_name" class="control-label"><span class="child-number">'+ (parseInt(i) + 3) +'</span>. Last Name <span class="remove">(REMOVE)</span></label>' +
+                    '<input id="child_last_name" type="text" class="form-control" name="child_last_name_1[]" >' +
+                    '</div>' +
+                    '<div class="col-md-4">' +
+                    '<label for="child_first_name" class="control-label">First Nme</label>' +
+                    '<input id="child_first_name" type="text" class="form-control" name="child_first_name_1[]" >' +
+                    '</div>' +
+                    '<div class="col-md-3">' +
+                    '<label for="child_age" class="control-label">Age</label>' +
+                    '<input id="child_age" type="text" class="form-control" name="child_age_1[]" >' +
+                    '</div>' +
+                    '</div>'
+                );
+            }
+        }
+
         $.each(json['child_last_name'],function (index,value){
-           $('[name="child_last_name[]"]').val(value)
+           $('[name="child_last_name[]"]').eq(index).val(value)
         })
         $.each(json['child_first_name'],function (index,value){
 
-            $('[name="child_first_name[]"]').val(value)
+            $('[name="child_first_name[]"]').eq(index).val(value)
         })
         $.each(json['child_age'],function (index,value){
+            $('[name="child_age[]"]').eq(index).val(value)
 
-            $('[name="child_age[]"]').val(value)
         })
 
-        $.each(json['child_last_name1'],function (index,value){
+        $.each(json['child_last_name_1'],function (index,value){
 
-            $('[name="child_last_name1[]"]').val(value)
+            $('[name="child_last_name_1[]"]').eq(index).val(value)
         })
-        $.each(json['child_first_name1'],function (index,value){
+        $.each(json['child_first_name_1'],function (index,value){
 
-            $('[name="child_first_name1[]"]').val(value)
+            $('[name="child_first_name_1[]"]').eq(index).val(value)
         })
-        $.each(json['child_age1'],function (index,value){
+        $.each(json['child_age_1'],function (index,value){
 
-            $('[name="child_age1[]"]').val(value)
+            $('[name="child_age_1[]"]').eq(index).val(value)
         })
 
     }
