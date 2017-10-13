@@ -94,9 +94,9 @@ class UserController extends Controller
         $userList = array();
         foreach ($employee as $key=>$val){
            $employee_data = json_decode($val->record);
-            $action = '<label id="approve" class="alert alert-info" data-id="'.$val->id.'" >View</label>';
+            $view = "<a href='biodata/$val->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
 
-            $userList[]=['name'=>$employee_data->first_name.' '.$employee_data->last_name,'position'=>$employee_data->position,'date_hired'=>$employee_data->date_hired,'branch_hired'=>$employee_data->branch_hired,'action'=>$action];
+            $userList[]=['name'=>$employee_data->first_name.' '.$employee_data->last_name,'position'=>$employee_data->position,'date_hired'=>$employee_data->date_hired,'branch_hired'=>$employee_data->branch_hired,'action'=>$view];
         }
 
         return json_encode(['data'=>$userList]);
