@@ -56,7 +56,7 @@
     .row{
         margin: 0;
         padding: 5px 10px;
-       display: block;
+        display: block;
     }
     .width-1{
         width: 100%;
@@ -91,7 +91,7 @@
     <div class="img-logo">
         <img src="images/mcoat-logo.png" alt="picture1">
     </div>
-    <div class="mtitle">
+    <div class="title">
         <h3>Employee's Bio Data</h3>
     </div>
     <div class="img-picture">
@@ -102,17 +102,17 @@
     <div class="info-title">
         <h3>Personal Information</h3>
     </div>
-   <div class="row">
-       <div class="last-name width-3">
-           <span>Last Name :</span> {!! $data->last_name !!}
-       </div>
-       <div class="last-name width-3">
-           <span>First Name :</span> {!! $data->first_name !!}
-       </div>
-       <div class="last-name width-3">
-           <span>Middle Name :</span> {!! $data->middle_name !!}
-       </div>
-   </div>
+    <div class="row">
+        <div class="last-name width-3">
+            <span>Last Name :</span> {!! $data->last_name !!}
+        </div>
+        <div class="last-name width-3">
+            <span>First Name :</span> {!! $data->first_name !!}
+        </div>
+        <div class="last-name width-3">
+            <span>Middle Name :</span> {!! $data->middle_name !!}
+        </div>
+    </div>
     <div class="row">
         <div class="address width-4">
             <span>Address :</span> {!! $data->address !!}
@@ -175,45 +175,45 @@
         <h3>Background</h3>
     </div>
     @if($data->status != 'single')
-    <div class="row">
-        <div class="last-name width-2">
-            <span>Spouse Last Name :</span> {!! $data->spouse_last_name !!}
+        <div class="row">
+            <div class="last-name width-2">
+                <span>Spouse Last Name :</span> {!! $data->spouse_last_name !!}
+            </div>
+            <div class="last-name width-2">
+                <span>Spouse First Name :</span> {!! $data->spouse_first_name !!}
+            </div>
         </div>
-        <div class="last-name width-2">
-            <span>Spouse First Name :</span> {!! $data->spouse_first_name !!}
+        <div class="row">
+            <div class="width-1">
+                <span>Address :</span> {!! $data->spouse_address !!}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="width-1">
-            <span>Address :</span> {!! $data->spouse_address !!}
+        <div class="row">
+            <div class="last-name width-2">
+                <span>Occupation :</span> {!! $data->spouse_occupation !!}
+            </div>
+            <div class="last-name width-2">
+                <span>Contact :</span> {!! $data->spouse_contact !!}
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="last-name width-2">
-            <span>Occupation :</span> {!! $data->spouse_occupation !!}
-        </div>
-        <div class="last-name width-2">
-            <span>Contact :</span> {!! $data->spouse_contact !!}
-        </div>
-    </div>
-    <div class="row">
-        <h4>Name of children/s</h4>
-        <div class="childern-1">
-            @for($i = 0;$i <=(count($data->child_last_name) - 1);$i++)
-                <div class="row">
-                    <div class="last-name width-3">
-                        <span>Last Name :</span> {{ $data->child_last_name[$i] }}
+        <div class="row">
+            <h4>Name of children/s</h4>
+            <div class="childern-1">
+                @for($i = 0;$i <=(count($data->child_last_name) - 1);$i++)
+                    <div class="row">
+                        <div class="last-name width-3">
+                            <span>Last Name :</span> {{ $data->child_last_name[$i] }}
+                        </div>
+                        <div class="last-name width-3">
+                            <span>First Name :</span> {{ $data->child_first_name[$i] }}
+                        </div>
+                        <div class="last-name width-3">
+                            <span>Age :</span> {{ $data->child_age[$i] }}
+                        </div>
                     </div>
-                    <div class="last-name width-3">
-                        <span>First Name :</span> {{ $data->child_first_name[$i] }}
-                    </div>
-                    <div class="last-name width-3">
-                        <span>Age :</span> {{ $data->child_age[$i] }}
-                    </div>
-                </div>
-            @endfor
+                @endfor
+            </div>
         </div>
-    </div>
     @endif
     <div class="row">
         <div class="last-name width-2">
@@ -258,24 +258,24 @@
         </div>
     </div>
     @if(count($data->child_last_name_1) != 0)
-    <div class="row">
-        <h4>Name of children/s</h4>
-        <div class="childern-1">
-            @for($i = 0;$i <=(count($data->child_last_name_1) - 1);$i++)
-                <div class="row">
-                    <div class="last-name width-3">
-                        <span>Last Name :</span> {{ $data->child_last_name_1[$i] }}
+        <div class="row">
+            <h4>Name of children/s</h4>
+            <div class="childern-1">
+                @for($i = 0;$i <=(count($data->child_last_name_1) - 1);$i++)
+                    <div class="row">
+                        <div class="last-name width-3">
+                            <span>Last Name :</span> {{ $data->child_last_name_1[$i] }}
+                        </div>
+                        <div class="last-name width-3">
+                            <span>First Name :</span> {{ $data->child_first_name_1[$i] }}
+                        </div>
+                        <div class="last-name width-3">
+                            <span>Age :</span> {{ $data->child_age_1[$i] }}
+                        </div>
                     </div>
-                    <div class="last-name width-3">
-                        <span>First Name :</span> {{ $data->child_first_name_1[$i] }}
-                    </div>
-                    <div class="last-name width-3">
-                        <span>Age :</span> {{ $data->child_age_1[$i] }}
-                    </div>
-                </div>
-            @endfor
+                @endfor
+            </div>
         </div>
-    </div>
     @endif
     <div class="info-title">
         <h3>In Case of Emergency</h3>
