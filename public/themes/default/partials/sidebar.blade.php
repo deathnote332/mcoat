@@ -193,52 +193,26 @@
                     <li>
                         <a href={{ URL('users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
                     </li>
-                        <li>
-                            <a href={{ URL('employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
-                        </li>
+                    <li>
+                        <a href={{ URL('employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
+                    </li>
                     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
-                            <li>
-                                <a href={{ URL('mcoat')  }}><i class="fa fa-list fa-fw"></i> Mcoat Stocks</a>
-                            </li>
-                        @else
-                            <li>
-                                <a href={{ URL('allied')  }}><i class="fa fa-list fa-fw"></i> Allied Stocks</a>
-                            </li>
-                        @endif
+                        <li>
+                            <a href={{ URL('semi/products')  }}><i class="fa fa-list fa-fw"></i> Products</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('semi/manage')  }}><i class="fa fa-list fa-fw"></i> Manage product</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('semi/productout')  }}><i class="fa fa-files-o fa-fw"></i> Product out</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('semi/productin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in</a>
+                        </li>
 
-                        @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
-                            <li>
-                                <a href={{ URL('manageProduct')  }}><i class="fa fa-list fa-fw"></i> Manage product</a>
-                            </li>
-                        @else
-                            <li>
-                                <a href={{ URL('alliedmanageproduct')  }}><i class="fa fa-list fa-fw"></i> Manage product</a>
-                            </li>
-                        @endif
-
-                        @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
-                            <li>
-                                <a href={{ URL('productout')  }}><i class="fa fa-files-o fa-fw"></i> Product out</a>
-                            </li>
-                        @else
-                            <li>
-                                <a href={{ URL('alliedproductout')  }}><i class="fa fa-files-o fa-fw"></i> Product out</a>
-                            </li>
-                        @endif
-
-                        @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
-                            <li>
-                                <a href={{ URL('productin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in</a>
-                            </li>
-                        @else
-                            <li>
-                                <a href={{ URL('alliedproductin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in</a>
-                            </li>
-                        @endif
                         <li>
                             <a href={{ URL('receipts')  }}><i class="fa fa-files-o fa-fw"></i> Receipts</a>
                         </li>
@@ -256,24 +230,18 @@
                             <a href={{ URL('suppliers')  }}><i class="fa fa-user fa-fw"></i> Suppliers</a>
                         </li>
                         <li>
-                            <a href={{ URL('employees').'/'.\Illuminate\Support\Facades\Auth::user()->id  }}><i class="fa fa-user fa-fw"></i> Bio-data</a>
+                            <a href={{ URL('semi/employees').'/'.\Illuminate\Support\Facades\Auth::user()->id  }}><i class="fa fa-user fa-fw"></i> Bio-data</a>
                         </li>
 
                     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 3)
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
-                            <li>
-                                <a href={{ URL('mcoat')  }}><i class="fa fa-list fa-fw"></i> Products</a>
-                            </li>
-                        @else
-                            <li>
-                                <a href={{ URL('allied')  }}><i class="fa fa-list fa-fw"></i> Allied Stocks</a>
-                            </li>
-                        @endif
+                       <li>
+                            <a href={{ URL('user/products')  }}><i class="fa fa-list fa-fw"></i> Products</a>
+                        </li>
                         <li>
-                            <a href={{ URL('employees').'/'.\Illuminate\Support\Facades\Auth::user()->id  }}><i class="fa fa-user fa-fw"></i> Bio-data</a>
+                            <a href={{ URL('user/employees').'/'.\Illuminate\Support\Facades\Auth::user()->id  }}><i class="fa fa-user fa-fw"></i> Bio-data</a>
                         </li>
                     @endif
 

@@ -63,21 +63,20 @@ class ReceiptController extends Controller
     public function getRecieptsIn(Request $request){
 
         if(Auth::user()->user_type ==1){
-            $receipts = Productout::orderBy('id','desc')->get();
+            $receipts = Productin::orderBy('id','desc')->get();
         }else{
             if(Auth::user()->warehouse == 1){
                 $type = 1;
             }elseif(Auth::user()->warehouse == 2){
                 $type=3;
             }
-            $receipts = Productout::where('type',$type)->orderBy('id','desc')->get();
+            $receipts = Productin::where('type',$type)->orderBy('id','desc')->get();
         }
 
         $receiptData =array();
         foreach ($receipts as $key=>$val){
 
             $view = "<a href='invoiceReceiptin/$val->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
-
 
             $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_from'=>Supplier::find($val->supplier_id)->name,'created_by'=>User::find($val->printed_by)->first_name.' '.User::find($val->printed_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'warehouse'=>($val->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse','action'=>$view];
         }

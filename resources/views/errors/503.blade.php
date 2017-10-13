@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back.</title>
+        <title>Page not found.</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
         <style>
             html, body {
                 height: 100%;
+                background: url('../images/mcoat-bg.jpg');
+
             }
 
             body {
@@ -34,13 +36,29 @@
             .title {
                 font-size: 72px;
                 margin-bottom: 40px;
+                font-weight: bold;
+                color: red
+            }
+            .content a{
+                 padding: 15px 60px;
+                 text-decoration: none;
+                 background: #337ab7;
+                 color: white;
+                 cursor: pointer;
+                 font-size: 16px;
+             }
+            .content a:hover{
+
+                background: #1451b7;
+
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Be right back.</div>
+                <div class="title">404 Page not found.</div>
+                <a href="{{ url('dashboard') }}">Back</a>
             </div>
         </div>
     </body>

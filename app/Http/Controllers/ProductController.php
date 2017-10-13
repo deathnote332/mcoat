@@ -49,6 +49,8 @@ class ProductController extends Controller
 
     }
 
+
+
     public function mcoatStocksPage(){
         $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
         return $theme->scope('mcoatstocks')->render();
@@ -327,7 +329,8 @@ class ProductController extends Controller
     }
 
 
-    //manage product
+
+
     public function manageProduct(){
         $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
         return $theme->scope('manageproducts')->render();
@@ -361,4 +364,49 @@ class ProductController extends Controller
         $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
         return $theme->scope('alliedmanageproducts')->render();
     }
+
+
+
+
+    public function stocksPage(){
+        if(Auth::user()->warehouse == 1){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
+            return $theme->scope('mcoatstocks')->render();
+        }elseif(Auth::user()->warehouse == 2){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Allied Stocks');
+            return $theme->scope('alliedstocks')->render();
+        }
+    }
+
+    //manage product
+    public function manage(){
+        if(Auth::user()->warehouse == 1){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Manage Products');
+            return $theme->scope('manageproducts')->render();
+        }elseif(Auth::user()->warehouse == 2){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Manage Products');
+            return $theme->scope('alliedmanageproducts')->render();
+        }
+    }
+
+    public function productOut(){
+        if(Auth::user()->warehouse == 1){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product out');
+            return $theme->scope('productout')->render();
+        }elseif(Auth::user()->warehouse == 2){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product out');
+            return $theme->scope('alliedproductout')->render();
+        }
+    }
+
+    public function productIn(){
+        if(Auth::user()->warehouse == 1){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product in');
+            return $theme->scope('productin')->render();
+        }elseif(Auth::user()->warehouse == 2){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product in');
+            return $theme->scope('alliedproductin')->render();
+        }
+    }
+
 }

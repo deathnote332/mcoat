@@ -86,13 +86,12 @@
         padding-left: 80px;
     }
 </style>
-<title></title>
-
+<title>Bio Data of {!! $data->first_name. ' '.$data->last_name !!}</title>
 <div class="header">
     <div class="img-logo">
         <img src="images/mcoat-logo.png" alt="picture1">
     </div>
-    <div class="title">
+    <div class="mtitle">
         <h3>Employee's Bio Data</h3>
     </div>
     <div class="img-picture">

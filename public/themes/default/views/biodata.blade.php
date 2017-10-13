@@ -625,7 +625,7 @@
                         text: "Profile successfully updated",
                         type:"success"
                     })
-                   // location.reload();
+                    location.reload();
                 }
             });
         });
