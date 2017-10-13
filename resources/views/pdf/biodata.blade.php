@@ -3,6 +3,7 @@
 
     @page {
         margin: 180px 30px 0px 30px;
+        text-transform: capitalize;
     }
 
     h2,h3,h4,h1,h5{
@@ -174,6 +175,7 @@
     <div class="info-title">
         <h3>Background</h3>
     </div>
+    @if($data->status != 'single')
     <div class="row">
         <div class="last-name width-2">
             <span>Spouse Last Name :</span> {!! $data->spouse_last_name !!}
@@ -198,22 +200,22 @@
     <div class="row">
         <h4>Name of children/s</h4>
         <div class="childern-1">
-
-            @foreach($child as $key=>$value)
-            <div class="row">
-                <div class="last-name width-3">
-                    <span>Last Name :</span> {!! $value[$key] !!}
+            @for($i = 0;$i <=(count($data->child_last_name) - 1);$i++)
+                <div class="row">
+                    <div class="last-name width-3">
+                        <span>Last Name :</span> {{ $data->child_last_name[$i] }}
+                    </div>
+                    <div class="last-name width-3">
+                        <span>First Name :</span> {{ $data->child_first_name[$i] }}
+                    </div>
+                    <div class="last-name width-3">
+                        <span>Age :</span> {{ $data->child_age[$i] }}
+                    </div>
                 </div>
-                <div class="last-name width-3">
-                    <span>First Name :</span> {!! $value[$key] !!}
-                </div>
-                <div class="last-name width-3">
-                    <span>Age :</span> {!! $value[$key] !!}
-                </div>
-            </div>
-            @endforeach
+            @endfor
         </div>
     </div>
+    @endif
     <div class="row">
         <div class="last-name width-2">
             <span>Father Last Name :</span> Inhog
@@ -256,25 +258,26 @@
             <span>Contact :</span> 09282180804
         </div>
     </div>
+    @if(count($data->child_last_name_1) != 0)
     <div class="row">
         <h4>Name of children/s</h4>
         <div class="childern-1">
-
-            @foreach($child_1 as $key=>$value)
+            @for($i = 0;$i <=(count($data->child_last_name_1) - 1);$i++)
                 <div class="row">
                     <div class="last-name width-3">
-                        <span>Last Name :</span> {!! $value[$key] !!}
+                        <span>Last Name :</span> {{ $data->child_last_name_1[$i] }}
                     </div>
                     <div class="last-name width-3">
-                        <span>First Name :</span> {!! $value[$key] !!}
+                        <span>First Name :</span> {{ $data->child_first_name_1[$i] }}
                     </div>
                     <div class="last-name width-3">
-                        <span>Age :</span> {!! $value[$key] !!}
+                        <span>Age :</span> {{ $data->child_age_1[$i] }}
                     </div>
                 </div>
-            @endforeach
+            @endfor
         </div>
     </div>
+    @endif
     <div class="info-title">
         <h3>In Case of Emergency</h3>
     </div>

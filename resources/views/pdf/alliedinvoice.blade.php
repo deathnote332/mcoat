@@ -237,6 +237,7 @@
 
 </style>
 <title>MCOAT - {!! $invoice['receipt_no'] !!}</title>
+
 @for($i = 1;$i <= 3;$i++)
 
     <div class="header">

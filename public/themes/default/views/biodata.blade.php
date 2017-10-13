@@ -146,29 +146,29 @@
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <label for="last_name" class="control-label">Last Name</label>
-                                    <input id="last_name" type="text" class="form-control" name="last_name" value="{{ \Illuminate\Support\Facades\Auth::user()->last_name }}" required autofocus>
+                                    <input id="last_name" type="text" class="form-control" name="last_name" value="{{ \Illuminate\Support\Facades\Auth::user()->last_name }}" required autofocus maxlength="50">
 
                                 </div>
                                 <div class="col-md-4">
                                     <label for="first_name" class="control-label">First Name</label>
-                                    <input id="first_name" type="text" class="form-control" name="first_name" value="{{ \Illuminate\Support\Facades\Auth::user()->first_name }}" required>
+                                    <input id="first_name" type="text" class="form-control" name="first_name" value="{{ \Illuminate\Support\Facades\Auth::user()->first_name }}" required maxlength="50">
 
                                 </div>
                                 <div class="col-md-4">
                                     <label for="middle_name" class="control-label">Middle Name</label>
-                                    <input id="middle_name" type="text" class="form-control" name="middle_name" value="{{ \Illuminate\Support\Facades\Auth::user()->middle_name }}" >
+                                    <input id="middle_name" type="text" class="form-control" name="middle_name" value="{{ \Illuminate\Support\Facades\Auth::user()->middle_name }}" maxlength="50">
 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-8">
                                     <label for="address" class="control-label">Address</label>
-                                    <input id="address" type="text" class="form-control" name="address"  required>
+                                    <input id="address" type="text" class="form-control" name="address"  required maxlength="150">
 
                                 </div>
                                 <div class="col-md-4">
                                     <label for="contact_no" class="control-label">Contact No.</label>
-                                    <input id="contact_no" type="text" class="form-control" name="contact_no"  required>
+                                    <input id="contact_no" type="text" class="form-control" name="contact_no"  required maxlength="11">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -564,6 +564,20 @@
                 saveEmployeeRecord()
             }
         })
+
+
+        //keypress validation
+        $('#last_name,#first_name,#middle_name,#father_last_name,#father_first_name,#mother_last_name,#mother_last_name,#spouse_first_name,#spouse_last_name,#child_last_name,#child_first_name,#child_first_name1,#child_last_name1,#emergency_last_name,#emergency_first_name,#emergency_relationship').keypress(function(event){
+            var inputValue = event.charCode;
+            //alert(inputValue);
+            if(!((inputValue > 64 && inputValue < 91) || (inputValue > 96 && inputValue < 123)||(inputValue==32) || (inputValue==0))){
+                event.preventDefault();
+            }
+        });
+        $('#bio-data').on('keydown', '#contact_no,#age,#father_contact,#mother_contact,#spouse_contact,#child_age,#child_age_1,#emergency_contact', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
+
+
     })
 
     $('#profile_picture').change(function () {

@@ -161,18 +161,9 @@ class UserController extends Controller
 
     public function pdfBiodata(Request $request){
         $biodata = Employee::where('user_id',$request->id)->first();
-        $child = [
-          json_decode($biodata->record)->child_first_name,
-           json_decode($biodata->record)->child_last_name,
-           json_decode($biodata->record)->child_age,
-        ];
-        $child1 = [
-            json_decode($biodata->record)->child_first_name_1,
-             json_decode($biodata->record)->child_last_name_1,
-            json_decode($biodata->record)->child_age_1,
-        ];
 
-        $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record),'child'=>$child,'child_1'=>$child1])->setPaper('legal')->setWarnings(false);
+
+        $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record)])->setPaper('legal')->setWarnings(false);
         return @$pdf->stream();
     }
 }
