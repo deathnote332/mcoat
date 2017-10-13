@@ -5,9 +5,12 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+
 
 class Handler extends ExceptionHandler
 {
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -44,6 +47,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+        {
+            abort(503);
+        }
         return parent::render($request, $exception);
     }
 
