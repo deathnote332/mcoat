@@ -58,8 +58,9 @@
         <div class="container">
             <div class="content">
                 <div class="title">404 Page not found.</div>
-                <a href="{{ url('dashboard') }}">Back</a>
+                <a class="back" href="javascript:history.back()">Back</a>
             </div>
         </div>
     </body>
+
 </html>

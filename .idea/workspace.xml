@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f943004-ed49-49cb-8020-7689446467bd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/errors/503.blade.php" afterPath="$PROJECT_DIR$/resources/views/errors/503.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,17 +59,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="503.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="503.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/errors/503.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+            <state relative-caret-position="646">
+              <caret line="55" column="11" lean-forward="true" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Handler.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Handler.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Exceptions/Handler.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="663">
@@ -194,8 +194,8 @@
         <option value="$PROJECT_DIR$/public/themes/default/partials/sidebar.blade.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/pdf/biodata.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/errors/503.blade.php" />
         <option value="$PROJECT_DIR$/app/Exceptions/Handler.php" />
+        <option value="$PROJECT_DIR$/resources/views/errors/503.blade.php" />
       </list>
     </option>
   </component>
@@ -502,12 +502,12 @@
       <workItem from="1507164074775" duration="16237000" />
       <workItem from="1507246921016" duration="20536000" />
       <workItem from="1507765066044" duration="13480000" />
-      <workItem from="1507851773083" duration="10238000" />
+      <workItem from="1507851773083" duration="10503000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="274959000" />
+    <option name="totallyTimeSpent" value="275224000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
@@ -933,14 +933,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/errors/503.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/isAdmin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -966,6 +958,14 @@
           <folding>
             <element signature="e#34#48#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/errors/503.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="55" column="11" lean-forward="true" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
