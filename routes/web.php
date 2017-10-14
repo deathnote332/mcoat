@@ -21,6 +21,10 @@ Route::get('/dashboard', 'DashboardController@index');
 Auth::routes();
 Route::post('login', 'Auth\LoginController@authenticate')->name('login');
 
+Route::post('/savebio', 'UserController@saveBioData');
+Route::get('/getProducts', 'ProductController@getProducts');
+
+Route::get('/products', 'MobileProductController@index');
 
 
 Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
@@ -162,9 +166,6 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/updatebranch', 'SupplierBranchController@updateBranch');
 
 });
-
-Route::post('/savebio', 'UserController@saveBioData');
-Route::get('/getProducts', 'ProductController@getProducts');
 
 
 
