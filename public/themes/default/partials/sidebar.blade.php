@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}">MCOAT PAINT COMMERCIAL AND GENERAL MERCHANDISE</a>
+            <a class="navbar-brand" href="{{ url('/') }}">MCOAT</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -128,10 +128,10 @@
                         <a href="#"><i class="fa fa-list fa-fw"></i> Products<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href={{ URL('mcoat')  }}>MCOAT STOCKS</a>
+                                <a href={{ URL('admin/mcoat')  }}>MCOAT STOCKS</a>
                             </li>
                             <li>
-                                <a href={{ URL('allied')  }}>ALLIED STOCKS</a>
+                                <a href={{ URL('admin/allied')  }}>ALLIED STOCKS</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -140,10 +140,10 @@
                         <a href="#"><i class="fa fa-list fa-fw"></i> Manage Products<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a  href={{ URL('manageProduct')  }}>MCOAT STOCKS</a>
+                                <a  href={{ URL('admin/manageProduct')  }}>MCOAT STOCKS</a>
                             </li>
                             <li>
-                                <a href={{ URL('alliedmanageproduct')  }}>ALLIED STOCKS</a>
+                                <a href={{ URL('admin/alliedmanageproduct')  }}>ALLIED STOCKS</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -153,10 +153,10 @@
                         <a href="#"><i class="fa fa-files-o fa-fw"></i> Product out<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href={{ URL('productout')  }}>MCOAT Product out</a>
+                                <a href={{ URL('admin/productout')  }}>MCOAT Product out</a>
                             </li>
                             <li>
-                                <a href={{ URL('alliedproductout')  }}>ALLIED Product out</a>
+                                <a href={{ URL('admin/alliedproductout')  }}>ALLIED Product out</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -165,10 +165,10 @@
                         <a href="#"><i class="fa fa-file-text-o fa-fw"></i> Product in<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href={{ URL('productin')  }}>MCOAT Product in</a>
+                                <a href={{ URL('admin/productin')  }}>MCOAT Product in</a>
                             </li>
                             <li>
-                                <a href={{ URL('alliedproductin')  }}>ALLIED Product in</a>
+                                <a href={{ URL('admin/alliedproductin')  }}>ALLIED Product in</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -191,10 +191,10 @@
                         <a href={{ URL('suppliers')  }}><i class="fa fa-user fa-fw"></i> Suppliers</a>
                     </li>
                     <li>
-                        <a href={{ URL('users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
+                        <a href={{ URL('admin/users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
                     </li>
                     <li>
-                        <a href={{ URL('employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
+                        <a href={{ URL('admin/employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
                     </li>
                     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
                         <li>

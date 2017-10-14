@@ -3,7 +3,7 @@
     <div class="wrapper-login">
         <div class="panel-body">
             <div class="logo">
-                <img src="../images/mcoat-logo.png" width="100%" height="100%">
+                <img src="../images/mcoat-logo.jpg" width="100%" height="100%">
             </div>
             <div class="container-logins">
                 @if (Session::has('message'))

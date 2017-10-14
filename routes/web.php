@@ -23,7 +23,7 @@ Route::post('login', 'Auth\LoginController@authenticate')->name('login');
 
 
 
-Route::group(['middleware' => 'isAdmin'], function(){
+Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
     Route::get('/getProducts', 'ProductController@getProducts');
 
     Route::get('/mcoat', 'ProductController@mcoatStocksPage');
@@ -46,8 +46,6 @@ Route::group(['middleware' => 'isAdmin'], function(){
     Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
     Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
 
-//invoicereceiptin
-    Route::get('/invoiceReceiptin/{id}', 'ProductController@invoiceReceiptin');
 
 //manage product
     Route::get('/manageProduct', 'ProductController@manageProduct');
@@ -96,9 +94,7 @@ Route::group(['prefix'=>'user','middleware' => 'isUser2'], function(){
 
 
 //shared
-Route::post('/savebio', 'UserController@saveBioData');
-Route::get('/getProducts', 'ProductController@getProducts');
-
+Route::group(['middleware' => 'isShared'], function(){
 
 //manage product
     Route::post('/updateProduct', 'ProductController@updateProduct');
@@ -143,6 +139,10 @@ Route::get('/getProducts', 'ProductController@getProducts');
     Route::get('/receiptin', 'ReceiptController@receiptin');
     Route::post('/getRecieptsIn', 'ReceiptController@getRecieptsIn');
 
+    //invoicereceiptin
+    Route::get('/invoiceReceiptin/{id}', 'ProductController@invoiceReceiptin');
+
+
 //stocksreport
     Route::get('/stocksreport', 'ReceiptController@stocksReport');
     Route::get('/pricelist/{brand}/{category}', 'ReceiptController@priceList');
@@ -160,4 +160,11 @@ Route::get('/getProducts', 'ProductController@getProducts');
     Route::get('/branches', 'SupplierBranchController@branchPage');
     Route::get('/getbranches', 'SupplierBranchController@getBranches');
     Route::post('/updatebranch', 'SupplierBranchController@updateBranch');
+
+});
+
+Route::post('/savebio', 'UserController@saveBioData');
+Route::get('/getProducts', 'ProductController@getProducts');
+
+
 

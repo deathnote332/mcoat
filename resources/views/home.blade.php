@@ -1,5 +1,7 @@
 <div id="preloader"></div>
+<style>
 
+</style>
 <!--==========================
   Hero Section
 ============================-->
@@ -7,7 +9,7 @@
     <div class="hero-container">
         <div class="wow fadeIn">
             <div class="hero-logo">
-                <img class="" src="../images/mcoat-logo.png" alt="Imperial">
+                <img class="" src="../images/mcoat-png.png" alt="Imperial">
             </div>
 
             <h1>Welcome to MCOAT</h1>
@@ -27,7 +29,7 @@
     <div class="container">
 
         <div id="logo" class="pull-left">
-            <a href="#hero"><img src="../images/mcoat-png.png" alt="" title="" /></img></a>
+            <a href="#hero"><img src="../images/mcoat-png.png" alt="" title="" /></a>
             <!-- Uncomment below if you prefer to use a text image -->
             <!--<h1><a href="#hero">Header 1</a></h1>-->
         </div>

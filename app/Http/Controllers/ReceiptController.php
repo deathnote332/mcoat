@@ -65,12 +65,8 @@ class ReceiptController extends Controller
         if(Auth::user()->user_type ==1){
             $receipts = Productin::orderBy('id','desc')->get();
         }else{
-            if(Auth::user()->warehouse == 1){
-                $type = 1;
-            }elseif(Auth::user()->warehouse == 2){
-                $type=3;
-            }
-            $receipts = Productin::where('type',$type)->orderBy('id','desc')->get();
+
+            $receipts = Productin::where('entered_by',Auth::user()->id)->orderBy('id','desc')->get();
         }
 
         $receiptData =array();
