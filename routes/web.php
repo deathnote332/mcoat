@@ -40,16 +40,6 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
     Route::get('/alliedproductin', 'ProductController@productAlliedInPage');
 
 
-//edit receipt
-    Route::get('/editReceipt/{id}', 'ReceiptController@editReceipt');
-    Route::post('/getcartReceipt', 'ReceiptController@getcartReceipt');
-    Route::get('/editProductList', 'ReceiptController@ajaxEditProductList');
-    Route::post('/editCartList', 'ReceiptController@ajaxEditCartList');
-    Route::post('/editReceiptCount', 'ReceiptController@ajaxEditReceiptCount');
-    Route::post('/editCartCount', 'ReceiptController@ajaxCartCount');
-    Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
-    Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
-
 
 //manage product
     Route::get('/manageProduct', 'ProductController@manageProduct');
@@ -164,6 +154,16 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::get('/branches', 'SupplierBranchController@branchPage');
     Route::get('/getbranches', 'SupplierBranchController@getBranches');
     Route::post('/updatebranch', 'SupplierBranchController@updateBranch');
+
+    //edit receipt
+    Route::get('/editReceipt/{id}', 'ReceiptController@editReceipt');
+    Route::post('/getcartReceipt', 'ReceiptController@getcartReceipt');
+    Route::get('/editProductList', 'ReceiptController@ajaxEditProductList');
+    Route::post('/editCartList', 'ReceiptController@ajaxEditCartList');
+    Route::post('/editReceiptCount', 'ReceiptController@ajaxEditReceiptCount');
+    Route::post('/editCartCount', 'ReceiptController@ajaxCartCount');
+    Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
+    Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
 
 });
 
