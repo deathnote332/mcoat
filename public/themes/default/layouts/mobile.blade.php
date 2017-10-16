@@ -16,33 +16,38 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
    <style>
-        a.button-collapse.top-nav {
-            position: absolute;
-            text-align: center;
-            height: 48px;
-            width: 48px;
-            left: 7.5%;
-            top: 5px;
-            float: none;
-            margin-left: -8px;
-            color: #fff;
-            font-size: 36px;
-            z-index: 2;
-        }
+       a.button-collapse.top-nav.full.hide-on-large-only {
+           position: fixed;
+           z-index: 999;
+           left: 20px;
+           top: 15px;
+           color: white;
+           float:none;
+       }
         a.page-title {
             padding-left: 30px;
             line-height: 4.4;
         }
+       .brand-logo img{
+           height: 30px;
+       }
     </style>
 </head>
 
 <body>
 <input type="hidden" id="baseURL" value="{{ url('') }}" >
-<nav class="top-nav">
-    <div class="container">
-        <div class="nav-wrapper"><a class="page-title">SideNav</a></div>
-    </div>
-</nav>
+<div class="navbar-fixed">
+    <a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo"><img src="images/mcoat-png.png"> </a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <ul id="slide-out" class="side-nav">
     <li><div class="user-view">
             <div class="background">
@@ -58,9 +63,9 @@
     <li><a class="subheader">Subheader</a></li>
     <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
 </ul>
-<div class="container">
-    <a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a>
 
+<div class="container">
+   {!! Theme::content() !!}
 
 </div>
 
