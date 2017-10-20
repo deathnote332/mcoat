@@ -30,17 +30,26 @@ class ReceiptController extends Controller
 
     public function getReciepts(Request $request){
 
+
         if(Auth::user()->user_type ==1){
-            $receipts = Productout::orderBy('id','desc')->get();
+            if($request->_range == 'all'){
+                $receipts = Productout::orderBy('id','desc')->get();
+            }else{
+                $receipts = Productout::orderBy('id','desc')->where(DB::raw('DATE(created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))->get();
+            }
         }else{
             if(Auth::user()->warehouse == 1){
                 $type = 1;
             }elseif(Auth::user()->warehouse == 2){
                 $type=3;
             }
-            $receipts = Productout::where('type',$type)->orderBy('id','desc')->get();
-        }
+            if($request->_range == 'all'){
+                $receipts = Productout::where('type',$type)->orderBy('id','desc')->get();
+            }else{
+                $receipts = Productout::where('type',$type)->where(DB::raw('DATE(created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))->orderBy('id','desc')->get();
+            }
 
+        }
 
         $receiptData =array();
         foreach ($receipts as $key=>$val){

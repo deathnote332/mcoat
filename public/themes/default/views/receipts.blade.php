@@ -16,7 +16,7 @@
     #receipt-list_wrapper tbody tr td:nth-child(6){
         text-align: center;
     }
-    #search{
+    .range-selection{
 
         margin-left: 15px;
        margin-bottom: 20px;
@@ -50,7 +50,15 @@
 
 <div class="card-container">
     <div class="row">
+        <div class="col-md-3">
+            <div class="range-selection">
+                <select id="range" class="form-control">
+                    <option selected value="today">Today</option>
+                    <option value="all">All</option>
+                </select>
+            </div>
 
+        </div>
         <div class="col-md-3">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
@@ -62,7 +70,6 @@
             <table id="receipt-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-
                     <th>Receipt no.</th>
                     <th>Delivered to</th>
                     <th>Total</th>
@@ -93,37 +100,43 @@
             receipt.search(this.value).draw();
         })
 
+        $('#range').on('change',function () {
+            loadReceipts($(this).val())
+        })
 
+        function loadReceipts(range) {
+            var _range = (range == null) ? 'today' : range
+
+            var BASEURL = $('#baseURL').val();
+            var receipt = $('#receipt-list').DataTable({
+                ajax: {
+                    url: BASEURL + '/getReciepts',
+                    type: "POST",
+                    data:{
+                        _range: _range,
+                        _token: $('meta[name="csrf_token"]').attr('content'),
+                    }
+                },
+                destroy: true,
+                order: [],
+                iDisplayLength: 12,
+                bLengthChange: false,
+                columns: [
+
+                    { data: 'receipt_no',"orderable": false },
+                    { data: 'delivered_to',"orderable": false},
+                    { data: 'total',"orderable": false },
+                    { data: 'created_by',"orderable": false },
+                    { data: 'created_at',"orderable": false },
+                    { data: 'action',"orderable": false }
+
+                ]
+            });
+        }
 
 
     });
 
-    function loadReceipts() {
-        var BASEURL = $('#baseURL').val();
-        var receipt = $('#receipt-list').DataTable({
-            ajax: {
-                url: BASEURL + '/getReciepts',
-                type: "POST",
-                data:{
-
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                }
-            },
-            order: [],
-            iDisplayLength: 12,
-            bLengthChange: false,
-            columns: [
-
-                { data: 'receipt_no',"orderable": false },
-                { data: 'delivered_to',"orderable": false},
-                { data: 'total',"orderable": false },
-                { data: 'created_by',"orderable": false },
-                { data: 'created_at',"orderable": false },
-                { data: 'action',"orderable": false }
-
-            ]
-        });
-    }
 
 
     //New error event handling has been added in Datatables v1.10.5
