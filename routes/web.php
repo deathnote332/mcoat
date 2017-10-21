@@ -11,9 +11,6 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 Route::get('/', 'HomeController@index');
 
 //dashboard
@@ -166,6 +163,3 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
 
 });
-
-
-

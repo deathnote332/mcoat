@@ -16,12 +16,19 @@
         padding-left: 15px;
         padding-bottom: 10px;
     }
+    .pagination li{
+        display: inline;
+    }
+    .container{
+        width: 100% ;
+        padding: 15px;
+    }
 </style>
 
 <div class="card-container">
     <input type="hidden" id="user_type" value="{{ \Illuminate\Support\Facades\Auth::user()->user_type }}">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 col s5">
             <div class="search-inputs">
                 <select class="form-control" id="searchBy">
                     <option>Brand</option>
@@ -32,7 +39,7 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col s6">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
     </div>
@@ -68,6 +75,11 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.childRowImmediate,
+                }
+            },
             columns: [
 
                 { data: 'brand',"orderable": false },

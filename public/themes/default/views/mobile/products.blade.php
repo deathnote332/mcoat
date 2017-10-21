@@ -1,9 +1,18 @@
+
 <style>
     .search{
-        margin-top: 20px;
+        position: fixed;
+        background: white;
+        width: 100%;
+        left: 0;
+        padding: 20px 30px 0 30px;
+        margin: 0;
+    }
+    .search .row{
+        margin-bottom: 0;
     }
     .products{
-        padding-top: 20px;
+        padding-top: 90px;
     }
     ul{
         margin: 0;
@@ -21,39 +30,82 @@
     .products ul .product-list li span{
         padding-right: 40px;
     }
-</style>
-<div class="search">
-<input  type="text" class="form-control" placeholder="Search...">
-</div>
-<div class="products">
-    <ul>
 
-    </ul>
+</style>
+<div id="list">
+    <div class="search">
+        <div class="row">
+
+            <div class="col s12">
+                <input  type="text" class="form-control fuzzy-search" placeholder="Search...">
+            </div>
+        </div>
+
+    </div>
+    <div class="products">
+        <ul id="list">
+            @foreach($data as $key=>$val)
+                <div class="product-list">
+                    <li class="row">
+                        <div class="col s4">Brand: </div>
+                        <div class="col s8 brand">{{ $val->brand }}</div>
+                    </li>
+                    <li class=" row">
+                        <div class="col s4">Category: </div>
+                        <div class="col s8 category">{{ $val->category }}</div>
+                    </li>
+                    <li class=" row">
+                        <div class="col s4">Code: </div>
+                        <div class="col s8 code">{{ $val->code }}</div>
+                    </li>
+                    <li class=" row">
+                        <div class="col s4">Description: </div>
+                        <div class="col s8 description">{{ $val->description }}</div>
+                    </li>
+                    <li class=" row">
+                        <div class="col s4">Quantity: </div>
+                        <div class="col s8 quantity">{{ $val->quantity }}</div>
+                    </li>
+                    <li class=" row">
+                        <div class="col s4">Unit: </div>
+                        <div class="col s8 unit">{{ $val->unit }}</div>
+                    </li>
+                    <li class=" row">
+                        <div class="col s4">Unit Price: </div>
+                        <div class="col s8 unit_price">{{ $val->unit_price }}</div>
+                    </li>
+
+                </div>
+            @endforeach
+
+        </ul>
+    </div>
+
 </div>
+
 <script>
     var BASEURL = $('#baseURL').val();
     $(document).ready(function () {
-        $.ajax({
-            url:BASEURL + '/getProducts',
-            type: 'GET',
-            success: function (data){
-                var json = JSON.parse(data);
-                $.each(json['data'],function (name,val) {
 
-                    $('.products ul').append($('' +
-                        '<div class="product-list">' +
-                        '<li class="brand">' +'<span>Brand: </span>'+ val['brand'] +'</li>' +
-                        '<li class="category">' +'<span>Category: </span>'+ val['category'] +'</li>' +
-                        '<li class="code">' +'<span>Code: <span>'+ val['code'] +'</li>' +
-                        '<li class="description">' +'<span>Description: </span>'+ val['description'] +'</li>' +
-                        '<li class="quantity">' +'<span>Quantity: </span>'+ val['quantity'] +'</li>' +
-                        '<li class="unit">' +'<span>Unit: </span>'+ val['unit'] +'</li>' +
-                        '<li class="unit_price">' +'<span>Price: </span>'+ val['unit_price'] +'</li>' +
-                        '</div>' +
-                        ''));
-                })
+        $('select').material_select();
 
+        $('.caret').text('')
+
+        $('.fuzzy-search').change( function () {
+            var filter = $(this).val();
+            if (filter) {
+                $('#list').find("div.col.s8:not(:contains(" + filter + "))").parent().slideUp();
+                $('#list').find("div.col.s8:contains(" + filter + ")").parent().slideDown();
+            } else {
+                $('#list').find("li").slideDown();
             }
         });
+
+//        var options = {
+//            valueNames: [ 'brand', 'category','code','description','quantity','unit','unit_price' ],
+//            indexAsync: true
+//        };
+//
+//        var userList = new List('list', options);
     })
 </script>

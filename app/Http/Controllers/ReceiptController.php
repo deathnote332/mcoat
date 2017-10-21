@@ -83,7 +83,7 @@ class ReceiptController extends Controller
 
             $view = "<a href='invoiceReceiptin/$val->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
 
-            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_from'=>Supplier::find($val->supplier_id)->name,'created_by'=>User::find($val->printed_by)->first_name.' '.User::find($val->printed_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'warehouse'=>($val->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse','action'=>$view];
+            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_from'=>Supplier::find($val->supplier_id)->name,'created_by'=>User::find($val->entered_by)->first_name.' '.User::find($val->entered_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'warehouse'=>($val->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse','action'=>$view];
         }
 
         return json_encode(['data'=>$receiptData]);

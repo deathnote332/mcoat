@@ -28,6 +28,7 @@
     .btn-print{
 
         margin-top: 20px;
+        font-size: 24px;
     }
     .branches,.print-count{
         margin-left: 15px;
@@ -42,11 +43,7 @@
     .print-count span{
         color: red;
     }
-    .btn-print .btn{
-        width:300px;
-        font-size: 20px;
 
-    }
     #remove-cart{
         cursor: pointer;
     }
@@ -133,10 +130,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 col-md-offset-9 text-right">
+        <div class="col-md-4 col-md-offset-8 ">
             <div class="btn-print">
 
-                <button type="button" class="btn btn-primary" id="print">Print</button>
+                <button type="button" class="btn btn-primary form-control" id="print">Print</button>
             </div>
 
         </div>

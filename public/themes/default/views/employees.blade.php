@@ -75,7 +75,7 @@
     var BASEURL = $('#baseURL').val();
     $(document).ready(function () {
         var users = $('#user-list').DataTable({
-            ajax: BASEURL + '/getemployee',
+            ajax: BASEURL + '/admin/getemployee',
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,

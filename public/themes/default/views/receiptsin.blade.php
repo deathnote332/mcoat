@@ -46,6 +46,8 @@
         color:white;
 
     }
+
+
 </style>
 
 <div class="card-container">
@@ -64,7 +66,7 @@
                 <tr>
 
                     <th>Receipt no.</th>
-                    <th>Delivered from</th>
+                    <th>Delivere from</th>
                     <th>Warehouse</th>
                     <th>Updated by</th>
                     <th>Date created</th>

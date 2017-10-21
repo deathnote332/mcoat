@@ -52,13 +52,30 @@ class ProductController extends Controller
 
 
     public function mcoatStocksPage(){
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
-        return $theme->scope('mcoatstocks')->render();
+        if($this->isMobile()){
+
+            $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT Stocks');
+            return $theme->scope('mcoatstocks',['data'=>$products])->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
+            return $theme->scope('mcoatstocks')->render();
+        }
+
+
     }
 
     public function alliedStocksPage(){
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Allied Stocks');
-        return $theme->scope('alliedstocks')->render();
+        if($this->isMobile()){
+
+            $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT Stocks');
+            return $theme->scope('alliedstocks',['data'=>$products])->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Allied Stocks');
+            return $theme->scope('alliedstocks')->render();
+        }
+
     }
 
     //mcoat productout

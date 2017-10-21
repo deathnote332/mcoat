@@ -10,11 +10,7 @@
     <meta name="csrf_token" content="{{ csrf_token() }}">
     {!! Theme::asset()->styles() !!}
     {!! Theme::asset()->scripts() !!}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
    <style>
        a.button-collapse.top-nav.full.hide-on-large-only {
            position: fixed;
@@ -31,6 +27,19 @@
        .brand-logo img{
            height: 30px;
        }
+       .user-view span{
+           color: black;
+           font-weight: 700;
+       }
+       span.logout {
+           position: relative;
+           top: -7px;
+           padding-left: 10px;
+           color: #4a89be;
+       }
+       .background{
+           background: url('../../images/mcoat-bg.jpg');
+       }
     </style>
 </head>
 
@@ -40,7 +49,7 @@
     <a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a>
     <nav>
         <div class="nav-wrapper">
-            <a href="#!" class="brand-logo"><img src="images/mcoat-png.png"> </a>
+            <a href="#!" class="brand-logo"><img src="../images/mcoat-png.png"> </a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="sass.html">Sass</a></li>
                 <li><a href="badges.html">Components</a></li>
@@ -51,17 +60,44 @@
 <ul id="slide-out" class="side-nav">
     <li><div class="user-view">
             <div class="background">
-                <img src="images/office.jpg">
+                <img src="">
             </div>
-            <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
-            <a href="#!name"><span class="white-text name">John Doe</span></a>
-            <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+            <a><img class="circle" src="images/yuna.jpg"></a>
+            <a><span class="name">{{ \Illuminate\Support\Facades\Auth::user()->first_name.' '.\Illuminate\Support\Facades\Auth::user()->last_name }}</span></a>
+            <a><span class="email">{{ \Illuminate\Support\Facades\Auth::user()->email }}</span></a>
+            <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                <i class="material-icons">exit_to_app</i><span class="logout">Logout</span></a>
+            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
         </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!">Second Link</a></li>
+    <li><a class="waves-effect" href="{{ url('dashboard') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
     <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    <li><a class="subheader"><i class="material-icons">format_list_bulleted</i>Products</a></li>
+    <li><a class="waves-effect" href="{{ URL('admin/mcoat')  }}"><i class="material-icons"></i>Mcoat</a></li>
+    <li><a class="waves-effect" href="{{ URL('admin/allied')  }}"><i class="material-icons"></i>Allied</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader"><i class="material-icons">format_list_bulleted</i>Manage Products</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader"><i class="material-icons">arrow_upward</i>Product out</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader"><i class="material-icons">arrow_downward</i>Product in</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Receipts</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Product in receipts</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons">person_pin</i>Branches</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons">group</i>Suppliers</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons">person</i>Users</a></li>
+    <li><a class="waves-effect" href=""><i class="material-icons">group</i>Employees</a></li>
+
+    <li><div class="divider"></div></li>
+
 </ul>
 
 <div class="container">

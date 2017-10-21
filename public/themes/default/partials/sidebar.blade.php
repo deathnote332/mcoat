@@ -18,70 +18,7 @@
             <a class="navbar-brand" href="{{ url('/') }}">MCOAT</a>
         </div>
         <!-- /.navbar-header -->
-
         <ul class="nav navbar-top-links navbar-right">
-
-            {{--<!-- /.dropdown -->--}}
-            {{--<li class="dropdown">--}}
-                {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#">--}}
-                    {{--<i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>--}}
-                {{--</a>--}}
-                {{--<ul class="dropdown-menu dropdown-alerts">--}}
-                    {{--<li>--}}
-                        {{--<a href="#">--}}
-                            {{--<div>--}}
-                                {{--<i class="fa fa-comment fa-fw"></i> New Comment--}}
-                                {{--<span class="pull-right text-muted small">4 minutes ago</span>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="divider"></li>--}}
-                    {{--<li>--}}
-                        {{--<a href="#">--}}
-                            {{--<div>--}}
-                                {{--<i class="fa fa-twitter fa-fw"></i> 3 New Followers--}}
-                                {{--<span class="pull-right text-muted small">12 minutes ago</span>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="divider"></li>--}}
-                    {{--<li>--}}
-                        {{--<a href="#">--}}
-                            {{--<div>--}}
-                                {{--<i class="fa fa-envelope fa-fw"></i> Message Sent--}}
-                                {{--<span class="pull-right text-muted small">4 minutes ago</span>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="divider"></li>--}}
-                    {{--<li>--}}
-                        {{--<a href="#">--}}
-                            {{--<div>--}}
-                                {{--<i class="fa fa-tasks fa-fw"></i> New Task--}}
-                                {{--<span class="pull-right text-muted small">4 minutes ago</span>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="divider"></li>--}}
-                    {{--<li>--}}
-                        {{--<a href="#">--}}
-                            {{--<div>--}}
-                                {{--<i class="fa fa-upload fa-fw"></i> Server Rebooted--}}
-                                {{--<span class="pull-right text-muted small">4 minutes ago</span>--}}
-                            {{--</div>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                    {{--<li class="divider"></li>--}}
-                    {{--<li>--}}
-                        {{--<a class="text-center" href="#">--}}
-                            {{--<strong>See All Alerts</strong>--}}
-                            {{--<i class="fa fa-angle-right"></i>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
-                {{--<!-- /.dropdown-alerts -->--}}
-            {{--</li>--}}
-            <!-- /.dropdown -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i> <span class="user-name">{{ \Illuminate\Support\Facades\Auth::user()->first_name.' '.\Illuminate\Support\Facades\Auth::user()->last_name }}</span> <i class="fa fa-caret-down"></i>
@@ -90,11 +27,7 @@
                     <li><a href=""><i class="fa fa-cog fa-fw"></i> Account settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="{{ url('/logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            <i class="fa fa-sign-out fa-fw"></i> Logout
-                        </a>
+                    <li><a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
@@ -102,100 +35,89 @@
                 </ul>
                 <!-- /.dropdown-user -->
             </li>
-            <!-- /.dropdown -->
+                <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
 
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                    {{--<li class="sidebar-search">--}}
-                        {{--<div class="input-group custom-search-form">--}}
-                            {{--<input type="text" class="form-control" placeholder="Search...">--}}
-                            {{--<span class="input-group-btn">--}}
-                                    {{--<button class="btn btn-default" type="button">--}}
-                                        {{--<i class="fa fa-search"></i>--}}
-                                    {{--</button>--}}
-                                {{--</span>--}}
-                        {{--</div>--}}
-                        {{--<!-- /input-group -->--}}
-                    {{--</li>--}}
                     @if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)
-                    <li>
-                        <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-list fa-fw"></i> Products<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href={{ URL('admin/mcoat')  }}>MCOAT STOCKS</a>
-                            </li>
-                            <li>
-                                <a href={{ URL('admin/allied')  }}>ALLIED STOCKS</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-list fa-fw"></i> Manage Products<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a  href={{ URL('admin/manageProduct')  }}>MCOAT STOCKS</a>
-                            </li>
-                            <li>
-                                <a href={{ URL('admin/alliedmanageproduct')  }}>ALLIED STOCKS</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
+                        <li>
+                            <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-list fa-fw"></i> Products<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href={{ URL('admin/mcoat')  }}>MCOAT STOCKS</a>
+                                </li>
+                                <li>
+                                    <a href={{ URL('admin/allied')  }}>ALLIED STOCKS</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-list fa-fw"></i> Manage Products<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a  href={{ URL('admin/manageProduct')  }}>MCOAT STOCKS</a>
+                                </li>
+                                <li>
+                                    <a href={{ URL('admin/alliedmanageproduct')  }}>ALLIED STOCKS</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
 
-                    <li>
-                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Product out<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href={{ URL('admin/productout')  }}>MCOAT Product out</a>
-                            </li>
-                            <li>
-                                <a href={{ URL('admin/alliedproductout')  }}>ALLIED Product out</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-file-text-o fa-fw"></i> Product in<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href={{ URL('admin/productin')  }}>MCOAT Product in</a>
-                            </li>
-                            <li>
-                                <a href={{ URL('admin/alliedproductin')  }}>ALLIED Product in</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Product out<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href={{ URL('admin/productout')  }}>MCOAT Product out</a>
+                                </li>
+                                <li>
+                                    <a href={{ URL('admin/alliedproductout')  }}>ALLIED Product out</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-file-text-o fa-fw"></i> Product in<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href={{ URL('admin/productin')  }}>MCOAT Product in</a>
+                                </li>
+                                <li>
+                                    <a href={{ URL('admin/alliedproductin')  }}>ALLIED Product in</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
 
-                    <li>
-                        <a href={{ URL('receipts')  }}><i class="fa fa-files-o fa-fw"></i> Receipts</a>
-                    </li>
+                        <li>
+                            <a href={{ URL('receipts')  }}><i class="fa fa-files-o fa-fw"></i> Receipts</a>
+                        </li>
 
-                    <li>
-                        <a href={{ URL('receiptin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in receipt</a>
-                    </li>
-                    <li>
-                        <a href={{ URL('stocksreport')  }}><i class="fa fa-list fa-fw"></i> Stocks Report</a>
-                    </li>
-                    <li>
-                        <a href={{ URL('branches')  }}><i class="fa fa-user fa-fw"></i> Branches</a>
-                    </li>
-                    <li>
-                        <a href={{ URL('suppliers')  }}><i class="fa fa-user fa-fw"></i> Suppliers</a>
-                    </li>
-                    <li>
-                        <a href={{ URL('admin/users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
-                    </li>
-                    <li>
-                        <a href={{ URL('admin/employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
-                    </li>
+                        <li>
+                            <a href={{ URL('receiptin')  }}><i class="fa fa-file-text-o fa-fw"></i> Product in receipt</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('stocksreport')  }}><i class="fa fa-list fa-fw"></i> Stocks Report</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('branches')  }}><i class="fa fa-user fa-fw"></i> Branches</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('suppliers')  }}><i class="fa fa-user fa-fw"></i> Suppliers</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('admin/users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('admin/employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
+                        </li>
                     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -237,7 +159,7 @@
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                       <li>
+                        <li>
                             <a href={{ URL('user/products')  }}><i class="fa fa-list fa-fw"></i> Products</a>
                         </li>
                         <li>

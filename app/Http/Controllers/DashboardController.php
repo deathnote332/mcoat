@@ -21,7 +21,13 @@ class DashboardController extends Controller
     public function index()
     {
 
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
-        return $theme->scope('dashboard')->render();
+        if($this->isMobile()){
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT');
+            return $theme->scope('dashboard')->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
+            return $theme->scope('dashboard')->render();
+        }
+
     }
 }

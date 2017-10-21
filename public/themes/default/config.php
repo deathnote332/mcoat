@@ -63,17 +63,9 @@ return array(
             $theme->asset()->usePath()->add('jquery.js', 'js/jquery.js');
             $theme->asset()->usePath()->add('bootstrap.min.js', 'js/bootstrap.min.js');
             $theme->asset()->usePath()->add('bootstrap.min.css', 'css/bootstrap.min.css');
-            //validate
-            $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
-
 
 
             $theme->asset()->usePath()->add('font-awesome.min.css', 'css/font-awesome.min.css');
-
-            //sweetalert
-            $theme->asset()->usePath()->add('sweetalert2.min.css', 'css/sweetalert2.min.css');
-            $theme->asset()->usePath()->add('sweetalert2.min.css', 'js/sweetalert2.min.js');
-
 
             // You may use this event to set up your assets.
             // $theme->asset()->usePath()->add('core', 'core.js');
@@ -91,9 +83,46 @@ return array(
         // this should call to assign style, script for a layout.
         'beforeRenderLayout' => array(
 
+
+            'mobile' => function($theme)
+            {
+                $theme->asset()->usePath()->add('materialize.min.css', 'css/mobile/materialize.min.css');
+                $theme->asset()->usePath()->add('style.css', 'css/mobile/style.css');
+                $theme->asset()->usePath()->add('materialize.min.js', 'js/mobile/materialize.min.js');
+
+                //morris-chart
+
+                $theme->asset()->usePath()->add('morris.css', 'css/morris.css');
+                $theme->asset()->usePath()->add('raphael.min.js', 'js/raphael.min.js');
+                $theme->asset()->usePath()->add('morris.min.js', 'js/morris.min.js');
+
+
+                    $theme->asset()->usePath()->add('mcoat.css', 'css/mcoat.css');
+
+                $theme->asset()->usePath()->add('sb-admin-2.min.css', 'sbadmin/css/sb-admin-2.min.css');
+                $theme->asset()->usePath()->add('sb-admin-2.min.js', 'sbadmin/js/sb-admin-2.min.js');
+
+                $theme->asset()->usePath()->add('list.min.js', 'js/list.min.js');
+
+
+                //datatable
+                $theme->asset()->usePath()->add('dataTables.bootstrap4.min.css', 'css/dataTables.bootstrap4.min.css');
+                $theme->asset()->usePath()->add('responsive.bootstrap4.min.css', 'css/responsive.bootstrap4.min.css');
+
+                $theme->asset()->usePath()->add('jquery.dataTables.min.js', 'js/dataTable/jquery.dataTables.min.js');
+                $theme->asset()->usePath()->add('dataTables.bootstrap4.min.js', 'js/dataTable/dataTables.bootstrap4.min.js');
+                $theme->asset()->usePath()->add('dataTables.responsive.min.js', 'js/dataTable/dataTables.responsive.min.js');
+                $theme->asset()->usePath()->add('responsive.bootstrap4.min.js', 'js/dataTable/responsive.bootstrap4.min.js');
+
+
+            },
+
             'default' => function($theme)
             {
-                // $theme->asset()->usePath()->add('ipad', 'css/layouts/ipad.css');
+
+
+                $theme->asset()->usePath()->add('font-awesome.min.css', 'css/font-awesome.min.css');
+
                 $theme->asset()->usePath()->add('style.css', 'home/style.css');
                 $theme->asset()->usePath()->add('custom.js', 'home/custom.js');
                 $theme->asset()->usePath()->add('easing.min.js', 'home/easing.min.js');
@@ -103,11 +132,20 @@ return array(
                 $theme->asset()->usePath()->add('sticky.js', 'home/sticky.js');
                 $theme->asset()->usePath()->add('superfish.min.js', 'home/superfish.min.js');
                 $theme->asset()->usePath()->add('wow.min.js', 'home/wow.min.js');
-                $theme->asset()->usePath()->add('jquery.min.js', 'js/jquery.min.js');
+
 
 
             },
             'defaultadmin' => function($theme){
+
+                $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
+
+
+                //sweetalert
+                $theme->asset()->usePath()->add('sweetalert2.min.css', 'css/sweetalert2.min.css');
+                $theme->asset()->usePath()->add('sweetalert2.min.css', 'js/sweetalert2.min.js');
+
+
 
                 $theme->asset()->usePath()->add('mcoat.css', 'css/mcoat.css');
 

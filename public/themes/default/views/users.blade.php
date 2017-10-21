@@ -76,7 +76,7 @@
     var BASEURL = $('#baseURL').val();
 $(document).ready(function () {
     var users = $('#user-list').DataTable({
-        ajax: BASEURL + '/getusers',
+        ajax: BASEURL + '/admin/getusers',
         order: [],
         iDisplayLength: 12,
         bLengthChange: false,
@@ -114,7 +114,7 @@ $(document).ready(function () {
             closeOnConfirm: false
         }).then(function () {
             $.ajax({
-                url:BASEURL+'/approveDisapproveUser',
+                url:BASEURL+'/admin/approveDisapproveUser',
                 type:'POST',
                 data: {
                     _token: $('meta[name="csrf_token"]').attr('content'),
@@ -148,7 +148,7 @@ $(document).ready(function () {
             closeOnConfirm: false
         }).then(function () {
             $.ajax({
-                url:BASEURL+'/approveDisapproveUserAdmin',
+                url:BASEURL+'/admin/approveDisapproveUserAdmin',
                 type:'POST',
                 data: {
                     _token: $('meta[name="csrf_token"]').attr('content'),

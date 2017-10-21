@@ -1,6 +1,10 @@
+
 <style>
     .huge {
         font-size: 20px !important;
+    }
+    .page-header{
+        font-size: 24px;
     }
 </style>
 <div class="row">
@@ -106,6 +110,7 @@
 @endif
 <script>
     var BASEURL = $('#baseURL').val();
+
     $(document).ready(function () {
         var chart = Morris.Bar({
             element: 'morris-bar-chart',
@@ -119,7 +124,7 @@
         });
 
         $.ajax({
-            url:BASEURL + '/fastMovingProducts',
+            url:BASEURL + '/admin/fastMovingProducts',
             type: 'GET',
             success: function (data){
 
@@ -127,10 +132,6 @@
             }
         });
 
-
     })
-
-
-
 
 </script>
