@@ -102,7 +102,6 @@ return array(
                 $theme->asset()->usePath()->add('sb-admin-2.min.css', 'sbadmin/css/sb-admin-2.min.css');
                 $theme->asset()->usePath()->add('sb-admin-2.min.js', 'sbadmin/js/sb-admin-2.min.js');
 
-                $theme->asset()->usePath()->add('list.min.js', 'js/list.min.js');
 
 
                 //datatable
