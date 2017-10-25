@@ -175,7 +175,8 @@ class ProductController extends Controller
             Product::where('id',$product_id)->update(['quantity_1'=>$newQty]);
         }
 
-
+        $message = 'Product successfully added to cart';
+        return $message;
     }
 
     public function removeToCart(Request $request){

@@ -265,41 +265,51 @@
     });
 
     function addToCart(id,qty,current) {
-        $.ajax({
-            url:BASEURL+'/addToCart',
-            type:'POST',
-            data: {
-                _token: $('meta[name="csrf_token"]').attr('content'),
-                id: id,
-                qty: qty,
-                current_qty:current,
-                type:1,
-            },
-            success: function(data){
-                var productout = $('#productout-list').DataTable();
-                productout.ajax.reload(null, false );
 
-                $('#addToCartModal').modal('hide');
-
-                swal({
-                    title: "",
-                    text: "Product addded to cart",
-                    type:"success"
+        swal.queue([{
+            title: 'Are you sure',
+            text: "You want to add this product to cart.",
+            type:'warning',
+            showLoaderOnConfirm: true,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/addToCart',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            id: id,
+                            qty: qty,
+                            current_qty:current,
+                            type:1,
+                        },
+                        success: function(data){
+                            var productout = $('#productout-list').DataTable();
+                            productout.ajax.reload(null, false );
+                            $('#addToCartModal').modal('hide');
+                            swal.insertQueueStep(data)
+                            resolve()
+                            $.ajax({
+                                url:BASEURL + '/cartCount',
+                                type: 'GET',
+                                success: function (data){
+                                    $('#tab-productout li:nth-child(2) a').html(data);
+                                }
+                            });
+                        }
+                    });
                 })
-
-
-                $.ajax({
-                    url:BASEURL + '/cartCount',
-                    type: 'GET',
-                    success: function (data){
-                        $('#tab-productout li:nth-child(2) a').html(data);
-                    }
-                });
-
-
             }
-        });
+        }])
     }
+
+
+
 
 
 

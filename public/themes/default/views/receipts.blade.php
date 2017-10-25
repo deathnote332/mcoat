@@ -171,38 +171,7 @@
                     })
                 }
             }])
-
-//            swal({
-//                title: "Are you sure?",
-//                text: "You want to delete this receipt.</br>HEllo",
-//                type: "warning",
-//                showCancelButton: true,
-//                confirmButtonColor: "#DD6B55",
-//                confirmButtonText: 'Okay',
-//                closeOnConfirm: false
-//            }).then(function () {
-//
-//                $.ajax({
-//                    url:BASEURL+'/updateProduct',
-//                    type:'POST',
-//                    data:{
-//                        _range: invoice,
-//                        _token: $('meta[name="csrf_token"]').attr('content'),
-//                    },
-//                    success: function(data){
-//
-//                        swal({
-//                            title: "",
-//                            text: "Product updated successfully",
-//                            type:"success"
-//                        }).then(function () {
-//                            $("#update-products")[0].reset()
-//                        });
-//                    }
-//                });
-//            });
         }
-
 
     });
 

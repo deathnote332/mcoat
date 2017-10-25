@@ -266,61 +266,49 @@
     }
 
     function removeToCart(id,product_id,qty) {
-
-        swal({
-            title: "Are you sure?",
+        swal.queue([{
+            title: 'Are you sure',
             text: "You want to remove this product to cart.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
-
-
-
-            $.ajax({
-                url:BASEURL+'/removeToCart',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    temp_id: id,
-                    product_id: product_id,
-                    qty: qty,
-                    type: 3
-
-                },
-                success: function(data){
-                    var productout = $('#cart-list').DataTable();
-                    productout.ajax.reload();
-
-                    var productout = $('#alliedproductout-list').DataTable();
-                    productout.ajax.reload();
-
-                    swal({
-                        title: "",
-                        text: "Product removed to cart",
-                        type:"success"
-                    })
-
-
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
                     $.ajax({
-                        url:BASEURL + '/alliedcartcount',
-                        type: 'GET',
-                        success: function (data){
-                            $('#tab-productout li:nth-child(2) a').html(data);
+                        url:BASEURL+'/removeToCart',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            temp_id: id,
+                            product_id: product_id,
+                            qty: qty,
+                            type: 3
+                        },
+                        success: function(data){
+                            var productout = $('#cart-list').DataTable();
+                            productout.ajax.reload();
+                            var productout = $('#alliedproductout-list').DataTable();
+                            productout.ajax.reload();
+                            swal.insertQueueStep('Product successfully removed.')
+                            resolve()
+                            $.ajax({
+                                url:BASEURL + '/alliedcartcount',
+                                type: 'GET',
+                                success: function (data){
+                                    $('#tab-productout li:nth-child(2) a').html(data);
+                                }
+                            });
+                            receiptCount()
+                            $('.total-amount').text( '₱ '+data)
                         }
                     });
-
-                    receiptCount()
-
-                    $('.total-amount').text( '₱ '+data)
-
-                }
-            });
-        });
-
-
+                })
+            }
+        }])
     }
 
     function  receiptCount() {
