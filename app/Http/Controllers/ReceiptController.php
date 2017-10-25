@@ -13,7 +13,7 @@ use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Theme;
-
+use Yajra\Datatables\Facades\Datatables;
 class ReceiptController extends Controller
 {
 
@@ -51,16 +51,40 @@ class ReceiptController extends Controller
 
         }
 
-        $receiptData =array();
-        foreach ($receipts as $key=>$val){
+        return Datatables::of($receipts)
+            ->addColumn('receipt_no', function ($data) use ($request){
+                return $data->receipt_no;
+            })
+            ->addColumn('delivered_to', function ($data) use ($request){
+                return Branches::find($data->branch)->name;
+            })
+            ->addColumn('total', function ($data) use ($request){
+                return '₱ '.number_format($data->total, 2);
+            })
+            ->addColumn('created_by', function ($data) use ($request){
+                return User::find($data->printed_by)->first_name.' '.User::find($data->printed_by)->last_name;
+            })
+            ->addColumn('date_created', function ($data) use ($request){
+                return date('M d,Y',strtotime($data->created_at));
+            })
+            ->addColumn('action', function ($data) use ($request){
+                $view = "<a href='invoice/1/$data->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' >View</label></a>";
+                $edit = "<a href='editReceipt/$data->receipt_no'><label id='edit-receipt' class='alert alert-warning' >Edit</label></a>";
 
-            $view = "<a href='invoice/1/$val->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
-            $edit = "<a href='editReceipt/$val->receipt_no'><label id='edit-receipt' class='alert alert-warning' data-id='.$val->id.'>Edit</label></a>";
+                return $view.$edit;
+            })
 
-            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_to'=>Branches::find($val->branch)->name,'total'=>'₱ '.number_format($val->total, 2),'created_by'=>User::find($val->printed_by)->first_name.' '.User::find($val->printed_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$view.$edit];
-        }
+            ->make(true);
 
-        return json_encode(['data'=>$receiptData]);
+//
+//        $receiptData =array();
+//        foreach ($receipts as $key=>$val){
+//
+//
+//            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_to'=>Branches::find($val->branch)->name,'total'=>'₱ '.number_format($val->total, 2),'created_by'=>User::find($val->printed_by)->first_name.' '.User::find($val->printed_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$view.$edit];
+//        }
+//
+//        return json_encode(['data'=>$receiptData]);
     }
 
     public function receiptin()
