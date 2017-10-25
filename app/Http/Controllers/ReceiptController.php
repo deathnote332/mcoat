@@ -33,9 +33,17 @@ class ReceiptController extends Controller
 
         if(Auth::user()->user_type ==1){
             if($request->_range == 'all'){
-                $receipts = Productout::orderBy('id','desc')->get();
+                $receipts = Productout::orderBy('id','desc')
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
             }else{
-                $receipts = Productout::orderBy('id','desc')->where(DB::raw('DATE(created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))->get();
+                $receipts = Productout::orderBy('id','desc')->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
             }
         }else{
             if(Auth::user()->warehouse == 1){
@@ -44,9 +52,17 @@ class ReceiptController extends Controller
                 $type=3;
             }
             if($request->_range == 'all'){
-                $receipts = Productout::where('type',$type)->orderBy('id','desc')->get();
+                $receipts = Productout::where('type',$type)->orderBy('id','desc')
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
             }else{
-                $receipts = Productout::where('type',$type)->where(DB::raw('DATE(created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))->orderBy('id','desc')->get();
+                $receipts = Productout::where('type',$type)->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))->orderBy('id','desc')
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
             }
 
         }
@@ -56,20 +72,23 @@ class ReceiptController extends Controller
                 return $data->receipt_no;
             })
             ->addColumn('delivered_to', function ($data) use ($request){
-                return Branches::find($data->branch)->name;
+                return $data->name;
             })
             ->addColumn('total', function ($data) use ($request){
                 return '₱ '.number_format($data->total, 2);
             })
             ->addColumn('created_by', function ($data) use ($request){
-                return User::find($data->printed_by)->first_name.' '.User::find($data->printed_by)->last_name;
+                return $data->first_name.' '.$data->last_name;
             })
             ->addColumn('date_created', function ($data) use ($request){
                 return date('M d,Y',strtotime($data->created_at));
             })
             ->addColumn('action', function ($data) use ($request){
+                $view = "<a href='invoice/1/$data->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' >View</label></a>";
+                $edit = "<a href='editReceipt/$data->receipt_no'><label id='edit-receipt' class='alert alert-warning' >Edit</label></a>";
+                $delete = "<a><label id='delete-receipt' class='alert alert-danger' >Delete</label></a>";
 
-                return '';
+                return $view.$edit.$delete;
             })
 
             ->make(true);
