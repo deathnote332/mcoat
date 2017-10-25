@@ -68,10 +68,8 @@ class ReceiptController extends Controller
                 return date('M d,Y',strtotime($data->created_at));
             })
             ->addColumn('action', function ($data) use ($request){
-                $view = "<a href='invoice/1/$data->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' >View</label></a>";
-                $edit = "<a href='editReceipt/$data->receipt_no'><label id='edit-receipt' class='alert alert-warning' >Edit</label></a>";
 
-                return $view.$edit;
+                return '';
             })
 
             ->make(true);
