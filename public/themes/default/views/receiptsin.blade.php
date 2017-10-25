@@ -16,7 +16,7 @@
     #receiptin-list_wrapper tbody tr td:nth-child(5){
         text-align: center;
     }
-    #search{
+    .range-selection{
 
         margin-left: 15px;
         margin-bottom: 20px;
@@ -52,7 +52,17 @@
 
 <div class="card-container">
     <div class="row">
+        <div class="col-md-3">
+            <div class="range-selection">
+                <select id="range" class="form-control">
+                    <option selected value="today">Today</option>
+                    <option  value="week">Week</option>
+                    <option  value="month">Month</option>
+                    <option value="all">All</option>
+                </select>
+            </div>
 
+        </div>
         <div class="col-md-3">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
@@ -91,7 +101,8 @@
         loadReceipts()
 
         $('#search').on('input',function () {
-            var receipt = $('#receipt-list').DataTable();
+
+            var receipt = $('#receiptin-list').DataTable();
             receipt.search(this.value).draw();
         })
 

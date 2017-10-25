@@ -61,6 +61,8 @@
             <div class="range-selection">
                 <select id="range" class="form-control">
                     <option selected value="today">Today</option>
+                    <option  value="week">Week</option>
+                    <option  value="month">Month</option>
                     <option value="all">All</option>
                 </select>
             </div>

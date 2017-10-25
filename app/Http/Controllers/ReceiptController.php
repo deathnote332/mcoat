@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Branches;
 use App\Product;
 use App\Productin;
 use App\Productout;
-use App\Supplier;
-use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use Illuminate\Http\Request;
@@ -33,13 +31,30 @@ class ReceiptController extends Controller
 
         if(Auth::user()->user_type ==1){
             if($request->_range == 'all'){
-                $receipts = Productout::orderBy('id','desc')
+                $receipts = Productout::orderBy('product_out.id','desc')
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
                     ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
                     ->get();
-            }else{
-                $receipts = Productout::orderBy('id','desc')->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
+            }elseif($request->_range == 'week'){
+                $receipts = Productout::orderBy('product_out.id','desc')
+                    ->where(DB::raw('WEEKOFYEAR(product_out.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
+
+            }elseif($request->_range == 'today'){
+                $receipts = Productout::orderBy('product_out.id','desc')
+                    ->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
+            }elseif($request->_range == 'month'){
+                $receipts = Productout::orderBy('product_out.id','desc')
+                    ->where(DB::raw('YEAR(product_out.created_at)'),DB::raw('YEAR(NOW())'))
+                    ->where(DB::raw('MONTH(product_out.created_at)'),DB::raw('MONTH(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
                     ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
@@ -51,14 +66,36 @@ class ReceiptController extends Controller
             }elseif(Auth::user()->warehouse == 2){
                 $type=3;
             }
+
             if($request->_range == 'all'){
-                $receipts = Productout::where('type',$type)->orderBy('id','desc')
+                $receipts = Productout::orderBy('product_out.id','desc')
+                    ->where('product_out.type',$type)
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
                     ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
                     ->get();
-            }else{
-                $receipts = Productout::where('type',$type)->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))->orderBy('id','desc')
+            }elseif($request->_range == 'week'){
+                $receipts = Productout::orderBy('product_out.id','desc')
+                    ->where('product_out.type',$type)
+                    ->where(DB::raw('WEEKOFYEAR(product_out.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
+
+            }elseif($request->_range == 'today'){
+                $receipts = Productout::orderBy('product_out.id','desc')
+                    ->where('product_out.type',$type)
+                    ->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
+                    ->join('branches','product_out.branch','branches.id')
+                    ->join('users','product_out.printed_by','users.id')
+                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->get();
+            }elseif($request->_range == 'month'){
+                $receipts = Productout::orderBy('product_out.id','desc')
+                    ->where('product_out.type',$type)
+                    ->where(DB::raw('YEAR(product_out.created_at)'),DB::raw('YEAR(NOW())'))
+                    ->where(DB::raw('MONTH(product_out.created_at)'),DB::raw('MONTH(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
                     ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
@@ -80,7 +117,7 @@ class ReceiptController extends Controller
             ->addColumn('created_by', function ($data) use ($request){
                 return $data->first_name.' '.$data->last_name;
             })
-            ->addColumn('date_created', function ($data) use ($request){
+            ->addColumn('created_at', function ($data) use ($request){
                 return date('M d,Y',strtotime($data->created_at));
             })
             ->addColumn('action', function ($data) use ($request){
@@ -113,21 +150,39 @@ class ReceiptController extends Controller
     public function getRecieptsIn(Request $request){
 
         if(Auth::user()->user_type ==1){
-            $receipts = Productin::orderBy('id','desc')->get();
+            $receipts = Productin::orderBy('id','desc')
+                ->join('suppliers','product_in.supplier_id','suppliers.id')
+                ->join('users','product_in.entered_by','users.id')
+                ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                ->get();
         }else{
 
             $receipts = Productin::where('entered_by',Auth::user()->id)->orderBy('id','desc')->get();
         }
 
-        $receiptData =array();
-        foreach ($receipts as $key=>$val){
 
-            $view = "<a href='invoiceReceiptin/$val->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
+        return Datatables::of($receipts)
+            ->addColumn('receipt_no', function ($data) use ($request){
+                return $data->receipt_no;
+            })
+            ->addColumn('delivered_from', function ($data) use ($request){
+                return $data->name;
+            })
+            ->addColumn('created_by', function ($data) use ($request){
+                return $data->first_name.' '.$data->last_name;
+            })
+            ->addColumn('created_at', function ($data) use ($request){
+                return date('M d,Y',strtotime($data->created_at));
+            })
+            ->addColumn('warehouse', function ($data) use ($request){
+                return ($data->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse';
+            })
+            ->addColumn('action', function ($data) use ($request){
+                $view = "<a href='invoiceReceiptin/$data->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$data->id.'>View</label></a>";
+                return $view;
+            })
+            ->make(true);
 
-            $receiptData[]=['receipt_no'=>$val->receipt_no,'delivered_from'=>Supplier::find($val->supplier_id)->name,'created_by'=>User::find($val->entered_by)->first_name.' '.User::find($val->entered_by)->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'warehouse'=>($val->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse','action'=>$view];
-        }
-
-        return json_encode(['data'=>$receiptData]);
     }
 
     public function editReceipt(Request $request)
