@@ -379,6 +379,8 @@ class ProductController extends Controller
         $quantity = ($request->type == 1) ? 'quantity' : 'quantity_1';
         Product::where('id',$request->product_id)->update(['brand'=>$request->brand,'category'=>$request->category,
             'code'=>$request->code,'description'=>$request->description,'unit'=>$request->unit,$quantity=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+        $message = 'Product successfully updated';
+        return $message;
     }
 
     public function fastMovingProducts(){

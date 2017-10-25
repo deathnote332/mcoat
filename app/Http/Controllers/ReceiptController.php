@@ -123,7 +123,7 @@ class ReceiptController extends Controller
             ->addColumn('action', function ($data) use ($request){
                 $view = "<a href='invoice/1/$data->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' >View</label></a>";
                 $edit = "<a href='editReceipt/$data->receipt_no'><label id='edit-receipt' class='alert alert-warning' >Edit</label></a>";
-                $delete = "<a><label id='delete-receipt' class='alert alert-danger' >Delete</label></a>";
+                $delete = "<a><label id='delete-receipt' class='alert alert-danger' data-id='$data->receipt_no' >Delete</label></a>";
 
                 return $view.$edit.$delete;
             })

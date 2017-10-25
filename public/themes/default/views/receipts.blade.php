@@ -51,6 +51,7 @@
 
     .alert-warning,.alert-success,.alert-danger{
         color:white;
+        cursor: pointer;
 
     }
 </style>
@@ -113,6 +114,10 @@
             loadReceipts($(this).val())
         })
 
+        $('body').delegate('#delete-receipt','click',function () {
+            deleteReceipt($(this).data('id'))
+        })
+
         function loadReceipts(range) {
             var _range = (range == null) ? 'today' : range
 
@@ -141,6 +146,61 @@
 
                 ]
             });
+        }
+
+        function deleteReceipt(invoice) {
+
+            swal.queue([{
+                title: 'Are you sure',
+                confirmButtonText: 'Show my public IP',
+                text:
+                'You want to delete this receipt',
+                type:'warning',
+
+                showLoaderOnConfirm: true,
+                closeOnConfirm: false,
+                confirmButtonText: 'Okay',
+                confirmButtonColor: "#DD6B55",
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        $.get('https://api.ipify.org?format=json')
+                            .done(function (data) {
+                                swal.insertQueueStep(data.ip)
+                                resolve()
+                            })
+                    })
+                }
+            }])
+
+//            swal({
+//                title: "Are you sure?",
+//                text: "You want to delete this receipt.</br>HEllo",
+//                type: "warning",
+//                showCancelButton: true,
+//                confirmButtonColor: "#DD6B55",
+//                confirmButtonText: 'Okay',
+//                closeOnConfirm: false
+//            }).then(function () {
+//
+//                $.ajax({
+//                    url:BASEURL+'/updateProduct',
+//                    type:'POST',
+//                    data:{
+//                        _range: invoice,
+//                        _token: $('meta[name="csrf_token"]').attr('content'),
+//                    },
+//                    success: function(data){
+//
+//                        swal({
+//                            title: "",
+//                            text: "Product updated successfully",
+//                            type:"success"
+//                        }).then(function () {
+//                            $("#update-products")[0].reset()
+//                        });
+//                    }
+//                });
+//            });
         }
 
 

@@ -322,16 +322,13 @@
         </div>
         <div class="received-by signature">
             Name & Authorized Signature
-
         </div>
-
 
         <div class="invoice-follow">
             Invoice to follow
         </div>
         <div class="received-by date-received">
             Date received: <span>______________________________________</span>
-
         </div>
     </div>
 
