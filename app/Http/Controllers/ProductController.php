@@ -355,8 +355,24 @@ class ProductController extends Controller
 
     public function addNewProduct(Request $request){
         $quantity = ($request->type == 1) ? 'quantity' : 'quantity_1';
-        Product::insert(['brand'=>$request->brand,'category'=>$request->category,
-            'code'=>$request->code,'description'=>$request->description,'unit'=>$request->unit,$quantity=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+
+        $exist = Product::where('brand',$request->brand)
+                        ->where('category',$request->category)
+                        ->where('code',$request->code)
+                        ->where('description',$request->description)
+                        ->where('unit',$request->unit)
+                        ->where('unit_price',(double) str_replace(',', '', $request->unit_price))
+                        ->count();
+
+        if($exist == 1){
+            $message = 'Product existed';
+        }else{
+            Product::insert(['brand'=>$request->brand,'category'=>$request->category,
+                'code'=>$request->code,'description'=>$request->description,'unit'=>$request->unit,$quantity=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+            $message = 'Product successfully added';
+        }
+
+        return $message;
     }
 
     public function updateProduct(Request $request){

@@ -306,6 +306,8 @@
             confirmButtonText: 'Okay',
             closeOnConfirm: false
         }).then(function () {
+
+
             var data_save = $('#update-products').serializeArray();
             data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
             data_save.push({ name : "type", value: 1})
@@ -314,19 +316,21 @@
                 type:'POST',
                 data: data_save,
                 success: function(data){
+                    $('#addToCartModal').modal('hide');
                     var productout = $('#productout-list').DataTable();
                     productout.ajax.reload(null,false);
-                    $('#addToCartModal').modal('hide');
-
+                    var type = (data =='Product existed') ? 'error': 'success';
                     swal({
                         title: "",
-                        text: "Product added successfully",
-                        type:"success"
+                        text: data,
+                        type: type
                     }).then(function () {
                         $("#update-products")[0].reset()
                     });
                 }
             });
+
+
         });
 
 

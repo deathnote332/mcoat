@@ -314,11 +314,11 @@
                     var productout = $('#alliedmanage-list').DataTable();
                     productout.ajax.reload(null,false);
                     $('#addToCartModal').modal('hide');
-
+                    var type = (data =='Product existed') ? 'error': 'success';
                     swal({
                         title: "",
-                        text: "Product added successfully",
-                        type:"success"
+                        text: data,
+                        type: type
                     }).then(function () {
                         $("#update-products")[0].reset()
                     });
