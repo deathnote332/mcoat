@@ -90,10 +90,6 @@
 </div>
 
 
-
-
-
-
 <script>
 
     $('document').ready(function(){
@@ -101,27 +97,32 @@
         loadReceipts()
 
         $('#search').on('input',function () {
-
             var receipt = $('#receiptin-list').DataTable();
             receipt.search(this.value).draw();
         })
 
+        $('#range').on('change',function () {
+            loadReceipts($(this).val())
+        })
 
 
 
     });
 
-    function loadReceipts() {
+    function loadReceipts(range) {
+        var _range = (range == null) ? 'today' : range
         var BASEURL = $('#baseURL').val();
         var receipt = $('#receiptin-list').DataTable({
             ajax: {
                 url: BASEURL + '/getRecieptsIn',
                 type: "POST",
                 data:{
+                    _range: _range,
                     _token: $('meta[name="csrf_token"]').attr('content'),
                 }
             },
             order: [],
+            destroy: true,
             iDisplayLength: 12,
             bLengthChange: false,
             columns: [
@@ -136,6 +137,7 @@
             ]
         });
     }
+
 
 
     //New error event handling has been added in Datatables v1.10.5

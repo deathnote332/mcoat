@@ -150,14 +150,77 @@ class ReceiptController extends Controller
     public function getRecieptsIn(Request $request){
 
         if(Auth::user()->user_type ==1){
-            $receipts = Productin::orderBy('id','desc')
-                ->join('suppliers','product_in.supplier_id','suppliers.id')
-                ->join('users','product_in.entered_by','users.id')
-                ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
-                ->get();
+
+
+            if($request->_range == 'all'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+            }elseif($request->_range == 'week'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->where(DB::raw('WEEKOFYEAR(product_in.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+
+            }elseif($request->_range == 'today'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->where(DB::raw('DATE(product_in.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+            }elseif($request->_range == 'month'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->where(DB::raw('YEAR(product_in.created_at)'),DB::raw('YEAR(NOW())'))
+                    ->where(DB::raw('MONTH(product_in.created_at)'),DB::raw('MONTH(NOW())'))
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+            }
+
+
         }else{
 
-            $receipts = Productin::where('entered_by',Auth::user()->id)->orderBy('id','desc')->get();
+            if($request->_range == 'all'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->where('product_in.entered_by',Auth::user()->id)
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+            }elseif($request->_range == 'week'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->where('product_in.entered_by',Auth::user()->id)
+                    ->where(DB::raw('WEEKOFYEAR(product_in.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+
+            }elseif($request->_range == 'today'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->where('product_in.entered_by',Auth::user()->id)
+                    ->where(DB::raw('DATE(product_in.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+            }elseif($request->_range == 'month'){
+                $receipts = Productin::orderBy('product_in.id','desc')
+                    ->where('product_in.entered_by',Auth::user()->id)
+                    ->where(DB::raw('YEAR(product_in.created_at)'),DB::raw('YEAR(NOW())'))
+                    ->where(DB::raw('MONTH(product_in.created_at)'),DB::raw('MONTH(NOW())'))
+                    ->join('suppliers','product_in.supplier_id','suppliers.id')
+                    ->join('users','product_in.entered_by','users.id')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->get();
+            }
+
         }
 
 
