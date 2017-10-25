@@ -24,6 +24,18 @@
          margin-bottom: 0px;
         border: 1px solid transparent;
         border-radius: 4px;
+        color:white;
+        cursor: pointer;
+    }
+
+    .alert-warning{
+        background-color: #8a6d3b;
+    }
+    .alert-danger{
+        background-color: #a94442;
+    }
+    #update-cart{
+        margin-right: 10px;
     }
     .btn-print{
         font-size: 24px;

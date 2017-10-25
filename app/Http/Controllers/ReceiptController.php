@@ -251,7 +251,7 @@ class ReceiptController extends Controller
     public function editReceipt(Request $request)
     {
         $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
-        return $theme->scope('editreceipts',['receipt_no'=>$request->id])->render();
+        return $theme->scope('editreceipts',['receipt_no'=>$request->id,'type'=>Productout::where('receipt_no',$request->id)->first()->type])->render();
     }
 
     public function getcartReceipt(Request $request)
@@ -273,8 +273,12 @@ class ReceiptController extends Controller
         return json_encode(['data'=>$data]);
     }
 
-    public function ajaxEditProductList(){
-        return view('editreceipt.editproductlist');
+    public function ajaxEditProductList(Request $request){
+        if($request->type == 3){
+            return view('editreceipt.editproductallied');
+        }else{
+            return view('editreceipt.editproductlist');
+        }
     }
     public function ajaxEditCartList(Request $request){
         return view('editreceipt.editcart',['receipt_no'=>$request->receipt_no]);
@@ -309,7 +313,8 @@ class ReceiptController extends Controller
             DB::table('product_out_items')->where('product_id',$product_id)->where('receipt_no',$request->receipt_no)->update(['quantity'=>$product_out_items->quantity + $product_qty]);
         }
         //minus to the current stock
-        Product::where('id',$product_id)->update(['quantity'=>$newQty]);
+        $type = ($request->type == 1) ? 'quantity' : 'quantity_1';
+        Product::where('id',$product_id)->update([$type=>$newQty]);
 
     }
 

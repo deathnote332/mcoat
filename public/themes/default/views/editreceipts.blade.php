@@ -12,6 +12,7 @@
 <div class="panel-heading">
     <h2>Edit receipt no: <span>{{$receipt_no}}</span></h2>
     <input type="hidden" id="receipt_no" value="{{$receipt_no}}">
+    <input type="hidden" id="type" value="{{$type}}">
 </div>
 <!-- /.panel-heading -->
 <div class="panel-body">
@@ -62,7 +63,7 @@
     function viewProductList() {
 
         $.ajax({
-            url:BASEURL + '/editProductList',
+            url:BASEURL + '/editProductList/'+$('#type').val(),
             type: 'GET',
             success: function (data){
                 $('#stocks').html(data);

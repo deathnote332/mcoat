@@ -149,15 +149,13 @@
         }
 
         function deleteReceipt(invoice) {
-
             swal.queue([{
                 title: 'Are you sure',
-                confirmButtonText: 'Show my public IP',
-                text:
-                'You want to delete this receipt',
+                text: "You want to delete this receipt.",
                 type:'warning',
-
                 showLoaderOnConfirm: true,
+                showCancelButton: true,
+                allowOutsideClick: false,
                 closeOnConfirm: false,
                 confirmButtonText: 'Okay',
                 confirmButtonColor: "#DD6B55",
@@ -168,6 +166,7 @@
                                 swal.insertQueueStep(data.ip)
                                 resolve()
                             })
+
                     })
                 }
             }])

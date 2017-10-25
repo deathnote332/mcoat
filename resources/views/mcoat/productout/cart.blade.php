@@ -21,9 +21,21 @@
     }
     .alert {
         padding: 2px 10px;
-         margin-bottom: 0px;
+        margin-bottom: 0px;
         border: 1px solid transparent;
         border-radius: 4px;
+        color:white;
+        cursor: pointer;
+    }
+
+    .alert-warning{
+        background-color: #8a6d3b;
+    }
+    .alert-danger{
+        background-color: #a94442;
+    }
+    #update-cart{
+        margin-right: 10px;
     }
     .btn-print{
 
@@ -198,6 +210,11 @@
             removeToCart($(this).data('id'),$(this).data('product_id'),$(this).data('qty'))
         })
 
+        $('body').on('click','#update-cart',function () {
+            editQuantity($(this).data('id'))
+        })
+
+
         $('.btn-print .btn').on('click',function () {
             var branch = $('.branches option:selected');
             if(branch.val()=="Choose Location"){
@@ -328,6 +345,65 @@
                 }
             }
         });
+    }
+
+    function  editQuantity(id) {
+        swal({
+            title: 'Enter quantity',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Okay',
+            showLoaderOnConfirm: true,
+            preConfirm: function (text) {
+                return new Promise(function (resolve, reject) {
+                    if(parseInt(text) <= 0 || text == ''){
+                        reject('Invalid quantity')
+                    }else{
+                        $.ajax({
+                            url:BASEURL+'/editquantity',
+                            type:'POST',
+                            data: {
+                                _token: $('meta[name="csrf_token"]').attr('content'),
+                                id: id,
+                                qty: text,
+                                type: 1
+
+                            },
+                            success: function(data){
+                                var productout = $('#cart-list').DataTable();
+                                productout.ajax.reload();
+                                var productout = $('#productout-list').DataTable();
+                                productout.ajax.reload();
+
+                                resolve()
+                                $.ajax({
+                                    url:BASEURL + '/cartCount',
+                                    type: 'GET',
+                                    success: function (data){
+                                        $('#tab-productout li:nth-child(2) a').html(data);
+                                    }
+                                });
+                                receiptCount()
+                                $('.total-amount').text( '₱ '+data)
+                            }
+                        });
+                    }
+
+                })
+            },
+            allowOutsideClick: false
+        }).then(function (text) {
+            swal({
+                type: 'success',
+                title: 'Product successfully updated.',
+
+            })
+
+        })
+
+        //numeric input
+        $('.swal2-input').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
     }
 
     //New error event handling has been added in Datatables v1.10.5

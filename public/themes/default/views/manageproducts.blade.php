@@ -25,9 +25,7 @@
     }
 
     .modal{
-
         top: 15%;
-
     }
     .alert-info{
         background-color: #31708f;
