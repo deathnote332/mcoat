@@ -106,6 +106,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::get('/getCart/{id}', 'ProductController@getCart');
     Route::post('/addToCart', 'ProductController@addToCart');
     Route::post('/removeToCart', 'ProductController@removeToCart');
+    Route::post('/editquantity', 'ProductController@editQuantity');
 
 //print
     Route::get('/invoice/{id}', 'ProductController@invoice');
@@ -155,7 +156,7 @@ Route::group(['middleware' => 'isShared'], function(){
     //edit receipt
     Route::get('/editReceipt/{id}', 'ReceiptController@editReceipt');
     Route::post('/getcartReceipt', 'ReceiptController@getcartReceipt');
-    Route::get('/editProductList', 'ReceiptController@ajaxEditProductList');
+    Route::get('/editProductList/{type}', 'ReceiptController@ajaxEditProductList');
     Route::post('/editCartList', 'ReceiptController@ajaxEditCartList');
     Route::post('/editReceiptCount', 'ReceiptController@ajaxEditReceiptCount');
     Route::post('/editCartCount', 'ReceiptController@ajaxCartCount');

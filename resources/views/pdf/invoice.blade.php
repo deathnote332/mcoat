@@ -175,10 +175,10 @@
        border-top: 1px solid black !important;
 
    }
-    #total td:nth-child(4),#total td:nth-child(5){
+    #total td:nth-child(4),#total td:nth-child(1) span,#total td:nth-child(5){
         font-weight:700;
     }
-    #total td:nth-child(1),#total td:nth-child(2),#total td:nth-child(3){
+    #total td:nth-child(2),#total td:nth-child(3){
         border-right: 0 !important;
     }
     .print-info{
@@ -296,7 +296,7 @@
                 </tr>
             @endforeach
             <tr id="total">
-                <td></td>
+                <td>TOTAL ITEMS:<span>{{ count($invoice['products']) }}</span> </td>
                 <td></td>
                 <td></td>
                 <td>TOTAL</td>
@@ -322,16 +322,13 @@
         </div>
         <div class="received-by signature">
             Name & Authorized Signature
-
         </div>
-
 
         <div class="invoice-follow">
             Invoice to follow
         </div>
         <div class="received-by date-received">
             Date received: <span>______________________________________</span>
-
         </div>
     </div>
 

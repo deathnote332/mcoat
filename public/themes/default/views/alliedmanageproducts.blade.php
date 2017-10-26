@@ -294,37 +294,39 @@
 
     function addNewProduct() {
 
-        swal({
-            title: "Are you sure?",
+        swal.queue([{
+            title: 'Are you sure',
             text: "You want to add this product.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
-            var data_save = $('#update-products').serializeArray();
-            data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-            data_save.push({ name : "type", value: 2})
-            $.ajax({
-                url:BASEURL+'/addNewProduct',
-                type:'POST',
-                data: data_save,
-                success: function(data){
-                    var productout = $('#alliedmanage-list').DataTable();
-                    productout.ajax.reload(null,false);
-                    $('#addToCartModal').modal('hide');
-
-                    swal({
-                        title: "",
-                        text: "Product added successfully",
-                        type:"success"
-                    }).then(function () {
-                        $("#update-products")[0].reset()
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    var data_save = $('#update-products').serializeArray();
+                    data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+                    data_save.push({ name : "type", value: 2})
+                    $.ajax({
+                        url:BASEURL+'/addNewProduct',
+                        type:'POST',
+                        data: data_save,
+                        success: function(data){
+                            $('#addToCartModal').modal('hide');
+                            var productout = $('#alliedmanage-list').DataTable();
+                            productout.ajax.reload(null,false);
+                            $("#update-products")[0].reset()
+                            var type = (data =='Product existed') ? 'error': 'success';
+                            swal.insertQueueStep(data)
+                            resolve()
+                        }
                     });
-                }
-            });
-        });
+                })
+            }
+        }])
+
 
 
     }
@@ -332,37 +334,38 @@
 
     function updateProduct() {
 
-        swal({
-            title: "Are you sure?",
+        swal.queue([{
+            title: 'Are you sure',
             text: "You want to update this product.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
-            var data_save = $('#update-products').serializeArray();
-            data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-            data_save.push({ name : "type", value: 2})
-            $.ajax({
-                url:BASEURL+'/updateProduct',
-                type:'POST',
-                data: data_save,
-                success: function(data){
-                    var productout = $('#alliedmanage-list').DataTable();
-                    productout.ajax.reload(null,false);
-                    $('#addToCartModal').modal('hide');
-
-                    swal({
-                        title: "",
-                        text: "Product updated successfully",
-                        type:"success"
-                    }).then(function () {
-                        $("#update-products")[0].reset()
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    var data_save = $('#update-products').serializeArray();
+                    data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+                    data_save.push({ name : "type", value: 2})
+                    $.ajax({
+                        url:BASEURL+'/updateProduct',
+                        type:'POST',
+                        data: data_save,
+                        success: function(data){
+                            var productout = $('#alliedmanage-list').DataTable();
+                            productout.ajax.reload(null,false);
+                            $("#update-products")[0].reset()
+                            $('#addToCartModal').modal('hide');
+                            swal.insertQueueStep(data)
+                            resolve()
+                        }
                     });
-                }
-            });
-        });
+                })
+            }
+        }])
+
 
 
     }

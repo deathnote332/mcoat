@@ -1,10 +1,14 @@
 <style>
+
     tr th{
         background: #2980b9;
         color: #fff;
         text-transform: uppercase;
     }
 
+    tr td:nth-child(4){
+        text-transform: capitalize;
+    }
     .card-container{
         padding-top: 30px;
     }
@@ -30,20 +34,24 @@
         top: 15%;
 
     }
-    label#view-receipt,label#edit-receipt {
+    label#view-receipt,label#edit-receipt,label#delete-receipt {
         margin: 0;
         padding: 5px 20px;
     }
-    .alert-success{
+    .alert-success,.alert-warning{
         background-color: #3c763d;
         margin-right: 10px !important;
     }
     .alert-warning{
         background-color: #8a6d3b;
     }
+    .alert-danger{
+        background-color: #a94442;
+    }
 
-    .alert-warning,.alert-success{
+    .alert-warning,.alert-success,.alert-danger{
         color:white;
+        cursor: pointer;
 
     }
 </style>
@@ -54,6 +62,8 @@
             <div class="range-selection">
                 <select id="range" class="form-control">
                     <option selected value="today">Today</option>
+                    <option  value="week">Week</option>
+                    <option  value="month">Month</option>
                     <option value="all">All</option>
                 </select>
             </div>
@@ -104,6 +114,10 @@
             loadReceipts($(this).val())
         })
 
+        $('body').delegate('#delete-receipt','click',function () {
+            deleteReceipt($(this).data('id'))
+        })
+
         function loadReceipts(range) {
             var _range = (range == null) ? 'today' : range
 
@@ -134,6 +148,29 @@
             });
         }
 
+        function deleteReceipt(invoice) {
+            swal.queue([{
+                title: 'Are you sure',
+                text: "You want to delete this receipt.",
+                type:'warning',
+                showLoaderOnConfirm: true,
+                showCancelButton: true,
+                allowOutsideClick: false,
+                closeOnConfirm: false,
+                confirmButtonText: 'Okay',
+                confirmButtonColor: "#DD6B55",
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        $.get('https://api.ipify.org?format=json')
+                            .done(function (data) {
+                                swal.insertQueueStep(data.ip)
+                                resolve()
+                            })
+
+                    })
+                }
+            }])
+        }
 
     });
 

@@ -25,7 +25,7 @@
     }
 
     .modal{
-
+      
         top: 15%;
 
     }
@@ -172,19 +172,19 @@
                 { data: 'code',"orderable": false },
                 { data: 'description',"orderable": false },
                 { data: 'unit',"orderable": false },
-                { data: 'quantity',"orderable": false },
+                { data: 'quantity_1',"orderable": false },
                 { data: 'unit_price',"orderable": false },
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
-                if (data.quantity == 0) {
+                if (data.quantity_1 == 0) {
                     $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
                     $(row).css({
                         'background-color': '#e74c3c',
                         'color': '#fff'
                     });
 
-                }else if (data.quantity <= 3 && data.quantity >= 1){
+                }else if (data.quantity_1 <= 3 && data.quantity_1 >= 1){
                     $(row).css({
                         'background-color': '#95a5a6',
                         'color': '#fff'
@@ -228,7 +228,7 @@
             var category =$(this).data('category');
             var code = $(this).data('code');
             var description = $(this).data('description');
-            var quantity = $(this).data('quantity');
+            var quantity = $(this).data('quantity_1');
             var unit = $(this).data('unit');
 
             $('#addToCartModal').modal('show');
@@ -283,7 +283,7 @@
                     id: id,
                     qty: qty,
                     current_qty:current,
-                    type:1,
+                    type:3,
                     receipt_no:$('#receipt_no').val()
                 },
                 success: function(data){
@@ -315,10 +315,7 @@
                 }
             });
         });
-
-
     }
-
 
 
     //New error event handling has been added in Datatables v1.10.5

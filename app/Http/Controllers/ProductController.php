@@ -141,10 +141,11 @@ class ProductController extends Controller
             ->get();
         $data=[];
         foreach($getCart as $key=>$val){
-            $action = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="remove-cart">Remove</label>';
+            $remove = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="remove-cart">Remove</label>';
+            $edit = '<label class="alert alert-warning" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="update-cart">Edit quantity</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,
-                'temp_qty'=>$val->temp_qty,'unit_price'=>number_format($val->unit_price, 2),'total'=>number_format($val->unit_price * $val->temp_qty, 2),'action'=>$action];
+                'temp_qty'=>$val->temp_qty,'unit_price'=>number_format($val->unit_price, 2),'total'=>number_format($val->unit_price * $val->temp_qty, 2),'action'=>$edit.$remove];
         }
 
         return json_encode(['data'=>$data]);
@@ -175,7 +176,8 @@ class ProductController extends Controller
             Product::where('id',$product_id)->update(['quantity_1'=>$newQty]);
         }
 
-
+        $message = 'Product successfully added to cart';
+        return $message;
     }
 
     public function removeToCart(Request $request){
@@ -355,14 +357,32 @@ class ProductController extends Controller
 
     public function addNewProduct(Request $request){
         $quantity = ($request->type == 1) ? 'quantity' : 'quantity_1';
-        Product::insert(['brand'=>$request->brand,'category'=>$request->category,
-            'code'=>$request->code,'description'=>$request->description,'unit'=>$request->unit,$quantity=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+
+        $exist = Product::where('brand',$request->brand)
+                        ->where('category',$request->category)
+                        ->where('code',$request->code)
+                        ->where('description',$request->description)
+                        ->where('unit',$request->unit)
+                        ->where('unit_price',(double) str_replace(',', '', $request->unit_price))
+                        ->count();
+
+        if($exist == 1){
+            $message = 'Product existed';
+        }else{
+            Product::insert(['brand'=>$request->brand,'category'=>$request->category,
+                'code'=>$request->code,'description'=>$request->description,'unit'=>$request->unit,$quantity=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+            $message = 'Product successfully added';
+        }
+
+        return $message;
     }
 
     public function updateProduct(Request $request){
         $quantity = ($request->type == 1) ? 'quantity' : 'quantity_1';
         Product::where('id',$request->product_id)->update(['brand'=>$request->brand,'category'=>$request->category,
             'code'=>$request->code,'description'=>$request->description,'unit'=>$request->unit,$quantity=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
+        $message = 'Product successfully updated';
+        return $message;
     }
 
     public function fastMovingProducts(){
@@ -425,6 +445,12 @@ class ProductController extends Controller
             $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product in');
             return $theme->scope('alliedproductin')->render();
         }
+    }
+
+    public function editQuantity(Request $request){
+        TempProductout::where('id',$request->id)->update(['qty'=>$request->qty]);
+        return number_format(TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('temp_product_out.type',$request->type)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->first()->total,2);
+
     }
 
 }

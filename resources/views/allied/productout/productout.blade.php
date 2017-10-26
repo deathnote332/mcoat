@@ -265,56 +265,52 @@
 
     });
 
+
     function addToCart(id,qty,current) {
 
-            swal({
-                title: "Are you sure?",
-                text: "You want to add this product to cart.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: 'Okay',
-                closeOnConfirm: false
-            }).then(function () {
-
-                $.ajax({
-                    url:BASEURL+'/addToCart',
-                    type:'POST',
-                    data: {
-                        _token: $('meta[name="csrf_token"]').attr('content'),
-                        id: id,
-                        qty: qty,
-                        current_qty:current,
-                        type:3,
-                    },
-                    success: function(data){
-                        var productout = $('#alliedproductout-list').DataTable();
-                        productout.ajax.reload(null, false );
-
-                        $('#addToCartModal').modal('hide');
-
-                        swal({
-                            title: "",
-                            text: "Product addded to cart",
-                            type:"success"
-                        })
-
-
-                        $.ajax({
-                            url:BASEURL + '/alliedcartcount',
-                            type: 'GET',
-                            success: function (data){
-                                $('#tab-productout li:nth-child(2) a').html(data);
-                            }
-                        });
-
-
-                    }
-                });
-            });
-
-
+        swal.queue([{
+            title: 'Are you sure',
+            text: "You want to add this product to cart.",
+            type:'warning',
+            showLoaderOnConfirm: true,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/addToCart',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            id: id,
+                            qty: qty,
+                            current_qty:current,
+                            type:3,
+                        },
+                        success: function(data){
+                            var productout = $('#alliedproductout-list').DataTable();
+                            productout.ajax.reload(null, false );
+                            $('#addToCartModal').modal('hide');
+                            swal.insertQueueStep(data)
+                            resolve()
+                            $.ajax({
+                                url:BASEURL + '/alliedcartcount',
+                                type: 'GET',
+                                success: function (data){
+                                    $('#tab-productout li:nth-child(2) a').html(data);
+                                }
+                            });
+                        }
+                    });
+                })
+            }
+        }])
     }
+
+
 
 
 

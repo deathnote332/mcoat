@@ -16,7 +16,7 @@
     #receiptin-list_wrapper tbody tr td:nth-child(5){
         text-align: center;
     }
-    #search{
+    .range-selection{
 
         margin-left: 15px;
         margin-bottom: 20px;
@@ -52,7 +52,17 @@
 
 <div class="card-container">
     <div class="row">
+        <div class="col-md-3">
+            <div class="range-selection">
+                <select id="range" class="form-control">
+                    <option selected value="today">Today</option>
+                    <option  value="week">Week</option>
+                    <option  value="month">Month</option>
+                    <option value="all">All</option>
+                </select>
+            </div>
 
+        </div>
         <div class="col-md-3">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
@@ -80,10 +90,6 @@
 </div>
 
 
-
-
-
-
 <script>
 
     $('document').ready(function(){
@@ -91,26 +97,32 @@
         loadReceipts()
 
         $('#search').on('input',function () {
-            var receipt = $('#receipt-list').DataTable();
+            var receipt = $('#receiptin-list').DataTable();
             receipt.search(this.value).draw();
         })
 
+        $('#range').on('change',function () {
+            loadReceipts($(this).val())
+        })
 
 
 
     });
 
-    function loadReceipts() {
+    function loadReceipts(range) {
+        var _range = (range == null) ? 'today' : range
         var BASEURL = $('#baseURL').val();
         var receipt = $('#receiptin-list').DataTable({
             ajax: {
                 url: BASEURL + '/getRecieptsIn',
                 type: "POST",
                 data:{
+                    _range: _range,
                     _token: $('meta[name="csrf_token"]').attr('content'),
                 }
             },
             order: [],
+            destroy: true,
             iDisplayLength: 12,
             bLengthChange: false,
             columns: [
@@ -125,6 +137,7 @@
             ]
         });
     }
+
 
 
     //New error event handling has been added in Datatables v1.10.5
