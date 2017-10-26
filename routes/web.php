@@ -21,7 +21,6 @@ Route::post('login', 'Auth\LoginController@authenticate')->name('login');
 Route::post('/savebio', 'UserController@saveBioData');
 Route::get('/getProducts', 'ProductController@getProducts');
 
-Route::get('/products', 'MobileProductController@index');
 
 
 Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
@@ -146,6 +145,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::get('/suppliers', 'SupplierBranchController@supplierPage');
     Route::get('/getsuppliers', 'SupplierBranchController@getSuppliers');
     Route::post('/updatesupplier', 'SupplierBranchController@updateSupplier');
+    Route::post('/deleteitems', 'SupplierBranchController@deleteItems');
 
 //branches
     Route::get('/branches', 'SupplierBranchController@branchPage');
@@ -161,5 +161,6 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/editCartCount', 'ReceiptController@ajaxCartCount');
     Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
     Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
+
 
 });

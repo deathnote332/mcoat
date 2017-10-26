@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Product;
+use App\Productin;
 use Illuminate\Http\Request;
 use Theme;
 
@@ -28,7 +30,6 @@ class MobileProductController extends Controller
     {
 
         $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
-
         $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT');
         return $theme->scope('mobile.products',['data'=>$products])->render();
     }

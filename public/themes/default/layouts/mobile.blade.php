@@ -71,32 +71,40 @@
                 {{ csrf_field() }}
             </form>
         </div></li>
-    <li><a class="waves-effect" href="{{ url('dashboard') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader"><i class="material-icons">format_list_bulleted</i>Products</a></li>
-    <li><a class="waves-effect" href="{{ URL('admin/mcoat')  }}"><i class="material-icons"></i>Mcoat</a></li>
-    <li><a class="waves-effect" href="{{ URL('admin/allied')  }}"><i class="material-icons"></i>Allied</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader"><i class="material-icons">format_list_bulleted</i>Manage Products</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader"><i class="material-icons">arrow_upward</i>Product out</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader"><i class="material-icons">arrow_downward</i>Product in</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Receipts</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Product in receipts</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons">person_pin</i>Branches</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons">group</i>Suppliers</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons">person</i>Users</a></li>
-    <li><a class="waves-effect" href=""><i class="material-icons">group</i>Employees</a></li>
+    @if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)
+        <li><a class="waves-effect" href="{{ url('dashboard') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader"><i class="material-icons">format_list_bulleted</i>Products</a></li>
+        <li><a class="waves-effect" href="{{ URL('admin/mcoat')  }}"><i class="material-icons"></i>Mcoat</a></li>
+        <li><a class="waves-effect" href="{{ URL('admin/allied')  }}"><i class="material-icons"></i>Allied</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader"><i class="material-icons">format_list_bulleted</i>Manage Products</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader"><i class="material-icons">arrow_upward</i>Product out</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader"><i class="material-icons">arrow_downward</i>Product in</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Receipts</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Product in receipts</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons">person_pin</i>Branches</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons">group</i>Suppliers</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons">person</i>Users</a></li>
+        <li><a class="waves-effect" href=""><i class="material-icons">group</i>Employees</a></li>
+    @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
 
-    <li><div class="divider"></div></li>
+    @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 3)
+        <li><a class="waves-effect" href="{{ url('dashboard') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+        <li><a class="waves-effect" href="{{ url('user/products') }}"><i class="material-icons">format_list_bulleted</i>Products</a></li>
+        <li><a class="waves-effect" href="{{ url('user/employees/'.\Illuminate\Support\Facades\Auth::user()->user_id) }}"><i class="material-icons">person</i>Bio-data</a></li>
+    @endif
+
+    {{--<li><div class="divider"></div></li>--}}
 
 </ul>
 

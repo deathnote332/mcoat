@@ -366,7 +366,8 @@ class ProductController extends Controller
     }
 
     public function fastMovingProducts(){
-        $graph = Productout::groupBy('branch')->select('branch',DB::raw('COUNT(receipt_no) as total_receipt'))->get();
+        $graph = Productout::groupBy('branch')->where(DB::raw('MONTH(created_at)'),DB::raw('MONTH(NOW())'))->select('branch',DB::raw('COUNT(receipt_no) as total_receipt'))->get();
+
         $totalReceipt = Productout::count();
         $data = array();
         foreach ($graph as $key=>$val){

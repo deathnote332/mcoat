@@ -34,6 +34,13 @@
         padding: 5px 30px;
         margin-left: 20px;
         cursor: pointer;
+        color: white;
+    }
+    .alert-warning{
+        background-color: #8a6d3b;
+    }
+    .alert-danger{
+        background-color: #a94442;
     }
 </style>
 <div class="card-container">
@@ -116,11 +123,8 @@
                 { data: 'address',"orderable": false},
                 { data: 'created_at',"orderable": false },
                 { data: 'action',"orderable": false },
-
-
             ]
         });
-
 
         $('body').on('click','#update',function () {
             $('#addToCartModal').modal('show')
@@ -128,6 +132,11 @@
             $('#address').val($(this).data('address'))
             $('#supplier_id').val($(this).data('id'))
         })
+
+        $('body').on('click','#delete',function () {
+            alert()
+            deletedItem($(this).data('id'))
+        });
 
         $('#btn-update').on('click',function () {
             addToCart()
@@ -165,7 +174,26 @@
                 }
             });
         });
+    }
 
+    function  deletedItem(id) {
+        $.ajax({
+            url:BASEURL+'/deleteitems',
+            type:'POST',
+            data: {
+                _token: $('meta[name="csrf_token"]').attr('content'),
+                type: 3,
+                id: id
+            },
+            success: function(data){
+
+                swal({
+                    title: "",
+                    text: "Supplier deleted successfully",
+                    type:"success"
+                })
+            }
+        });
     }
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
