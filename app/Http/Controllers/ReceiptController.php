@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DeletedItem;
 use App\Product;
 use App\Productin;
 use App\Productout;
@@ -154,9 +155,9 @@ class ReceiptController extends Controller
 
             if($request->_range == 'all'){
                 $receipts = Productin::orderBy('product_in.id','desc')
-                    ->join('suppliers','product_in.supplier_id','suppliers.id')
-                    ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->leftjoin('suppliers','product_in.supplier_id','suppliers.id')
+                    ->leftjoin('users','product_in.entered_by','users.id')
+                    ->select('product_in.*','users.first_name','users.last_name','suppliers.name')
                     ->get();
             }elseif($request->_range == 'week'){
                 $receipts = Productin::orderBy('product_in.id','desc')
@@ -230,6 +231,7 @@ class ReceiptController extends Controller
             })
             ->addColumn('delivered_from', function ($data) use ($request){
                 return $data->name;
+
             })
             ->addColumn('created_by', function ($data) use ($request){
                 return $data->first_name.' '.$data->last_name;

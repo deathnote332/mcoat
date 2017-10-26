@@ -33,8 +33,15 @@
         margin: 0;
         padding: 5px 30px;
         margin-left: 20px;
-        cursor: pointer;
+        color: white;
     }
+    .alert-warning{
+        background-color: #8a6d3b;
+    }
+    .alert-danger{
+        background-color: #a94442;
+    }
+
 </style>
 <div class="card-container">
     <div class="row">
