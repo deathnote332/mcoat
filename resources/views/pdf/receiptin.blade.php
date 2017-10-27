@@ -90,18 +90,20 @@
 
 
     .deliver-receipt{
-        position: fixed;
+        position: relative;
         left: 0;
         top: -125px;
         background-color: black;
         color: #fff;
-        height: 30px;
+        height: auto;
+        width: 300px;
         font-size: 16px;
-        width: 250px;
         text-align: center;
-        padding: 8px 5px 0px 5px;
+        padding: 8px 5px 10px 5px;
+        display: block;
         font-weight: bold;
         border-radius: 5px;
+
     }
 
     .page-copy{
@@ -116,20 +118,20 @@
     .date{
         position: fixed;
         text-align: right;
-        top: -70px;
+        top: -50px;
         background-color: white;
         font-size: 14px;
     }
     .delivered_to{
         position: fixed;
-        top: -70px;
+        top: -50px;
         padding-left: 8px;
 
 
     }
     .address{
         position: fixed;
-        top: -40px;
+        top: -20px;
         padding-left: 8px;
 
     }
@@ -220,10 +222,11 @@
         Date entered: {!! $invoice['created_at'] !!}
     </div>
     <div class="delivered_to">
-        Delivered From: <span>{!! \App\Supplier::find($invoice['supplier_id'])->name !!}</span>
+
+        Delivered From: <span>{{ $invoice['name'] }}</span>
     </div>
     <div class="address">
-        Address: <span>{!! \App\Supplier::find($invoice['supplier_id'])->address !!}</span>
+        Address: <span>{{ $invoice['address'] }}</span>
     </div>
 
     <div class="table-location">

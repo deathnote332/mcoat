@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Branches;
+use App\DeletedItem;
 use App\Product;
 use App\Productin;
 use App\Productout;
+use App\Supplier;
 use App\TempProductout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -340,8 +342,26 @@ class ProductController extends Controller
         $producin_items = DB::table('product_in_items')->join('tblproducts','tblproducts.id','product_in_items.product_id')->select('tblproducts.*','product_in_items.quantity as product_qty')->where('product_in_items.product_in_id',$request->id)->get();
 
         $invoice = Productin::where('id',$request->id)->first();
-        $data =['receipt_no'=>$invoice->receipt_no,'supplier_id'=>$invoice->supplier_id,'warehouse'=>$invoice->warehouse,'entered_by'=>$invoice->entered_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$producin_items];
+        $data_ =  DeletedItem::where('type',3)->first();
+        if(!empty($data_)){
+            $_data = json_decode($data_->data,TRUE);
+            foreach ( $_data['data'] as $key){
+                if($key['id'] == $invoice->supplier_id){
+                    $_name = $key['name'];
+                    $_address = $key['address'];
+                }
+            }
+        }
+        $supplier = Supplier::find($invoice->supplier_id);
+        if(!empty($supplier)){
+            $name = $supplier->name;
+            $address = $supplier->address;
+        }else{
+            $name = $_name;
+            $address = $_address;
+        }
 
+        $data =['receipt_no'=>$invoice->receipt_no,'name'=>$name,'address'=>$address,'warehouse'=>$invoice->warehouse,'entered_by'=>$invoice->entered_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$producin_items];
         $pdf = PDF::loadView('pdf.receiptin',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         return @$pdf->stream();
 
