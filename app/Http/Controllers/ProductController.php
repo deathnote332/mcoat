@@ -253,16 +253,34 @@ class ProductController extends Controller
         $invoice = Productout::where('product_out.receipt_no',$request->id)->first();
 
 
+        $data_ =  DeletedItem::where('type',2)->first();
+        if(!empty($data_)){
+            $_data = json_decode($data_->data,TRUE);
+
+            foreach ( $_data['data'] as $key){
+                if($key['id'] == $invoice->branch){
+                    $_name = $key['name'];
+                    $_address = $key['address'];
+                }
+            }
+        }
+        $branch = Branches::find($invoice->branch);
+        if(!empty($branch)){
+            $name = $branch->name;
+            $address = $branch->address;
+        }else{
+            $name = $_name;
+            $address = $_address;
+        }
+
         $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
-        $data =['total'=>$invoice->total,'branch'=>$invoice->branch,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products,'view'=>$request->view,'user'=>$invoice->printed_by];
+        $data =['total'=>$invoice->total,'name'=>$name,'address'=>$address,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products,'view'=>$request->view,'user'=>$invoice->printed_by];
         if($invoice->type == 1){
             $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         }else{
             $pdf = PDF::loadView('pdf.alliedinvoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         }
-
         return @$pdf->stream();
-
     }
 
 

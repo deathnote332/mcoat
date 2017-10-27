@@ -77,12 +77,22 @@ class SupplierBranchController extends Controller
         $check = DeletedItem::where('type',$request->type)->first();
 
         if(empty($check)){
-            $arr[]= json_decode(json_encode(Supplier::find($request->id)),TRUE);
+            if($request->type == 3){
+                $arr[]= json_decode(json_encode(Supplier::find($request->id)),TRUE);
+            }elseif($request->type == 2){
+                $arr[]= json_decode(json_encode(Branches::find($request->id)),TRUE);
+            }
             DeletedItem::insert(['data'=> json_encode(['data'=>$arr]),'type'=>$request->type]);
         }else{
-            $old_data  =  json_decode($check->data,TRUE);
-            $old_data['data'][] = json_decode(json_encode(Supplier::find($request->id)),TRUE);
-            $data = json_encode($old_data);
+            if($request->type == 3){
+                $old_data  =  json_decode($check->data,TRUE);
+                $old_data['data'][] = json_decode(json_encode(Supplier::find($request->id)),TRUE);
+                $data = json_encode($old_data);
+            }elseif($request->type == 2){
+                $old_data  =  json_decode($check->data,TRUE);
+                $old_data['data'][] = json_decode(json_encode(Branches::find($request->id)),TRUE);
+                $data = json_encode($old_data);
+            }
             DeletedItem::where('type',$request->type)->update(['data'=> $data]);
         }
 

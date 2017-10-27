@@ -252,7 +252,7 @@
     </div>
 
     <div class="branch-name">
-        {!! \App\Branches::find($invoice['branch'])->name !!}
+        {!! $invoice['name'] !!}
     </div>
     <div class="inv-number">
         NO. <span>{!! $invoice['receipt_no'] !!}</span>
@@ -266,10 +266,10 @@
         </div>
     @endif
     <div class="delivered_to">
-        Delivered To: <span>{!! \App\Branches::find($invoice['branch'])->name !!}</span>
+        Delivered To: <span>{!! $invoice['name'] !!}</span>
     </div>
     <div class="address">
-        Address: <span>{!! \App\Branches::find($invoice['branch'])->address !!}</span>
+        Address: <span>{!! $invoice['address'] !!}</span>
     </div>
 
     <div class="table-location">
