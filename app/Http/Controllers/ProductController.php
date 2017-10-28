@@ -9,6 +9,7 @@ use App\Productin;
 use App\Productout;
 use App\Supplier;
 use App\TempProductout;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +56,6 @@ class ProductController extends Controller
 
     public function mcoatStocksPage(){
         if($this->isMobile()){
-
             $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
             $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT Stocks');
             return $theme->scope('mcoatstocks',['data'=>$products])->render();
@@ -273,8 +273,27 @@ class ProductController extends Controller
             $address = $_address;
         }
 
+        $data_ =  DeletedItem::where('type',4)->first();
+        if(!empty($data_)){
+            $_data = json_decode($data_->data,TRUE);
+            foreach ( $_data['data'] as $key){
+                if($key['id'] == $invoice->printed_by){
+                    $_firstname = $key['first_name'];
+                    $_lastname = $key['last_name'];
+                }
+            }
+        }
+        $user = User::find($invoice->printed_by);
+        if(!empty($user)){
+            $first_name = $user->first_name;
+            $last_name = $user->last_name;
+        }else{
+            $first_name = $_firstname;
+            $last_name = $_lastname;
+        }
+
         $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
-        $data =['total'=>$invoice->total,'name'=>$name,'address'=>$address,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products,'view'=>$request->view,'user'=>$invoice->printed_by];
+        $data =['total'=>$invoice->total,'name'=>$name,'address'=>$address,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products,'view'=>$request->view,'user'=>$first_name.' '.$last_name];
         if($invoice->type == 1){
             $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         }else{
@@ -429,8 +448,21 @@ class ProductController extends Controller
         $totalReceipt = Productout::count();
         $data = array();
         foreach ($graph as $key=>$val){
+
+            $data_ =  DeletedItem::where('type',2)->first();
+            if(!empty($data_)){
+                $_data = json_decode($data_->data,TRUE);
+                foreach ( $_data['data'] as $key){
+                    if($key['id'] == $val->branch){
+                        $name = $key['name'];
+                    }
+                }
+            }
+            $branch = Branches::find($val->branch);
+            $_name = ($branch == '') ? $name : $branch->name;
+
             $percentage = ($val->total_receipt / $totalReceipt) * 100;
-            $data[]=['label'=>Branches::find($val->branch)->name,'value'=>number_format($percentage,1)];
+            $data[]=['label'=>$_name,'value'=>number_format($percentage,1)];
         }
        return $data;
     }
@@ -445,12 +477,24 @@ class ProductController extends Controller
 
 
     public function stocksPage(){
+
         if(Auth::user()->warehouse == 1){
-            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
-            return $theme->scope('mcoatstocks')->render();
+            if($this->isMobile()){
+                $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT Stocks');
+                return $theme->scope('mcoatstocks')->render();
+            }else{
+                $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
+                return $theme->scope('mcoatstocks')->render();
+            }
+
         }elseif(Auth::user()->warehouse == 2){
-            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Allied Stocks');
-            return $theme->scope('alliedstocks')->render();
+            if($this->isMobile()){
+                $theme = Theme::uses('default')->layout('mobile')->setTitle('Allied Stocks');
+                return $theme->scope('alliedstocks')->render();
+            }else{
+                $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Allied Stocks');
+                return $theme->scope('alliedstocks')->render();
+            }
         }
     }
 

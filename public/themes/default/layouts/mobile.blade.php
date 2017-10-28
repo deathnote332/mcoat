@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>{!! Theme::get('title') !!}</title>
-    <link rel="icon" href="../images/mcoat-logo.png.png" type="image/png"/>
+    <link rel="icon" href="../../images/mcoat-logo.jpg" type="image/png"/>
     <meta charset="utf-8">
     <meta name="keywords" content="{!! Theme::get('keywords') !!}">
     <meta name="description" content="{!! Theme::get('description') !!}">
@@ -49,10 +49,10 @@
     <a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a>
     <nav>
         <div class="nav-wrapper">
-            <a href="#!" class="brand-logo"><img src="../images/mcoat-png.png"> </a>
+            <a href="#!" class="brand-logo"><img src="../../images/mcoat-png.png"> </a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
+                {{--<li><a href="sass.html">Sass</a></li>--}}
+                {{--<li><a href="badges.html">Components</a></li>--}}
             </ul>
         </div>
     </nav>
@@ -62,7 +62,7 @@
             <div class="background">
                 <img src="">
             </div>
-            <a><img class="circle" src="images/yuna.jpg"></a>
+            <a><img class="circle" src=""></a>
             <a><span class="name">{{ \Illuminate\Support\Facades\Auth::user()->first_name.' '.\Illuminate\Support\Facades\Auth::user()->last_name }}</span></a>
             <a><span class="email">{{ \Illuminate\Support\Facades\Auth::user()->email }}</span></a>
             <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -101,7 +101,7 @@
     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 3)
         <li><a class="waves-effect" href="{{ url('dashboard') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
         <li><a class="waves-effect" href="{{ url('user/products') }}"><i class="material-icons">format_list_bulleted</i>Products</a></li>
-        <li><a class="waves-effect" href="{{ url('user/employees/'.\Illuminate\Support\Facades\Auth::user()->user_id) }}"><i class="material-icons">person</i>Bio-data</a></li>
+        <li><a class="waves-effect" href="{{ URL('user/employees').'/'.\Illuminate\Support\Facades\Auth::user()->id }}"><i class="material-icons">person</i>Bio-data</a></li>
     @endif
 
     {{--<li><div class="divider"></div></li>--}}

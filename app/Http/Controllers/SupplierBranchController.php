@@ -81,6 +81,8 @@ class SupplierBranchController extends Controller
                 $arr[]= json_decode(json_encode(Supplier::find($request->id)),TRUE);
             }elseif($request->type == 2){
                 $arr[]= json_decode(json_encode(Branches::find($request->id)),TRUE);
+            }elseif($request->type == 4){
+                $arr[]= json_decode(json_encode(User::find($request->id)),TRUE);
             }
             DeletedItem::insert(['data'=> json_encode(['data'=>$arr]),'type'=>$request->type]);
         }else{
@@ -92,6 +94,10 @@ class SupplierBranchController extends Controller
                 $old_data  =  json_decode($check->data,TRUE);
                 $old_data['data'][] = json_decode(json_encode(Branches::find($request->id)),TRUE);
                 $data = json_encode($old_data);
+            }elseif($request->type == 4){
+                $old_data  =  json_decode($check->data,TRUE);
+                $old_data['data'][] = json_decode(json_encode(User::find($request->id)),TRUE);
+                $data = json_encode($old_data);
             }
             DeletedItem::where('type',$request->type)->update(['data'=> $data]);
         }
@@ -100,6 +106,8 @@ class SupplierBranchController extends Controller
             Supplier::where(['id'=>$request->id])->delete();
         }elseif($request->type == 2){
             Branches::where(['id'=>$request->id])->delete();
+        }elseif($request->type == 4){
+            User::where(['id'=>$request->id])->delete();
         }
 
     }

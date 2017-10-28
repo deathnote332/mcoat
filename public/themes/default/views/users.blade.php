@@ -28,6 +28,19 @@
         padding: 5px 30px;
         margin-left: 20px;
         cursor: pointer;
+
+    }
+    .alert-warning{
+        background-color: #8a6d3b;
+        color: white;
+    }
+    .alert-danger{
+        background-color: #a94442;
+        color: white;
+    }
+    .alert-info{
+        background-color: #31708f;
+        color: white;
     }
     #approve{
         cursor: pointer;
@@ -100,6 +113,12 @@ $(document).ready(function () {
     $('body').on('click','#admin',function () {
         approveDisapproveAdmin($(this).data('id'),$(this).data('approve'))
     })
+
+    $('body').on('click','#delete',function () {
+
+        deletedItem($(this).data('id'))
+    });
+
 });
 
     function approveDisapprove(id,status) {
@@ -169,6 +188,44 @@ $(document).ready(function () {
         });
 
     }
+
+    function  deletedItem(id) {
+
+
+        swal.queue([{
+            title: 'Are you sure',
+            text: "You want to delete this user.",
+            type:'warning',
+            showLoaderOnConfirm: true,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/deleteitems',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            type: 4,
+                            id: id
+                        },
+                        success: function(data){
+                            var user = $('#user-list').DataTable();
+                            user.ajax.reload(null,false);
+
+                            swal.insertQueueStep('Supplier deleted successfully')
+                            resolve()
+                        }
+                    });
+                })
+            }
+        }])
+
+    }
+
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);

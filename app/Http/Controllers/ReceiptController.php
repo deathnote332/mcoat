@@ -6,6 +6,7 @@ use App\DeletedItem;
 use App\Product;
 use App\Productin;
 use App\Productout;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -35,14 +36,14 @@ class ReceiptController extends Controller
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id as user_id','branches.name')
                     ->get();
             }elseif($request->_range == 'week'){
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->where(DB::raw('WEEKOFYEAR(product_out.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id as user_id','branches.name')
                     ->get();
 
             }elseif($request->_range == 'today'){
@@ -50,7 +51,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id as user_id','branches.name')
                     ->get();
             }elseif($request->_range == 'month'){
                 $receipts = Productout::orderBy('product_out.id','desc')
@@ -58,7 +59,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('MONTH(product_out.created_at)'),DB::raw('MONTH(NOW())'))
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id as user_id','branches.name')
                     ->get();
             }
         }else{
@@ -73,7 +74,7 @@ class ReceiptController extends Controller
                     ->where('product_out.type',$type)
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id','branches.name')
                     ->get();
             }elseif($request->_range == 'week'){
                 $receipts = Productout::orderBy('product_out.id','desc')
@@ -81,7 +82,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('WEEKOFYEAR(product_out.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id as user_id','branches.name')
                     ->get();
 
             }elseif($request->_range == 'today'){
@@ -90,7 +91,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id as user_id','branches.name')
                     ->get();
             }elseif($request->_range == 'month'){
                 $receipts = Productout::orderBy('product_out.id','desc')
@@ -99,7 +100,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('MONTH(product_out.created_at)'),DB::raw('MONTH(NOW())'))
                     ->leftjoin('branches','product_out.branch','branches.id')
                     ->leftjoin('users','product_out.printed_by','users.id')
-                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.id as user_id','branches.name')
                     ->get();
             }
 
@@ -126,7 +127,21 @@ class ReceiptController extends Controller
                 return '₱ '.number_format($data->total, 2);
             })
             ->addColumn('created_by', function ($data) use ($request){
-                return $data->first_name.' '.$data->last_name;
+
+                $data_ =  DeletedItem::where('type',4)->first();
+
+                if(!empty($data_)){
+                    $_data = json_decode($data_->data,TRUE);
+                    foreach ( $_data['data'] as $key){
+                        if($key['id'] == $data->printed_by){
+                            $name = $key['first_name'].' '.$key['last_name'];
+                        }
+                    }
+                }
+                $user = User::find($data->printed_by);
+                $_name = ($user == '') ? $name : $user->first_name.' '.$user->last_name;
+                return $_name;
+
             })
             ->addColumn('created_at', function ($data) use ($request){
                 return date('M d,Y',strtotime($data->created_at));

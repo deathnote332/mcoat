@@ -29,6 +29,7 @@
             margin: 4vh auto;
             padding-bottom: 10px ;
             font-weight: bold;
+            font-size: 18px;
         }
         .form-group{
             margin-bottom: 0;
@@ -66,7 +67,7 @@
             display: none;
         }
         .add-child-row{
-            margin: 5vh 3vh 0 3vh;
+            margin: 30px 0 10px 0;
         }
         #children-group .form-group{
             padding: 0px 10px;
@@ -120,6 +121,15 @@
 
         #button-submit .back,#button-submit .submit-biodata{
             margin: 10px 0;
+        }
+        div#children-group1,div#children-group {
+            padding-left: 10px;
+        }
+        button.btn.btn-primary.add-child-row1,button.btn.btn-primary.add-child-row {
+            margin-bottom: 20px;
+        }
+        .spouse{
+            padding-left: 0px;
         }
     </style>
     <div class="">
@@ -292,7 +302,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="children-group">
-                        <div class="col-md-12">
+                        <div class="col-md-12 spouse">
                             <label for="spouse_first_name" class="control-label">Name of children/s</label>
                             <span><button type="button" class="btn btn-primary add-child-row">Add more row</button></span>
                         </div>
@@ -386,7 +396,7 @@
                     </div>
 
                     <div class="form-group" id="children-group1">
-                        <div class="col-md-12">
+                        <div class="col-md-12 spouse">
                             <label for="spouse_first_name" class="control-label">Name of children/s from parents.</label>
                             <span><button type="button" class="btn btn-primary add-child-row1">Add more row</button></span>
                         </div>

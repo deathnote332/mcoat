@@ -111,7 +111,7 @@
 <script>
     var BASEURL = $('#baseURL').val();
     $(document).ready(function () {
-        var users = $('#supplier-list').DataTable({
+        var suppliers = $('#supplier-list').DataTable({
             ajax: BASEURL + '/getsuppliers',
             order: [],
             iDisplayLength: 12,
@@ -140,6 +140,12 @@
 
         $('#btn-update').on('click',function () {
             addToCart()
+        })
+
+
+        $('#search').on('input',function () {
+
+            suppliers.search(this.value).draw();
         })
     });
     function addToCart() {
@@ -210,7 +216,6 @@
                 })
             }
         }])
-
 
     }
     //New error event handling has been added in Datatables v1.10.5

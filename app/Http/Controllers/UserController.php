@@ -39,6 +39,8 @@ class UserController extends Controller
             $admin = '<label id="admin" class="alert alert-info" data-id="'.$val->id.'"  data-approve="1">Appoint admin</label>';
             $revoke = '<label id="admin" class="alert alert-danger" data-id="'.$val->id.'" data-approve="2">Revoke admin</label>';
 
+            $delete = "<a><label id='delete' class='alert alert-danger' data-id='$val->id' >Delete</label></a>";
+
 
             if($val->status== 0){
                 $action = $approved;
@@ -61,7 +63,7 @@ class UserController extends Controller
             }
 
             if(Auth::user()->user_type != $val->id){
-                $userList[]=['email'=>$val->email,'name'=>$val->first_name.' '.$val->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$action,'status'=>$status,'user_status'=>$user_status];
+                $userList[]=['email'=>$val->email,'name'=>$val->first_name.' '.$val->last_name,'created_at'=>date('M d,Y',strtotime($val->created_at)),'action'=>$action.$delete,'status'=>$status,'user_status'=>$user_status];
             }
 
         }
@@ -109,6 +111,14 @@ class UserController extends Controller
         $data = '';
         if($employee != null){
             $data = $employee->record;
+        }
+
+        if($this->isMobile()){
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT');
+            return $theme->scope('biodata',['record'=>$data])->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
+            return $theme->scope('biodata',['record'=>$data])->render();
         }
 
         $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');

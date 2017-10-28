@@ -111,7 +111,7 @@
 <script>
     var BASEURL = $('#baseURL').val();
     $(document).ready(function () {
-        var users = $('#branch-list').DataTable({
+        var branch = $('#branch-list').DataTable({
             ajax: BASEURL + '/getbranches',
             order: [],
             iDisplayLength: 12,
@@ -142,6 +142,11 @@
 
         $('#btn-update').on('click',function () {
             addToCart()
+        })
+
+        $('#search').on('input',function () {
+
+            branch.search(this.value).draw();
         })
     });
     function addToCart() {
