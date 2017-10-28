@@ -144,7 +144,13 @@
                     { data: 'created_at',"orderable": false },
                     { data: 'action',"orderable": false }
 
-                ]
+                ],
+                "createdRow": function ( row, data, index ) {
+
+
+
+
+                }
             });
         }
 
