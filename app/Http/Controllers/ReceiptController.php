@@ -617,19 +617,4 @@ class ReceiptController extends Controller
     }
 
 
-    public function getDeliveredTo(Request $request){
-        $data_ =  DeletedItem::where('type',2)->first();
-        if(!empty($data_)){
-            $_data = json_decode($data_->data,TRUE);
-            foreach ( $_data['data'] as $key){
-                if($key['id'] == $request->id){
-                    $name = $key['name'];
-                }
-            }
-        }
-        $branch = Branches::find($request->id);
-
-        return $_name = ($branch == '') ? $name : $branch->name;
-    }
-
 }

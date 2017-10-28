@@ -135,6 +135,7 @@
                 order: [],
                 iDisplayLength: 12,
                 bLengthChange: false,
+                bDeferRender: true,
                 columns: [
 
                     { data: 'receipt_no',"orderable": false },
