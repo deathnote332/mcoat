@@ -27,8 +27,13 @@
         margin: 0;
         padding: 5px 30px;
         margin-left: 20px;
-        cursor: pointer;
+        color: white;
     }
+    .alert-success{
+        background-color: #3c763d;
+    }
+
+
     #approve{
         cursor: pointer;
     }
