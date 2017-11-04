@@ -1,61 +1,4 @@
-<style>
-
-    tr th{
-        background: #2980b9;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    tr td:nth-child(4){
-        text-transform: capitalize;
-    }
-    .card-container{
-        padding-top: 30px;
-    }
-
-    #receipt-list_wrapper .row:nth-child(1){
-        display: none;
-    }
-
-    #receipt-list_wrapper tbody tr td:nth-child(6){
-        text-align: center;
-    }
-    .range-selection{
-
-        margin-left: 15px;
-       margin-bottom: 20px;
-    }
-    #add-to-cart{
-        cursor: pointer;
-    }
-
-    .modal{
-        position: absolute;
-        top: 15%;
-
-    }
-    label#view-receipt,label#edit-receipt,label#delete-receipt {
-        margin: 0;
-        padding: 5px 20px;
-    }
-    .alert-success,.alert-warning{
-        background-color: #3c763d;
-        margin-right: 10px !important;
-    }
-    .alert-warning{
-        background-color: #8a6d3b;
-    }
-    .alert-danger{
-        background-color: #a94442;
-    }
-
-    .alert-warning,.alert-success,.alert-danger{
-        color:white;
-        cursor: pointer;
-
-    }
-</style>
-
+{!! Theme::asset()->usePath()->add('receipts','/css/web/receipts.css') !!}
 <div class="card-container">
     <div class="row">
         <div class="col-md-3">
@@ -115,7 +58,7 @@
         })
 
         $('body').delegate('#delete-receipt','click',function () {
-            deleteReceipt($(this).data('id'))
+            deleteReceipt($(this).data('id'),$(this).data('receipt'),$(this).data('type'))
         })
 
         function loadReceipts(range) {
@@ -155,10 +98,11 @@
             });
         }
 
-        function deleteReceipt(invoice) {
+        function deleteReceipt(id,rec,type) {
+            var BASEURL = $('#baseURL').val();
             swal.queue([{
                 title: 'Are you sure',
-                text: "You want to delete this receipt.",
+                html: "You want to delete this receipt. <br><span class='note'> ***All the product quantity containing in receipt <br>"+ rec +"  will be back.</span>" ,
                 type:'warning',
                 showLoaderOnConfirm: true,
                 showCancelButton: true,
@@ -168,12 +112,24 @@
                 confirmButtonColor: "#DD6B55",
                 preConfirm: function () {
                     return new Promise(function (resolve) {
-                        $.get('https://api.ipify.org?format=json')
-                            .done(function (data) {
-                                swal.insertQueueStep(data.ip)
-                                resolve()
-                            })
+                        $.ajax({
+                            url:BASEURL+'/deleteitems',
+                            type:'POST',
+                            data: {
+                                _token: $('meta[name="csrf_token"]').attr('content'),
+                                type: 4,
+                                id: id,
+                                rec_no:rec,
+                                warehouse:type
+                            },
+                            success: function(data){
+                                var receipt = $('#receipt-list').DataTable();
+                                receipt.ajax.reload(null,false);
 
+                                swal.insertQueueStep('Receipt deleted successfully')
+                                resolve()
+                            }
+                        });
                     })
                 }
             }])

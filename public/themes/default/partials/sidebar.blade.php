@@ -1,9 +1,3 @@
-
-<style>
-    .user-name{
-        text-transform: capitalize;
-    }
-</style>
 <div id="wrapper">
 
     <!-- Navigation -->

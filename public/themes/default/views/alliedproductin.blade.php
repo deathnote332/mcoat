@@ -1,11 +1,5 @@
-<style>
-    span.badge.badge-danger {
-        position: relative;
-        top: -8px;
-        right: -3px;
-        background: red;
-    }
-</style>
+{!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
+
 <div class="panel-heading">
     ALLIED PRODUCTIN
 </div>

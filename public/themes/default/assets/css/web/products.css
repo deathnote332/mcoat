@@ -1,0 +1,187 @@
+tr th{
+    background: #2980b9;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.card-container{
+    padding-top: 30px;
+
+}
+
+#mcoat-list_wrapper .row:nth-child(1){
+    display: none;
+}
+.search-inputs{
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+.pagination li{
+    display: inline;
+}
+.container{
+    width: 100% ;
+    padding: 15px;
+}
+
+/*allied stocks*/
+#allied-list_wrapper .row:nth-child(1){
+    display: none;
+}
+
+/*manage*/
+
+#productout-list_wrapper .row:nth-child(1){
+    display: none;
+}
+
+#productout-list_wrapper tbody tr td:nth-child(8){
+    text-align: center;
+}
+
+#add-to-cart{
+    cursor: pointer;
+}
+
+.modal{
+    top: 15%;
+}
+.alert-info{
+    background-color: #31708f;
+    color: white;
+}
+
+label.alert {
+    padding: 5px 20px;
+    margin: 0 0 0 0;
+}
+label#delete {
+    margin-left: 10px;
+    background-color:#a94442;
+    color: white;
+}
+.btn-add {
+    padding:5px 20px;
+
+}
+label.error{
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}
+/*allied*/
+#alliedmanage-list_wrapper .row:nth-child(1){
+    display: none;
+}
+
+#alliedmanage-list_wrapper tbody tr td:nth-child(8){
+    text-align: center;
+}
+
+label#add-to-cart{
+    background-color: #31708f;
+    color: white;
+}
+
+span.badge.badge-danger {
+    position: relative;
+    top: -8px;
+    right: -3px;
+    background: red;
+}
+/*product out*/
+
+
+#cart-list_wrapper .row:nth-child(1){
+    display: none;
+}
+#cart-list_wrapper tbody tr td:nth-child(9){
+    text-align: center;
+}
+.search-inputs{
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+.alert {
+    padding: 2px 10px;
+    margin-bottom: 0px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color:white;
+    cursor: pointer;
+}
+
+.alert-warning{
+    background-color: #8a6d3b;
+}
+.alert-danger{
+    background-color: #a94442;
+}
+#update-cart{
+    margin-right: 10px;
+}
+
+.print-count{
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.print-count{
+    font-weight: bold;
+    color: #2980b9;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+.print-count span{
+    color: red;
+}
+
+
+/*product in*/
+
+#cartIn-list_wrapper .row:nth-child(1){
+    display: none;
+}
+
+#cartIn-list_wrapper tbody tr td:nth-child(9){
+    text-align: center;
+}
+.receiptin-details{
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+
+label.alert-danger{
+    background: #a94442;
+    color:white;
+}
+
+.branches{
+    font-size: 18px;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+.btn-print .btn{
+    font-size: 16px;
+}
+#remove-cart{
+    cursor: pointer;
+}
+.total-amount{
+
+    text-align: center;
+    background: black;
+    color: white;
+    font-size: 24px;
+
+    line-height: 1;
+
+}
+.receiptin-details input, .receiptin-details select, .receiptin-details .btn{
+    margin-top: 15px;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    /* background-color: #eee; */
+    background-color: #337ab7;
+}

@@ -1,48 +1,4 @@
-<style>
-    tr th{
-        background: #2980b9;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    .card-container{
-        padding-top: 30px;
-    }
-
-    #supplier-list_wrapper .row:nth-child(1){
-        display: none;
-    }
-    #supplier-list_wrapper tbody tr td:nth-child(4){
-        text-align: center;
-    }
-    .search-inputs{
-        margin-left: 15px;
-        margin-bottom: 10px;
-    }
-    #add-to-cart{
-        cursor: pointer;
-    }
-
-    .modal{
-
-        top: 15%;
-
-    }
-
-    label.alert{
-        margin: 0;
-        padding: 5px 30px;
-        margin-left: 20px;
-        cursor: pointer;
-        color: white;
-    }
-    .alert-warning{
-        background-color: #8a6d3b;
-    }
-    .alert-danger{
-        background-color: #a94442;
-    }
-</style>
+{!! Theme::asset()->usePath()->add('style','/css/web/style.css') !!}
 <div class="card-container">
     <div class="row">
         <div class="col-md-3">

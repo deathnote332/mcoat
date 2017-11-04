@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Branches;
 use App\DeletedItem;
+use App\Product;
+use App\Productout;
 use App\Supplier;
 use App\User;
 use Illuminate\Http\Request;
@@ -30,7 +32,7 @@ class SupplierBranchController extends Controller
     }
 
     public function getSuppliers(){
-        $suppliers = Supplier::orderBy('name','asc')->get();
+        $suppliers = Supplier::orderBy('name','asc')->where('status',1)->get();
         $supplierList = array();
         foreach ($suppliers as $key => $val){
             $edit = '<label id="update" class="alert alert-warning" data-id="'.$val->id.'" data-name="'.$val->name.'" data-address="'.$val->address.'">Edit</label>';
@@ -56,7 +58,7 @@ class SupplierBranchController extends Controller
 
 
     public function getBranches(){
-        $branches = Branches::orderBy('name','asc')->get();
+        $branches = Branches::orderBy('name','asc')->where('status',1)->get();
         $branchesList = array();
         foreach ($branches as $key => $val){
             $edit = '<label id="update" class="alert alert-warning" data-id="'.$val->id.'" data-name="'.$val->name.'" data-address="'.$val->address.'">Edit</label>';
@@ -74,42 +76,18 @@ class SupplierBranchController extends Controller
 
     public function deleteItems(Request $request){
 
-        $check = DeletedItem::where('type',$request->type)->first();
-
-        if(empty($check)){
-            if($request->type == 3){
-                $arr[]= json_decode(json_encode(Supplier::find($request->id)),TRUE);
-            }elseif($request->type == 2){
-                $arr[]= json_decode(json_encode(Branches::find($request->id)),TRUE);
-            }elseif($request->type == 4){
-                $arr[]= json_decode(json_encode(User::find($request->id)),TRUE);
-            }
-            DeletedItem::insert(['data'=> json_encode(['data'=>$arr]),'type'=>$request->type]);
-        }else{
-            if($request->type == 3){
-                $old_data  =  json_decode($check->data,TRUE);
-                $old_data['data'][] = json_decode(json_encode(Supplier::find($request->id)),TRUE);
-                $data = json_encode($old_data);
-            }elseif($request->type == 2){
-                $old_data  =  json_decode($check->data,TRUE);
-                $old_data['data'][] = json_decode(json_encode(Branches::find($request->id)),TRUE);
-                $data = json_encode($old_data);
-            }elseif($request->type == 4){
-                $old_data  =  json_decode($check->data,TRUE);
-                $old_data['data'][] = json_decode(json_encode(User::find($request->id)),TRUE);
-                $data = json_encode($old_data);
-            }
-            DeletedItem::where('type',$request->type)->update(['data'=> $data]);
-        }
-
-        if($request->type == 3){
-            Supplier::where(['id'=>$request->id])->delete();
+        if($request->type == 1){
+            User::where('id',$request->id)->update(['is_remove'=>0]);
         }elseif($request->type == 2){
-            Branches::where(['id'=>$request->id])->delete();
+            Branches::where('id',$request->id)->update(['status'=>0]);
+        }elseif($request->type == 3){
+            Supplier::where('id',$request->id)->update(['status'=>0]);
         }elseif($request->type == 4){
-            User::where(['id'=>$request->id])->delete();
+           Productout::where('id',$request->id)->update(['status'=>0]);
+            $message = $this->returnQuantity($request->rec_no,$request->warehouse);
+        }elseif($request->type == 5){
+            Product::where('id',$request->id)->update(['status'=>0]);
         }
-
     }
 
 }

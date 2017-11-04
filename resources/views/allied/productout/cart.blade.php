@@ -1,79 +1,4 @@
-<style>
-    tr th{
-        background: #2980b9;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    .card-container{
-        padding-top: 30px;
-    }
-
-    #cart-list_wrapper .row:nth-child(1){
-         display: none;
-     }
-    #cart-list_wrapper tbody tr td:nth-child(9){
-        text-align: center;
-    }
-    .search-inputs{
-        padding-left: 15px;
-        padding-bottom: 10px;
-    }
-    .alert {
-        padding: 2px 10px;
-         margin-bottom: 0px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        color:white;
-        cursor: pointer;
-    }
-
-    .alert-warning{
-        background-color: #8a6d3b;
-    }
-    .alert-danger{
-        background-color: #a94442;
-    }
-    #update-cart{
-        margin-right: 10px;
-    }
-    .btn-print{
-        font-size: 24px;
-        margin-top: 20px;
-    }
-    .branches,.print-count{
-        margin-left: 15px;
-        margin-top: 10px;
-    }
-    .print-count{
-        font-weight: bold;
-        color: #2980b9;
-        margin-bottom: 10px;
-        font-size: 16px;
-    }
-    .print-count span{
-        color: red;
-    }
-
-    #remove-cart{
-        cursor: pointer;
-    }
-    .total-amount{
-        padding: 5px;
-        /* border: 1px solid red; */
-        width: 300px;
-        /* text-align: right; */
-        position: relative;
-        /* right: -22px; */
-        float: right;
-        text-align: center;
-        background: black;
-        color: white;
-        font-size: 24px;
-        margin-top: 10px;
-
-    }
-</style>
+{!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
 
 <div class="card-container">
     <div class="row">
@@ -126,28 +51,27 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <select class="branches form-control">
+            <select class=" form-control">
                 <option selected disabled>Choose Location</option>
                 @foreach(\App\Branches::orderBy('name','asc')->get() as $key=>$val)
                     <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
                 @endforeach
             </select>
         </div>
-        <div class="col-md-3 col-md-offset-6">
-            <div class="total-amount">
+        <div class="col-md-3 col-md-offset-3">
+            <div class="btn-print">
+                <button type="button" class="form-controlbtn btn-primary form-control" id="print">Print</button>
+            </div>
+
+        </div>
+        <div class="col-md-3 ">
+            <div class="total-amount form-control">
                 {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('type',3)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->first()->total, 2) }}
             </div>
 
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-8">
-            <div class="btn-print">
-                <button type="button" class="btn btn-primary form-control" id="print">Print</button>
-            </div>
 
-        </div>
-    </div>
 </div>
 <script>
     var BASEURL = $('#baseURL').val();

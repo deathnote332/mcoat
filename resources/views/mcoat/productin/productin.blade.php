@@ -1,40 +1,3 @@
-<style>
-    tr th{
-        background: #2980b9;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    .card-container{
-        padding-top: 30px;
-    }
-
-    #productin-list_wrapper .row:nth-child(1){
-        display: none;
-    }
-    #productin-list_wrapper tbody tr td:nth-child(8){
-        text-align: center;
-    }
-    .search-inputs{
-        padding-left: 15px;
-        padding-bottom: 10px;
-    }
-    #add-to-cart{
-        cursor: pointer;
-    }
-
-    .modal{
-
-        top: 15%;
-
-    }
-
-    .alert-info{
-        background-color: #31708f;
-        color: white;
-    }
-</style>
-
 <div class="card-container">
     <div class="row">
         <div class="col-md-2">
@@ -177,8 +140,9 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
+                $('td', row).eq(7).find('#delete').remove();
                 if (data.quantity == 0) {
-
+                    $('td', row).eq(7).find('#add-to-cart').css({'visibility':'hidden'});
                     $(row).css({
                         'background-color': '#e74c3c',
                         'color': '#fff'

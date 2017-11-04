@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
+use App\ProductoutItems;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -32,4 +35,29 @@ class Controller extends BaseController
         }
         return $queryString;
     }
+
+
+    public function returnQuantity($rec_no,$type){
+        $items = ProductoutItems::where('receipt_no',$rec_no)->get();
+
+        foreach ($items as $key=>$val){
+            //getting old product quantity
+            if ($type == 1){
+                $old_qty = Product::where('id',$val->product_id)->first()->quantity;
+            }else{
+                $old_qty = Product::where('id',$val->product_id)->first()->quantity_1;
+            }
+            $new_quantity = $val->quantity + $old_qty;
+            //update product
+            if ($type == 1){
+                Product::where('id',$val->product_id)->update(['quantity'=>$new_quantity]);
+            }else{
+                Product::where('id',$val->product_id)->update(['quantity_1'=>$new_quantity]);
+            }
+
+        }
+        return 'success';
+
+    }
+
 }

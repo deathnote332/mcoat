@@ -37,16 +37,17 @@ class ProductController extends Controller
     public function getProducts(Request $request)
     {
 
-        $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
+        $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->where('status',1)->get();
         $data=[];
         foreach($products as $key=>$val){
 
             $action = '<label id="add-to-cart" class="alert alert-info" data-id="'.$val->id.'" data-brand="'.$val->brand.'"
                         data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-quantity_1="'.$val->quantity_1.'" data-unit_price="'.number_format($val->unit_price, 2).'"
                         data-unit="'.$val->unit.'">Add to Cart</label>';
+            $delete = "<a><label id='delete' class='alert alert-danger' data-id='$val->id' >Delete</label></a>";
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
-                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action];
+                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action.$delete];
         }
         return json_encode(['data'=>$data]);
 
@@ -140,14 +141,14 @@ class ProductController extends Controller
         $getCart = TempProductout::join('tblproducts','product_id','tblproducts.id')
             ->select('tblproducts.*','temp_product_out.qty as temp_qty','temp_product_out.id as temp_id')
             ->where('temp_product_out.type',$request->id)
-            ->get();
+        ->get();
         $data=[];
         foreach($getCart as $key=>$val){
-            $remove = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="remove-cart">Remove</label>';
-            $edit = '<label class="alert alert-warning" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="update-cart">Edit quantity</label>';
+            $remove = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'"  id="remove-cart" data-qty="'.$val->temp_qty.'">Remove</label>';
+          //  $edit = '<label class="alert alert-warning" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" data-quantity="'.$val->quantity.'" data-qty="'.$val->temp_qty.'" data-quantity_1="'.$val->quantity_1.'" id="update-cart">Edit quantity</label>';
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,
-                'temp_qty'=>$val->temp_qty,'unit_price'=>number_format($val->unit_price, 2),'total'=>number_format($val->unit_price * $val->temp_qty, 2),'action'=>$edit.$remove];
+                'temp_qty'=>$val->temp_qty,'unit_price'=>number_format($val->unit_price, 2),'total'=>number_format($val->unit_price * $val->temp_qty, 2),'action'=>$remove];
         }
 
         return json_encode(['data'=>$data]);
@@ -250,57 +251,27 @@ class ProductController extends Controller
 
     public function invoice(Request $request){
 
-        $invoice = Productout::where('product_out.receipt_no',$request->id)->first();
+        $invoice = Productout::where('product_out.receipt_no',$request->id)
+                    ->join('users','users.id','product_out.printed_by')
+                    ->join('branches','branches.id','product_out.branch')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name as branch_name','branches.address')
+                    ->first();
 
+      $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
+        $data =['total'=>$invoice->total,'receipt_no'=>$invoice->receipt_no,'name'=>$invoice->first_name.' '.$invoice->last_name,'address'=>$invoice->address,'branch_name'=>$invoice->branch_name,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products,'view'=>$request->view];
 
-        $data_ =  DeletedItem::where('type',2)->first();
-        if(!empty($data_)){
-            $_data = json_decode($data_->data,TRUE);
-
-            foreach ( $_data['data'] as $key){
-                if($key['id'] == $invoice->branch){
-                    $_name = $key['name'];
-                    $_address = $key['address'];
-                }
-            }
-        }
-        $branch = Branches::find($invoice->branch);
-        if(!empty($branch)){
-            $name = $branch->name;
-            $address = $branch->address;
-        }else{
-            $name = $_name;
-            $address = $_address;
-        }
-
-        $data_ =  DeletedItem::where('type',4)->first();
-        if(!empty($data_)){
-            $_data = json_decode($data_->data,TRUE);
-            foreach ( $_data['data'] as $key){
-                if($key['id'] == $invoice->printed_by){
-                    $_firstname = $key['first_name'];
-                    $_lastname = $key['last_name'];
-                }
-            }
-        }
-        $user = User::find($invoice->printed_by);
-        if(!empty($user)){
-            $first_name = $user->first_name;
-            $last_name = $user->last_name;
-        }else{
-            $first_name = $_firstname;
-            $last_name = $_lastname;
-        }
-
-        $products = DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->select('tblproducts.*','product_out_items.quantity as product_qty')->where('receipt_no',$request->id)->get();
-        $data =['total'=>$invoice->total,'name'=>$name,'address'=>$address,'receipt_no'=>$invoice->receipt_no,'printed_by'=>$invoice->printed_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$products,'view'=>$request->view,'user'=>$first_name.' '.$last_name];
         if($invoice->type == 1){
             $pdf = PDF::loadView('pdf.invoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         }else{
             $pdf = PDF::loadView('pdf.alliedinvoice',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         }
-        return @$pdf->stream();
-    }
+        if($invoice->status != 0){
+            return @$pdf->stream();
+        }else{
+            abort(503);
+        }
+
+}
 
 
     public function productInPage(){

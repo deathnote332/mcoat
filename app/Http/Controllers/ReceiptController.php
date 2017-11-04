@@ -37,14 +37,16 @@ class ReceiptController extends Controller
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
             }elseif($request->_range == 'week'){
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->where(DB::raw('WEEKOFYEAR(product_out.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
 
             }elseif($request->_range == 'today'){
@@ -52,7 +54,8 @@ class ReceiptController extends Controller
                     ->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
             }elseif($request->_range == 'month'){
                 $receipts = Productout::orderBy('product_out.id','desc')
@@ -60,7 +63,8 @@ class ReceiptController extends Controller
                     ->where(DB::raw('MONTH(product_out.created_at)'),DB::raw('MONTH(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
             }
         }else{
@@ -75,7 +79,8 @@ class ReceiptController extends Controller
                     ->where('product_out.type',$type)
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
             }elseif($request->_range == 'week'){
                 $receipts = Productout::orderBy('product_out.id','desc')
@@ -83,7 +88,8 @@ class ReceiptController extends Controller
                     ->where(DB::raw('WEEKOFYEAR(product_out.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
 
             }elseif($request->_range == 'today'){
@@ -92,7 +98,8 @@ class ReceiptController extends Controller
                     ->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
             }elseif($request->_range == 'month'){
                 $receipts = Productout::orderBy('product_out.id','desc')
@@ -101,7 +108,8 @@ class ReceiptController extends Controller
                     ->where(DB::raw('MONTH(product_out.created_at)'),DB::raw('MONTH(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
-                    ->select('product_out.id','product_out.receipt_no','product_out.total','product_out.created_at','users.first_name','users.last_name','branches.name')
+                    ->select('product_out.*','users.first_name','users.last_name','branches.name')
+                    ->where('product_out.status',1)
                     ->get();
             }
 
@@ -129,7 +137,7 @@ class ReceiptController extends Controller
             ->addColumn('action', function ($data) use ($request){
                 $view = "<a href='invoice/1/$data->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' >View</label></a>";
                 $edit = "<a href='editReceipt/$data->receipt_no'><label id='edit-receipt' class='alert alert-warning' >Edit</label></a>";
-                $delete = "<a><label id='delete-receipt' class='alert alert-danger' data-id='$data->receipt_no' >Delete</label></a>";
+                $delete = "<a><label id='delete-receipt' class='alert alert-danger' data-id='$data->id' data-receipt='$data->receipt_no' data-type='$data->type'>Delete</label></a>";
 
                 return $view.$edit.$delete;
             })

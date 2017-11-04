@@ -54,7 +54,8 @@ class LoginController extends Controller
         $credentials = array(
             'email' => $request->email,
             'password' => $request->password,
-            'status'=>1
+            'status'=>1,
+            'is_remove'=>1,
 
         );
 

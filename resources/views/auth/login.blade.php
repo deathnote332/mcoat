@@ -3,7 +3,8 @@
     <div class="wrapper-login">
         <div class="panel-body">
             <div class="logo">
-                <img src="../images/mcoat-logo.jpg" width="100%" height="100%">
+                <a href="{{ url('/') }}" ><img src="../images/mcoat-logo.jpg" width="100%" height="100%"></a>
+
             </div>
             <div class="container-logins">
                 @if (Session::has('message'))

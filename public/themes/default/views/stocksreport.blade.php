@@ -1,17 +1,4 @@
-<style>
-    .card-container{
-        padding-top: 30px;
-    }
-
-    .stocks-report select,.stocks-report1 select{
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .reset-stock{
-        color:red;
-        cursor: pointer;
-    }
-</style>
+{!! Theme::asset()->usePath()->add('receipts','/css/web/receipts.css') !!}
 <div class="card-container">
     <div class="row">
         @if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)

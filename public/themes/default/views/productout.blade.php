@@ -1,11 +1,5 @@
-<style>
-    span.badge.badge-danger {
-        position: relative;
-        top: -8px;
-        right: -3px;
-        background: red;
-    }
-</style>
+{!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
+
     <div class="panel-heading">
         MCOAT PRODUCTOUT
     </div>
@@ -19,7 +13,6 @@
                     Cart
                     @if(\App\TempProductout::where('type',1)->count() != 0)
                         <span class="badge badge-danger">{{\App\TempProductout::where('type',1)->count()}}</span>
-
                     @endif
                 </a>
             </li>

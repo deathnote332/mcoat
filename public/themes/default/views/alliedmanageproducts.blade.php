@@ -1,52 +1,4 @@
-<style>
-    tr th{
-        background: #2980b9;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    .card-container{
-        padding-top: 30px;
-    }
-
-    #alliedmanage-list_wrapper .row:nth-child(1){
-        display: none;
-    }
-
-    #alliedmanage-list_wrapper tbody tr td:nth-child(8){
-        text-align: center;
-    }
-    .search-inputs{
-        padding-left: 15px;
-        padding-bottom: 10px;
-    }
-    #add-to-cart{
-        cursor: pointer;
-    }
-
-    .modal{
-
-        top: 15%;
-
-    }
-    .alert-info{
-        background-color: #31708f;
-        color: white;
-    }
-    label#add-to-cart {
-        padding: 5px 20px;
-        margin: 0;
-    }
-    .btn-add {
-        padding:5px 20px;
-
-    }
-    label.error{
-        color: red;
-        font-size: 12px;
-        font-style: italic;
-    }
-</style>
+{!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
 
 <div class="card-container">
     <div class="row">
@@ -71,7 +23,6 @@
 
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-md-12">
@@ -187,6 +138,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
+            deferRender: true,
             columns: [
                 { data: 'brand',"orderable": false },
                 { data: 'category',"orderable": false},
@@ -198,7 +150,7 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
-                $('td', row).eq(7).find('.alert').text('Update');
+                $('td', row).eq(7).find('#add-to-cart').text('Update');
                 if (data.quantity_1 == 0) {
                     $(row).css({
                         'background-color': '#e74c3c',
@@ -290,6 +242,10 @@
         //numeric input
         $('#quantity,#unit_price').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
+        $('body').on('click','#delete',function () {
+            deletedItem($(this).data('id'))
+        });
+
     });
 
     function addNewProduct() {
@@ -368,6 +324,40 @@
 
 
 
+    }
+    function  deletedItem(id) {
+
+
+        swal.queue([{
+            title: 'Are you sure',
+            text: "You want to delete this product.",
+            type:'warning',
+            showLoaderOnConfirm: true,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/deleteitems',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            type: 5,
+                            id: id
+                        },
+                        success: function(data){
+                            var alliedmanage = $('#alliedmanage-list').DataTable();
+                            alliedmanage.ajax.reload(null,false);
+                            swal.insertQueueStep('Supplier deleted successfully')
+                            resolve()
+                        }
+                    });
+                })
+            }
+        }])
     }
 
 

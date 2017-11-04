@@ -1,56 +1,4 @@
-<style>
-    tr th{
-        background: #2980b9;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    .card-container{
-        padding-top: 30px;
-    }
-
-    #user-list_wrapper .row:nth-child(1){
-        display: none;
-    }
-    #user-list_wrapper tbody tr td:nth-child(4){
-        text-align: center;
-    }
-    .search-inputs{
-        margin-left: 15px;
-        margin-bottom: 10px;
-    }
-    #add-to-cart{
-        cursor: pointer;
-    }
-
-    label.alert{
-        margin: 0;
-        padding: 5px 30px;
-        margin-left: 20px;
-        color: white;
-    }
-    .alert-success{
-        background-color: #3c763d;
-    }
-
-
-    #approve{
-        cursor: pointer;
-    }
-    .pending,.approved,.online,.offline{
-        padding: 5px 10px !important;
-        border: none;
-        background: none;
-        cursor: none;
-    }
-    .offline{
-        color:red;
-    }
-    .online{
-        color:green;
-    }
-
-</style>
+{!! Theme::asset()->usePath()->add('style','/css/web/style.css') !!}
 <div class="card-container">
     <div class="row">
 
@@ -84,6 +32,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
+            deferRender: true,
             deferRender:    true,
             columns: [
 

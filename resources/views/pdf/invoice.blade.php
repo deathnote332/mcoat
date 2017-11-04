@@ -252,7 +252,7 @@
     </div>
 
     <div class="branch-name">
-        {!! $invoice['name'] !!}
+        {!! $invoice['branch_name'] !!}
     </div>
     <div class="inv-number">
         NO. <span>{!! $invoice['receipt_no'] !!}</span>
@@ -266,7 +266,7 @@
         </div>
     @endif
     <div class="delivered_to">
-        Delivered To: <span>{!! $invoice['name'] !!}</span>
+        Delivered To: <span>{!! $invoice['branch_name'] !!}</span>
     </div>
     <div class="address">
         Address: <span>{!! $invoice['address'] !!}</span>

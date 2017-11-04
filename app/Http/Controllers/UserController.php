@@ -30,7 +30,7 @@ class UserController extends Controller
     }
 
     public function getUsers(){
-        $users = User::get();
+        $users = User::where('is_remove',1)->get();
         $userList = array();
         foreach ($users as $key => $val){
             $approved = '<label id="approve" class="alert alert-info" data-id="'.$val->id.'"  data-approve="1">Change to approve</label>';

@@ -8,7 +8,7 @@
         <style>
             html, body {
                 height: 100%;
-                background: url('../images/mcoat-bg.jpg');
+                background: url('../../images/mcoat-bg.jpg');
 
             }
 

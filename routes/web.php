@@ -163,5 +163,8 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
     Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
 
+    //ajax
+
+    Route::post('/getdeliveredto', 'ReceiptController@getDeliveredTo');
 
 });
