@@ -59,6 +59,9 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
     Route::get('/getemployee', 'UserController@getEmployee');
     Route::get('/biodata/{id}', 'UserController@pdfBiodata');
 
+    //rest
+    Route::get('/reset', 'ProductController@resetPage');
+
 
 });
 
@@ -158,7 +161,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/getcartReceipt', 'ReceiptController@getcartReceipt');
     Route::get('/editProductList/{type}', 'ReceiptController@ajaxEditProductList');
     Route::post('/editCartList', 'ReceiptController@ajaxEditCartList');
-    Route::post('/editReceiptCount', 'ReceiptController@ajaxEditReceiptCount');
+    Route::post('/editReceiptCount', '@ajaxEditReceiptCount');
     Route::post('/editCartCount', 'ReceiptController@ajaxCartCount');
     Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
     Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');

@@ -112,6 +112,9 @@
                         <li>
                             <a href={{ URL('admin/employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
                         </li>
+                        <li>
+                            <a href={{ URL('admin/reset')  }}><i class="fa fa-user fa-fw"></i> Reset Quantity</a>
+                        </li>
                     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>

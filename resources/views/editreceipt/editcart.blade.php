@@ -65,6 +65,10 @@
         text-align: center;
         line-height: 1px;
     }
+    #remove-cart{
+        background-color: #a94442;
+        color:white;
+    }
 </style>
 
 <div class="card-container">
@@ -181,9 +185,12 @@
                 { data: 'unit_price',"orderable": false },
                 { data: 'total',"orderable": false },
                 { data: 'action',"orderable": false }
-            ]
+            ],
+
 
         });
+
+
         $('#searchByCart').on('change',function () {
             $('#search_cart').val('')
             cart.search( '' )
@@ -306,7 +313,7 @@
                 receipt_no: $('#receipt_no').val(),
             },
             success: function (data){
-                $('.print-count').html(data);
+                $('.print-count').html("Total Receipt ( <span>"+data+"</span> )");
 
             }
         });

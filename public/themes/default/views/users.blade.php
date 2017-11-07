@@ -1,4 +1,5 @@
 {!! Theme::asset()->usePath()->add('style','/css/web/style.css') !!}
+
 <div class="card-container">
     <div class="row">
 

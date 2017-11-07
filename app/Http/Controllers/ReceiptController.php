@@ -310,7 +310,7 @@ class ReceiptController extends Controller
             ->where('product_out_items.receipt_no',$receipt_no)
             ->get()->chunk(20);
 
-        return view('productout.receiptcount',['receipt_count'=>count($products)]);
+        return view('mcoat.productout.receiptcount',['receipt_count'=>count($products)]);
 
     }
 

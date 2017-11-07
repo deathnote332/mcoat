@@ -1,5 +1,6 @@
 {!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
 {!! Theme::asset()->usePath()->add('mcoat','/js/web/mcoat.js') !!}
+
 <div class="card-container">
     <input type="hidden" id="user_type" value="{{ \Illuminate\Support\Facades\Auth::user()->user_type }}">
     <div class="row">

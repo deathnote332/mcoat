@@ -177,6 +177,8 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
+
+                $('td', row).eq(7).find('#delete').remove();
                 if (data.quantity_1 == 0) {
                     $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
                     $(row).css({

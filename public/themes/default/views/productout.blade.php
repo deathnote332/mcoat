@@ -30,7 +30,7 @@
         </div>
     </div>
     <!-- /.panel-body -->
-</div>
+
 <script>
     var BASEURL = $('#baseURL').val();
     getView(1)

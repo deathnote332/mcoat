@@ -51,7 +51,7 @@
         <div class="col-md-3">
             <select class=" form-control">
                 <option selected disabled>Choose Location</option>
-                @foreach(\App\Branches::orderBy('name','asc')->get() as $key=>$val)
+                @foreach(\App\Branches::orderBy('name','asc')->where('status',1)->get() as $key=>$val)
                     <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
                 @endforeach
             </select>

@@ -94,8 +94,8 @@
         <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Product in receipts</a></li>
         <li><a class="waves-effect" href=""><i class="material-icons">person_pin</i>Branches</a></li>
         <li><a class="waves-effect" href=""><i class="material-icons">group</i>Suppliers</a></li>
-        <li><a class="waves-effect" href=""><i class="material-icons">person</i>Users</a></li>
-        <li><a class="waves-effect" href=""><i class="material-icons">group</i>Employees</a></li>
+        <li><a class="waves-effect" href="{{ URL('admin/users')  }}"><i class="material-icons">person</i>Users</a></li>
+        <li><a class="waves-effect" href="{{ URL('admin/employees')  }}"><i class="material-icons">group</i>Employees</a></li>
     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
 
     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 3)

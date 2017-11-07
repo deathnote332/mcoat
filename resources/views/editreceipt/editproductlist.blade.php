@@ -177,6 +177,7 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
+                $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
                 if (data.quantity == 0) {
                     $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
                     $(row).css({

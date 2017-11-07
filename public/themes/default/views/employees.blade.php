@@ -2,7 +2,7 @@
 <div class="card-container">
     <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md-3  col s10 col offset-s1 ">
             <input type="text" id="search" name="search" class="form-control search-inputs" placeholder="Search..">
         </div>
     </div>
@@ -32,6 +32,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
+            bInfo: false,
             deferRender: true,
             deferRender:    true,
             columns: [
@@ -45,6 +46,14 @@
 
             ]
         });
+
+
+        $('#search').on('input',function () {
+
+            users.search(this.value).draw();
+
+
+        })
 
 
     });

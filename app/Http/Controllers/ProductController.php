@@ -506,4 +506,9 @@ class ProductController extends Controller
 
     }
 
+    public function resetPage(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product in');
+        return $theme->scope('reset')->render();
+    }
+
 }

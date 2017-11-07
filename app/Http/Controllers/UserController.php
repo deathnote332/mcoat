@@ -25,8 +25,14 @@ class UserController extends Controller
     public function userPage()
     {
 
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
-        return $theme->scope('users')->render();
+        if($this->isMobile()){
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT Users');
+            return $theme->scope('users')->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
+            return $theme->scope('users')->render();
+        }
+
     }
 
     public function getUsers(){
@@ -80,14 +86,14 @@ class UserController extends Controller
 
     public function employeePage()
     {
-//
-//        <th>Name</th>
-//                    <th>Position</th>
-//                    <th>Date Hired</th>
-//                    <th>Branch Hired</th>
-//                    <th>Action</th>
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
-        return $theme->scope('employees')->render();
+        if($this->isMobile()){
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT Employees');
+            return $theme->scope('employees')->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Employees');
+            return $theme->scope('employees')->render();
+        }
+
     }
 
 
@@ -121,8 +127,6 @@ class UserController extends Controller
             return $theme->scope('biodata',['record'=>$data])->render();
         }
 
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
-        return $theme->scope('biodata',['record'=>$data])->render();
     }
 
 
@@ -171,8 +175,6 @@ class UserController extends Controller
 
     public function pdfBiodata(Request $request){
         $biodata = Employee::where('user_id',$request->id)->first();
-
-
         $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record)])->setPaper('legal')->setWarnings(false);
         return @$pdf->stream();
     }

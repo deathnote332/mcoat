@@ -164,25 +164,6 @@
 
         })
 
-        $('#search').on('input',function () {
-            var searchBy = $('#searchBy option:selected').val();
-            if(searchBy == 'All'){
-                product.search(this.value).draw();
-            }else if(searchBy == 'Brand'){
-
-                product.column(0).search(this.value).draw();
-            }else if(searchBy == 'Category'){
-
-                product.column(1).search(this.value).draw();
-            }else if(searchBy == 'Code'){
-
-                product.column(2).search(this.value).draw();
-            }else if(searchBy == 'Description'){
-
-                product.column(3).search(this.value).draw();
-            }
-
-        })
 
 
         $('body').on('click','#add-to-cart',function() {
