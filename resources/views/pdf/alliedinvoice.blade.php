@@ -251,6 +251,7 @@
     </div>
     <div class="deliver-receipt">
         DELIVERY RECEIPT
+
     </div>
 
     <div class="branch-name">

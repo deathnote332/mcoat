@@ -310,7 +310,7 @@
     </div>
     <div class="print-info">
         <div class="prepared-by">
-            Prepared by: <span>{!! $invoice['user'] !!}</span>
+            Prepared by: <span>{!! $invoice['name'] !!}</span>
         </div>
 
         <div class="checked-by">
