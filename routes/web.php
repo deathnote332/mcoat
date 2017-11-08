@@ -61,6 +61,9 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
 
     //rest
     Route::get('/reset', 'ProductController@resetPage');
+    Route::get('/resetmcoat', 'ProductController@ajaxMcoatResetList');
+    Route::get('/resetallied', 'ProductController@ajaxAlliedResetList');
+    Route::post('/resetproduct', 'ProductController@resetProduct');
 
 
 });

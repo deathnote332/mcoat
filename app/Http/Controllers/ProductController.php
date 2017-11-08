@@ -45,9 +45,10 @@ class ProductController extends Controller
                         data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-quantity_1="'.$val->quantity_1.'" data-unit_price="'.number_format($val->unit_price, 2).'"
                         data-unit="'.$val->unit.'">Add to Cart</label>';
             $delete = "<a><label id='delete' class='alert alert-danger' data-id='$val->id' >Delete</label></a>";
+            $reset = "<a><label id='reset' class='alert alert-danger' data-id='$val->id' >Reset</label></a>";
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
-                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action.$delete];
+                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action.$delete,'reset'=>$reset];
         }
         return json_encode(['data'=>$data]);
 
@@ -103,6 +104,7 @@ class ProductController extends Controller
         $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
             ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
             ->where('temp_product_out.type',1)
+            ->where('temp_product_out.user_id',Auth::user()->id)
             ->get()->chunk(25);
         return view('mcoat.productout.receiptcount',['receipt_count'=>count($products)]);
 
@@ -130,6 +132,7 @@ class ProductController extends Controller
         $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
             ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
             ->where('temp_product_out.type',3)
+            ->where('temp_product_out.user_id',Auth::user()->id)
             ->get()->chunk(25);
         return view('allied.productout.receiptcount',['receipt_count'=>count($products)]);
 
@@ -141,6 +144,7 @@ class ProductController extends Controller
         $getCart = TempProductout::join('tblproducts','product_id','tblproducts.id')
             ->select('tblproducts.*','temp_product_out.qty as temp_qty','temp_product_out.id as temp_id')
             ->where('temp_product_out.type',$request->id)
+            ->where('temp_product_out.user_id',Auth::user()->id)
         ->get();
         $data=[];
         foreach($getCart as $key=>$val){
@@ -511,4 +515,28 @@ class ProductController extends Controller
         return $theme->scope('reset')->render();
     }
 
+    public function ajaxMcoatResetList(){
+        return view('reset.mcoat');
+    }
+    public function ajaxAlliedResetList(){
+        return view('reset.allied');
+    }
+
+    public function resetProduct(Request $request){
+        if($request->brand != 'Choose Brand' && $request->category == 'Choose Category'){
+            Product::where('brand',$request->brand)->update([$request->quantity=>0]);
+            $message = 'Product successfully reset';
+        }elseif($request->brand == 'Choose Brand' && $request->category != 'Choose Category'){
+            Product::where('category',$request->category)->update([$request->quantity=>0]);
+            $message = 'Product successfully reset';
+        }elseif($request->brand != 'Choose Brand' && $request->category != 'Choose Category'){
+            Product::where('brand',$request->brand)
+                ->where('category',$request->category)
+                ->update([$request->quantity=>0]);
+            $message = 'Product successfully reset';
+        }elseif($request->brand == 'Choose Brand' && $request->category == 'Choose Category'){
+            Product::update([$request->quantity=>0]);
+        }
+        return $message;
+    }
 }

@@ -1,5 +1,5 @@
 <div class="card-container">
-    <div class="row">
+    <div class="row mcoat-list">
         <div class="col-md-2">
             <div class="search-inputs">
                 <select class="form-control" id="searchBy">
