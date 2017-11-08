@@ -60,7 +60,7 @@
         </div>
         <div class="col-md-3 col-md-offset-3">
             <div class="btn-print">
-                <button type="button" class="form-controlbtn btn-primary form-control" id="print">Print</button>
+                <button type="button" class="form-control btn btn-primary form-control" id="print">Print</button>
             </div>
 
         </div>
