@@ -242,7 +242,7 @@ class ProductController extends Controller
             //delete temp_product_out
             $deleteTempProductout = DB::table('temp_product_out')->wherein('id',$temp_id)->delete();
             $total = DB::table('product_out_items')->join('tblproducts','product_out_items.product_id','tblproducts.id')->where('product_out_items.receipt_no',$receipt)->groupBy('product_out_items.receipt_no')->select(DB::raw('sum(product_out_items.quantity * tblproducts.unit_price) as total'))->first()->total;
-            Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>$branch_id,'printed_by'=>Auth::user()->id,'type'=>$type]);
+            Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>$branch_id,'printed_by'=>Auth::user()->id,'type'=>$type,'status'=>1]);
             $rec_no[]=$receipt;
         }
         return $rec_no;
