@@ -63,13 +63,13 @@
             <div class="col-md-6 about-content">
                 <h2 class="about-title">We mix color you want</h2>
                 <p class="about-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                </p>
+                    M-Coat Paint Commercial and General Merchandise is one of the paint merchandiser in the Philippines. Located in 185 R. Jabson St. Bambang, Pasig City.
+               </p>
                 <p class="about-text">
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                </p>
+                    Our main products are house and car paints. <b>We also mix color based on the customer color.</b> You can check our portfoloi below.
+               </p>
                 <p class="about-text">
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                    We are open everyday 7:30AM-5:00PM (Monday - Saturday) and 7:30AM - 12:00NN (Sunday)
                 </p>
             </div>
             <div class="col-md-4 col-md-offset-1 about-content">
@@ -94,22 +94,22 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-1 service-item">
                 <div class="service-icon"><i class="fa fa-money"></i></div>
-                <h4 class="service-title"><a href="">Budget Friendly</a></h4>
+                <h4 class="service-title"><a>Budget Friendly</a></h4>
                 <p class="service-description">We retail and whole sale a budget friendly paint and hardware products.</p>
             </div>
             <div class="col-md-4 col-md-offset-2 service-item">
                 <div class="service-icon"><i class="fa fa-home"></i></div>
-                <h4 class="service-title"><a href="">House Paints</a></h4>
+                <h4 class="service-title"><a>House Paints</a></h4>
                 <p class="service-description">We provide quality paints for your house needs.</p>
             </div>
             <div class="col-md-4 col-md-offset-1 service-item">
                 <div class="service-icon"><i class="fa fa-car"></i></div>
-                <h4 class="service-title"><a href="">Car Paints</a></h4>
+                <h4 class="service-title"><a>Car Paints</a></h4>
                 <p class="service-description">We provide quality paints for your cars maintenance and needs.</p>
             </div>
             <div class="col-md-4  col-md-offset-2 service-item">
                 <div class="service-icon"><i class="fa fa-truck"></i></div>
-                <h4 class="service-title"><a href="">Truck Delivery</a></h4>
+                <h4 class="service-title"><a>Truck Delivery</a></h4>
                 <p class="service-description">We deliver your products at your home/store for bulk orders around metro manila.</p>
             </div>
 
