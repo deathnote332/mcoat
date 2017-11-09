@@ -64,12 +64,15 @@
                 <h2 class="about-title">We mix color you want</h2>
                 <p class="about-text">
                     M-Coat Paint Commercial and General Merchandise is one of the paint merchandiser in the Philippines. Located in 185 R. Jabson St. Bambang, Pasig City.
+
                </p>
                 <p class="about-text">
                     Our main products are house and car paints. <b>We also mix color based on the customer color.</b> You can check our portfoloi below.
                </p>
+                <p>We have also our <b>9 branch</b> located in the Philippines.</p>
                 <p class="about-text">
-                    We are open everyday 7:30AM-5:00PM (Monday - Saturday) and 7:30AM - 12:00NN (Sunday)
+
+                    <b>Store Hours:</b>  7:30AM-5:00PM (Monday - Saturday) and 7:30AM - 12:00NN (Sunday)
                 </p>
             </div>
             <div class="col-md-4 col-md-offset-1 about-content">
