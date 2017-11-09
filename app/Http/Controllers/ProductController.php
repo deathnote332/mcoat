@@ -354,26 +354,10 @@ class ProductController extends Controller
         $producin_items = DB::table('product_in_items')->join('tblproducts','tblproducts.id','product_in_items.product_id')->select('tblproducts.*','product_in_items.quantity as product_qty')->where('product_in_items.product_in_id',$request->id)->get();
 
         $invoice = Productin::where('id',$request->id)->first();
-        $data_ =  DeletedItem::where('type',3)->first();
-        if(!empty($data_)){
-            $_data = json_decode($data_->data,TRUE);
-            foreach ( $_data['data'] as $key){
-                if($key['id'] == $invoice->supplier_id){
-                    $_name = $key['name'];
-                    $_address = $key['address'];
-                }
-            }
-        }
-        $supplier = Supplier::find($invoice->supplier_id);
-        if(!empty($supplier)){
-            $name = $supplier->name;
-            $address = $supplier->address;
-        }else{
-            $name = $_name;
-            $address = $_address;
-        }
 
-        $data =['receipt_no'=>$invoice->receipt_no,'name'=>$name,'address'=>$address,'warehouse'=>$invoice->warehouse,'entered_by'=>$invoice->entered_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$producin_items];
+        $supplier = Supplier::find($invoice->supplier_id);
+
+        $data =['receipt_no'=>$invoice->receipt_no,'name'=>$supplier->name,'address'=>$supplier->address,'warehouse'=>$invoice->warehouse,'entered_by'=>$invoice->entered_by,'created_at'=>date('M d,Y',strtotime($invoice->created_at)),'products'=>$producin_items];
         $pdf = PDF::loadView('pdf.receiptin',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
         return @$pdf->stream();
 
@@ -406,6 +390,11 @@ class ProductController extends Controller
             $message = 'Product successfully added';
         }
 
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        $product = 'Brand:'.$request->brand.' Category:'.$request->category.' Code:'.$request->code.' Description:'.$request->decscription.' Unit:'.$request->unit;
+        DB::table('notifications')->insert(['message'=>$user.' added new product( '.$product.' )']);
+
         return $message;
     }
 
@@ -414,30 +403,25 @@ class ProductController extends Controller
         Product::where('id',$request->product_id)->update(['brand'=>$request->brand,'category'=>$request->category,
             'code'=>$request->code,'description'=>$request->description,'unit'=>$request->unit,$quantity=>$request->quantity,'unit_price'=>(double) str_replace(',', '', $request->unit_price)]);
         $message = 'Product successfully updated';
+
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        $product = 'Brand:'.$request->brand.' Category:'.$request->category.' Code:'.$request->code.' Description:'.$request->decscription.' Unit:'.$request->unit;
+        DB::table('notifications')->insert(['message'=>$user.' added new product( '.$product.' )']);
+
+
         return $message;
     }
 
     public function fastMovingProducts(){
-        $graph = Productout::groupBy('branch')->where(DB::raw('MONTH(created_at)'),DB::raw('MONTH(NOW())'))->select('branch',DB::raw('COUNT(receipt_no) as total_receipt'))->get();
+        $graph = Productout::groupBy('branch')->where(DB::raw('MONTH(created_at)'),DB::raw('MONTH(NOW())'))->select('branch',DB::raw('COUNT(receipt_no) as total_receipt'))->where('status',1)->get();
 
         $totalReceipt = Productout::count();
         $data = array();
         foreach ($graph as $key=>$val){
-
-            $data_ =  DeletedItem::where('type',2)->first();
-            if(!empty($data_)){
-                $_data = json_decode($data_->data,TRUE);
-                foreach ( $_data['data'] as $key){
-                    if($key['id'] == $val->branch){
-                        $name = $key['name'];
-                    }
-                }
-            }
             $branch = Branches::find($val->branch);
-            $_name = ($branch == '') ? $name : $branch->name;
-
             $percentage = ($val->total_receipt / $totalReceipt) * 100;
-            $data[]=['label'=>$_name,'value'=>number_format($percentage,1)];
+            $data[]=['label'=>$branch->name,'value'=>number_format($percentage,1)];
         }
        return $data;
     }

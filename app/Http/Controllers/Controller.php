@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
@@ -58,6 +59,12 @@ class Controller extends BaseController
         }
         return 'success';
 
+    }
+
+    public function getNotifications(){
+        $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->limit(10)->get();
+
+        return json_encode(['data'=>$data]);
     }
 
 }

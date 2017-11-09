@@ -185,3 +185,28 @@ label.alert-danger{
     /* background-color: #eee; */
     background-color: #337ab7;
 }
+
+/*dashboard*/
+.huge {
+    font-size: 20px !important;
+}
+.page-header{
+    font-size: 20px;
+}
+.date{
+    text-transform: uppercase;
+}
+.total-count{
+    text-transform: uppercase;
+}
+.total-count span{
+    font-weight: 700;
+    color:red;
+
+}
+
+.noti-footer{
+    background: none;
+    border: none;
+    padding: 0 20px
+}

@@ -1,4 +1,4 @@
 Cart
-    @if(\App\TempProductout::where('type',1)->count() != 0)
-        <span class="badge badge-danger">{{\App\TempProductout::where('type',1)->count()}}</span>
+    @if(\App\TempProductout::where('type',1)->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->count() != 0)
+        <span class="badge badge-danger">{{\App\TempProductout::where('type',1)->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->count()}}</span>
     @endif
