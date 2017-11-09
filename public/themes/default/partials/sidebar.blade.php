@@ -101,19 +101,22 @@
                             <a href={{ URL('stocksreport')  }}><i class="fa fa-list fa-fw"></i> Stocks Report</a>
                         </li>
                         <li>
-                            <a href={{ URL('branches')  }}><i class="fa fa-user fa-fw"></i> Branches</a>
+                            <a href={{ URL('branches')  }}><i class="fa fa-map-marker fa-fw"></i> Branches</a>
                         </li>
                         <li>
-                            <a href={{ URL('suppliers')  }}><i class="fa fa-user fa-fw"></i> Suppliers</a>
+                            <a href={{ URL('suppliers')  }}><i class="fa fa-user-plus fa-fw"></i> Suppliers</a>
                         </li>
                         <li>
                             <a href={{ URL('admin/users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
                         </li>
                         <li>
-                            <a href={{ URL('admin/employees')  }}><i class="fa fa-user fa-fw"></i> Employees</a>
+                            <a href={{ URL('admin/employees')  }}><i class="fa fa-users fa-fw"></i> Employees</a>
                         </li>
                         <li>
-                            <a href={{ URL('admin/reset')  }}><i class="fa fa-user fa-fw"></i> Reset Quantity</a>
+                            <a href={{ URL('admin/reset')  }}><i class="fa fa-sort-amount-desc fa-fw"></i> Reset Quantity</a>
+                        </li>
+                        <li>
+                            <a href={{ URL('admin/branchsales')  }}><i class="fa fa-map-marker fa-fw"></i> Branch Sales</a>
                         </li>
                     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
                         <li>

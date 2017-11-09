@@ -90,4 +90,10 @@ class SupplierBranchController extends Controller
         }
     }
 
+
+    public function branchSalePage(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Branch Sales');
+        return $theme->scope('sales')->render();
+    }
+
 }
