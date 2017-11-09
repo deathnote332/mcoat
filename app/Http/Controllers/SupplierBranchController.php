@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Branches;
-use App\DeletedItem;
 use App\Product;
 use App\Productout;
 use App\Supplier;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Theme;
 
 class SupplierBranchController extends Controller
@@ -87,6 +88,12 @@ class SupplierBranchController extends Controller
             $message = $this->returnQuantity($request->rec_no,$request->warehouse);
         }elseif($request->type == 5){
             Product::where('id',$request->id)->update(['status'=>0]);
+            //notification
+            $warehouse = ($request->warehouse== 1) ? 'M-Coat Warehouse' : 'Allied Warehouse';
+            $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+            $product = Product::find($request->id);
+            $product = 'Brand:'.$request->brand.' Category:'.$product->category.' Code:'.$product->code.' Description:'.$product->description.' Unit:'.$product->unit.' Quantity: '.$product->quantity.' Unit Price:'.$product->unit_price ;
+            DB::table('notifications')->insert(['message'=>$user.' deleted product( '.$product.' ) in '.$warehouse]);
         }
     }
 

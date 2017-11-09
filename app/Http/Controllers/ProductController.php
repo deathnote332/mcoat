@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Branches;
-use App\DeletedItem;
 use App\Product;
 use App\Productin;
 use App\Productout;
@@ -392,7 +391,7 @@ class ProductController extends Controller
 
         //notification
         $user = Auth::user()->first_name.' '.Auth::user()->last_name;
-        $product = 'Brand:'.$request->brand.' Category:'.$request->category.' Code:'.$request->code.' Description:'.$request->decscription.' Unit:'.$request->unit;
+        $product = 'Brand:'.$request->brand.' Category:'.$request->category.' Code:'.$request->code.' Description:'.$request->description.' Unit:'.$request->unit.' Quantity: '.$request->quantity.' Unit Price:'.$request->unit_price ;
         DB::table('notifications')->insert(['message'=>$user.' added new product( '.$product.' )']);
 
         return $message;
@@ -405,9 +404,10 @@ class ProductController extends Controller
         $message = 'Product successfully updated';
 
         //notification
+        $warehouse = ($request->type == 1) ? 'M-Coat Warehouse' : 'Allied Warehouse';
         $user = Auth::user()->first_name.' '.Auth::user()->last_name;
-        $product = 'Brand:'.$request->brand.' Category:'.$request->category.' Code:'.$request->code.' Description:'.$request->decscription.' Unit:'.$request->unit;
-        DB::table('notifications')->insert(['message'=>$user.' added new product( '.$product.' )']);
+        $product = 'Brand:'.$request->brand.' Category:'.$request->category.' Code:'.$request->code.' Description:'.$request->description.' Unit:'.$request->unit.' Quantity: '.$request->quantity.' Unit Price:'.$request->unit_price ;
+        DB::table('notifications')->insert(['message'=>$user.' updated product( '.$product.' ) in '.$warehouse]);
 
 
         return $message;
@@ -495,7 +495,7 @@ class ProductController extends Controller
     }
 
     public function resetPage(){
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product in');
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
         return $theme->scope('reset')->render();
     }
 

@@ -346,7 +346,8 @@
                         data: {
                             _token: $('meta[name="csrf_token"]').attr('content'),
                             type: 5,
-                            id: id
+                            id: id,
+                            warehouse: 1
                         },
                         success: function(data){
                             var productout = $('#productout-list').DataTable();
