@@ -38,18 +38,10 @@
             type: 'GET',
             success: function (data){
                 $('#mcoat').html(data);
-
-
-                $('.mcoat-list').append('<div class="col-md-3 col-md-offset-4"><button class="btn btn-primary form-control reset-mcoat">Reset All</button></div>')
-
-                $('.reset-mcoat').on('click',function(){
-                    alert('woah')
-                })
             }
         });
 
     }
-
 
 
     function viewAlliedProductList() {

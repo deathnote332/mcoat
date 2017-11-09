@@ -535,7 +535,8 @@ class ProductController extends Controller
                 ->update([$request->quantity=>0]);
             $message = 'Product successfully reset';
         }elseif($request->brand == 'Choose Brand' && $request->category == 'Choose Category'){
-            Product::update([$request->quantity=>0]);
+            Product::where($request->quantity,'!=',0)->update([$request->quantity=>0]);
+            $message = 'Product successfully reset';
         }
         return $message;
     }
