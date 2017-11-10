@@ -2,7 +2,7 @@
 
     <div class="panel-heading">
         MCOAT PRODUCTOUT
-        {{date('Y-m-d h:i:s')}}
+
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">

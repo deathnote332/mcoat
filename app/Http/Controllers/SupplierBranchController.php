@@ -103,4 +103,10 @@ class SupplierBranchController extends Controller
         return $theme->scope('sales')->render();
     }
 
+
+    public function perBranch(Request $request){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Branch Sales');
+        return $theme->of('sales.sales',['branch'=>Branches::find($request->id)])->render();
+    }
+
 }

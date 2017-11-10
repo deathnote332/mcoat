@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Branches;
-use App\DeletedItem;
 use App\Product;
 use App\Productin;
 use App\Productout;
