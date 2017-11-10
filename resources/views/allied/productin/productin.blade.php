@@ -165,6 +165,7 @@
             iDisplayLength: 12,
             bLengthChange: false,
             deferRender:    true,
+            bFilter:false,
             columns: [
 
                 { data: 'brand',"orderable": false },

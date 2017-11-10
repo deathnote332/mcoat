@@ -222,6 +222,7 @@ class ProductController extends Controller
         $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
             ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
             ->where('type',$type)
+            ->where('temp_product_out.user_id',Auth::user()->id)
             ->get()->chunk(25);
 
         foreach($products as $key=> $product){

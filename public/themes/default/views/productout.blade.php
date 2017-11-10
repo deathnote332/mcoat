@@ -2,6 +2,7 @@
 
     <div class="panel-heading">
         MCOAT PRODUCTOUT
+        {{date('Y-m-d h:i:s')}}
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
@@ -11,8 +12,8 @@
             </li>
             <li><a href="#cart" data-toggle="tab" data-id="2">
                     Cart
-                    @if(\App\TempProductout::where('type',1)->count() != 0)
-                        <span class="badge badge-danger">{{\App\TempProductout::where('type',1)->count()}}</span>
+                    @if(\App\TempProductout::where('type',1)->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->count() != 0)
+                        <span class="badge badge-danger">{{\App\TempProductout::where('type',1)->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->count()}}</span>
                     @endif
                 </a>
             </li>
