@@ -352,6 +352,10 @@ class ProductController extends Controller
         }
         //delete
         TempProductout::where('type',$request->type)->where('user_id',Auth::user()->id)->delete();
+
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        DB::table('notifications')->insert(['message'=>$user.' entered delivery receipt/s '.$request->receipt_no.' from '.Supplier::find($supplier_id)->name]);
     }
 
 

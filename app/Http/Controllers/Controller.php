@@ -63,9 +63,9 @@ class Controller extends BaseController
 
     public function getNotifications(Request $request){
         if($request->limit != 0){
-            $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->limit($request->limit)->get();
+            $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->orderBy('id','desc')->limit($request->limit)->get();
         }else{
-            $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->get();
+            $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->orderBy('id','desc')->get();
         }
 
 
