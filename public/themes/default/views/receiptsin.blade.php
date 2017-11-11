@@ -26,7 +26,7 @@
                 <tr>
 
                     <th>Receipt no.</th>
-                    <th>Delivere from</th>
+                    <th>Delivered from</th>
                     <th>Warehouse</th>
                     <th>Updated by</th>
                     <th>Date created</th>

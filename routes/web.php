@@ -24,6 +24,7 @@ Route::get('/getProducts', 'ProductController@getProducts');
 
 
 Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
+
     Route::get('/getProducts', 'ProductController@getProducts');
 
     Route::get('/mcoat', 'ProductController@mcoatStocksPage');
@@ -35,42 +36,37 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
     Route::get('/productin', 'ProductController@productInPage');
     Route::get('/alliedproductin', 'ProductController@productAlliedInPage');
 
-
-
-//manage product
+    //manage product
     Route::get('/manageProduct', 'ProductController@manageProduct');
 
-//allied manage product
+    //allied manage product
     Route::get('/alliedmanageproduct', 'ProductController@alliedManageProduct');
 
-//graph
-
+    //graph
     Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
     Route::get('/fastMovingProducts', 'ProductController@fastMovingProducts');
 
-//users
+    //users
     Route::get('/users', 'UserController@userPage');
     Route::get('/getusers', 'UserController@getUsers');
     Route::post('/approveDisapproveUser', 'UserController@approveDisapproveUser');
     Route::post('/approveDisapproveUserAdmin', 'UserController@approveDisapproveUserAdmin');
 
-//employee
+    //employee
     Route::get('/employees', 'UserController@employeePage');
     Route::get('/getemployee', 'UserController@getEmployee');
     Route::get('/biodata/{id}', 'UserController@pdfBiodata');
 
-    //rest
+    //reset
     Route::get('/reset', 'ProductController@resetPage');
     Route::get('/resetmcoat', 'ProductController@ajaxMcoatResetList');
     Route::get('/resetallied', 'ProductController@ajaxAlliedResetList');
     Route::post('/resetproduct', 'ProductController@resetProduct');
 
     Route::get('/branchsales', 'SupplierBranchController@branchSalePage');
-
-    Route::get('/notifications/{limit}', 'Controller@getNotifications');
-
     Route::get('/branch/{id}', 'SupplierBranchController@perBranch');
 
+    Route::get('/notifications/{limit}', 'Controller@getNotifications');
     Route::get('/activity', 'UserController@activityPage');
 
 
@@ -80,10 +76,8 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
 Route::group(['prefix'=>'semi','middleware' => 'isUser1'], function(){
     Route::get('/products', 'ProductController@stocksPage');
     Route::get('/manage', 'ProductController@manage');
-
     Route::get('/productout', 'ProductController@productOut');
     Route::get('/productin', 'ProductController@productIn');
-
     Route::get('/employees/{id}', 'UserController@employeeeBiodata');
 
 });
@@ -137,7 +131,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::get('/alliedcartlistin', 'ProductController@ajaxAlliedCartInList');
     Route::get('/alliedcartcountin', 'ProductController@ajaxAlliedCartInCount');
 
-//receipts
+    //receipts
     Route::get('/receipts', 'ReceiptController@receipt');
     Route::post('/getReciepts', 'ReceiptController@getReciepts');
 
@@ -148,7 +142,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::get('/invoiceReceiptin/{id}', 'ProductController@invoiceReceiptin');
 
 
-//stocksreport
+    //stocksreport
     Route::get('/stocksreport', 'ReceiptController@stocksReport');
     Route::get('/pricelist/{brand}/{category}', 'ReceiptController@priceList');
     Route::get('/pricelist/{brand}', 'ReceiptController@priceList');
@@ -156,13 +150,13 @@ Route::group(['middleware' => 'isShared'], function(){
 
     Route::get('/stocklist/{stock}/{brand}/{category}/{description}/{unit}', 'ReceiptController@stockList');
 
-//suppliers
+    //suppliers
     Route::get('/suppliers', 'SupplierBranchController@supplierPage');
     Route::get('/getsuppliers', 'SupplierBranchController@getSuppliers');
     Route::post('/updatesupplier', 'SupplierBranchController@updateSupplier');
     Route::post('/deleteitems', 'SupplierBranchController@deleteItems');
 
-//branches
+    //branches
     Route::get('/branches', 'SupplierBranchController@branchPage');
     Route::get('/getbranches', 'SupplierBranchController@getBranches');
     Route::post('/updatebranch', 'SupplierBranchController@updateBranch');
@@ -178,7 +172,6 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
 
     //ajax
-
     Route::post('/getdeliveredto', 'ReceiptController@getDeliveredTo');
 
 });

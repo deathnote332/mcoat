@@ -76,6 +76,7 @@ class ReceiptController extends Controller
             if($request->_range == 'all'){
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->where('product_out.type',$type)
+                    ->where('product_out.printed_by',Auth::user()->id)
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
                     ->select('product_out.*','users.first_name','users.last_name','branches.name')
@@ -84,6 +85,7 @@ class ReceiptController extends Controller
             }elseif($request->_range == 'week'){
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->where('product_out.type',$type)
+                    ->where('product_out.printed_by',Auth::user()->id)
                     ->where(DB::raw('WEEKOFYEAR(product_out.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
@@ -94,6 +96,7 @@ class ReceiptController extends Controller
             }elseif($request->_range == 'today'){
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->where('product_out.type',$type)
+                    ->where('product_out.printed_by',Auth::user()->id)
                     ->where(DB::raw('DATE(product_out.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
                     ->join('branches','product_out.branch','branches.id')
                     ->join('users','product_out.printed_by','users.id')
@@ -103,6 +106,7 @@ class ReceiptController extends Controller
             }elseif($request->_range == 'month'){
                 $receipts = Productout::orderBy('product_out.id','desc')
                     ->where('product_out.type',$type)
+                    ->where('product_out.printed_by',Auth::user()->id)
                     ->where(DB::raw('YEAR(product_out.created_at)'),DB::raw('YEAR(NOW())'))
                     ->where(DB::raw('MONTH(product_out.created_at)'),DB::raw('MONTH(NOW())'))
                     ->join('branches','product_out.branch','branches.id')
