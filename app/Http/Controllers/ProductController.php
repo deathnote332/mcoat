@@ -249,6 +249,12 @@ class ProductController extends Controller
             Productout::insert(['receipt_no'=>$receipt,'total'=>$total,'branch'=>$branch_id,'printed_by'=>Auth::user()->id,'type'=>$type,'status'=>1,'created_at'=>date('Y-m-d h:i:s'),'updated_at'=>date('Y-m-d h:i:s')]);
             $rec_no[]=$receipt;
         }
+
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        DB::table('notifications')->insert(['message'=>$user.' printed delivery receipt/s '.implode(",",$rec_no).'']);
+
+
         return $rec_no;
 
     }
