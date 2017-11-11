@@ -1,13 +1,19 @@
 {!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
+<style>
+    .btn-save{
+        padding: 15px 0;
+        border-top: 1px solid #e7e7e7;
+    }
+</style>
 
+
+@if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Warehouse Inventory</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
-
-@if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-6 col-md-6">
@@ -123,7 +129,74 @@
 
 
 </div>
+@else
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Sale Today <b>({{ date('M d, Y') }})</b></h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Receipt no.</label>
+                        <input  type="text" class="form-control" id="receipt-no" name="receipt-no" required/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Total Amount</label>
+                        <input  type="text" class="form-control" id="amount" name="amount" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Deposit Amount.</label>
+                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Taken Amount.</label>
+                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Expenses Amount.</label>
+                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Expenses Description</label>
+                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row btn-save">
+        <div class="col-md-3 col-lg-offset-9">
+            <button type="button" class="btn btn-primary form-control">Save</button>
+        </div>
+    </div>
 @endif
+
 <script>
     var BASEURL = $('#baseURL').val();
 

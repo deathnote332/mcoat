@@ -48,6 +48,10 @@ class SupplierBranchController extends Controller
     public function updateSupplier(Request $request){
 
         Supplier::where('id',$request->id)->update(['name'=>$request->name,'address'=>$request->address]);
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        DB::table('notifications')->insert(['message'=>$user.' updated Supplier name:'.$request->name.' address:'.$request->address]);
+
     }
 
     public function branchPage()
@@ -73,6 +77,11 @@ class SupplierBranchController extends Controller
     public function updateBranch(Request $request){
 
         Branches::where('id',$request->id)->update(['name'=>$request->name,'address'=>$request->address]);
+
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        DB::table('notifications')->insert(['message'=>$user.' updated Branch name:'.$request->name.' address:'.$request->address]);
+
     }
 
     public function deleteItems(Request $request){
@@ -81,11 +90,22 @@ class SupplierBranchController extends Controller
             User::where('id',$request->id)->update(['is_remove'=>0]);
         }elseif($request->type == 2){
             Branches::where('id',$request->id)->update(['status'=>0]);
+            //notification
+            $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+            DB::table('notifications')->insert(['message'=>$user.' deleted '.Branches::find($request->id)->name]);
+
         }elseif($request->type == 3){
             Supplier::where('id',$request->id)->update(['status'=>0]);
+            //notification
+            $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+            DB::table('notifications')->insert(['message'=>$user.' deleted '.Supplier::find($request->id)->name]);
+
         }elseif($request->type == 4){
            Productout::where('id',$request->id)->update(['status'=>0]);
             $message = $this->returnQuantity($request->rec_no,$request->warehouse);
+            $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+            DB::table('notifications')->insert(['message'=>$user.' deleted delivery receipt/s '.$request->rec_no]);
+
         }elseif($request->type == 5){
             Product::where('id',$request->id)->update(['status'=>0]);
             //notification

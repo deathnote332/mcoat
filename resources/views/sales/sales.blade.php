@@ -54,7 +54,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Sale for Today</h1>
+            <h1 class="page-header">Daily Sales for the month of {{ date('M') }}</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -63,8 +63,11 @@
         <table id="notification-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>Product Details</th>
-                <th>Amount</th>
+                <th>Day</th>
+                <th>Total Sales</th>
+                <th>Bank Deposit</th>
+                <th>Taken</th>
+                <th>Expenses</th>
             </tr>
             </thead>
 
