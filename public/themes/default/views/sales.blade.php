@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{$val->name}}</div>
-                            <div>₱ 0.00</div>
+                            <div>{{ (DB::table('month_sales')->where('branch_id',$val->id)->where('_date',date('Y-m-d'))->first() != null || DB::table('month_sales')->where('branch_id',$val->id)->where('_date',date('Y-m-d'))->first() != '') ? '₱ '.number_format(json_decode(DB::table('month_sales')->where('branch_id',$val->id)->where('_date',date('Y-m-d'))->first()->data,TRUE)['total_amount'],2) : '₱ 0.00' }}</div>
                         </div>
                     </div>
                 </div>

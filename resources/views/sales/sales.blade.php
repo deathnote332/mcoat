@@ -60,10 +60,11 @@
     </div>
     <div class="row">
 
-        <table id="notification-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+        <table id="sales-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
             <tr>
                 <th>Day</th>
+                <th>Receipt no.</th>
                 <th>Total Sales</th>
                 <th>Bank Deposit</th>
                 <th>Taken</th>
@@ -72,7 +73,35 @@
             </thead>
 
         </table>
-
-
     </div>
 </div>
+
+<script>
+
+    var BASEURL = $('#baseURL').val();
+
+    $(document).ready(function () {
+
+        var sales = $('#sales-list').DataTable({
+            ajax: BASEURL + '/monthlysale',
+            order: [],
+            iDisplayLength: 12,
+            bLengthChange: false,
+            bFilter:false,
+            bInfo: false,
+            bPaginate:false,
+            deferRender: true,
+            columns: [
+
+                { data: 'day',"orderable": false },
+                { data: 'receipt_no',"orderable": false},
+                { data: 'total_amount',"orderable": false},
+                { data: 'deposit_amount',"orderable": false},
+                { data: 'taken_amount',"orderable": false},
+                { data: 'expenses',"orderable": false},
+
+            ],
+
+        });
+    });
+</script>

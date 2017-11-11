@@ -136,65 +136,67 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Receipt no.</label>
-                        <input  type="text" class="form-control" id="receipt-no" name="receipt-no" required/>
+    <form id="daily-sale">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Receipt no.</label>
+                            <input  type="text" class="form-control" id="receipt_no" name="receipt_no"  value="{{ ($data != '') ? $data['receipt_no'] :'' }}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Total Amount</label>
+                            <input  type="text" class="form-control" id="amount" name="total_amount"  value="{{ ($data != '') ? $data['total_amount'] :'' }}"/>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Total Amount</label>
-                        <input  type="text" class="form-control" id="amount" name="amount" required/>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Deposit Amount.</label>
+                            <input  type="text" class="form-control" id="deposit_amount" name="deposit_amount"  value="{{ ($data != '') ? $data['deposit_amount'] :'' }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Taken Amount.</label>
+                            <input  type="text" class="form-control" id="taken_amount" name="taken_amount" value="{{ ($data != '') ? $data['taken_amount'] :'' }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Expenses Amount.</label>
+                                    <input  type="text" class="form-control" id="expenses_amount" name="expenses_amount" value="{{ ($data != '') ? $data['expenses_amount'] :'' }}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Expenses Description</label>
+                            <input  type="text" class="form-control" id="expenses_description" name="expenses_description" value="{{ ($data != '') ? $data['expenses_description'] :'' }}"/>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Deposit Amount.</label>
-                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
-                    </div>
-                </div>
+        <div class="row btn-save">
+            <div class="col-md-3 col-lg-offset-9">
+                <button type="button" class="btn btn-primary form-control" id="save-daily">{{ ($data != '') ? 'Update' :'Save' }}</button>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Taken Amount.</label>
-                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Expenses Amount.</label>
-                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Expenses Description</label>
-                        <input  type="text" class="form-control" id="deposit" name="deposit" required/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row btn-save">
-        <div class="col-md-3 col-lg-offset-9">
-            <button type="button" class="btn btn-primary form-control">Save</button>
-        </div>
-    </div>
+    </form>
 @endif
 
 <script>
@@ -220,6 +222,10 @@
 
         });
 
+        $('#save-daily').on('click',function () {
+            saveDaily()
+        })
+
         var chart = Morris.Bar({
             element: 'morris-bar-chart',
             data:[0,0],
@@ -243,6 +249,39 @@
 
 
     })
+
+
+    function saveDaily() {
+
+        swal.queue([{
+            title: 'Are you sure',
+            text: "You want to save this record.",
+            type:'warning',
+            showLoaderOnConfirm: true,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    var data_save = $('#daily-sale').serializeArray();
+                    data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+                    $.ajax({
+                        url:BASEURL+'/dailysale',
+                        type:'POST',
+                        data: data_save,
+                        success: function(data){
+                            swal.insertQueueStep(data)
+                            resolve()
+                        }
+                    });
+                })
+            }
+        }])
+
+    }
+
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
         var notification = $('#notification-list').DataTable();

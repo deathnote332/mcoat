@@ -174,4 +174,10 @@ Route::group(['middleware' => 'isShared'], function(){
     //ajax
     Route::post('/getdeliveredto', 'ReceiptController@getDeliveredTo');
 
+    //sale
+    Route::post('/dailysale', 'SaleController@saveDailySale');
+
+    Route::get('/monthlysale', 'SaleController@getMonthlySales');
+
+
 });
