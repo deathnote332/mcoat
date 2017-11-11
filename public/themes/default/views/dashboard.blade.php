@@ -130,7 +130,7 @@
     $(document).ready(function () {
 
         var notification = $('#notification-list').DataTable({
-            ajax: BASEURL + '/admin/notifications',
+            ajax: BASEURL + '/admin/notifications/5',
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,

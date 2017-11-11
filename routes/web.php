@@ -67,9 +67,11 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
 
     Route::get('/branchsales', 'SupplierBranchController@branchSalePage');
 
-    Route::get('/notifications', 'Controller@getNotifications');
+    Route::get('/notifications/{limit}', 'Controller@getNotifications');
 
     Route::get('/branch/{id}', 'SupplierBranchController@perBranch');
+
+    Route::get('/activity', 'UserController@activityPage');
 
 
 });

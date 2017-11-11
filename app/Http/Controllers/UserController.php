@@ -178,4 +178,11 @@ class UserController extends Controller
         $pdf = PDF::loadView('pdf.biodata',['data'=>json_decode($biodata->record)])->setPaper('legal')->setWarnings(false);
         return @$pdf->stream();
     }
+
+    public function activityPage(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Activity Logs');
+        return $theme->scope('activitylog')->render();
+    }
+
+
 }

@@ -61,10 +61,16 @@ class Controller extends BaseController
 
     }
 
-    public function getNotifications(){
-        $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->limit(10)->get();
+    public function getNotifications(Request $request){
+        if($request->limit != 0){
+            $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->limit($request->limit)->get();
+        }else{
+            $data = DB::table('notifications')->select(DB::raw('DATE_FORMAT(notifications.created_at,"%b %d, %Y") as created_at'),'message')->get();
+        }
+
 
         return json_encode(['data'=>$data]);
     }
+
 
 }

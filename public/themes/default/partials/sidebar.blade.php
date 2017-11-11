@@ -118,6 +118,9 @@
                         <li>
                             <a href={{ URL('admin/branchsales')  }}><i class="fa fa-map-marker fa-fw"></i> Branch Sales</a>
                         </li>
+                        <li>
+                            <a href={{ URL('admin/activity')  }}><i class="fa fa-history fa-fw"></i> Activity Logs</a>
+                        </li>
                     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
                         <li>
                             <a href={{ URL('dashboard')  }}><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>

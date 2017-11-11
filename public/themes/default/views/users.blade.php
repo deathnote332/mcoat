@@ -60,6 +60,12 @@ $(document).ready(function () {
         deletedItem($(this).data('id'))
     });
 
+    $('#search').on('input',function () {
+
+        users.search(this.value).draw();
+    })
+
+
 });
 
     function approveDisapprove(id,status) {
