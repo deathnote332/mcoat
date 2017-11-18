@@ -6,6 +6,7 @@ use App\Branches;
 use App\Product;
 use App\Productin;
 use App\Productout;
+use App\TempProductout;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -139,7 +140,7 @@ class ReceiptController extends Controller
             })
             ->addColumn('action', function ($data) use ($request){
                 $view = "<a href='invoice/1/$data->receipt_no' target='_blank'><label id='view-receipt' class='alert alert-success' >View</label></a>";
-                $edit = "<a href='editReceipt/$data->receipt_no'><label id='edit-receipt' class='alert alert-warning' >Edit</label></a>";
+                $edit = "<a><label id='edit-receipt' data-receipt='$data->receipt_no' class='alert alert-warning' >Edit</label></a>";
                 $delete = "<a><label id='delete-receipt' class='alert alert-danger' data-id='$data->id' data-receipt='$data->receipt_no' data-type='$data->type'>Delete</label></a>";
 
                 return $view.$edit.$delete;
@@ -173,14 +174,14 @@ class ReceiptController extends Controller
                 $receipts = Productin::orderBy('product_in.id','desc')
                     ->leftjoin('suppliers','product_in.supplier_id','suppliers.id')
                     ->leftjoin('users','product_in.entered_by','users.id')
-                    ->select('product_in.*','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.*','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
             }elseif($request->_range == 'week'){
                 $receipts = Productin::orderBy('product_in.id','desc')
                     ->where(DB::raw('WEEKOFYEAR(product_in.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
                     ->join('suppliers','product_in.supplier_id','suppliers.id')
                     ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
 
             }elseif($request->_range == 'today'){
@@ -188,7 +189,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('DATE(product_in.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
                     ->join('suppliers','product_in.supplier_id','suppliers.id')
                     ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
             }elseif($request->_range == 'month'){
                 $receipts = Productin::orderBy('product_in.id','desc')
@@ -196,7 +197,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('MONTH(product_in.created_at)'),DB::raw('MONTH(NOW())'))
                     ->join('suppliers','product_in.supplier_id','suppliers.id')
                     ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
             }
 
@@ -208,7 +209,7 @@ class ReceiptController extends Controller
                     ->where('product_in.entered_by',Auth::user()->id)
                     ->join('suppliers','product_in.supplier_id','suppliers.id')
                     ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
             }elseif($request->_range == 'week'){
                 $receipts = Productin::orderBy('product_in.id','desc')
@@ -216,7 +217,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('WEEKOFYEAR(product_in.created_at)'),DB::raw('WEEKOFYEAR(NOW())'))
                     ->join('suppliers','product_in.supplier_id','suppliers.id')
                     ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
 
             }elseif($request->_range == 'today'){
@@ -225,7 +226,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('DATE(product_in.created_at)'),DB::raw('curdate() + INTERVAL 1 DAY'))
                     ->join('suppliers','product_in.supplier_id','suppliers.id')
                     ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
             }elseif($request->_range == 'month'){
                 $receipts = Productin::orderBy('product_in.id','desc')
@@ -234,7 +235,7 @@ class ReceiptController extends Controller
                     ->where(DB::raw('MONTH(product_in.created_at)'),DB::raw('MONTH(NOW())'))
                     ->join('suppliers','product_in.supplier_id','suppliers.id')
                     ->join('users','product_in.entered_by','users.id')
-                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name')
+                    ->select('product_in.id','product_in.receipt_no','product_in.created_at','users.first_name','users.last_name','suppliers.name','product_in.warehouse as wr')
                     ->get();
             }
 
@@ -256,7 +257,7 @@ class ReceiptController extends Controller
                 return date('M d,Y',strtotime($data->created_at));
             })
             ->addColumn('warehouse', function ($data) use ($request){
-                return ($data->warehouse == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse';
+                return ($data->wr == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse';
             })
             ->addColumn('action', function ($data) use ($request){
                 $view = "<a href='invoiceReceiptin/$data->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$data->id.'>View</label></a>";
@@ -272,14 +273,50 @@ class ReceiptController extends Controller
         return $theme->scope('editreceipts',['receipt_no'=>$request->id,'type'=>Productout::where('receipt_no',$request->id)->first()->type])->render();
     }
 
+    public function ajaxSaveToTemp(Request $request){
+        //move product_out items into temp_product_out
+
+        //delete first if data existed
+        $temp_product_out = DB::table('temp_product_out')->where('rec_no',$request->receipt_no)->delete();
+        //get all receipt items
+        $product_out_items = DB::table('product_out_items')->where('receipt_no',$request->receipt_no)->get();
+        //insert to temp but don't delete original data
+        //type 5 for editing receipt
+        foreach ($product_out_items as $key=>$val){
+            DB::table('temp_product_out')->insert(['product_id'=>$val->product_id,'qty'=>$val->quantity,'type'=>5,'user_id'=>Auth::user()->id,'rec_no'=>$val->receipt_no]);
+        }
+    }
+
+    public function updateReceipt(Request $request){
+        $products = DB::table('temp_product_out')
+            ->where('type',5)
+            ->where('user_id',Auth::user()->id)
+            ->where('rec_no',$request->receipt_no)
+            ->get();
+        //delete product_out_items
+        $product_out_items = DB::table('product_out_items')->where('receipt_no',$request->receipt_no)->delete();
+
+        foreach ($products as $key=>$val){
+            DB::table('product_out_items')->insert(['product_id'=>$val->product_id,'quantity'=>$val->qty,'receipt_no'=>$val->rec_no]);
+        }
+        $total =  TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('temp_product_out.type',5)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->where('user_id',Auth::user()->id)->first()->total;
+        //update product_out
+        Productout::where('receipt_no',$request->receipt_no)->update(['total'=>$total,'branch'=>$request->branch_id,'printed_by'=>Auth::user()->id]);
+
+        //delete temp items
+        $temp_product_out = DB::table('temp_product_out')->where('rec_no',$request->receipt_no)->delete();
+
+    }
+
     public function getcartReceipt(Request $request)
     {
-        $receipt = $request->receipt_no;
-        $getReceiptData= DB::table('product_out_items')->join('tblproducts','product_out_items.product_id','tblproducts.id')
-            ->select('tblproducts.*','product_out_items.quantity as temp_qty','product_out_items.id as temp_id')
-            ->where('product_out_items.receipt_no',$receipt)
-            ->get();
 
+//        $receipt = $request->receipt_no;
+        $getReceiptData= DB::table('temp_product_out')->join('tblproducts','temp_product_out.product_id','tblproducts.id')
+            ->select('tblproducts.*','temp_product_out.qty as temp_qty','temp_product_out.id as temp_id')
+            ->where('temp_product_out.rec_no',$request->receipt_no)
+            ->get();
+//
         $data=[];
         foreach($getReceiptData as $key=>$val){
             $action = '<label class="alert alert-danger" data-id="'.$val->temp_id.'" data-product_id="'.$val->id.'" data-qty="'.$val->temp_qty.'" id="remove-cart">Remove</label>';
@@ -308,10 +345,12 @@ class ReceiptController extends Controller
 
     public function ajaxEditReceiptCount(Request $request){
         $receipt_no = $request->receipt_no;
-        $products = DB::table('product_out_items')->join('tblproducts','product_out_items.product_id','tblproducts.id')
-            ->select('product_out_items.quantity as temp_qty','tblproducts.*','product_out_items.id as temp_id')
-            ->where('product_out_items.receipt_no',$receipt_no)
-            ->get()->chunk(20);
+        $products = Product::join('temp_product_out','temp_product_out.product_id','tblproducts.id')
+            ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
+            ->where('temp_product_out.type',5)
+            ->where('temp_product_out.user_id',Auth::user()->id)
+            ->where('rec_no',$receipt_no)
+            ->get()->chunk(25);
 
         return view('mcoat.productout.receiptcount',['receipt_count'=>count($products)]);
 
@@ -324,11 +363,11 @@ class ReceiptController extends Controller
         $newQty  = $request->current_qty - $product_qty;
 
         //add to cart
-        $product_out_items = DB::table('product_out_items')->where('product_id',$product_id)->where('receipt_no',$request->receipt_no)->first();
-        if(empty($product_out_items)){
-            DB::table('product_out_items')->insert(['product_id'=>$product_id,'quantity'=>$product_qty,'receipt_no'=>$request->receipt_no]);
+        $temp_product_out = DB::table('temp_product_out')->where('product_id',$product_id)->where('rec_no',$request->receipt_no)->first();
+        if(empty($temp_product_out)){
+            DB::table('temp_product_out')->insert(['product_id'=>$product_id,'qty'=>$product_qty,'rec_no'=>$request->receipt_no,'type'=>5,'user_id'=>Auth::user()->id]);
         }else{
-            DB::table('product_out_items')->where('product_id',$product_id)->where('receipt_no',$request->receipt_no)->update(['quantity'=>$product_out_items->quantity + $product_qty]);
+            DB::table('temp_product_out')->where('product_id',$product_id)->where('rec_no',$request->receipt_no)->update(['qty'=>$temp_product_out->qty + $product_qty]);
         }
         //minus to the current stock
         $type = ($request->type == 1) ? 'quantity' : 'quantity_1';
@@ -351,11 +390,10 @@ class ReceiptController extends Controller
         Product::where('id', $product_id)->update(['quantity' => $newQty]);
 
         //delete temp
-        DB::table('product_out_items')->where('id', $temp_id)->delete();
+        DB::table('temp_product_out')->where('id', $temp_id)->delete();
 
         //update receipt
-        $total = DB::table('product_out_items')->join('tblproducts', 'tblproducts.id', 'product_out_items.product_id')->where('product_out_items.receipt_no', $request->receipt_no)->select(DB::raw('sum(product_out_items.quantity * tblproducts.unit_price) as total'))->first()->total;
-        Productout::where('receipt_no', $request->receipt_no)->update(['total' => $total]);
+        $total =  TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('temp_product_out.type',5)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->where('user_id',Auth::user()->id)->first()->total;
 
         return number_format($total, 2);
     }

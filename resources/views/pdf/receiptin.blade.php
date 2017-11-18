@@ -256,7 +256,7 @@
 
     <div class="print-info">
         <div class="">
-            Entered by: <span>{!! \App\User::find($invoice['entered_by'])->name !!}</span>
+            Entered by: <span>{!! \App\User::find($invoice['entered_by'])->first_name. ' '.\App\User::find($invoice['entered_by'])->last_name  !!}</span>
         </div>
         <div class="">
             Warehouse: <span>{!! ($invoice['warehouse'] == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse' !!}</span>

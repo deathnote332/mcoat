@@ -166,10 +166,12 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/getcartReceipt', 'ReceiptController@getcartReceipt');
     Route::get('/editProductList/{type}', 'ReceiptController@ajaxEditProductList');
     Route::post('/editCartList', 'ReceiptController@ajaxEditCartList');
-    Route::post('/editReceiptCount', '@ajaxEditReceiptCount');
+    Route::post('/editReceiptCount', 'ReceiptController@ajaxEditReceiptCount');
     Route::post('/editCartCount', 'ReceiptController@ajaxCartCount');
     Route::post('/editAddToCart', 'ReceiptController@editAddToCart');
     Route::post('/editRemoveToCart', 'ReceiptController@editRemoveToCart');
+    Route::post('/ajaxSaveToTemp', 'ReceiptController@ajaxSaveToTemp');
+    Route::post('/updateReceipt', 'ReceiptController@updateReceipt');
 
     //ajax
     Route::post('/getdeliveredto', 'ReceiptController@getDeliveredTo');

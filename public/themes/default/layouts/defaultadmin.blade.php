@@ -14,7 +14,7 @@
 <body>
 
 <input type="hidden" id="baseURL" value="{{ url('') }}" >
-{!! Theme::partial('sidebar') !!}
+    {!! Theme::partial('sidebar') !!}
 
 
 </body>

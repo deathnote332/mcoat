@@ -43,7 +43,7 @@
 
 
 <script>
-
+    var BASEURL = $('#baseURL').val();
     $('document').ready(function(){
 
         loadReceipts()
@@ -59,6 +59,22 @@
 
         $('body').delegate('#delete-receipt','click',function () {
             deleteReceipt($(this).data('id'),$(this).data('receipt'),$(this).data('type'))
+        })
+
+        $('body').delegate('#edit-receipt','click',function () {
+            var rec_no  = $(this).data('receipt');
+            //editReceipt/$data->receipt_no
+            $.ajax({
+                url:BASEURL+'/ajaxSaveToTemp',
+                type:'POST',
+                data: {
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    receipt_no:rec_no
+                },
+                success: function(data){
+                    window.open(BASEURL+'/editReceipt/'+rec_no);
+                }
+            });
         })
 
         function loadReceipts(range) {
@@ -97,6 +113,8 @@
                 }
             });
         }
+
+
 
         function deleteReceipt(id,rec,type) {
             var BASEURL = $('#baseURL').val();

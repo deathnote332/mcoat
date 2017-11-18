@@ -355,7 +355,7 @@ class ProductController extends Controller
 
         //notification
         $user = Auth::user()->first_name.' '.Auth::user()->last_name;
-        DB::table('notifications')->insert(['message'=>$user.' entered delivery receipt/s '.$request->receipt_no.' from '.Supplier::find($supplier_id)->name]);
+        DB::table('notifications')->insert(['message'=>$user.' entered delivery receipt/s '.$request->receipt_no.' from '.Supplier::find($supplier_id)->name]). ' to warehouse'. ($request->type == 2) ? 'Mcoat.':'Dagupan.';
     }
 
 

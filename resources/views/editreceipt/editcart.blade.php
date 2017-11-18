@@ -137,7 +137,7 @@
         </div>
         <div class="col-md-3 col-md-offset-6">
             <div class="total-amount">
-                {{ '₱ '.number_format(\Illuminate\Support\Facades\DB::table('product_out_items')->join('tblproducts','tblproducts.id','product_out_items.product_id')->where('product_out_items.receipt_no',$receipt_no)->select(DB::raw('sum(product_out_items.quantity * tblproducts.unit_price) as total'))->first()->total, 2) }}
+                {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('temp_product_out.type',5)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->first()->total, 2) }}
             </div>
 
         </div>
@@ -232,13 +232,71 @@
                     type: "error"
                 });
             }else{
-                window.open(BASEURL+'/invoice/'+$('#receipt_no').val());
+                updateReceipt($('#receipt_no').val(),branch.data('id'))
             }
         })
 
-
-
     });
+
+    function updateReceipt(rec_no,branch_id) {
+
+        swal({
+            title: "Are you sure?",
+            text: "You want to update this receipt.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+
+            $.ajax({
+                url:BASEURL+'/updateReceipt',
+                type:'POST',
+                data: {
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    branch_id: branch_id,
+                    receipt_no:rec_no
+
+                },
+                success: function(data){
+                    var editproduct = $('#editproduct-list').DataTable();
+                    editproduct.ajax.reload();
+
+                    var editcart = $('#editcart-list').DataTable();
+                    editcart.ajax.reload();
+
+                    swal({
+                        title: "",
+                        text: "Receipt successfully updated",
+                        type:"success"
+                    })
+
+
+                    $.ajax({
+                        url:BASEURL + '/editCartCount',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            receipt_no: $('#receipt_no').val()
+                        },
+                        success: function (data){
+                            $('#tab-productout li:nth-child(2) a').html(data);
+                        }
+                    });
+
+                    receiptCount()
+
+                    $('.total-amount').text( '₱ 0.00')
+
+                    window.location = BASEURL+'/invoice/'+$('#receipt_no').val()    ;
+
+                }
+            });
+        });
+
+
+    }
 
 
 

@@ -57,7 +57,7 @@
         </div>
     </nav>
 </div>
-<ul id="slide-out" class="side-nav">
+<ul id="slide-out" class="side-nav ">
     <li><div class="user-view">
             <div class="background">
                 <img src="">
