@@ -155,54 +155,58 @@
 
     function printReceipt(branch_id) {
 
-        swal({
+
+        swal.queue([{
             title: "Are you sure?",
             text: "You want to print",
             type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: 'Okay',
-            closeOnConfirm: false,
             showLoaderOnConfirm: true,
-        }).then(function () {
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
 
-            $.ajax({
-                url:BASEURL+'/saveProductout',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    branch_id: branch_id,
-                    type:1
+                    $.ajax({
+                        url:BASEURL+'/saveProductout',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            branch_id: branch_id,
+                            type:1
 
-                },
-            success: function(data){
-                var productout = $('#cart-list').DataTable();
-                productout.ajax.reload();
-                $('.total-amount').text('₱ 0.00')
-                receiptCount();
+                        },
+                        success: function(data){
+                            var productout = $('#cart-list').DataTable();
+                            productout.ajax.reload();
+                            $('.total-amount').text('₱ 0.00')
+                            receiptCount();
 
-                $.ajax({
-                    url:BASEURL + '/cartCount',
-                    type: 'GET',
-                    success: function (data){
-                        $('#tab-productout li:nth-child(2) a').html(data);
-                    }
-                });
+                            $.ajax({
+                                url:BASEURL + '/cartCount',
+                                type: 'GET',
+                                success: function (data){
+                                    $('#tab-productout li:nth-child(2) a').html(data);
+                                }
+                            });
 
-                swal({
-                    title: "",
-                    text: "Receipt successfully created",
-                    type:"success"
+
+                            swal.insertQueueStep('Receipt successfully created.')
+                            resolve()
+
+                            var i =0;
+                            for(i=0;i<data.length; i++){
+                                var path = BASEURL+'/invoice/'+ data[i];
+                                window.open(path);
+                            }
+                        }
+                    });
+
                 })
-
-                var i =0;
-                for(i=0;i<data.length; i++){
-                    var path = BASEURL+'/invoice/'+ data[i];
-                    window.open(path);
-                }
-                }
-            });
-        });
+            }
+        }])
 
     }
 
