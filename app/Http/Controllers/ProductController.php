@@ -223,7 +223,7 @@ class ProductController extends Controller
             ->select('temp_product_out.qty as temp_qty','tblproducts.*','temp_product_out.id as temp_id')
             ->where('type',$type)
             ->where('temp_product_out.user_id',Auth::user()->id)
-            ->get()->chunk(1);
+            ->get()->chunk(25);
 
         foreach($products as $key=> $product){
             $id = Productout::orderBy('id','desc')->first()->id + 1;
