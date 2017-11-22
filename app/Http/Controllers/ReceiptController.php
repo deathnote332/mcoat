@@ -301,7 +301,7 @@ class ReceiptController extends Controller
         }
         $total =  TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('temp_product_out.type',5)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->where('user_id',Auth::user()->id)->first()->total;
         //update product_out
-        Productout::where('receipt_no',$request->receipt_no)->update(['total'=>$total,'branch'=>$request->branch_id,'printed_by'=>Auth::user()->id]);
+        Productout::where('receipt_no',$request->receipt_no)->update(['total'=>$total,'branch'=>$request->branch_id]);
 
         //delete temp items
         $temp_product_out = DB::table('temp_product_out')->where('rec_no',$request->receipt_no)->delete();
