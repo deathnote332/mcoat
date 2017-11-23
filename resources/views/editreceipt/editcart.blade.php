@@ -313,63 +313,61 @@
 
     function removeToCart(id,product_id,qty) {
 
-        swal({
+        swal.queue([{
             title: "Are you sure?",
             text: "You want to remove this product to cart.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
-
-            $.ajax({
-                url:BASEURL+'/editRemoveToCart',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    temp_id: id,
-                    product_id: product_id,
-                    qty: qty,
-                    receipt_no:$('#receipt_no').val()
-
-                },
-                success: function(data){
-                    var editproduct = $('#editproduct-list').DataTable();
-                    editproduct.ajax.reload();
-
-                    var editcart = $('#editcart-list').DataTable();
-                    editcart.ajax.reload();
-
-                    swal({
-                        title: "",
-                        text: "Product removed to cart",
-                        type:"success"
-                    })
-
-
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
                     $.ajax({
-                        url:BASEURL + '/editCartCount',
+                        url:BASEURL+'/editRemoveToCart',
                         type:'POST',
                         data: {
                             _token: $('meta[name="csrf_token"]').attr('content'),
-                            receipt_no: $('#receipt_no').val()
+                            temp_id: id,
+                            product_id: product_id,
+                            qty: qty,
+                            receipt_no:$('#receipt_no').val(),
+                            type:$('#type').val()
+
                         },
-                        success: function (data){
-                            $('#tab-productout li:nth-child(2) a').html(data);
+                        success: function(data){
+                            var editproduct = $('#editproduct-list').DataTable();
+                            editproduct.ajax.reload();
+                            var editcart = $('#editcart-list').DataTable();
+                            editcart.ajax.reload();
+                            swal({
+                                title: "",
+                                text: "Product removed to cart",
+                                type:"success"
+                            })
+
+                            $.ajax({
+                                url:BASEURL + '/editCartCount',
+                                type:'POST',
+                                data: {
+                                    _token: $('meta[name="csrf_token"]').attr('content'),
+                                    receipt_no: $('#receipt_no').val()
+                                },
+                                success: function (data){
+                                    $('#tab-productout li:nth-child(2) a').html(data);
+                                }
+                            });
+                            receiptCount()
+                            $('.total-amount').text( '₱ '+data)
+                            $('#cancel').hide()
+
                         }
                     });
-
-                    receiptCount()
-
-                    $('.total-amount').text( '₱ '+data)
-
-                    $('#cancel').hide()
-
-                }
-            });
-        });
-
+                })
+            }
+        }])
 
     }
 

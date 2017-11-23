@@ -384,10 +384,17 @@ class ReceiptController extends Controller
         $qty = $request->qty;
 
         //get current qty of this product
-        $oldqty = Product::find($product_id)->quantity;
-        $newQty = $oldqty + $qty;
 
-        Product::where('id', $product_id)->update(['quantity' => $newQty]);
+        if($request->type == 3){
+            $oldqty = Product::find($product_id)->quantity_1;
+            $newQty = $oldqty + $qty;
+            Product::where('id', $product_id)->update(['quantity_1' => $newQty]);
+        }else{
+            $oldqty = Product::find($product_id)->quantity;
+            $newQty = $oldqty + $qty;
+            Product::where('id', $product_id)->update(['quantity' => $newQty]);
+        }
+
 
         //delete temp
         DB::table('temp_product_out')->where('id', $temp_id)->delete();

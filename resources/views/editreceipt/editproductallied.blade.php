@@ -267,56 +267,64 @@
 
     function addToCart(id,qty,current) {
 
-        swal({
+        swal.queue([{
             title: "Are you sure?",
             text: "You want to add this product to cart.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
-
-            $.ajax({
-                url:BASEURL+'/editAddToCart',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    id: id,
-                    qty: qty,
-                    current_qty:current,
-                    type:3,
-                    receipt_no:$('#receipt_no').val()
-                },
-                success: function(data){
-                    var editproduct = $('#editproduct-list').DataTable();
-                    editproduct.ajax.reload();
-
-                    swal({
-                        title: "",
-                        text: "Product addded to cart",
-                        type:"success"
-                    }).then(function () {
-                        $('#addToCartModal').modal('hide');
-                    });
-
-
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
                     $.ajax({
-                        url:BASEURL + '/editCartCount',
+                        url:BASEURL+'/editAddToCart',
                         type:'POST',
                         data: {
                             _token: $('meta[name="csrf_token"]').attr('content'),
-                            receipt_no: $('#receipt_no').val()
+                            id: id,
+                            qty: qty,
+                            current_qty:current,
+                            type:3,
+                            receipt_no:$('#receipt_no').val()
                         },
-                        success: function (data){
-                            $('#tab-productout li:nth-child(2) a').html(data);
+                        success: function(data){
+                            var editproduct = $('#editproduct-list').DataTable();
+                            editproduct.ajax.reload();
+
+                            var editcart = $('#editcart-list').DataTable();
+                            editcart.ajax.reload();
+
+                            swal({
+                                title: "",
+                                text: "Product addded to cart",
+                                type:"success"
+                            }).then(function () {
+                                $('#addToCartModal').modal('hide');
+                            });
+
+
+                            $.ajax({
+                                url:BASEURL + '/editCartCount',
+                                type:'POST',
+                                data: {
+                                    _token: $('meta[name="csrf_token"]').attr('content'),
+                                    receipt_no: $('#receipt_no').val()
+                                },
+                                success: function (data){
+                                    $('#tab-productout li:nth-child(2) a').html(data);
+                                }
+                            });
+
+
                         }
                     });
+                })
+            }
+        }])
 
-
-                }
-            });
-        });
     }
 
 
