@@ -235,6 +235,8 @@
                         success: function(data){
                             var productout = $('#productout-list').DataTable();
                             productout.ajax.reload(null, false );
+                            var cartlist = $('#cart-list').DataTable();
+                            cartlist.ajax.reload(null, false );
                             $('#addToCartModal').modal('hide');
                             swal.insertQueueStep(data)
                             resolve()
