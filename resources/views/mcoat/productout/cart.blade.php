@@ -192,6 +192,7 @@
                                 }
                             });
 
+                            $('.branches').prop('selectedIndex',0);
 
                             swal.insertQueueStep('Receipt successfully created.')
                             resolve()

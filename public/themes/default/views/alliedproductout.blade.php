@@ -34,20 +34,15 @@
 </div>
 <script>
     var BASEURL = $('#baseURL').val();
-    getView(1)
-    getView(2)
+
     $(document).ready(function () {
-        $('#tab-productout li').on('click',function () {
-            getView($(this).data('id'))
-        })
+        getView(1)
+        getView(2)
     });
 
     function getView(view) {
-        if(view  == 1){
-            viewProductList()
-        }else{
-            viewCart()
-        }
+        viewProductList()
+        viewCart()
     }
 
     function viewProductList() {

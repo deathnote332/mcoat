@@ -25,11 +25,6 @@
     $(document).ready(function () {
         viewProductList()
         viewAlliedProductList()
-
-        $('#tab-productout li a').on('click',function () {
-
-
-        })
     })
     function viewProductList() {
 

@@ -294,6 +294,12 @@
                         success: function(data){
                             var productout = $('#alliedproductout-list').DataTable();
                             productout.ajax.reload(null, false );
+
+                            var cart = $('#cart-list').DataTable();
+                            cart.ajax.reload();
+
+                            $('#print').prop('disabled', false);
+
                             $('#addToCartModal').modal('hide');
                             swal.insertQueueStep(data)
                             resolve()
@@ -315,7 +321,7 @@
 
 
 
-    //New error event handling has been added in Datatables v1.10.5
+        //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
         var productout = $('#alliedproductout-list').DataTable();
