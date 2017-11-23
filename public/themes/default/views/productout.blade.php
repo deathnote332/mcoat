@@ -36,11 +36,10 @@
     var BASEURL = $('#baseURL').val();
 
     $(document).ready(function () {
-        getView(1)
-        getView(2)
+        getView()
     });
     
-    function getView(view) {
+    function getView() {
             viewProductList()
             viewCart()
     }

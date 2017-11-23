@@ -268,43 +268,51 @@
 
     function addToCart(id,qty,current) {
 
-        swal({
-            title: "Are you sure?",
+
+        swal.queue([{
+            title: 'Are you sure',
             text: "You want to add this product to cart.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/addToCart',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            id: id,
+                            qty: qty,
+                            current_qty:current,
+                            type:4,
+                        },
+                        success: function(data){
 
-            $.ajax({
-                url:BASEURL+'/addToCart',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    id: id,
-                    qty: qty,
-                    current_qty:current,
-                    type:4,
-                },
-                success: function(data){
+                            var productin = $('#productin-list').DataTable();
+                            productin.ajax.reload(null, false );
 
-                    var productin = $('#productin-list').DataTable();
-                    productin.ajax.reload(null, false );
+                            var productout = $('#cartIn-list').DataTable();
+                            productout.ajax.reload();
 
-                    $('#addToCartModal').modal('hide');
+                            $('#addToCartModal').modal('hide');
 
-                    swal({
-                        title: "",
-                        text: "Product addded to cart",
-                        type:"success"
-                    })
+                            swal({
+                                title: "",
+                                text: "Product addded to cart",
+                                type:"success"
+                            })
 
-                   cartCount()
-                }
-            });
-        });
+                            cartCount()
+                        }
+                    });
+                })
+            }
+        }])
 
 
     }

@@ -143,94 +143,93 @@
 
     function addToStocks(receipt_no,supplier_id) {
 
-        swal({
+        swal.queue([{
             title: "Are you sure?",
             text: "You want to update the stokcs",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: 'Okay',
-            closeOnConfirm: false,
+            type:'warning',
             showLoaderOnConfirm: true,
-        }).then(function () {
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/saveProductin',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            receipt_no: receipt_no,
+                            supplier_id: supplier_id,
+                            type:4
 
-            $.ajax({
-                url:BASEURL+'/saveProductin',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    receipt_no: receipt_no,
-                    supplier_id: supplier_id,
-                    type:4
+                        },
+                        success: function(data){
+                            var productout = $('#cartIn-list').DataTable();
+                            productout.ajax.reload();
+                            var productin = $('#productin-list').DataTable();
+                            productin.ajax.reload();
+                            cartCount()
+                            swal({
+                                title: "",
+                                text: "Stocks are now updated",
+                                type:"success"
+                            })
+                            $('#invoice_number').val('');
+                            $('#suppliers').val('0');
+                        }
+                    });
+                })
+            }
+        }])
 
-                },
-                success: function(data){
-                    var productout = $('#cartIn-list').DataTable();
-                    productout.ajax.reload();
-
-                    var productin = $('#productin-list').DataTable();
-                    productin.ajax.reload();
-
-                    cartCount()
-
-
-
-                    swal({
-                        title: "",
-                        text: "Stocks are now updated",
-                        type:"success"
-                    })
-
-                    $('#invoice_number').val('');
-                    $('#suppliers').val('0');
-                }
-            });
-        });
 
     }
 
     function removeToCart(id,product_id,qty) {
 
-        swal({
+        swal.queue([{
             title: "Are you sure?",
             text: "You want to remove this product to cart.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
-
-            $.ajax({
-                url:BASEURL+'/removeToCart',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    temp_id: id,
-                    product_id: product_id,
-                    qty: qty,
-                    type: 4,
-
-
-                },
-                success: function(data){
-                    cartCount()
-
-                    var productout = $('#cartIn-list').DataTable();
-                    productout.ajax.reload();
-
-                    swal({
-                        title: "",
-                        text: "Product removed to cart",
-                        type:"success"
-                    })
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/removeToCart',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            temp_id: id,
+                            product_id: product_id,
+                            qty: qty,
+                            type: 4,
 
 
+                        },
+                        success: function(data){
+                            cartCount()
 
+                            var productout = $('#cartIn-list').DataTable();
+                            productout.ajax.reload();
 
-                }
-            });
-        });
+                            swal({
+                                title: "",
+                                text: "Product removed to cart",
+                                type:"success"
+                            })
+                        }
+                    });
+                })
+            }
+        }])
+
 
 
     }

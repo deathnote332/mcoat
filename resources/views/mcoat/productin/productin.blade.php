@@ -205,11 +205,9 @@
             $('#current_qty').text(quantity)
 
             $('#product_id').val(id);
-
         });
 
         $('#btn-addCart').on('click',function () {
-
             if( parseInt($('#add-qty').val()) <= 0) {
                 swal({
                     title: "",
@@ -219,8 +217,6 @@
             }else{
                 addToCart($('#product_id').val(),$('#add-qty').val(),$('#current_qty').text())
             }
-
-
         })
 
         //numeric input
@@ -229,46 +225,45 @@
     });
 
     function addToCart(id,qty,current) {
-
-        swal({
-            title: "Are you sure?",
+        swal.queue([{
+            title: 'Are you sure',
             text: "You want to add this product to cart.",
-            type: "warning",
+            type:'warning',
+            showLoaderOnConfirm: true,
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+            closeOnConfirm: false,
             confirmButtonText: 'Okay',
-            closeOnConfirm: false
-        }).then(function () {
-
-            $.ajax({
-                url:BASEURL+'/addToCart',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    id: id,
-                    qty: qty,
-                    current_qty:current,
-                    type:2,
-                },
-                success: function(data){
-
-                    var productin = $('#productin-list').DataTable();
-                    productin.ajax.reload(null, false );
-
-                    $('#addToCartModal').modal('hide');
-
-                    swal({
-                        title: "",
-                        text: "Product addded to cart",
-                        type:"success"
-                    })
-
-                   cartCount()
-                }
-            });
-        });
-
-
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                    $.ajax({
+                        url:BASEURL+'/addToCart',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            id: id,
+                            qty: qty,
+                            current_qty:current,
+                            type:2,
+                        },
+                        success: function(data){
+                            var productin = $('#productin-list').DataTable();
+                            productin.ajax.reload(null, false );
+                            var cartIn = $('#cartIn-list').DataTable();
+                            cartIn.ajax.reload();
+                            $('#addToCartModal').modal('hide');
+                            swal({
+                                title: "",
+                                text: "Product addded to cart",
+                                type:"success"
+                            })
+                            cartCount()
+                        }
+                    });
+                })
+            }
+        }])
     }
 
     function cartCount() {
@@ -276,7 +271,6 @@
             url:BASEURL + '/cartCountIn',
             type: 'GET',
             success: function (data){
-
                 if(data == 0){
                     $('#save').prop('disabled',true);
                 }else{
