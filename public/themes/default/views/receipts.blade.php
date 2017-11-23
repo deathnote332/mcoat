@@ -64,17 +64,8 @@
         $('body').delegate('#edit-receipt','click',function () {
             var rec_no  = $(this).data('receipt');
             //editReceipt/$data->receipt_no
-            $.ajax({
-                url:BASEURL+'/ajaxSaveToTemp',
-                type:'POST',
-                data: {
-                    _token: $('meta[name="csrf_token"]').attr('content'),
-                    receipt_no:rec_no
-                },
-                success: function(data){
-                    window.open(BASEURL+'/editReceipt/'+rec_no);
-                }
-            });
+            editReceipt(rec_no)
+
         })
 
         function loadReceipts(range) {
@@ -114,6 +105,39 @@
             });
         }
 
+        function editReceipt(rec_no) {
+            var BASEURL = $('#baseURL').val();
+            swal.queue([{
+                title: 'Are you sure',
+                html: "You want to edit this receipt." ,
+                type:'warning',
+                showLoaderOnConfirm: true,
+                showCancelButton: true,
+                allowOutsideClick: false,
+                closeOnConfirm: false,
+                confirmButtonText: 'Okay',
+                confirmButtonColor: "#DD6B55",
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        $.ajax({
+                            url:BASEURL+'/ajaxSaveToTemp',
+                            type:'POST',
+                            data: {
+                                _token: $('meta[name="csrf_token"]').attr('content'),
+                                receipt_no:rec_no
+                            },
+                            success: function(data){
+
+                                window.open(BASEURL+'/editReceipt/'+rec_no);
+                                resolve()
+                            }
+                        });
+
+
+                    })
+                }
+            }])
+        }
 
 
         function deleteReceipt(id,rec,type) {
