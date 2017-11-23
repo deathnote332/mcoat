@@ -335,6 +335,8 @@
 
     }
 
+
+
     //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);

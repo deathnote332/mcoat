@@ -308,6 +308,7 @@
                                 type: 'GET',
                                 success: function (data){
                                     $('#tab-productout li:nth-child(2) a').html(data);
+                                    receiptCount();
                                 }
                             });
                         }
@@ -318,7 +319,19 @@
     }
 
 
+    function  receiptCount() {
+        $.ajax({
+            url:BASEURL + '/alliedreceiptcount',
+            type: 'GET',
+            success: function (data){
+                $('.print-count').html("Total Receipt ( <span>"+data+"</span> )");
 
+                if(data == 0){
+                    $('#print').prop('disabled',true);
+                }
+            }
+        });
+    }
 
 
         //New error event handling has been added in Datatables v1.10.5
