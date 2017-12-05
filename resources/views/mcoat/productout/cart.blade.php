@@ -1,16 +1,6 @@
 <div class="card-container">
     <div class="row">
-        <div class="col-md-2">
-            <div class="search-inputs">
-                <select class="form-control" id="searchByCart">
-                    <option>Brand</option>
-                    <option>Category</option>
-                    <option>Code</option>
-                    <option>Descripion</option>
-                    <option>All</option>
-                </select>
-            </div>
-        </div>
+
         <div class="col-md-3">
             <input type="text" id="search_cart" name="search_cart" class="form-control" placeholder="Search..">
         </div>
@@ -85,6 +75,11 @@
             order: [],
             iDisplayLength: 10,
             bLengthChange: false,
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.childRowImmediate,
+                }
+            },
             columns: [
 
                 { data: 'brand',"orderable": false },

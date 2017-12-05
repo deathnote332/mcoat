@@ -79,7 +79,7 @@
         <li><a class="waves-effect" href="{{ URL('admin/allied')  }}"><i class="material-icons"></i>Allied</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader"><i class="material-icons">format_list_bulleted</i>Manage Products</a></li>
-        <li><a class="waves-effect" href=""><i class="material-icons"></i>Mcoat</a></li>
+        <li><a class="waves-effect" href="{{ URL('admin/manageProduct')  }}"><i class="material-icons"></i>Mcoat</a></li>
         <li><a class="waves-effect" href=""><i class="material-icons"></i>Allied</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader"><i class="material-icons">arrow_upward</i>Product out</a></li>
@@ -92,10 +92,12 @@
         <li><div class="divider"></div></li>
         <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Receipts</a></li>
         <li><a class="waves-effect" href=""><i class="material-icons">receipt</i>Product in receipts</a></li>
+        <li><a class="waves-effect" href="{{ URL('admin/reset')  }}"><i class="material-icons">receipt</i>Reset Products</a></li>
         <li><a class="waves-effect" href=""><i class="material-icons">person_pin</i>Branches</a></li>
         <li><a class="waves-effect" href=""><i class="material-icons">group</i>Suppliers</a></li>
         <li><a class="waves-effect" href="{{ URL('admin/users')  }}"><i class="material-icons">person</i>Users</a></li>
         <li><a class="waves-effect" href="{{ URL('admin/employees')  }}"><i class="material-icons">group</i>Employees</a></li>
+
     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 2)
 
     @elseif(\Illuminate\Support\Facades\Auth::user()->user_type == 3)

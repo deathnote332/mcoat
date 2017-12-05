@@ -1,14 +1,21 @@
 {!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
-<style>
-
-</style>
 <div class="card-container">
     <div class="row">
-
-        <div class="col-md-4 col-sm-6">
-            <input type="text" id="search" name="search" class="form-control search-inputs" placeholder="Search..">
+        <div class="col-md-2">
+            <div class="search-inputs">
+                <select class="form-control" id="searchBy">
+                    <option>Brand</option>
+                    <option>Category</option>
+                    <option>Code</option>
+                    <option>Descripion</option>
+                    <option selected>All</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-4 col m5 col-md-offset-4  col-sm-6">
+        <div class="col-md-3">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+        </div>
+        <div class="col-md-3 col-md-offset-4">
             <div class="btn-add">
                 <button type="button" class="btn btn-primary form-control add-new"><span class="fa fa-plus"> Add new product</span></button>
             </div>
@@ -118,14 +125,11 @@
 </div>
 <!-- /.modal -->
 
-<!-- Modal Trigger -->
-
 
 
 <script>
     var BASEURL = $('#baseURL').val();
     $('document').ready(function(){
-
 
         var validator = $('#update-products').validate();
 
@@ -145,10 +149,10 @@
                 { data: 'unit',"orderable": false },
                 { data: 'quantity',"orderable": false },
                 { data: 'unit_price',"orderable": false },
-                { data: 'action_1',"orderable": false }
+                { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
-
+                $('td', row).eq(7).find('#add-to-cart').text('Update');
                 if (data.quantity == 0) {
 
                     $(row).css({
@@ -173,12 +177,26 @@
         })
 
         $('#search').on('input',function () {
-            product.search(this.value).draw();
+            var searchBy = $('#searchBy option:selected').val();
+            if(searchBy == 'All'){
+                product.search(this.value).draw();
+            }else if(searchBy == 'Brand'){
+
+                product.column(0).search(this.value).draw();
+            }else if(searchBy == 'Category'){
+
+                product.column(1).search(this.value).draw();
+            }else if(searchBy == 'Code'){
+
+                product.column(2).search(this.value).draw();
+            }else if(searchBy == 'Description'){
+
+                product.column(3).search(this.value).draw();
+            }
+
         })
 
         $('body').on('click','.add-new',function() {
-
-
             $('#addToCartModal').modal('show');
             $('.modal-title').text('Add new product');
             $('#addToCartModal').find('#btn-update').text('Add')

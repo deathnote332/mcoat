@@ -9,11 +9,6 @@ $('document').ready(function(){
         bLengthChange: false,
         bInfo: false,
         deferRender: true,
-        responsive: {
-            details: {
-                display: $.fn.dataTable.Responsive.display.childRowImmediate,
-            }
-        },
         columns: [
 
             { data: 'brand',"orderable": false },

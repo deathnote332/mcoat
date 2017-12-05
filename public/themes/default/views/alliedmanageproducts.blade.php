@@ -2,21 +2,11 @@
 
 <div class="card-container">
     <div class="row">
-        <div class="col-md-2">
-            <div class="search-inputs">
-                <select class="form-control" id="searchBy">
-                    <option>Brand</option>
-                    <option>Category</option>
-                    <option>Code</option>
-                    <option>Descripion</option>
-                    <option selected>All</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-3">
+
+        <div class="col-md-4 col-sm-6">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
-        <div class="col-md-3 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-4 col-sm-6">
             <div class="btn-add">
                 <button type="button" class="btn btn-primary form-control add-new"><span class="fa fa-plus"> Add new product</span></button>
             </div>

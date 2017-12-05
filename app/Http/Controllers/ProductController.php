@@ -43,11 +43,19 @@ class ProductController extends Controller
             $action = '<label id="add-to-cart" class="alert alert-info" data-id="'.$val->id.'" data-brand="'.$val->brand.'"
                         data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-quantity_1="'.$val->quantity_1.'" data-unit_price="'.number_format($val->unit_price, 2).'"
                         data-unit="'.$val->unit.'">Add to Cart</label>';
+            $update = '<label id="add-to-cart" class="alert alert-info" data-id="'.$val->id.'" data-brand="'.$val->brand.'"
+                        data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-quantity_1="'.$val->quantity_1.'" data-unit_price="'.number_format($val->unit_price, 2).'"
+                        data-unit="'.$val->unit.'">Update</label>';
+
+
             $delete = "<a><label id='delete' class='alert alert-danger' data-id='$val->id' >Delete</label></a>";
             $reset = "<a><label id='reset' class='alert alert-danger' data-id='$val->id' >Reset</label></a>";
+
+            $action = $action.$delete;
+            $action_1 = $update.$delete;
             $data[]=['brand'=>$val->brand,'category'=>$val->category,
                 'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
-                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action.$delete,'reset'=>$reset];
+                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action,'action_1'=>$action_1,'reset'=>$reset];
         }
         return json_encode(['data'=>$data]);
 
@@ -377,8 +385,15 @@ class ProductController extends Controller
 
 
     public function manageProduct(){
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
-        return $theme->scope('manageproducts')->render();
+
+        if($this->isMobile()){
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT');
+            return $theme->scope('manageproducts')->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
+            return $theme->scope('manageproducts')->render();
+        }
+
     }
 
     public function addNewProduct(Request $request){
@@ -506,8 +521,14 @@ class ProductController extends Controller
     }
 
     public function resetPage(){
-        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
-        return $theme->scope('reset')->render();
+
+        if($this->isMobile()){
+            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT');
+            return $theme->scope('reset')->render();
+        }else{
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Reset');
+            return $theme->scope('reset')->render();
+        }
     }
 
     public function ajaxMcoatResetList(){
@@ -534,5 +555,15 @@ class ProductController extends Controller
             $message = 'Product successfully reset';
         }
         return $message;
+    }
+
+    public function set(){
+        if(Auth::user()->warehouse == 1){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product in');
+            return $theme->scope('productin')->render();
+        }elseif(Auth::user()->warehouse == 2){
+            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Product in');
+            return $theme->scope('alliedproductin')->render();
+        }
     }
 }

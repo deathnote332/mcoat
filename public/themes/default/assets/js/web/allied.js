@@ -7,11 +7,7 @@ $('document').ready(function(){
         iDisplayLength: 12,
         bLengthChange: false,
         deferRender: true,
-        responsive: {
-            details: {
-                display: $.fn.dataTable.Responsive.display.childRowImmediate,
-            }
-        },
+
         columns: [
 
             { data: 'brand',"orderable": false },

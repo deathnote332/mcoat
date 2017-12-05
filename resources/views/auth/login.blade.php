@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('pageTitle', 'Page Title')
+
 @section('content')
     <div class="wrapper-login">
         <div class="panel-body">
