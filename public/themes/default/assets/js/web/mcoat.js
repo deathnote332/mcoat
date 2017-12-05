@@ -5,10 +5,15 @@ $('document').ready(function(){
     var product = $('#mcoat-list').DataTable({
         ajax: BASEURL + '/getProducts',
         order: [],
-        iDisplayLength: 12,
+        iDisplayLength: 10,
         bLengthChange: false,
         bInfo: false,
         deferRender: true,
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.childRowImmediate,
+            }
+        },
         columns: [
 
             { data: 'brand',"orderable": false },

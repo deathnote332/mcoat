@@ -4,10 +4,14 @@ $('document').ready(function(){
     var product = $('#allied-list').DataTable({
         ajax: BASEURL + '/getProducts',
         order: [],
-        iDisplayLength: 12,
+        iDisplayLength: 10,
         bLengthChange: false,
         deferRender: true,
-
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.childRowImmediate,
+            }
+        },
         columns: [
 
             { data: 'brand',"orderable": false },

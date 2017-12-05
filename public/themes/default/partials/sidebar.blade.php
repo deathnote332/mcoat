@@ -183,7 +183,7 @@
     <!-- Page Content -->
     <div id="page-wrapper">
         {!! Theme::content() !!}
-        
+
         <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
