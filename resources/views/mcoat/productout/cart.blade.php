@@ -99,27 +99,11 @@
             cart.search( '' )
                 .columns().search( '' )
                 .draw();
-            alert()
+
         })
 
         $('#search_cart').on('input',function () {
-            var searchBy = $('#searchByCart option:selected').val();
-            if(searchBy == 'All'){
-                cart.search(this.value).draw();
-            }else if(searchBy == 'Brand'){
-
-                cart.column(0).search(this.value).draw();
-            }else if(searchBy == 'Category'){
-
-                cart.column(1).search(this.value).draw();
-            }else if(searchBy == 'Code'){
-
-                cart.column(2).search(this.value).draw();
-            }else if(searchBy == 'Description'){
-
-                cart.column(3).search(this.value).draw();
-            }
-
+            cart.search(this.value).draw();
         })
 
         $('body').on('click','#remove-cart',function () {

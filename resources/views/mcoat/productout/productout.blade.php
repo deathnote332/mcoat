@@ -2,7 +2,7 @@
     <div class="row mcoat-list">
 
         <div class="col-md-3">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+            <input type="text" id="search-out" name="search" class="form-control" placeholder="Search..">
         </div>
     </div>
 
@@ -154,6 +154,10 @@
 
         })
 
+
+        $('#search-out').on('input',function () {
+            product.search(this.value).draw();
+        })
 
 
         $('body').on('click','#add-to-cart',function() {

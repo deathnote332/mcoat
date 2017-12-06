@@ -4,6 +4,9 @@
         padding: 15px 0;
         border-top: 1px solid #e7e7e7;
     }
+    .for-user span{
+
+    }
 </style>
 
 
@@ -195,6 +198,16 @@
             <div class="col-md-3 col-lg-offset-9">
                 <button type="button" class="btn btn-primary form-control" id="save-daily">{{ ($data != '') ? 'Update' :'Save' }}</button>
             </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 for-user">
+                <span>Requestig</span><input type="text " class="form-control"/>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control"/>
+            </div>
+
         </div>
     </form>
 @endif

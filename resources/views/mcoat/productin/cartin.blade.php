@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <input type="text" id="search_cart" name="search_cart" class="form-control" placeholder="Search..">
+            <input type="text" id="search_cart_in" name="search_cart" class="form-control" placeholder="Search..">
         </div>
     </div>
 
@@ -93,32 +93,10 @@
             ]
 
         });
-        $('#searchByCart').on('change',function () {
-            $('#search_cart').val('')
-            cart.search( '' )
-                .columns().search( '' )
-                .draw();
 
-        })
 
-        $('#search_cart').on('input',function () {
-            var searchBy = $('#searchByCart option:selected').val();
-            if(searchBy == 'All'){
+        $('#search_cart_in').on('input',function () {
                 cart.search(this.value).draw();
-            }else if(searchBy == 'Brand'){
-
-                cart.column(0).search(this.value).draw();
-            }else if(searchBy == 'Category'){
-
-                cart.column(1).search(this.value).draw();
-            }else if(searchBy == 'Code'){
-
-                cart.column(2).search(this.value).draw();
-            }else if(searchBy == 'Description'){
-
-                cart.column(3).search(this.value).draw();
-            }
-
         })
 
         $('body').on('click','#remove-cart',function () {

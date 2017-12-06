@@ -41,7 +41,7 @@
     <div class="row">
 
         <div class="col-md-3">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+            <input type="text" id="search-allied-out" name="search" class="form-control" placeholder="Search..">
         </div>
     </div>
 
@@ -193,23 +193,8 @@
 
         })
 
-        $('#search').on('input',function () {
-            var searchBy = $('#searchBy option:selected').val();
-            if(searchBy == 'All'){
+        $('#search-allied-out').on('input',function () {
                 product.search(this.value).draw();
-            }else if(searchBy == 'Brand'){
-
-                product.column(0).search(this.value).draw();
-            }else if(searchBy == 'Category'){
-
-                product.column(1).search(this.value).draw();
-            }else if(searchBy == 'Code'){
-
-                product.column(2).search(this.value).draw();
-            }else if(searchBy == 'Description'){
-
-                product.column(3).search(this.value).draw();
-            }
 
         })
 

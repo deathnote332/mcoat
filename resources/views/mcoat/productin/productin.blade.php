@@ -1,18 +1,13 @@
+<style>
+    #productin-list_filter{
+        display: none;
+    }
+</style>
 <div class="card-container">
     <div class="row">
-        <div class="col-md-2">
-            <div class="search-inputs">
-                <select class="form-control" id="searchBy">
-                    <option>Brand</option>
-                    <option>Category</option>
-                    <option>Code</option>
-                    <option>Descripion</option>
-                    <option selected>All</option>
-                </select>
-            </div>
-        </div>
+
         <div class="col-md-3">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+            <input type="text" id="product_search" name="search" class="form-control" placeholder="Search..">
         </div>
     </div>
 
@@ -128,7 +123,7 @@
             iDisplayLength: 12,
             bLengthChange: false,
             deferRender:    true,
-            bFilter:false,
+            bFilter:true,
             columns: [
 
                 { data: 'brand',"orderable": false },
@@ -143,7 +138,6 @@
             "createdRow": function ( row, data, index ) {
                 $('td', row).eq(7).find('#delete').remove();
                 if (data.quantity == 0) {
-                    $('td', row).eq(7).find('#add-to-cart').css({'visibility':'hidden'});
                     $(row).css({
                         'background-color': '#e74c3c',
                         'color': '#fff'
@@ -157,31 +151,9 @@
                 }
             }
         });
-        $('#searchBy').on('change',function () {
-            $('#search').val('')
-            product.search( '' )
-                .columns().search( '' )
-                .draw();
 
-        })
-
-        $('#search').on('input',function () {
-            var searchBy = $('#searchBy option:selected').val();
-            if(searchBy == 'All'){
-                product.search(this.value).draw();
-            }else if(searchBy == 'Brand'){
-
-                product.column(0).search(this.value).draw();
-            }else if(searchBy == 'Category'){
-
-                product.column(1).search(this.value).draw();
-            }else if(searchBy == 'Code'){
-
-                product.column(2).search(this.value).draw();
-            }else if(searchBy == 'Description'){
-
-                product.column(3).search(this.value).draw();
-            }
+        $('#product_search').on('input',function () {
+                 product.search(this.value).draw();
 
         })
 

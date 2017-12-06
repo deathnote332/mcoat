@@ -37,17 +37,6 @@
 
 <div class="card-container">
     <div class="row">
-        <div class="col-md-2">
-            <div class="search-inputs">
-                <select class="form-control" id="searchBy">
-                    <option>Brand</option>
-                    <option>Category</option>
-                    <option>Code</option>
-                    <option>Descripion</option>
-                    <option selected>All</option>
-                </select>
-            </div>
-        </div>
         <div class="col-md-3">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
@@ -165,7 +154,7 @@
             iDisplayLength: 12,
             bLengthChange: false,
             deferRender:    true,
-            bFilter:false,
+            bFilter:true,
             columns: [
 
                 { data: 'brand',"orderable": false },
@@ -204,22 +193,7 @@
         })
 
         $('#search').on('input',function () {
-            var searchBy = $('#searchBy option:selected').val();
-            if(searchBy == 'All'){
                 product.search(this.value).draw();
-            }else if(searchBy == 'Brand'){
-
-                product.column(0).search(this.value).draw();
-            }else if(searchBy == 'Category'){
-
-                product.column(1).search(this.value).draw();
-            }else if(searchBy == 'Code'){
-
-                product.column(2).search(this.value).draw();
-            }else if(searchBy == 'Description'){
-
-                product.column(3).search(this.value).draw();
-            }
 
         })
 
