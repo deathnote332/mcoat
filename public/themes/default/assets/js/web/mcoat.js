@@ -48,31 +48,8 @@ $('document').ready(function(){
     }
 
 
-    $('#searchBy').on('change',function () {
-        $('#search').val('')
-        product.search( '' )
-            .columns().search( '' )
-            .draw();
-
-    })
-
     $('#search').on('input',function () {
-        var searchBy = $('#searchBy option:selected').val();
-        if(searchBy == 'All'){
-            product.search(this.value).draw();
-        }else if(searchBy == 'Brand'){
-            product.column(0).search(this.value).draw();
-        }else if(searchBy == 'Category'){
-
-            product.column(1).search(this.value).draw();
-        }else if(searchBy == 'Code'){
-
-            product.column(2).search(this.value).draw();
-        }else if(searchBy == 'Description'){
-
-            product.column(3).search(this.value).draw();
-        }
-
+        product.search(this.value).draw();
     })
 
 

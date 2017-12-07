@@ -3,18 +3,7 @@
 <div class="card-container">
     <input type="hidden" id="user_type" value="{{ \Illuminate\Support\Facades\Auth::user()->user_type }}">
     <div class="row">
-        <div class="col-md-2 col-sm-6">
-            <div class="search-inputs">
-                <select class="form-control" id="searchBy">
-                    <option>Brand</option>
-                    <option>Category</option>
-                    <option>Code</option>
-                    <option>Descripion</option>
-                    <option selected>All</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-6 col-lg-6 pad-left">
             <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
     </div>

@@ -5,10 +5,10 @@
 <div class="card-container">
     <div class="row">
 
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-6 col-lg-6 pad-left col-sm-6">
             <input type="text" id="search" name="search" class="form-control search-inputs" placeholder="Search..">
         </div>
-        <div class="col-md-4 col m5 col-md-offset-4  col-sm-6">
+        <div class="col-md-4 col-md-offset-2 col-sm-6">
             <div class="btn-add">
                 <button type="button" class="btn btn-primary form-control add-new"><span class="fa fa-plus"> Add new product</span></button>
             </div>

@@ -1,7 +1,7 @@
 <div class="card-container">
     <div class="row mcoat-list">
 
-        <div class="col-md-3">
+        <div class="col-md-6 col-lg-6 pad-left">
             <input type="text" id="search-out" name="search" class="form-control" placeholder="Search..">
         </div>
     </div>
