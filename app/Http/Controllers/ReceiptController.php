@@ -241,29 +241,40 @@ class ReceiptController extends Controller
 
         }
 
+        if(!is_null($receipts)){
+            return Datatables::of($receipts)
+                ->addColumn('receipt_no', function ($data) use ($request){
+                    return $data->receipt_no;
+                })
+                ->addColumn('delivered_from', function ($data) use ($request){
+                    return $data->name;
 
-        return Datatables::of($receipts)
-            ->addColumn('receipt_no', function ($data) use ($request){
-                return $data->receipt_no;
-            })
-            ->addColumn('delivered_from', function ($data) use ($request){
-                return $data->name;
+                })
+                ->addColumn('created_by', function ($data) use ($request){
+                    return $data->first_name.' '.$data->last_name;
+                })
+                ->addColumn('created_at', function ($data) use ($request){
+                    return date('M d,Y',strtotime($data->created_at));
+                })
+                ->addColumn('warehouse', function ($data) use ($request){
+                    return ($data->wr == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse';
+                })
+                ->addColumn('action', function ($data) use ($request){
+                    $view = "<a href='invoiceReceiptin/$data->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$data->id.'>View</label></a>";
+                    return $view;
+                })
+                ->make(true);
+        }
 
-            })
-            ->addColumn('created_by', function ($data) use ($request){
-                return $data->first_name.' '.$data->last_name;
-            })
-            ->addColumn('created_at', function ($data) use ($request){
-                return date('M d,Y',strtotime($data->created_at));
-            })
-            ->addColumn('warehouse', function ($data) use ($request){
-                return ($data->wr == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse';
-            })
-            ->addColumn('action', function ($data) use ($request){
-                $view = "<a href='invoiceReceiptin/$data->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$data->id.'>View</label></a>";
-                return $view;
-            })
-            ->make(true);
+
+
+//        $data = array();
+//        foreach($receipts as $key=>$val){
+//            $view = "<a href='invoiceReceiptin/$val->id' target='_blank'><label id='view-receipt' class='alert alert-success' data-id='.$val->id.'>View</label></a>";
+//            $data[]=['receipt_no'=>$val->receipt_no,'delivered_from'=>$val->name,'created_by'=>$val->first_name.' '.$val->last_name,'created_by'=>date('M d,Y',strtotime($val->created_at)),'warehouse'=>($val->wr == 2) ? 'MCOAT Pasig Warehouse' : 'Dagupan Warehouse','action'=>$view];
+//        }
+//
+//        return json_encode(['data'=>$data]);
 
     }
 
