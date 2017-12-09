@@ -1,5 +1,9 @@
 .pad-left{
-    padding: 0 30px 10px 30px;
+    padding: 0 0 10px 30px;
+}
+
+.pad-right{
+    padding-right: 30px;
 }
 
 tr th{

@@ -1,7 +1,7 @@
 {!! Theme::asset()->usePath()->add('receipts','/css/web/receipts.css') !!}
 <div class="card-container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-6 col-lg-6 col-sm-6">
             <div class="range-selection">
                 <select id="range" class="form-control">
                     <option selected value="today">Today</option>
@@ -12,8 +12,11 @@
             </div>
 
         </div>
-        <div class="col-md-3">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+        <div class="col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2 col-sm-6">
+            <div class="pad-right">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+            </div>
+
         </div>
     </div>
 
