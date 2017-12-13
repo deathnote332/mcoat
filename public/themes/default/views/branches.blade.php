@@ -1,8 +1,14 @@
 {!! Theme::asset()->usePath()->add('style','/css/web/style.css') !!}
 <div class="card-container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-6 col-lg-6 pad-left col-sm-6">
             <input type="text" id="search" name="search" class="form-control search-inputs" placeholder="Search..">
+        </div>
+        <div class="col-md-4 col-md-offset-2 col-sm-6">
+            <div class="btn-add">
+                <button type="button" class="btn btn-primary form-control add-new"><span class="fa fa-plus"> Add new warehouse</span></button>
+            </div>
+
         </div>
     </div>
     <div class="row">
@@ -29,7 +35,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Update Supplier</h4>
+                <h4 class="modal-title" id="myModalLabel">Update Branch</h4>
             </div>
             <form id="branch">
                 <div class="modal-body">
@@ -87,7 +93,9 @@
 
 
         $('body').on('click','#update',function () {
+            $('#addToCartModal .modal-title').text('Update')
             $('#addToCartModal').modal('show')
+            $('#btn-update').text('Update')
             $('#name').val($(this).data('name'))
             $('#address').val($(this).data('address'))
             $('#supplier_id').val($(this).data('id'))
@@ -98,12 +106,25 @@
         });
 
         $('#btn-update').on('click',function () {
-            addToCart()
+            if($(this).text() == 'Add'){
+                addNew()
+            }else{
+                addToCart()
+            }
+
         })
 
         $('#search').on('input',function () {
 
             branch.search(this.value).draw();
+        })
+
+        $('.add-new').on('click',function () {
+            $('#addToCartModal .modal-title').text('Add new branch')
+            $('#addToCartModal').modal('show')
+            $('#btn-update').text('Add')
+            $('#name').val('')
+            $('#address').val('')
         })
     });
     function addToCart() {
@@ -173,6 +194,41 @@
             }
         }])
 
+
+    }
+
+    function addNew() {
+
+        swal({
+            title: "Are you sure?",
+            text: "You want to add this branch.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+            var data_save = $('#branch').serializeArray();
+            data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+
+            $.ajax({
+                url:BASEURL+'/addbranch',
+                type:'POST',
+                data: data_save,
+                success: function(data){
+                    var branch = $('#branch-list').DataTable();
+                    branch.ajax.reload(null, false );
+
+                    $('#addToCartModal').modal('hide');
+
+                    swal({
+                        title: "",
+                        text: "Branch added successfully",
+                        type:"success"
+                    })
+                }
+            });
+        });
 
     }
 

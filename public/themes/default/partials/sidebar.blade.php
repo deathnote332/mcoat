@@ -104,11 +104,12 @@
                             <a href={{ URL('branches')  }}><i class="fa fa-map-marker fa-fw"></i> Branches</a>
                         </li>
                         <li>
-                            <a href={{ URL('suppliers')  }}><i class="fa fa-user-plus fa-fw"></i> Suppliers</a>
-                        </li>
-                        <li>
                             <a href={{ URL('admin/warehouse')  }}><i class="fa fa-caret-square-o-down fa-fw"></i>Warehouse</a>
                         </li>
+                        <li>
+                            <a href={{ URL('suppliers')  }}><i class="fa fa-user-plus fa-fw"></i> Suppliers</a>
+                        </li>
+
                         <li>
                             <a href={{ URL('admin/users')  }}><i class="fa fa-user fa-fw"></i> Users</a>
                         </li>

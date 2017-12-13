@@ -566,4 +566,9 @@ class ProductController extends Controller
             return $theme->scope('alliedproductin')->render();
         }
     }
+
+    public function retrieve(){
+        
+    }
+
 }

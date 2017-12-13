@@ -165,6 +165,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::get('/branches', 'SupplierBranchController@branchPage');
     Route::get('/getbranches', 'SupplierBranchController@getBranches');
     Route::post('/updatebranch', 'SupplierBranchController@updateBranch');
+    Route::post('/addbranch', 'SupplierBranchController@addbranch');
 
     //edit receipt
     Route::get('/editReceipt/{id}', 'ReceiptController@editReceipt');
