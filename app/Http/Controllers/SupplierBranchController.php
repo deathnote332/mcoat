@@ -162,4 +162,13 @@ class SupplierBranchController extends Controller
         DB::table('notifications')->insert(['message'=>$user.' updated Warehouse name:'.$request->name.' Location:'.$request->location]);
 
     }
+    public function addwarehouse(Request $request){
+
+        DB::table('warehouse')->insert(['name'=>$request->name,'location'=>$request->location,'status'=>1]);
+
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        DB::table('notifications')->insert(['message'=>$user.' added Warehouse name:'.$request->name.' Location:'.$request->location]);
+
+    }
 }

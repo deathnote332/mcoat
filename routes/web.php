@@ -72,6 +72,7 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
     Route::get('/warehouse', 'SupplierBranchController@warehouse');
     Route::get('/getwarehouse', 'SupplierBranchController@getWarehouse');
     Route::post('/updatewarehouse', 'SupplierBranchController@updateWarehouse');
+    Route::post('/addwarehouse', 'SupplierBranchController@addwarehouse');
 
 
 });
