@@ -114,6 +114,12 @@ class SupplierBranchController extends Controller
             $product = Product::find($request->id);
             $product = 'Brand:'.$request->brand.' Category:'.$product->category.' Code:'.$product->code.' Description:'.$product->description.' Unit:'.$product->unit.' Quantity: '.$product->quantity.' Unit Price:'.$product->unit_price ;
             DB::table('notifications')->insert(['message'=>$user.' deleted product( '.$product.' ) in '.$warehouse]);
+        }elseif($request->type == 6){
+            DB::table('warehouse')->where('id',$request->id)->update(['status'=>0]);
+            //notification
+            $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+            DB::table('notifications')->insert(['message'=>$user.' deleted '.DB::table('warehouse')->find($request->id)->name]);
+
         }
     }
 
@@ -129,4 +135,31 @@ class SupplierBranchController extends Controller
         return $theme->of('sales.sales',['branch'=>Branches::find($request->id)])->render();
     }
 
+    public function warehouse(Request $request){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Warehouse');
+        return $theme->scope('warehouse')->render();
+    }
+
+    public function getWarehouse(Request $request){
+        $warehouse = DB::table('warehouse')->where('status',1)->get();
+        $data=[];
+        foreach($warehouse as $key=>$val){
+            $update = "<a><label id='delete' class='alert alert-danger' data-id='$val->id' data-name='$val->name' data-location='$val->location'>Delete</label></a>";
+            $delete = "<a><label id='update' class='alert alert-warning' data-id='$val->id' data-name='$val->name' data-location='$val->location'>Update</label></a>";
+            $action = $update.$delete;
+            $data[]=['warehouse'=>$val->name,'location'=>$val->location,'created_at'=>$val->created_at,'action'=>$action];
+        }
+        return json_encode(['data'=>$data]);
+    }
+
+
+    public function updateWarehouse(Request $request){
+
+        DB::table('warehouse')->where('id',$request->id)->update(['name'=>$request->name,'location'=>$request->location]);
+
+        //notification
+        $user = Auth::user()->first_name.' '.Auth::user()->last_name;
+        DB::table('notifications')->insert(['message'=>$user.' updated Warehouse name:'.$request->name.' Location:'.$request->location]);
+
+    }
 }
