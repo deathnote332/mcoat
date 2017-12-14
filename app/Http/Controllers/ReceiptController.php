@@ -426,9 +426,10 @@ class ReceiptController extends Controller
 
 
     public function stockListAll(Request $request){
-        ini_set("memory_limit", "999M");
+        ini_set("memory_limit", -1);
         ini_set("max_execution_time", "999");
         $products = Product::orderBy('brand')
+
             ->orderBy('category')
             ->orderBy('description')
             ->orderBy('unit')
@@ -439,7 +440,7 @@ class ReceiptController extends Controller
         $title = 'All stocks';
         $data = ['data'=>$products,'title'=>$title];
         $pdf = PDF::loadView('pdf.stocklist',$data)->setPaper('a4');
-        return $pdf->download('stocklist.pdf');
+        return $pdf->stream();
 
     }
 

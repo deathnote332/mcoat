@@ -80,7 +80,7 @@
             </div>
             <!-- /.panel -->
         </div>
-
+        <input type="hidden" value="{{ ceil(\App\Product::count()/500) }}" id="total">
     </div>
 </div>
 <script>
@@ -153,6 +153,8 @@
 
 
     function generatePriceListAll() {
+        var pages = $('#total').val();
+
         swal({
             title: "Are you sure?",
             text: "You want to generate this pricelist.",
@@ -163,11 +165,14 @@
             closeOnConfirm: false
         }).then(function () {
 
-            var path = '';
 
-            path= BASEURL+'/stocklists/'+ 2;
 
-            window.open(path);
+                path= BASEURL+'/stocklists/'+ 2;
+
+                window.open(path);
+
+
+
             swal({
                 title: "",
                 text: "Pricelist successfully generated",
