@@ -39,9 +39,19 @@
 
 <div class="card-container">
     <div class="row">
-
+        <div class="col-md-2">
+            <div class="search-inputs">
+                <select class="form-control" id="searchBy">
+                    <option>Brand</option>
+                    <option>Category</option>
+                    <option>Code</option>
+                    <option>Description</option>
+                    <option selected>All</option>
+                </select>
+            </div>
+        </div>
         <div class="col-md-3">
-            <input type="text" id="search-allied-out" name="search" class="form-control" placeholder="Search..">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
         </div>
     </div>
 
@@ -169,9 +179,8 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
-                $('td', row).eq(7).find('#delete').remove();
                 if (data.quantity_1 == 0) {
-                    $('td', row).eq(7).find('#add-to-cart').css({'visibility':'hidden'});
+                    $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
                     $(row).css({
                         'background-color': '#e74c3c',
                         'color': '#fff'
@@ -193,8 +202,23 @@
 
         })
 
-        $('#search-allied-out').on('input',function () {
+        $('#search').on('input',function () {
+            var searchBy = $('#searchBy option:selected').val();
+            if(searchBy == 'All'){
                 product.search(this.value).draw();
+            }else if(searchBy == 'Brand'){
+
+                product.column(0).search(this.value).draw();
+            }else if(searchBy == 'Category'){
+
+                product.column(1).search(this.value).draw();
+            }else if(searchBy == 'Code'){
+
+                product.column(2).search(this.value).draw();
+            }else if(searchBy == 'Description'){
+
+                product.column(3).search(this.value).draw();
+            }
 
         })
 
@@ -241,75 +265,60 @@
 
     });
 
-
     function addToCart(id,qty,current) {
 
-        swal.queue([{
-            title: 'Are you sure',
-            text: "You want to add this product to cart.",
-            type:'warning',
-            showLoaderOnConfirm: true,
-            showCancelButton: true,
-            allowOutsideClick: false,
-            closeOnConfirm: false,
-            confirmButtonText: 'Okay',
-            confirmButtonColor: "#DD6B55",
-            preConfirm: function () {
-                return new Promise(function (resolve) {
-                    $.ajax({
-                        url:BASEURL+'/addToCart',
-                        type:'POST',
-                        data: {
-                            _token: $('meta[name="csrf_token"]').attr('content'),
-                            id: id,
-                            qty: qty,
-                            current_qty:current,
-                            type:3,
-                        },
-                        success: function(data){
-                            var productout = $('#alliedproductout-list').DataTable();
-                            productout.ajax.reload(null, false );
+            swal({
+                title: "Are you sure?",
+                text: "You want to add this product to cart.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: 'Okay',
+                closeOnConfirm: false
+            }).then(function () {
 
-                            var cart = $('#cart-list').DataTable();
-                            cart.ajax.reload();
+                $.ajax({
+                    url:BASEURL+'/addToCart',
+                    type:'POST',
+                    data: {
+                        _token: $('meta[name="csrf_token"]').attr('content'),
+                        id: id,
+                        qty: qty,
+                        current_qty:current,
+                        type:3,
+                    },
+                    success: function(data){
+                        var productout = $('#alliedproductout-list').DataTable();
+                        productout.ajax.reload(null, false );
 
-                            $('#print').prop('disabled', false);
+                        $('#addToCartModal').modal('hide');
 
-                            $('#addToCartModal').modal('hide');
-                            swal.insertQueueStep(data)
-                            resolve()
-                            $.ajax({
-                                url:BASEURL + '/alliedcartcount',
-                                type: 'GET',
-                                success: function (data){
-                                    $('#tab-productout li:nth-child(2) a').html(data);
-                                    receiptCount();
-                                }
-                            });
-                        }
-                    });
-                })
-            }
-        }])
+                        swal({
+                            title: "",
+                            text: "Product addded to cart",
+                            type:"success"
+                        })
+
+
+                        $.ajax({
+                            url:BASEURL + '/alliedcartcount',
+                            type: 'GET',
+                            success: function (data){
+                                $('#tab-productout li:nth-child(2) a').html(data);
+                            }
+                        });
+
+
+                    }
+                });
+            });
+
+
     }
 
 
-    function  receiptCount() {
-        $.ajax({
-            url:BASEURL + '/alliedreceiptcount',
-            type: 'GET',
-            success: function (data){
-                $('.print-count').html("Total Receipt ( <span>"+data+"</span> )");
 
-                if(data == 0){
-                    $('#print').prop('disabled',true);
-                }
-            }
-        });
-    }
-
-
-        //New error event handling has been added in Datatables v1.10.5
+    //New error event handling has been added in Datatables v1.10.5
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);
         var productout = $('#alliedproductout-list').DataTable();

@@ -16,7 +16,7 @@
         border-collapse: collapse;
         text-align: center;
         border: 1px solid black;
-        font-size: 12px;
+        font-size: 8px;
         margin: 0px;
 
     }
@@ -41,7 +41,7 @@
 
     table tr th{border-right: 1px solid white !important}
     table tr th:last-child{border-right: 1px solid black !important;}
-    table tr td{ border-right: 1px solid black !important; font-size: 13px }
+    table tr td{ border-right: 1px solid black !important; font-size: 12px }
     table tbody tr td:nth-child(3) span{margin-left: 2em}
     .header{
         text-align: center;
@@ -112,11 +112,8 @@
                 <td>{!! $val->category !!} </td>
                 <td>{!! $val->description !!} </td>
                 <td>{!! $val->unit !!} </td>
-                @if(\Illuminate\Support\Facades\Auth::user()->warehouse == 1)
-                    <td>{!! $val->quantity !!} </td>
-                @else
-                    <td>{!! $val->quantity1 !!} </td>
-                @endif
+
+                <td>{!! $val->quantity_1 !!} </td>
 
             </tr>
         @endforeach

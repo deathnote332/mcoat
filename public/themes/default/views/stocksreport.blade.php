@@ -129,13 +129,18 @@
         })
 
         $('.generate-stocks1').on('click',function () {
-            if(($('#stock-brand1 option:selected').val() == 'Choose Brand' && $('#category1 option:selected').val() =='Choose Category' && $('#description1 option:selected').val() =='Choose Description' && $('#unit1 option:selected').val() =='Choose Unit') || ($('#stocks-type option:selected').val() == 'Choose stocks range')){
+            if($('#stock-brand1 option:selected').val() == 'Choose Brand' && $('#category1 option:selected').val() =='Choose Category' && $('#description1 option:selected').val() =='Choose Description' && $('#unit1 option:selected').val() =='Choose Unit' && $('#stocks-type option:selected').val() == 2){
+
+                generatePriceListAll()
+
+            }else if($('#stock-brand1 option:selected').val() == 'Choose Brand' && $('#category1 option:selected').val() =='Choose Category' && $('#description1 option:selected').val() =='Choose Description' && $('#unit1 option:selected').val() =='Choose Unit' || $('#stocks-type option:selected').val() == 'Choose stocks range') {
                 $('#stocks-type').focus();
                 swal({
                     title: "",
                     text: "Please choose from the field / Stock range.",
-                    type:"error"
+                    type: "error"
                 })
+
 
             }else{
                 generateStockReport($('#stock-brand1 option:selected').val(),$('#category1 option:selected').val(),$('#description1 option:selected').val(),$('#unit1 option:selected').val(),$('#stocks-type option:selected').val());
@@ -146,6 +151,30 @@
 
     });
 
+
+    function generatePriceListAll() {
+        swal({
+            title: "Are you sure?",
+            text: "You want to generate this pricelist.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: 'Okay',
+            closeOnConfirm: false
+        }).then(function () {
+
+            var path = '';
+
+            path= BASEURL+'/stocklists/'+ 2;
+
+            window.open(path);
+            swal({
+                title: "",
+                text: "Pricelist successfully generated",
+                type:"success"
+            })
+        });
+    }
 
 
     function generatePriceList(brand,category) {

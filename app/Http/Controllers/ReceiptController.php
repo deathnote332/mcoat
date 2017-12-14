@@ -424,6 +424,24 @@ class ReceiptController extends Controller
         return $theme->scope('stocksreport')->render();
     }
 
+
+    public function stockListAll(Request $request){
+
+        $products = Product::orderBy('brand')
+            ->orderBy('category')
+            ->orderBy('description')
+            ->orderBy('unit')
+            ->get();
+
+
+        $title = 'All stocks';
+
+
+        $data = ['data'=>$products,'title'=>$title];
+        $pdf = PDF::loadView('pdf.stocklist',$data)->setPaper('a4');
+        return @$pdf->stream();
+    }
+
     public function priceList(Request $request){
         if(empty($request->category)){
             $products = Product::where('brand',$request->brand)
