@@ -80,7 +80,7 @@
             </div>
             <!-- /.panel -->
         </div>
-        <input type="hidden" value="{{ ceil(\App\Product::count()/500) }}" id="total">
+        <input type="hidden" value="{{ ceil(\App\Product::count()/300) }}" id="total">
     </div>
 </div>
 <script>
@@ -166,11 +166,13 @@
         }).then(function () {
 
             var path = '';
-
-            path= BASEURL+'/stocklists/'+ 2;
-
+            path= BASEURL+'/stocklists/'+ 1 +'/'+ 2;
             window.open(path);
 
+            for(var i=1;i<=pages;i++){
+                path= BASEURL+'/stocklists/'+ 300 * i +'/'+ 2;
+                window.open(path);
+            }
 
 
             swal({

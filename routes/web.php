@@ -155,7 +155,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::post('/brandCategory', 'ReceiptController@brandCategory');
 
     Route::get('/stocklist/{stock}/{brand}/{category}/{description}/{unit}', 'ReceiptController@stockList');
-    Route::get('/stocklists/{type}', 'ReceiptController@stockListAll');
+    Route::get('/stocklists/{offset}/{type}', 'ReceiptController@stockListAll');
 
     //suppliers
     Route::get('/suppliers', 'SupplierBranchController@supplierPage');
