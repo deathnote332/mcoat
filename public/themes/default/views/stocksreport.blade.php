@@ -165,11 +165,11 @@
             closeOnConfirm: false
         }).then(function () {
 
+            var path = '';
 
+            path= BASEURL+'/stocklists/'+ 2;
 
-                path= BASEURL+'/stocklists/'+ 2;
-
-                window.open(path);
+            window.open(path);
 
 
 

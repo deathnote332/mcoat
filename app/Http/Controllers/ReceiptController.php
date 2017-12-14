@@ -426,14 +426,12 @@ class ReceiptController extends Controller
 
 
     public function stockListAll(Request $request){
-        ini_set("memory_limit", -1);
+        ini_set("memory_limit", "-1");
         ini_set("max_execution_time", "999");
         $products = Product::orderBy('brand')
-
             ->orderBy('category')
             ->orderBy('description')
             ->orderBy('unit')
-
             ->get();
 
 
