@@ -132,17 +132,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <select id="unit" class="form-control">
-                                    <options selected disable value="">Unit</options>
-                                </select>
+                                
+                                <label>Current quantity</label>
+                                <p class="form-control-static" id="unit">Test</p>
+
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input class="form-control" placeholder="Enter Amount" id="enter-amount" >
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -249,7 +244,7 @@
             $('#category').text(category)
             $('#code').text(code)
             $('#description').text(description)
-//            $('#unit').text(unit)
+            $('#unit').text(unit)
             $('#current_qty').text(quantity)
 
             $('#product_id').val(id);
