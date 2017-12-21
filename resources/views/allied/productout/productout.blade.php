@@ -120,16 +120,26 @@
                         </div>
                     </div>
                     <div class="row">
+
                         <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
-                                <label>Unit</label>
-                                <p class="form-control-static" id="unit">Test</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
+                            <div class="form-group" id="quantity">
                                 <label>Current quantity</label>
                                 <p class="form-control-static" id="current_qty">Test</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <select id="unit" class="form-control">
+                                    <options selected disable value="">Unit</options>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Enter Amount" id="enter-amount" >
                             </div>
                         </div>
                     </div>
@@ -179,10 +189,11 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
+                $('td', row).eq(7).find('#delete').remove();
                 if (data.quantity_1 == 0) {
                     $('td', row).eq(7).find('.alert').css({'visibility':'hidden'});
                     $(row).css({
-                        'background-color': '#e74c3c',
+                        'background-color': '#3498db',
                         'color': '#fff'
                     });
 
@@ -238,7 +249,7 @@
             $('#category').text(category)
             $('#code').text(code)
             $('#description').text(description)
-            $('#unit').text(unit)
+//            $('#unit').text(unit)
             $('#current_qty').text(quantity)
 
             $('#product_id').val(id);
@@ -246,7 +257,6 @@
         });
 
         $('#btn-addCart').on('click',function () {
-
             if(parseInt($('#current_qty').text()) < parseInt($('#add-qty').val()) || parseInt($('#add-qty').val()) <= 0) {
                 swal({
                     title: "",
@@ -256,8 +266,6 @@
             }else{
                 addToCart($('#product_id').val(),$('#add-qty').val(),$('#current_qty').text())
             }
-
-
         })
 
         //numeric input
@@ -315,6 +323,13 @@
 
 
     }
+
+    function unitToPcs(unit) {
+        if(unit == 'Roll(s)'){
+
+        }
+    }
+
 
 
 

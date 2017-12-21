@@ -148,7 +148,7 @@
                 $('td', row).eq(7).find('#add-to-cart').text('Update');
                 if (data.quantity_1 == 0) {
                     $(row).css({
-                        'background-color': '#e74c3c',
+                        'background-color': '#3498db',
                         'color': '#fff'
                     });
 

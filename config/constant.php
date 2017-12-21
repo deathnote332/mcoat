@@ -20,4 +20,14 @@ return [
     'del_users' =>              4,
     'del_receipts' =>           5,
 
+
+
+    //unit
+    'unit_1' => 'Ltr',
+    'unit_2' => '1/2 Ltr',
+    'unit_4' => '1/4 Ltr',
+    'unit_3' => 'Gal',
+
+
+
 ];

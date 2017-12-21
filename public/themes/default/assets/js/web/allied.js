@@ -26,10 +26,10 @@ $('document').ready(function(){
             if($('#user_type').val() != 3){
                 if (data.quantity_1 == 0) {
                     $(row).css({
-                        'background-color': '#e74c3c',
+                        'background-color': '#3498db',
                         'color': '#fff'
                     });
-                }else if (data.quantity <= 3 && data.quantity >= 1){
+                }else if (data.quantity_1 <= 3 && data.quantity_1 >= 1){
                     $(row).css({
                         'background-color': '#95a5a6',
                         'color': '#fff'
