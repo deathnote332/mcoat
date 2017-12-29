@@ -128,16 +128,17 @@
 
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6 col-xs-6">
                             <div class="form-group">
-                                
-                                <label>Current quantity</label>
+
+                                <label>Unit</label>
                                 <p class="form-control-static" id="unit">Test</p>
 
                             </div>
                         </div>
+
+                    </div>
+
 
                     <div class="row">
                         <div class="col-md-12">
@@ -147,7 +148,7 @@
                         </div>
                     </div>
 
-                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="btn-addCart">Add to cart</button>
@@ -270,60 +271,60 @@
 
     function addToCart(id,qty,current) {
 
-            swal({
-                title: "Are you sure?",
-                text: "You want to add this product to cart.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: 'Okay',
-                closeOnConfirm: false
-            }).then(function () {
+        swal.queue([{
+            title: 'Are you sure',
+            text: "You want to add this product to cart.",
+            type:'warning',
+            showLoaderOnConfirm: true,
+            showCancelButton: true,
+            allowOutsideClick: false,
+            closeOnConfirm: false,
+            confirmButtonText: 'Okay',
+            confirmButtonColor: "#DD6B55",
+            preConfirm: function () {
+                return new Promise(function (resolve) {
 
-                $.ajax({
-                    url:BASEURL+'/addToCart',
-                    type:'POST',
-                    data: {
-                        _token: $('meta[name="csrf_token"]').attr('content'),
-                        id: id,
-                        qty: qty,
-                        current_qty:current,
-                        type:3,
-                    },
-                    success: function(data){
-                        var productout = $('#alliedproductout-list').DataTable();
-                        productout.ajax.reload(null, false );
+                    $.ajax({
+                        url:BASEURL+'/addToCart',
+                        type:'POST',
+                        data: {
+                            _token: $('meta[name="csrf_token"]').attr('content'),
+                            id: id,
+                            qty: qty,
+                            current_qty:current,
+                            type:3,
+                        },
+                        success: function(data){
+                            var productout = $('#alliedproductout-list').DataTable();
+                            productout.ajax.reload(null, false );
 
-                        $('#addToCartModal').modal('hide');
+                            var cart = $('#cart-list').DataTable();
+                            cart.ajax.reload();
 
-                        swal({
-                            title: "",
-                            text: "Product addded to cart",
-                            type:"success"
-                        })
+                            $('#addToCartModal').modal('hide');
 
-
-                        $.ajax({
-                            url:BASEURL + '/alliedcartcount',
-                            type: 'GET',
-                            success: function (data){
-                                $('#tab-productout li:nth-child(2) a').html(data);
-                            }
-                        });
+                            swal.insertQueueStep(data)
+                            resolve()
 
 
-                    }
-                });
-            });
+                            $.ajax({
+                                url:BASEURL + '/alliedcartcount',
+                                type: 'GET',
+                                success: function (data){
+                                    $('#tab-productout li:nth-child(2) a').html(data);
+                                }
+                            });
 
+
+                        }
+                    });
+
+                })
+            }
+        }])
 
     }
 
-    function unitToPcs(unit) {
-        if(unit == 'Roll(s)'){
-
-        }
-    }
 
 
 
