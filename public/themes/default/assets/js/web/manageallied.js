@@ -21,10 +21,10 @@ $('document').ready(function(){
             { data: 'unit',"orderable": false },
             { data: 'quantity_1',"orderable": false },
             { data: 'unit_price',"orderable": false },
-            { data: 'action',"orderable": false }
+            { data: 'action_1',"orderable": false }
         ],
         "createdRow": function ( row, data, index ) {
-            $('td', row).eq(7).find('#add-to-cart').text('Update');
+
             if (data.quantity_1 == 0) {
                 $(row).css({
                     'background-color': '#3498db',
