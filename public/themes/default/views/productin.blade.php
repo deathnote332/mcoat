@@ -1,5 +1,3 @@
-{!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
-
 <div class="panel-heading">
     MCOAT PRODUCTIN
 </div>

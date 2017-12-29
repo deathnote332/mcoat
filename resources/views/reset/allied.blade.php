@@ -47,7 +47,7 @@
 <script>
 
     $(document).ready(function () {
-
+        var BASEURL = $('#baseURL').val();
         $('#brand1').on('change',function () {
             $.ajax({
                 url:BASEURL+'/brandCategory',
@@ -93,6 +93,7 @@
     })
 
     function resetProduct(brand,category,type) {
+        var BASEURL = $('#baseURL').val();
         var message = (type == 1) ? 'this specific' : 'all this';
         swal.queue([{
             title: 'Are you sure',
@@ -113,7 +114,8 @@
                             _token : $('meta[name="csrf_token"]').attr('content'),
                             brand: brand,
                             category: category,
-                            quantity: 'quantity_1'
+                            quantity: 'quantity_1',
+                            warehouse: 4
                         },
                         success: function(data){
                             swal.insertQueueStep(data)

@@ -62,6 +62,8 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
     Route::get('/resetmcoat', 'ProductController@ajaxMcoatResetList');
     Route::get('/resetallied', 'ProductController@ajaxAlliedResetList');
     Route::post('/resetproduct', 'ProductController@resetProduct');
+    Route::get('/getresetted', 'ProductController@getResetted');
+    Route::post('/undoreset', 'ProductController@undoReset');
 
     Route::get('/branchsales', 'SupplierBranchController@branchSalePage');
     Route::get('/branch/{id}', 'SupplierBranchController@perBranch');

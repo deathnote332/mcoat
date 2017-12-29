@@ -1,10 +1,8 @@
 $('document').ready(function(){
     var BASEURL = $('#baseURL').val();
-
     var validator = $('#update-products').validate();
 
-
-    var product = $('#productout-list').DataTable({
+    var product = $('#alliedmanage-list').DataTable({
         ajax: BASEURL + '/getProducts',
         order: [],
         iDisplayLength: 10,
@@ -16,26 +14,24 @@ $('document').ready(function(){
             }
         },
         columns: [
-
             { data: 'brand',"orderable": false },
             { data: 'category',"orderable": false},
             { data: 'code',"orderable": false },
             { data: 'description',"orderable": false },
             { data: 'unit',"orderable": false },
-            { data: 'quantity',"orderable": false },
+            { data: 'quantity_1',"orderable": false },
             { data: 'unit_price',"orderable": false },
-            { data: 'action_1',"orderable": false }
+            { data: 'action',"orderable": false }
         ],
         "createdRow": function ( row, data, index ) {
-
-            if (data.quantity == 0) {
-
+            $('td', row).eq(7).find('#add-to-cart').text('Update');
+            if (data.quantity_1 == 0) {
                 $(row).css({
                     'background-color': '#3498db',
                     'color': '#fff'
                 });
 
-            }else if (data.quantity <= 3 && data.quantity >= 1){
+            }else if (data.quantity_1 <= 3 && data.quantity_1 >= 1){
                 $(row).css({
                     'background-color': '#95a5a6',
                     'color': '#fff'
@@ -43,21 +39,13 @@ $('document').ready(function(){
             }
         }
     });
-    $('#searchBy').on('change',function () {
-        $('#search').val('')
-        product.search( '' )
-            .columns().search( '' )
-            .draw();
-
-    })
 
     $('#search').on('input',function () {
         product.search(this.value).draw();
+
     })
 
     $('body').on('click','.add-new',function() {
-
-
         $('#addToCartModal').modal('show');
         $('.modal-title').text('Add new product');
         $('#addToCartModal').find('#btn-update').text('Add')
@@ -80,7 +68,7 @@ $('document').ready(function(){
         var code = $(this).data('code');
         var description = $(this).data('description');
         var unit_price = $(this).data('unit_price');
-        var quantity = $(this).data('quantity');
+        var quantity = $(this).data('quantity_1');
         var unit = $(this).data('unit');
 
         $('#addToCartModal').modal('show');
@@ -128,14 +116,14 @@ function addNewProduct() {
             return new Promise(function (resolve) {
                 var data_save = $('#update-products').serializeArray();
                 data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-                data_save.push({ name : "type", value: 1})
+                data_save.push({ name : "type", value: 2})
                 $.ajax({
                     url:BASEURL+'/addNewProduct',
                     type:'POST',
                     data: data_save,
                     success: function(data){
                         $('#addToCartModal').modal('hide');
-                        var productout = $('#productout-list').DataTable();
+                        var productout = $('#alliedmanage-list').DataTable();
                         productout.ajax.reload(null,false);
                         $("#update-products")[0].reset()
                         var type = (data =='Product existed') ? 'error': 'success';
@@ -146,9 +134,7 @@ function addNewProduct() {
             })
         }
     }])
-
 }
-
 
 function updateProduct() {
     var BASEURL = $('#baseURL').val();
@@ -166,13 +152,13 @@ function updateProduct() {
             return new Promise(function (resolve) {
                 var data_save = $('#update-products').serializeArray();
                 data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-                data_save.push({ name : "type", value: 1})
+                data_save.push({ name : "type", value: 2})
                 $.ajax({
                     url:BASEURL+'/updateProduct',
                     type:'POST',
                     data: data_save,
                     success: function(data){
-                        var productout = $('#productout-list').DataTable();
+                        var productout = $('#alliedmanage-list').DataTable();
                         productout.ajax.reload(null,false);
                         $("#update-products")[0].reset()
                         $('#addToCartModal').modal('hide');
@@ -183,7 +169,6 @@ function updateProduct() {
             })
         }
     }])
-
 }
 
 function  deletedItem(id) {
@@ -207,12 +192,11 @@ function  deletedItem(id) {
                         _token: $('meta[name="csrf_token"]').attr('content'),
                         type: 5,
                         id: id,
-                        warehouse: 1
+                        warehouse: 2
                     },
                     success: function(data){
-                        var productout = $('#productout-list').DataTable();
-                        productout.ajax.reload(null,false);
-
+                        var alliedmanage = $('#alliedmanage-list').DataTable();
+                        alliedmanage.ajax.reload(null,false);
                         swal.insertQueueStep('Supplier deleted successfully')
                         resolve()
                     }
@@ -220,13 +204,11 @@ function  deletedItem(id) {
             })
         }
     }])
-
 }
-
 
 //New error event handling has been added in Datatables v1.10.5
 $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
     console.log(message);
-    var productout = $('#productout-list').DataTable();
+    var productout = $('#alliedmanage-list').DataTable();
     productout.ajax.reload();
 };

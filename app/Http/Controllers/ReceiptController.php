@@ -31,7 +31,6 @@ class ReceiptController extends Controller
 
     public function getReciepts(Request $request){
 
-
         if(Auth::user()->user_type ==1){
             if($request->_range == 'all'){
                 $receipts = Productout::orderBy('product_out.id','desc')

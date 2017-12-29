@@ -1,54 +1,17 @@
-<style>
-    tr th{
-        background: #2980b9;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    .card-container{
-        padding-top: 30px;
-    }
-
-    #productin-list_wrapper .row:nth-child(1){
-        display: none;
-    }
-    #productin-list_wrapper tbody tr td:nth-child(8){
-        text-align: center;
-    }
-    .search-inputs{
-        padding-left: 15px;
-        padding-bottom: 10px;
-    }
-    #add-to-cart{
-        cursor: pointer;
-    }
-
-    .modal{
-
-        top: 15%;
-
-    }
-
-    .alert-info{
-        background-color: #31708f;
-        color: white;
-    }
-</style>
-
 <div class="card-container">
-    <div class="row">
-        <div class="col-md-3">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+    <div class="container-fluid">
+        <div class="row pad_top_20">
+            <div class="col-md-6 table-search-input">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+            </div>
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-md-12">
             <table id="productin-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-
                     <th>Brand</th>
                     <th>Category</th>
                     <th>Code</th>
@@ -172,7 +135,7 @@
                     $('td', row).eq(7).find('#add-to-cart').css({'visibility':'hidden'});
 
                     $(row).css({
-                        'background-color': '#e74c3c',
+                        'background-color': '#3498db',
                         'color': '#fff'
                     });
 

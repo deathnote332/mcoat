@@ -1,4 +1,4 @@
-{!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
+{!! Theme::asset()->usePath()->add('reset.js','/js/web/reset.js') !!}
 <div class="panel-body">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" id="tab-productout">
@@ -10,7 +10,7 @@
     </ul>
 
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content pad_top_30">
         <div class="tab-pane fade in active" id="mcoat">
 
         </div>
@@ -19,35 +19,20 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="reset-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Reset By</th>
+                    <th>Message</th>
+                    <th>Date resetted</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
 </div>
-<script>
-    var BASEURL = $('#baseURL').val();
-    $(document).ready(function () {
-        viewProductList()
-        viewAlliedProductList()
-    })
-    function viewProductList() {
-
-        $.ajax({
-            url:BASEURL + '/admin/resetmcoat',
-            type: 'GET',
-            success: function (data){
-                $('#mcoat').html(data);
-            }
-        });
-
-    }
-
-
-    function viewAlliedProductList() {
-
-        $.ajax({
-            url:BASEURL + '/admin/resetallied',
-            type: 'GET',
-            success: function (data){
-                $('#allied').html(data);
-            }
-        });
-
-    }
-</script>

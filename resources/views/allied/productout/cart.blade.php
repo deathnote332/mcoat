@@ -1,13 +1,13 @@
 {!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
 
 <div class="card-container">
-    <div class="row">
-
-        <div class="col-md-3">
-            <input type="text" id="search_cart" name="search_cart" class="form-control" placeholder="Search..">
+    <div class="container-fluid">
+        <div class="row pad_top_20">
+            <div class="col-md-3 table-search-input">
+                <input type="text" id="search_cart" name="search_cart" class="form-control" placeholder="Search..">
+            </div>
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-md-12">
@@ -30,35 +30,37 @@
             </table>
         </div>
     </div>
-    <div class="row">
+    <div class="container-fluid">
+        <div class="row">
 
-        <div class="col-md-12">
-            <div class="print-count">
-                Total Receipt ( <span>1</span> )
+            <div class="col-md-12">
+                <div class="print-count">
+                    Total Receipt ( <span>1</span> )
+                </div>
+
             </div>
-
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <select class="branches form-control">
-                <option selected disabled>Choose Location</option>
-                @foreach(\App\Branches::orderBy('name','asc')->where('status',1)->get() as $key=>$val)
-                    <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-3 col-md-offset-3">
-            <div class="btn-print">
-                <button type="button" class="form-control btn btn-primary form-control" id="print">Print</button>
+        <div class="row">
+            <div class="col-md-3">
+                <select class="branches form-control">
+                    <option selected disabled>Choose Location</option>
+                    @foreach(\App\Branches::orderBy('name','asc')->where('status',1)->get() as $key=>$val)
+                        <option value="{{$val->name}}" data-address="{{$val->address}}" data-id="{{$val->id}}">{{$val->name}}</option>
+                    @endforeach
+                </select>
             </div>
+            <div class="col-md-3 col-md-offset-3">
+                <div class="btn-print">
+                    <button type="button" class="form-control btn btn-primary form-control" id="print">Print</button>
+                </div>
 
-        </div>
-        <div class="col-md-3 ">
-            <div class="total-amount form-control">
-                {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('type',3)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->first()->total, 2) }}
             </div>
+            <div class="col-md-3 ">
+                <div class="total-amount form-control">
+                    {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('type',3)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->first()->total, 2) }}
+                </div>
 
+            </div>
         </div>
     </div>
 

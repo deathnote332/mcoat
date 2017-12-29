@@ -67,6 +67,7 @@ return array(
 
             $theme->asset()->usePath()->add('font-awesome.min.css', 'css/font-awesome.min.css');
 
+
             // You may use this event to set up your assets.
             // $theme->asset()->usePath()->add('core', 'core.js');
             // $theme->asset()->add('jquery', 'vendor/jquery/jquery.min.js');
@@ -84,49 +85,6 @@ return array(
         'beforeRenderLayout' => array(
 
 
-            'mobile' => function($theme)
-            {
-                $theme->asset()->usePath()->add('materialize.min.css', 'css/mobile/materialize.min.css');
-                $theme->asset()->usePath()->add('style.css', 'css/mobile/style.css');
-                $theme->asset()->usePath()->add('materialize.min.js', 'js/mobile/materialize.min.js');
-
-                //morris-chart
-
-                $theme->asset()->usePath()->add('morris.css', 'css/morris.css');
-                $theme->asset()->usePath()->add('raphael.min.js', 'js/raphael.min.js');
-                $theme->asset()->usePath()->add('morris.min.js', 'js/morris.min.js');
-
-
-                $theme->asset()->usePath()->add('mcoat.css', 'css/mcoat.css');
-
-                $theme->asset()->usePath()->add('sb-admin-2.min.css', 'sbadmin/css/sb-admin-2.min.css');
-                $theme->asset()->usePath()->add('sb-admin-2.min.js', 'sbadmin/js/sb-admin-2.min.js');
-
-                $theme->asset()->usePath()->add('metisMenu.min.css', 'css/metisMenu.min.css');
-                $theme->asset()->usePath()->add('metisMenu.min.js', 'js/metisMenu.min.js');
-
-
-                //datatable
-                $theme->asset()->usePath()->add('dataTables.bootstrap4.min.css', 'css/dataTables.bootstrap4.min.css');
-                $theme->asset()->usePath()->add('responsive.bootstrap4.min.css', 'css/responsive.bootstrap4.min.css');
-
-                $theme->asset()->usePath()->add('jquery.dataTables.min.js', 'js/dataTable/jquery.dataTables.min.js');
-                $theme->asset()->usePath()->add('dataTables.bootstrap4.min.js', 'js/dataTable/dataTables.bootstrap4.min.js');
-                $theme->asset()->usePath()->add('dataTables.responsive.min.js', 'js/dataTable/dataTables.responsive.min.js');
-                $theme->asset()->usePath()->add('responsive.bootstrap4.min.js', 'js/dataTable/responsive.bootstrap4.min.js');
-
-
-
-                //sweetalert
-                $theme->asset()->usePath()->add('sweetalert2.min.css', 'css/sweetalert2.min.css');
-                $theme->asset()->usePath()->add('sweetalert2.min.css', 'js/sweetalert2.min.js');
-
-                $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
-
-
-
-
-            },
 
             'default' => function($theme)
             {
@@ -149,6 +107,8 @@ return array(
             },
             'defaultadmin' => function($theme){
 
+                $theme->asset()->usePath()->add('global', 'css/web/global.css');
+
                 $theme->asset()->usePath()->add('jquery.validate.min.js', 'js/jquery.validate.min.js');
 
 
@@ -157,12 +117,11 @@ return array(
                 $theme->asset()->usePath()->add('sweetalert2.min.css', 'js/sweetalert2.min.js');
 
 
-
-                $theme->asset()->usePath()->add('mcoat.css', 'css/mcoat.css');
-
+                //metis
                 $theme->asset()->usePath()->add('metisMenu.min.css', 'css/metisMenu.min.css');
                 $theme->asset()->usePath()->add('metisMenu.min.js', 'js/metisMenu.min.js');
 
+                //sbadmin
                 $theme->asset()->usePath()->add('sb-admin-2.min.css', 'sbadmin/css/sb-admin-2.min.css');
                 $theme->asset()->usePath()->add('sb-admin-2.min.js', 'sbadmin/js/sb-admin-2.min.js');
 
@@ -179,7 +138,6 @@ return array(
 
 
                 //morris-chart
-
                 $theme->asset()->usePath()->add('morris.css', 'css/morris.css');
                 $theme->asset()->usePath()->add('raphael.min.js', 'js/raphael.min.js');
                 $theme->asset()->usePath()->add('morris.min.js', 'js/morris.min.js');

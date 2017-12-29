@@ -12,10 +12,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\URL;
 use Theme;
 use PDF;
-
+use Yajra\Datatables\Facades\Datatables;
 
 
 class ProductController extends Controller
@@ -37,43 +36,55 @@ class ProductController extends Controller
     {
 
         $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->where('status',1)->get();
-        $data=[];
-        foreach($products as $key=>$val){
+        return Datatables::of($products)
+            ->addColumn('brand', function ($data) use ($request){
+                return $data->brand;
+            })
+            ->addColumn('category', function ($data) use ($request){
+                return $data->category;
+            })
+            ->addColumn('description', function ($data) use ($request){
+                return $data->description;
+            })
+            ->addColumn('code', function ($data) use ($request){
+                return $data->code;
+            })
+            ->addColumn('unit', function ($data) use ($request){
+                return $data->unit;
+            })
+            ->addColumn('quantity', function ($data) use ($request){
+                return $data->quantity;
+            })
+            ->addColumn('quantity_1', function ($data) use ($request){
+                return $data->quantity_1;
+            })
+            ->addColumn('unit_price', function ($data) use ($request){
+                return 'P '.number_format($data->unit_price , 2);
+            })
+            ->addColumn('action', function ($data) use ($request){
+                $add_to_cart = '<label id="add-to-cart" class="alert alert-info" data-id="'.$data->id.'" data-brand="'.$data->brand.'"
+                        data-category="'.$data->category.'" data-code="'.$data->code.'" data-description="'.$data->description.'" data-quantity="'.$data->quantity.'" data-quantity_1="'.$data->quantity_1.'" data-unit_price="'.number_format($data->unit_price, 2).'"
+                        data-unit="'.$data->unit.'">Add to Cart</label>';
 
-            $action = '<label id="add-to-cart" class="alert alert-info" data-id="'.$val->id.'" data-brand="'.$val->brand.'"
-                        data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-quantity_1="'.$val->quantity_1.'" data-unit_price="'.number_format($val->unit_price, 2).'"
-                        data-unit="'.$val->unit.'">Add to Cart</label>';
-            $update = '<label id="add-to-cart" class="alert alert-info" data-id="'.$val->id.'" data-brand="'.$val->brand.'"
-                        data-category="'.$val->category.'" data-code="'.$val->code.'" data-description="'.$val->description.'" data-quantity="'.$val->quantity.'" data-quantity_1="'.$val->quantity_1.'" data-unit_price="'.number_format($val->unit_price, 2).'"
-                        data-unit="'.$val->unit.'">Update</label>';
+                return $add_to_cart;
 
+            })
+            ->addColumn('action_1', function ($data) use ($request){
+                $update = '<label id="add-to-cart" class="alert alert-info" data-id="'.$data->id.'" data-brand="'.$data->brand.'"
+                        data-category="'.$data->category.'" data-code="'.$data->code.'" data-description="'.$data->description.'" data-quantity="'.$data->quantity.'" data-quantity_1="'.$data->quantity_1.'" data-unit_price="'.number_format($data->unit_price, 2).'"
+                        data-unit="'.$data->unit.'">Update</label>';
+                $delete = "<label id='delete' class='alert alert-danger' data-id='$data->id' >Delete</label>";
+                return $update.$delete;
+            })
 
-            $delete = "<a><label id='delete' class='alert alert-danger' data-id='$val->id' >Delete</label></a>";
-            $reset = "<a><label id='reset' class='alert alert-danger' data-id='$val->id' >Reset</label></a>";
-
-            $action = $action.$delete;
-            $action_1 = $update.$delete;
-            $data[]=['brand'=>$val->brand,'category'=>$val->category,
-                'description'=>$val->description,'code'=>$val->code,'unit'=>$val->unit,'quantity'=>$val->quantity,
-                'quantity_1'=>$val->quantity_1,'unit_price'=>'₱ '.number_format($val->unit_price, 2),'action'=>$action,'action_1'=>$action_1,'reset'=>$reset];
-        }
-        return json_encode(['data'=>$data]);
+            ->make(true);
 
     }
 
 
-
     public function mcoatStocksPage(){
-        if($this->isMobile()){
-            $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->get();
-            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT Stocks');
-            return $theme->scope('mcoatstocks',['data'=>$products])->render();
-        }else{
-            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
-            return $theme->scope('mcoatstocks')->render();
-        }
-
-
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT Stocks');
+        return $theme->scope('mcoatstocks')->render();
     }
 
     public function alliedStocksPage(){
@@ -540,22 +551,70 @@ class ProductController extends Controller
 
     public function resetProduct(Request $request){
         if($request->brand != 'Choose Brand' && $request->category == 'Choose Category'){
+            $data = json_encode(Product::where('brand',$request->brand)->get());
+            $message = Auth::user()->first_name.' '.Auth::user()->last_name.' reset "'.$request->brand.'" quantity to zero';
+            $reset_db = DB::table('reset_products')->insert(['data'=>$data,'reset_by'=>Auth::user()->id,'message'=>$message,'warehouse'=>$request->warehouse]);
             Product::where('brand',$request->brand)->update([$request->quantity=>0]);
             $message = 'Product successfully reset';
         }elseif($request->brand == 'Choose Brand' && $request->category != 'Choose Category'){
+            $data = json_encode(Product::where('category',$request->category)->get());
+            $message = Auth::user()->first_name.' '.Auth::user()->last_name.' reset "'.$request->category.'" quantity to zero';
+            $reset_db = DB::table('reset_products')->insert(['data'=>$data,'reset_by'=>Auth::user()->id,'message'=>$message,'warehouse'=>$request->warehouse]);
             Product::where('category',$request->category)->update([$request->quantity=>0]);
             $message = 'Product successfully reset';
         }elseif($request->brand != 'Choose Brand' && $request->category != 'Choose Category'){
+            $data = json_encode(Product::where('category',$request->category)->where('brand',$request->brand)->get());
+            $message = Auth::user()->first_name.' '.Auth::user()->last_name.' reset "'.$request->brand.'-'.$request->category.'" quantity to zero';
+            $reset_db = DB::table('reset_products')->insert(['data'=>$data,'reset_by'=>Auth::user()->id,'message'=>$message,'warehouse'=>$request->warehouse]);
             Product::where('brand',$request->brand)
                 ->where('category',$request->category)
                 ->update([$request->quantity=>0]);
             $message = 'Product successfully reset';
         }elseif($request->brand == 'Choose Brand' && $request->category == 'Choose Category'){
+            $data = json_encode(Product::where($request->quantity,'!=',0)->get());
+            $message = Auth::user()->first_name.' '.Auth::user()->last_name.' reset all products quantity to zero';
+            $reset_db = DB::table('reset_products')->insert(['data'=>$data,'reset_by'=>Auth::user()->id,'message'=>$message,'warehouse'=>$request->warehouse]);
             Product::where($request->quantity,'!=',0)->update([$request->quantity=>0]);
             $message = 'Product successfully reset';
         }
         return $message;
     }
+
+    public function getResetted(){
+        $reset = DB::table('reset_products')->select(DB::raw('DATE_FORMAT(reset_products.created_at,"%b %d, %Y") as _created_at'),'reset_products.*','users.first_name','users.last_name')->join('users','users.id','reset_products.reset_by')->orderBy('reset_products.id','desc')->get();
+        $data=[];
+        foreach($reset as $key=>$val){
+
+            if($val->_undo == 0){
+                $action = '<label id="undo" class="alert alert-info" data-id="'.$val->id.'">Undo</label>';
+
+            }else{
+                $action = '';
+            }
+           $data[]=['reset_by'=>$val->first_name.' '.$val->last_name,'message'=>$val->message,
+                'created_at'=>$val->_created_at,'action'=>$action];
+        }
+        return json_encode(['data'=>$data]);
+
+    }
+
+
+    public function undoReset(Request $request){
+
+        $data = DB::table('reset_products')->where('id',$request->id)->first();
+       foreach (json_decode($data->data,TRUE) as $key=>$val){
+           if($data->warehouse == 2){
+               Product::where('id',$val['id'])->update(['quantity'=>$val['quantity']]);
+           }else{
+               Product::where('id',$val['id'])->update(['quantity'=>$val['quantity_1']]);
+           }
+       }
+        DB::table('reset_products')->where('id',$request->id)->update(['_undo'=>1]);
+       return 'Success';
+
+    }
+
+
 
     public function set(){
         if(Auth::user()->warehouse == 1){
@@ -566,6 +625,5 @@ class ProductController extends Controller
             return $theme->scope('alliedproductin')->render();
         }
     }
-
 
 }

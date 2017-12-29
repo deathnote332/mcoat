@@ -1,24 +1,22 @@
-{!! Theme::asset()->usePath()->add('receipts','/css/web/receipts.css') !!}
-
 <div class="card-container">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="range-selection">
-                <select id="range" class="form-control">
-                    <option selected value="today">Today</option>
-                    <option  value="week">Week</option>
-                    <option  value="month">Month</option>
-                    <option value="all">All</option>
-                </select>
-            </div>
+    <div class="container-fluid">
+        <div class="row pad_top_20">
+            <div class="col-md-6">
+                <div class="range-selection table-search-input">
+                    <select id="range" class="form-control">
+                        <option selected value="today">Today</option>
+                        <option  value="week">Week</option>
+                        <option  value="month">Month</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
 
-        </div>
-        <div class="col-md-3">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+            </div>
+            <div class="col-md-4 col-md-offset-2 table-search-input">
+                <input type="text" id="search" name="search" class="form-control" placeholder="Search..">
+            </div>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-md-12">
             <table id="receiptin-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">

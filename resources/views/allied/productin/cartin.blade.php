@@ -1,17 +1,16 @@
 <div class="card-container">
-    <div class="row">
-        <div class="col-md-3">
-            <input type="text" id="search_cart_allied_in" name="search_cart" class="form-control" placeholder="Search..">
+    <div class="container-fluid">
+        <div class="row pad_top_20">
+            <div class="col-md-6 table-search-input">
+                <input type="text" id="search_cart_allied_in" name="search_cart" class="form-control" placeholder="Search..">
+            </div>
         </div>
     </div>
-
-
     <div class="row">
         <div class="col-md-12">
             <table id="cartIn-list" class="table table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-
                     <th>Brand</th>
                     <th>Category</th>
                     <th>Code</th>
@@ -27,31 +26,30 @@
             </table>
         </div>
     </div>
-
-    <div class="row">
-        <div class="receiptin-details">
-
-
-            <div class="col-md-3">
-
-                <select class="form-control" id="suppliers">
-                    <option selected disabled value="0">Choose supplier</option>
-                    @foreach(\App\Supplier::orderBy('name','asc')->get() as $key=>$val)
-                        <option value="{{$val->name}}" data-id="{{$val->id}}" data-address="{{$val->address}}">{{$val->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-3">
-                <input type="text" class="form-control" name="invoice_number" id="invoice_number" placeholder="Invoice number">
-            </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="receiptin-details">
 
 
-            <div class="col-md-3 col-md-offset-3">
-                <div class="btn-print">
+                <div class="col-md-3">
 
-                    <button type="button" class="form-control btn btn-primary" id="save">Save</button>
+                    <select class="form-control" id="suppliers">
+                        <option selected disabled value="0">Choose supplier</option>
+                        @foreach(\App\Supplier::orderBy('name','asc')->get() as $key=>$val)
+                            <option value="{{$val->name}}" data-id="{{$val->id}}" data-address="{{$val->address}}">{{$val->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" name="invoice_number" id="invoice_number" placeholder="Invoice number">
+                </div>
+                <div class="col-md-3 col-md-offset-3">
+                    <div class="btn-print">
 
+                        <button type="button" class="form-control btn btn-primary" id="save">Save</button>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

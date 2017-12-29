@@ -1,13 +1,9 @@
-<style>
-    #productin-list_filter{
-        display: none;
-    }
-</style>
 <div class="card-container">
-    <div class="row">
-
-        <div class="col-md-3">
-            <input type="text" id="product_search" name="search" class="form-control" placeholder="Search..">
+    <div class="container-fluid">
+        <div class="row pad_top_20">
+            <div class="col-md-6 table-search-input">
+                <input type="text" id="product_search" name="search" class="form-control" placeholder="Search..">
+            </div>
         </div>
     </div>
 
@@ -139,7 +135,7 @@
                 $('td', row).eq(7).find('#delete').remove();
                 if (data.quantity == 0) {
                     $(row).css({
-                        'background-color': '#e74c3c',
+                        'background-color': '#3498db',
                         'color': '#fff'
                     });
 

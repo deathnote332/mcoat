@@ -21,15 +21,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
-        if($this->isMobile()){
-            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT');
-            return $theme->scope('dashboard')->render();
-        }else{
-            $data = DB::table('month_sales')->where('_date',date('Y-m-d'))->first();
-            $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
-            return $theme->scope('dashboard',['data'=>($data != '' || $data != null) ? json_decode($data->data,TRUE) : ''])->render();
-        }
-
+        $data = DB::table('month_sales')->where('_date',date('Y-m-d'))->first();
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('MCOAT');
+        return $theme->scope('dashboard',['data'=>($data != '' || $data != null) ? json_decode($data->data,TRUE) : ''])->render();
     }
 }

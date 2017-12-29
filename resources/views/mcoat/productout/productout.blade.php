@@ -1,11 +1,11 @@
 <div class="card-container">
-    <div class="row mcoat-list">
-
-        <div class="col-md-6 col-lg-6 pad-left">
-            <input type="text" id="search-out" name="search" class="form-control" placeholder="Search..">
+    <div class="container-fluid">
+        <div class="row pad_top_20">
+            <div class="col-md-6 col-lg-6 table-search-input ">
+                <input type="text" id="search-out" name="search" class="form-control" placeholder="Search..">
+            </div>
         </div>
     </div>
-
 
     <div class="row">
         <div class="col-md-12">
@@ -18,7 +18,7 @@
                     <th>Code</th>
                     <th>Description</th>
                     <th>Unit</th>
-                    <th>Quantity</th>
+                    <th >Quantity</th>
                     <th>Unit Price</th>
                     <th>Action</th>
                 </tr>
@@ -28,89 +28,11 @@
         </div>
     </div>
 </div>
-
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Add to cart</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="product_id"  value="">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
-                                <label>Brand</label>
-                                <p class="form-control-static" id="brand">Test</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <p class="form-control-static" id="category">Test</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
-                                <label>Code</label>
-                                <p class="form-control-static" id="code">Test</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
-                                <label>Description</label>
-                                <p class="form-control-static" id="description">Test</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
-                                <label>Unit</label>
-                                <p class="form-control-static" id="unit">Test</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xs-6">
-                            <div class="form-group">
-                                <label>Current quantity</label>
-                                <p class="form-control-static" id="current_qty">Test</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-groupx">
-                                <input class="form-control" placeholder="Enter quantity" id="add-qty" maxlength="5">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="btn-addCart">Add to cart</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-
-
+@include('modal.productoutmcoatmodal')
 <script>
     var BASEURL = $('#baseURL').val();
     $('document').ready(function(){
-
+        $('table').find('label#delete').remove();
 
         var product = $('#productout-list').DataTable({
             ajax: BASEURL + '/getProducts',
@@ -118,6 +40,11 @@
             iDisplayLength: 12,
             bLengthChange: false,
             deferRender:    true,
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.childRowImmediate,
+                }
+            },
             columns: [
 
                 { data: 'brand',"orderable": false },
@@ -130,11 +57,12 @@
                 { data: 'action',"orderable": false }
             ],
             "createdRow": function ( row, data, index ) {
-                $('td', row).eq(7).find('#delete').remove();
+
+//                $('td', row).eq(7).find('#delete').remove();
                 if (data.quantity == 0) {
                     $('td', row).eq(7).find('#add-to-cart').css({'visibility':'hidden'});
                     $(row).css({
-                        'background-color': '#e74c3c',
+                        'background-color': '#3498db',
                         'color': '#fff'
                     });
 
