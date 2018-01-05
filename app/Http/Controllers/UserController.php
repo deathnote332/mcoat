@@ -6,6 +6,7 @@ use App\Employee;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Theme;
 use File;
 use PDF;
@@ -185,4 +186,14 @@ class UserController extends Controller
     }
 
 
+    public function accountSettings(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Account Settings');
+        return $theme->scope('resetpassword')->render();
+    }
+    public  function updateAccount(Request $request){
+
+        User::where('id',Auth::user()->id)->update(['first_name'=>$request->first_name,'last_name'=>$request->last_name,'password'=>Hash::make($request->password)]);
+        return 'Account updated successfuly';
+
+    }
 }

@@ -51,7 +51,15 @@
                         </div>
                         <div class="col-md-12 center-block">
                             <div class="con-reg">
-                                Not A MEMBER YET? <a href="{{ url('/register') }}"> SIGNUP</a>
+                                <div class="col-md-6">
+                                    <a href="{{ url('password/reset') }}" >Forgot Password</a>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="">
+                                    Not A MEMBER YET? <a href="{{ url('/register') }}"> SIGNUP</a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -191,5 +191,9 @@ Route::group(['middleware' => 'isShared'], function(){
 
     Route::get('/monthlysale', 'SaleController@getMonthlySales');
 
+    //accountsettings
+    Route::get('/accountsetting/{id}', 'UserController@accountSettings');
+    Route::post('/updateaccount', 'UserController@updateAccount');
+
 
 });
