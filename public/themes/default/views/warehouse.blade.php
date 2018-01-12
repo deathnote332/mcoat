@@ -79,8 +79,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
-            deferRender: true,
-            deferRender:    true,
+            bDeferRender: true,
             columns: [
 
                 { data: 'warehouse',"orderable": false },

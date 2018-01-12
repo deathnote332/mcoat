@@ -6,7 +6,7 @@ $('document').ready(function(){
         order: [],
         iDisplayLength: 10,
         bLengthChange: false,
-        deferRender: true,
+        bDeferRender: true,
         responsive: {
             details: {
                 display: $.fn.dataTable.Responsive.display.childRowImmediate,

@@ -5,8 +5,7 @@ $(document).ready(function () {
         order: [],
         iDisplayLength: 12,
         bLengthChange: false,
-        deferRender: true,
-        deferRender:    true,
+        bDeferRender: true,
         columns: [
 
             { data: 'name',"orderable": false },

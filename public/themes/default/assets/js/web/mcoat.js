@@ -8,7 +8,7 @@ $('document').ready(function(){
         iDisplayLength: 10,
         bLengthChange: false,
         bInfo: false,
-        deferRender: true,
+        bDeferRender: true,
         responsive: {
             details: {
                 display: $.fn.dataTable.Responsive.display.childRowImmediate,

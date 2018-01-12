@@ -118,7 +118,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
-            deferRender:    true,
+            bDeferRender:    true,
             bFilter:true,
             columns: [
 

@@ -6,8 +6,7 @@ $(document).ready(function () {
         order: [],
         iDisplayLength: 12,
         bLengthChange: false,
-        deferRender: true,
-
+        bDeferRender: true,
         columns: [
 
             { data: 'message',"orderable": false },

@@ -11,6 +11,11 @@
             </button>
             <a class="navbar-brand" href="{{ url('/') }}">MCOAT</a>
         </div>
+        <li><a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        </li>
         <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">

@@ -172,7 +172,7 @@
             order: [],
             iDisplayLength: 12,
             bLengthChange: false,
-            deferRender:    true,
+            bDeferRender:    true,
             columns: [
 
                 { data: 'brand',"orderable": false },

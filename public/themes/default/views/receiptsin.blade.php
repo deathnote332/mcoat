@@ -72,6 +72,7 @@
             order: [],
             destroy: true,
             iDisplayLength: 12,
+            bDeferRender: true,
             bLengthChange: false,
             columns: [
 
