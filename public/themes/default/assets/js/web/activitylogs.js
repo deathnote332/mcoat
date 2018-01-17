@@ -10,7 +10,7 @@ $(document).ready(function () {
         columns: [
 
             { data: 'message',"orderable": false },
-            { data: 'created_at',"orderable": false},si
+            { data: 'created_at',"orderable": false},
 
         ],
 
