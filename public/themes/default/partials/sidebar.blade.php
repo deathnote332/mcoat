@@ -45,10 +45,10 @@
                             <a href="#"><i class="fa fa-list fa-fw"></i> Products<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href={{ URL('admin/mcoat')  }}>MCOAT STOCKS</a>
+                                    <a href={{ URL('admin/mcoat')  }}>MCOAT WAREHOUSE STOCKS</a>
                                 </li>
                                 <li>
-                                    <a href={{ URL('admin/allied')  }}>ALLIED STOCKS</a>
+                                    <a href={{ URL('admin/allied')  }}>ALLIED WAREHOUSE STOCKS</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -57,10 +57,10 @@
                             <a href="#"><i class="fa fa-list fa-fw"></i> Manage Products<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a  href={{ URL('admin/manageProduct')  }}>MCOAT STOCKS</a>
+                                    <a  href={{ URL('admin/manageProduct')  }}>MCOAT WAREHOUSE STOCKS</a>
                                 </li>
                                 <li>
-                                    <a href={{ URL('admin/alliedmanageproduct')  }}>ALLIED STOCKS</a>
+                                    <a href={{ URL('admin/alliedmanageproduct')  }}>ALLIED WAREHOUSE STOCKS</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

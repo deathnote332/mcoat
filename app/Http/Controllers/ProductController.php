@@ -397,13 +397,9 @@ class ProductController extends Controller
 
     public function manageProduct(){
 
-        if($this->isMobile()){
-            $theme = Theme::uses('default')->layout('mobile')->setTitle('MCOAT');
-            return $theme->scope('manageproducts')->render();
-        }else{
             $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('');
             return $theme->scope('manageproducts')->render();
-        }
+        
 
     }
 
