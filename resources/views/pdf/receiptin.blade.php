@@ -212,6 +212,11 @@
         top:-15px;
         font-style: italic;
     }
+
+    tbody tr.total td{
+        border-top: 1px solid #000;
+    }
+
 </style>
 
     <div class="deliver-receipt">
@@ -241,6 +246,7 @@
             </tr>
             </thead>
             <tbody>
+            <?php $total=0; ?>
             @foreach($invoice['products'] as $key=>$val)
                 <tr>
                     <td>{!! $val->product_qty !!}   {!!  $val->unit !!}</td>
@@ -248,8 +254,16 @@
                     <td>{!! $val->brand.' '.$val->category.' '.$val->description  !!}</td>
                     <td>{!! 'P '.number_format($val->unit_price , 2) !!}</td>
                     <td>{!! 'P '.number_format($val->unit_price * $val->product_qty, 2) !!}</td>
+                    <?php $total = $total + ($val->unit_price * $val->product_qty); ?>
                 </tr>
             @endforeach
+            <tr class="total">
+                <td style="text-transform: capitalize; font-weight: bold;font-size: 16px">TOTAL</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="total" style="font-weight: bold;font-size: 16px">{{ 'P '.number_format($total,2) }}</td>
+            </tr>
             </tbody>
         </table>
     </div>
