@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="warehouse_select" class="col-md-4 control-label">Brnch</label>
+                        <label for="warehouse_select" class="col-md-4 control-label">Branch</label>
 
                         <div class="col-md-8">
                             <select id="warehouse_select"  class="form-control" name="warehouse_select" required>

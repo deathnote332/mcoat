@@ -49,11 +49,15 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-3 col-md-offset-3">
+            <div class="col-md-3">
+                <div class="test-btn-print">
+                    <button type="button" class="form-control btn btn-primary form-control" id="test-print">Print</button>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="btn-print">
                     <button type="button" class="form-control btn btn-primary form-control" id="print">Print</button>
                 </div>
-
             </div>
             <div class="col-md-3 ">
                 <div class="total-amount form-control">
@@ -143,6 +147,21 @@
         })
 
 
+
+        $('#test-print').on('click',function () {
+            var branch = $('.branches option:selected');
+            if(branch.val()=="Choose Location"){
+                swal({
+                    title: "",
+                    text: "Please choose delivery location",
+                    type: "error"
+                });
+            }else{
+                var path = BASEURL + '/testprint'+'/'+ $('.branches option:selected').data('id') +'/3';
+                window.open(path);
+            }
+
+        })
 
     });
 

@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <select class="branches form-control">
                     <option selected disabled>Choose Location</option>
                     @foreach(\App\Branches::orderBy('name','asc')->where('status',1)->get() as $key=>$val)
@@ -47,14 +47,21 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
+                <div class="test-btn-print">
+
+                    <button type="button" class="form-control btn btn-primary form-control" id="test-print">Test Print</button>
+
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="btn-print">
 
                     <button type="button" class="form-control btn btn-primary form-control" id="print">Print</button>
                 </div>
 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="total-amount form-control">
                     {{ '₱ '.number_format(\App\TempProductout::join('tblproducts','temp_product_out.product_id','tblproducts.id')->where('temp_product_out.type',1)->select(DB::raw('sum(temp_product_out.qty * tblproducts.unit_price) as total'))->where('user_id',\Illuminate\Support\Facades\Auth::user()->id)->first()->total, 2) }}
                 </div>
@@ -130,6 +137,21 @@
             }
         })
 
+
+        $('#test-print').on('click',function () {
+            var branch = $('.branches option:selected');
+            if(branch.val()=="Choose Location"){
+                swal({
+                    title: "",
+                    text: "Please choose delivery location",
+                    type: "error"
+                });
+            }else{
+                var path = BASEURL + '/testprint'+'/'+ $('.branches option:selected').data('id') +'/1';
+                window.open(path);
+            }
+
+        })
 
 
     });

@@ -1,4 +1,5 @@
 <div class="page-wrapper">
+    <input type="hidden" id="branch_id" value="{{ \Illuminate\Support\Facades\Auth::user()->branch_id }}">
     @if(\Illuminate\Support\Facades\Auth::user()->user_type == 1)
         <div class="row">
             <div class="col-lg-12">
@@ -198,6 +199,43 @@
 
     $(document).ready(function () {
 
+        $('#save-daily').on('click',function () {
+            saveDaily()
+        })
+
+        function saveDaily() {
+            var BASEURL = $('#baseURL').val();
+
+            swal.queue([{
+                title: 'Are you sure',
+                text: "You want to save this record.",
+                type:'warning',
+                showLoaderOnConfirm: true,
+                showCancelButton: true,
+                allowOutsideClick: false,
+                closeOnConfirm: false,
+                confirmButtonText: 'Okay',
+                confirmButtonColor: "#DD6B55",
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        var data_save = $('#daily-sale').serializeArray();
+                        data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+                        data_save.push({ name : "branch_id", value: $('#branch_id').val()})
+                        $.ajax({
+                            url:BASEURL+'/user/daily',
+                            type:'POST',
+                            data: data_save,
+                            success: function(data){
+                                swal.insertQueueStep(data)
+                                resolve()
+                            }
+                        });
+                    })
+                }
+            }])
+
+        }
+
         var notification = $('#notification-list').DataTable({
             ajax: BASEURL + '/admin/notifications/5',
             order: [],
@@ -216,9 +254,7 @@
 
         });
 
-        $('#save-daily').on('click',function () {
-            saveDaily()
-        })
+
 
         var chart = Morris.Bar({
             element: 'morris-bar-chart',
@@ -245,36 +281,6 @@
     })
 
 
-    function saveDaily() {
-
-        swal.queue([{
-            title: 'Are you sure',
-            text: "You want to save this record.",
-            type:'warning',
-            showLoaderOnConfirm: true,
-            showCancelButton: true,
-            allowOutsideClick: false,
-            closeOnConfirm: false,
-            confirmButtonText: 'Okay',
-            confirmButtonColor: "#DD6B55",
-            preConfirm: function () {
-                return new Promise(function (resolve) {
-                    var data_save = $('#daily-sale').serializeArray();
-                    data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-                    $.ajax({
-                        url:BASEURL+'/dailysale',
-                        type:'POST',
-                        data: data_save,
-                        success: function(data){
-                            swal.insertQueueStep(data)
-                            resolve()
-                        }
-                    });
-                })
-            }
-        }])
-
-    }
 
     $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
         console.log(message);

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Theme;
-
 class SaleController extends Controller
 {
     /**
@@ -59,4 +58,23 @@ class SaleController extends Controller
         }
         return json_encode(['data'=>$_data]);
     }
+
+
+    public function yearSale(){
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Sales report');
+        return $theme->scope('salesreport')->render();
+
+    }
+
+    public function monthDay(Request $request){
+        $start_date = $request->year.'-'.$request->month.'-1';
+        $end_date = date('t',strtotime($start_date));
+        $month = $request->month;
+        $year = $request->year;
+
+        $theme = Theme::uses('default')->layout('defaultadmin')->setTitle('Sales report');
+        return $theme->of('sales.permonth',['start_date'=>$start_date,'end_date'=>$end_date,'month'=>$month,'year'=>$year])->render();
+
+    }
+
 }

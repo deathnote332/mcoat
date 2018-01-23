@@ -300,7 +300,33 @@ class ProductController extends Controller
             returnabort(503);
         }
 
-}
+    }
+
+    public function testPrint(Request $request){
+
+
+        $products = TempProductout::join('tblproducts','tblproducts.id','temp_product_out.product_id')->select('tblproducts.*','temp_product_out.qty as product_qty')
+            ->where('temp_product_out.user_id',Auth::user()->id)
+            ->where('temp_product_out.type',$request->type)
+            ->get();
+
+        if($products != null){
+            $data =['products'=>$products,'branch_name'=>Branches::find($request->branch_id)->name,'address'=>Branches::find($request->branch_id)->address];
+
+        }
+
+        if($request->type == 1){
+            $pdf = PDF::loadView('pdf.testprint',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
+
+        }else{
+            $pdf = PDF::loadView('pdf.alliedtestprint',['invoice'=>$data])->setPaper('a4')->setWarnings(false);
+
+        }
+
+        return @$pdf->stream();
+
+
+    }
 
 
     public function productInPage(){

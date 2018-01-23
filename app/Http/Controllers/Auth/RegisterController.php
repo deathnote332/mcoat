@@ -52,7 +52,7 @@ class RegisterController extends Controller
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6',
-            'warehouse_select'=> 'required',
+            'branch_id'=> 'required',
             'password_confirmation'=> 'required|same:password'
 
         ]);
@@ -71,7 +71,7 @@ class RegisterController extends Controller
             'first_name' =>strtolower($data['first_name']),
             'last_name' => strtolower($data['last_name']),
             'email' => $data['email'],
-            'warehouse' => $data['warehouse_select'],
+            'branch_id' => $data['warehouse_select'],
             'password' => bcrypt($data['password']),
         ]);
     }

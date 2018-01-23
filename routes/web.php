@@ -92,9 +92,12 @@ Route::group(['prefix'=>'semi','middleware' => 'isUser1'], function(){
 
 Route::group(['prefix'=>'user','middleware' => 'isUser2'], function(){
     Route::get('/products', 'ProductController@stocksPage');
-    //employee
+    //employee//sale
+    Route::post('/daily', 'SaleController@saveDailySale');
 
     Route::get('/employees/{id}', 'UserController@employeeeBiodata');
+    Route::get('/sales', 'SaleController@yearSale');
+    Route::get('/sales/{month}/{year}', 'SaleController@monthDay');
 });
 
 
@@ -127,6 +130,7 @@ Route::group(['middleware' => 'isShared'], function(){
     Route::get('/invoice/{id}', 'ProductController@invoice');
     Route::get('/invoice/{view}/{id}', 'ProductController@invoice');
     Route::post('/saveProductout', 'ProductController@saveProductout');
+    Route::get('/testprint/{branch_id}/{type}', 'ProductController@testPrint');
 
 //product in
     Route::get('/productinList', 'ProductController@ajaxProductInList');
@@ -186,8 +190,7 @@ Route::group(['middleware' => 'isShared'], function(){
     //ajax
     Route::post('/getdeliveredto', 'ReceiptController@getDeliveredTo');
 
-    //sale
-    Route::post('/dailysale', 'SaleController@saveDailySale');
+
 
     Route::get('/monthlysale', 'SaleController@getMonthlySales');
 
