@@ -218,7 +218,7 @@
     }
 
 </style>
-
+<title>{!!  $invoice['name'].'- Receipt no: '.$invoice['receipt_no'] !!}</title>
     <div class="deliver-receipt">
         DELIVERY RECEIPT  NO. <span>{!! $invoice['receipt_no'] !!}</span>
     </div>

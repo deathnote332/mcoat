@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -51,8 +51,9 @@ class RegisterController extends Controller
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'warehouse_select'=> 'required'
+            'password' => 'required|min:6',
+            'warehouse_select'=> 'required',
+            'password_confirmation'=> 'required|same:password'
 
         ]);
     }
@@ -65,7 +66,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        $this->redirectTo = '/login';
         return User::create([
             'first_name' =>strtolower($data['first_name']),
             'last_name' => strtolower($data['last_name']),

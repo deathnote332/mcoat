@@ -185,13 +185,9 @@
 
             </div>
             <div class="row">
-                <div class="col-md-6 for-user">
-                    <span>Requestig</span><input type="text " class="form-control"/>
+                <div class="container">
+                    <a href="#"><h3>Edit Sales for the month of</h3></a>
                 </div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control"/>
-                </div>
-
             </div>
         </form>
     @endif

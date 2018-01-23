@@ -11,6 +11,9 @@
         .warehouse{
             color:#a94442;
         }
+        .help-block{
+            color:red;
+        }
     </style>
     <div class="wrapper-login">
         <div class="panel-body">
@@ -46,13 +49,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="warehouse_select" class="col-md-4 control-label">Warehouse</label>
+                        <label for="warehouse_select" class="col-md-4 control-label">Brnch</label>
 
                         <div class="col-md-8">
                             <select id="warehouse_select"  class="form-control" name="warehouse_select" required>
-                                <option selected disabled>Select warehouse</option>
-                                <option value="1">MCOAT</option>
-                                <option value="2">DAGUPAN</option>
+                                <option selected disabled>Select Branch</option>
+                                @foreach(\App\Branches::get() as $key => $val)
+                                    <option value="{{ $val->id }}">{{ $val->name }}</option>
+
+                                @endforeach
                             </select>
 
                             @if ($errors->has('warehouse_select'))
@@ -97,6 +102,11 @@
 
                         <div class="col-md-8">
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            @if ($errors->has('password_confirmation'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                            @endif
                         </div>
                     </div>
 

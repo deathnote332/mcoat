@@ -176,6 +176,9 @@
                         <li>
                             <a href={{ URL('user/employees').'/'.\Illuminate\Support\Facades\Auth::user()->id  }}><i class="fa fa-user fa-fw"></i> Bio-data</a>
                         </li>
+                        <li>
+                            <a href={{ URL('user/products')  }}><i class="fa fa-list fa-fw"></i> Sales Report</a>
+                        </li>
                     @endif
 
                 </ul>
