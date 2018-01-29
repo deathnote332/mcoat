@@ -126,6 +126,7 @@
                         <li>
                             <a href={{ URL('admin/activity')  }}><i class="fa fa-history fa-fw"></i> Activity Logs</a>
                         </li>
+
                         {{--<li>--}}
                             {{--<a href={{ URL('admin/activity')  }}><i class="fa fa-history fa-fw"></i> Set Price per branch</a>--}}
                         {{--</li>--}}

@@ -117,6 +117,103 @@
 
             </div>
         </div>
+
+
+        <script>
+            var BASEURL = $('#baseURL').val();
+
+            $(document).ready(function () {
+
+                $('#save-daily').on('click',function () {
+                    saveDaily()
+                })
+
+                function saveDaily() {
+                    var BASEURL = $('#baseURL').val();
+
+                    swal.queue([{
+                        title: 'Are you sure',
+                        text: "You want to save this record.",
+                        type:'warning',
+                        showLoaderOnConfirm: true,
+                        showCancelButton: true,
+                        allowOutsideClick: false,
+                        closeOnConfirm: false,
+                        confirmButtonText: 'Okay',
+                        confirmButtonColor: "#DD6B55",
+                        preConfirm: function () {
+                            return new Promise(function (resolve) {
+                                var data_save = $('#daily-sale').serializeArray();
+                                data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+                                data_save.push({ name : "branch_id", value: $('#branch_id').val()})
+                                $.ajax({
+                                    url:BASEURL+'/user/daily',
+                                    type:'POST',
+                                    data: data_save,
+                                    success: function(data){
+                                        swal.insertQueueStep(data)
+                                        resolve()
+                                    }
+                                });
+                            })
+                        }
+                    }])
+
+                }
+
+                var notification = $('#notification-list').DataTable({
+                    ajax: BASEURL + '/admin/notifications/5',
+                    order: [],
+                    iDisplayLength: 12,
+                    bLengthChange: false,
+                    bFilter:false,
+                    bInfo: false,
+                    bPaginate:false,
+                    deferRender: true,
+                    columns: [
+
+                        { data: 'message',"orderable": false },
+                        { data: 'created_at',"orderable": false},
+
+                    ],
+
+                });
+
+
+
+                var chart = Morris.Bar({
+                    element: 'morris-bar-chart',
+                    data:[0,0],
+                    xkey: ['label'],
+                    ykeys: ['value'],
+                    ymax: 100,
+                    labels: ['Order Percentage'],
+                    hideHover: 'auto',
+                    resize: true
+                });
+
+                $.ajax({
+                    url:BASEURL + '/admin/fastMovingProducts',
+                    type: 'GET',
+                    success: function (data){
+
+                        chart.setData(data);
+                    }
+                });
+
+
+
+            })
+
+
+
+            $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
+                console.log(message);
+                var notification = $('#notification-list').DataTable();
+                notification.ajax.reload();
+            };
+
+        </script>
     @else
         <div class="row">
             <div class="col-lg-12">
@@ -191,101 +288,45 @@
                 </div>
             </div>
         </form>
+        <script>
+            $(document).ready(function () {
+                $('#save-daily').on('click',function () {
+                    saveDaily()
+                })
+            })
+            function saveDaily() {
+                var BASEURL = $('#baseURL').val();
+
+                swal.queue([{
+                    title: 'Are you sure',
+                    text: "You want to save this record.",
+                    type:'warning',
+                    showLoaderOnConfirm: true,
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    closeOnConfirm: false,
+                    confirmButtonText: 'Okay',
+                    confirmButtonColor: "#DD6B55",
+                    preConfirm: function () {
+                        return new Promise(function (resolve) {
+                            var data_save = $('#daily-sale').serializeArray();
+                            data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+
+                            $.ajax({
+                                url:BASEURL+"/user/daily",
+                                type:'POST',
+                                data: data_save,
+                                success: function(data){
+                                    swal.insertQueueStep(data)
+                                    resolve()
+
+                                    location.reload()
+                                }
+                            });
+                        })
+                    }
+                }])
+            }
+        </script>
     @endif
 </div>
-
-<script>
-    var BASEURL = $('#baseURL').val();
-
-    $(document).ready(function () {
-
-        $('#save-daily').on('click',function () {
-            saveDaily()
-        })
-
-        function saveDaily() {
-            var BASEURL = $('#baseURL').val();
-
-            swal.queue([{
-                title: 'Are you sure',
-                text: "You want to save this record.",
-                type:'warning',
-                showLoaderOnConfirm: true,
-                showCancelButton: true,
-                allowOutsideClick: false,
-                closeOnConfirm: false,
-                confirmButtonText: 'Okay',
-                confirmButtonColor: "#DD6B55",
-                preConfirm: function () {
-                    return new Promise(function (resolve) {
-                        var data_save = $('#daily-sale').serializeArray();
-                        data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
-                        data_save.push({ name : "branch_id", value: $('#branch_id').val()})
-                        $.ajax({
-                            url:BASEURL+'/user/daily',
-                            type:'POST',
-                            data: data_save,
-                            success: function(data){
-                                swal.insertQueueStep(data)
-                                resolve()
-                            }
-                        });
-                    })
-                }
-            }])
-
-        }
-
-        var notification = $('#notification-list').DataTable({
-            ajax: BASEURL + '/admin/notifications/5',
-            order: [],
-            iDisplayLength: 12,
-            bLengthChange: false,
-            bFilter:false,
-            bInfo: false,
-            bPaginate:false,
-            deferRender: true,
-            columns: [
-
-                { data: 'message',"orderable": false },
-                { data: 'created_at',"orderable": false},
-
-            ],
-
-        });
-
-
-
-        var chart = Morris.Bar({
-            element: 'morris-bar-chart',
-            data:[0,0],
-            xkey: ['label'],
-            ykeys: ['value'],
-            ymax: 100,
-            labels: ['Order Percentage'],
-            hideHover: 'auto',
-            resize: true
-        });
-
-        $.ajax({
-            url:BASEURL + '/admin/fastMovingProducts',
-            type: 'GET',
-            success: function (data){
-
-                chart.setData(data);
-            }
-        });
-
-
-
-    })
-
-
-
-    $.fn.dataTable.ext.errMode = function ( settings, helpPage, message ) {
-        console.log(message);
-        var notification = $('#notification-list').DataTable();
-        notification.ajax.reload();
-    };
-
-</script>

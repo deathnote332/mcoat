@@ -75,7 +75,9 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
     Route::get('/getwarehouse', 'SupplierBranchController@getWarehouse');
     Route::post('/updatewarehouse', 'SupplierBranchController@updateWarehouse');
     Route::post('/addwarehouse', 'SupplierBranchController@addwarehouse');
+    Route::get('/sales/{branch}/{month}/{year}', 'SaleController@monthDay');
 
+    Route::post('/editsale', 'SaleController@editDailySale');
 
 });
 
@@ -87,6 +89,7 @@ Route::group(['prefix'=>'semi','middleware' => 'isUser1'], function(){
     Route::get('/productin', 'ProductController@productIn');
     Route::get('/employees/{id}', 'UserController@employeeeBiodata');
 
+
 });
 
 
@@ -97,7 +100,8 @@ Route::group(['prefix'=>'user','middleware' => 'isUser2'], function(){
 
     Route::get('/employees/{id}', 'UserController@employeeeBiodata');
     Route::get('/sales', 'SaleController@yearSale');
-    Route::get('/sales/{month}/{year}', 'SaleController@monthDay');
+    Route::get('/sales/{branch}/{month}/{year}', 'SaleController@monthDay');
+    Route::post('/editsale', 'SaleController@editDailySale');
 });
 
 

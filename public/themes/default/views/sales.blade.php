@@ -11,7 +11,9 @@
 </div>
 <div class="card-container">
     <div class="row">
-        @foreach(\Illuminate\Support\Facades\DB::table('branches')->get() as $key=>$val)
+
+        @foreach(\App\Branches::all() as $key=>$val)
+
         <div class="col-lg-4 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -21,7 +23,17 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge">{{$val->name}}</div>
-                            <div>{{ (DB::table('month_sales')->where('branch_id',$val->id)->where('_date',date('Y-m-d'))->first() != null || DB::table('month_sales')->where('branch_id',$val->id)->where('_date',date('Y-m-d'))->first() != '') ? '₱ '.number_format(json_decode(DB::table('month_sales')->where('branch_id',$val->id)->where('_date',date('Y-m-d'))->first()->data,TRUE)['total_amount'],2) : '₱ 0.00' }}</div>
+                            <?php
+                                $total = 0;
+                            $total_sales = \App\MonthSales::where('branch_id',$val->id)->where(DB::raw('YEAR(_date)'),2018)->get();
+
+                            foreach ($total_sales as $key=>$data_val){
+                                $total  = $total + json_decode($data_val->data,TRUE)['total_amount'];
+                            }
+                            ?>
+                            <div>
+                                {{$total}}
+                            </div>
                         </div>
                     </div>
                 </div>

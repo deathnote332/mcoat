@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function getProducts(Request $request)
     {
 
-        $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->where('status',1)->get();
+        $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->where('status',1);
         return Datatables::of($products)
             ->addColumn('brand', function ($data) use ($request){
                 return $data->brand;
