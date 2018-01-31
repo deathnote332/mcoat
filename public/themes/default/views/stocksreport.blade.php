@@ -19,7 +19,6 @@
                             </select>
                             <select class="form-control" id="category" disabled>
                                 <option selected disabled>Choose Category</option>
-
                             </select>
 
                             <button class="btn btn-primary form-control generate-stocks">Generate</button>
@@ -71,6 +70,12 @@
                                 <option value="0"> OUT OF STOCKS</option>
                                 <option value="1"> STOCKS FROM 1-3</option>
                                 <option value="2"> ALL </option>
+                            </select>
+                            <select class="form-control" id="warehouse" name="warehouse">
+                                <option selected disabled>Choose Warehouse</option>
+                                <option value="1">MCOAT WAREHOUSE</option>
+                                <option value="2">ALLIED WAREHOUSE</option>
+
                             </select>
                             <button type="button" class="btn btn-primary form-control generate-stocks1">Generate</button>
                         </div>
@@ -133,7 +138,7 @@
 
                 generatePriceListAll()
 
-            }else if($('#stock-brand1 option:selected').val() == 'Choose Brand' && $('#category1 option:selected').val() =='Choose Category' && $('#description1 option:selected').val() =='Choose Description' && $('#unit1 option:selected').val() =='Choose Unit' || $('#stocks-type option:selected').val() == 'Choose stocks range') {
+            }else if($('#stock-brand1 option:selected').val() == 'Choose Brand' && $('#category1 option:selected').val() =='Choose Category' && $('#description1 option:selected').val() =='Choose Description' && $('#unit1 option:selected').val() =='Choose Unit' || $('#stocks-type option:selected').val() == 'Choose stocks range' || $('#warehouse option:selected').val() == 'Choose Warehouse') {
                 $('#stocks-type').focus();
                 swal({
                     title: "",
@@ -233,7 +238,7 @@
             }if(unit == 'Choose Unit'){
                 unit = 'na'
             }
-                var path = BASEURL+'/stocklist/'+stock+'/'+brand+'/'+category+'/'+description+'/'+unit;
+                var path = BASEURL+'/stocklist/'+ $('#warehouse').val() +'/'+stock+'/'+brand+'/'+category+'/'+description+'/'+unit;
                 window.open(path);
 
                 swal({

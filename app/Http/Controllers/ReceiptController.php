@@ -697,7 +697,7 @@ class ReceiptController extends Controller
            $title = $queryBrand.'-'.$queryDescription.'-'.$queryDescription.'-'.$queryUnit;
        }
 
-        $data = ['data'=>$products,'title'=>$title];
+        $data = ['data'=>$products,'title'=>$title,'warehouse'=>$request->warehouse];
         $pdf = PDF::loadView('pdf.stocklist',$data)->setPaper('a4');
         return @$pdf->stream();
     }

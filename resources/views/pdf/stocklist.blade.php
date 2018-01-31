@@ -74,8 +74,11 @@
     }
 
 </style>
-<title>MCOAT Stocklist - {{$title}}</title>
-<div class="header">
+@if($warehouse == 1)
+
+    <title>MCOAT Stocklist - {{$title}}</title>
+
+    <div class="header">
     <h1>mcoat paint commercial & general merchandise</h1>
     <div class="sub-header">
         <h3>185 R. Jabson St. Bambang, Pasig City</h3>
@@ -85,7 +88,20 @@
         <h3>Vat. Reg. TIN: 146-286-502-001</h3>
     </div>
 </div>
+@else
 
+    <title>ALLIED Stocklist - {{$title}}</title>
+
+    <div class="header">
+        <h1>ALLIED PAINT COMMERCIAL & GENERAL MERCHANDISE</h1>
+        <div class="sub-header">
+            <h3>320 KM Caranglaan Dagupan Pangasinan</h3>
+            <h3>Ludilyn De Jesus - Prop.</h3>
+            <h3>Tel: (075)515-6259</h3>
+            <h3>Vat. Reg. TIN: 146-286-510-001</h3>
+        </div>
+    </div>
+@endif
 <div class="title">
     STOCK LIST OF {{ $title }}
 </div>
@@ -96,25 +112,22 @@
     <table class="table" id="sample" width="100%" >
         <thead>
         <tr>
+            <th>Quantity / Unit</th>
             <th>Code</th>
             <th>Brand</th>
-            <th>Unit</th>
             <th>Category</th>
             <th>Description</th>
-            <th>Quantity</th>
+
         </tr>
         </thead>
         <tbody>
         @foreach($data as $key=>$val)
             <tr>
-                <td>{!! $val->code !!} </td>
+                <td>{!! ($warehouse == 1) ? $val->quantity :  $val->quantity_1 !!} / {!! $val->unit !!}</td>
+                <td>{!! $val->code !!}  </td>
                 <td>{!! $val->brand !!} </td>
                 <td>{!! $val->category !!} </td>
                 <td>{!! $val->description !!} </td>
-                <td>{!! $val->unit !!} </td>
-
-                <td>{!! $val->quantity_1 !!} </td>
-
             </tr>
         @endforeach
         </tbody>
