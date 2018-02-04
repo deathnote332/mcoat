@@ -159,12 +159,11 @@ Route::group(['middleware' => 'isShared'], function(){
 
     //stocksreport
     Route::get('/stocksreport', 'ReceiptController@stocksReport');
-    Route::get('/pricelist/{brand}/{category}', 'ReceiptController@priceList');
-    Route::get('/pricelist/{brand}', 'ReceiptController@priceList');
+    Route::get('/pricelist', 'ReceiptController@priceList');
 
     Route::post('/brandCategory', 'ReceiptController@brandCategory');
 
-    Route::get('/stocklist/{warehouse}/{stock}/{brand}/{category}/{description}/{unit}', 'ReceiptController@stockList');
+    Route::get('/stocklist/{warehouse}', 'ReceiptController@stockList');
     Route::get('/stocklists/{offset}/{type}', 'ReceiptController@stockListAll');
 
     //suppliers

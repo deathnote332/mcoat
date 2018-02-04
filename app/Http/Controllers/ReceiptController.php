@@ -481,11 +481,9 @@ class ReceiptController extends Controller
 
 
     public function stockList(Request $request){
-
+       // dd($request->all());
         $queryBrand = $request->brand;
         $queryCategory =  $request->category;
-        $queryDescription =  $request->description;
-        $queryUnit = $request->unit;
         $queryStock = $request->stock;
         if($queryStock == 0){
             $stock =[0];
@@ -496,7 +494,7 @@ class ReceiptController extends Controller
         }
 
        //not empty brand
-       if($queryUnit == 'na' && $queryCategory == 'na' && $queryDescription =='na' && $queryBrand != 'na') {
+       if($queryCategory == '' && $queryBrand != '') {
 
            $products = Product::orderBy('brand')
                ->orderBy('category')
@@ -509,7 +507,7 @@ class ReceiptController extends Controller
                ->get();
            $title = $queryBrand;
        //not empty category
-       }elseif($queryBrand == 'na' && $queryCategory != 'na' && $queryDescription == 'na' && $queryUnit == 'na'){
+       }elseif($queryBrand == '' && $queryCategory != ''){
 
            $products = Product::orderBy('brand')
                ->orderBy('category')
@@ -521,32 +519,8 @@ class ReceiptController extends Controller
                ->where('category',$queryCategory)
                ->get();
            $title = $queryCategory;
-       //not empty description
-       }elseif($queryBrand == 'na' && $queryCategory== 'na' && $queryDescription != 'na' && $queryUnit == 'na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('description',$queryDescription)
-               ->get();
-           $title = $queryDescription;
-        //not empty unit
-       }elseif($queryBrand == 'na' && $queryCategory== 'na' && $queryDescription== 'na' && $queryUnit != 'na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('unit',$queryUnit)
-               ->get();
-           $title = $queryUnit;
        //not empty brand and category
-       }elseif($queryBrand != 'na' && $queryCategory != 'na' && $queryDescription =='na' && $queryUnit =='na'){
+       }elseif($queryBrand != '' && $queryCategory != ''){
 
            $products = Product::orderBy('brand')
                ->orderBy('category')
@@ -559,144 +533,7 @@ class ReceiptController extends Controller
                ->where('category',$queryCategory)
                ->get();
            $title = $queryBrand.'-'.$queryCategory;
-       //not empty brand and description
-       }elseif($queryBrand != 'na' && $queryCategory=='na' && $queryDescription !='na' && $queryUnit=='na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('brand',$queryBrand)
-               ->where('description',$queryDescription)
-               ->get();
-           $title = $queryBrand.'-'.$queryDescription;
-        //not empty brand and unit
-       }elseif($queryBrand != 'na' && $queryCategory=='na' && $queryDescription =='na' && $queryUnit != 'na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('brand',$queryBrand)
-               ->where('unit',$queryUnit)
-               ->get();
-           $title = $queryBrand.'-'.$queryUnit;
-        //not empty category and description
-       }elseif($queryBrand == 'na' && $queryCategory != 'na' && $queryDescription != 'na' && $queryUnit =='na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('category',$queryCategory)
-               ->where('description',$queryDescription)
-               ->get();
-           $title = $queryCategory.'-'.$queryDescription;
-        //not empty category and unit
-       }elseif($queryBrand =='na' && $queryCategory !='na' && $queryDescription =='na' && $queryUnit !='na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('category',$queryCategory)
-               ->where('unit',$queryUnit)
-               ->get();
-           $title = $queryCategory.'-'.$queryUnit;
-        //not empty description and unit
-       }elseif($queryBrand == 'na' && $queryCategory =='na' && $queryDescription != 'na' && $queryUnit != 'na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('description',$queryDescription)
-               ->where('unit',$queryUnit)
-               ->get();
-           $title = $queryDescription.'-'.$queryUnit;
-        //not empty brand and description and unit
-       }elseif($queryBrand != 'na' && $queryCategory =='na' && $queryDescription != 'na' && $queryUnit != 'na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('brand',$queryBrand)
-               ->where('description',$queryDescription)
-               ->where('unit',$queryUnit)
-               ->get();
-           $title = $queryBrand.'-'.$queryDescription.'-'.$queryUnit;
-        //not empty brand  and category and unit
-       }elseif($queryBrand != 'na' && $queryCategory != 'na' && $queryDescription =='na' && $queryUnit != 'na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('brand',$queryBrand)
-               ->where('description',$queryDescription)
-               ->where('category',$queryCategory)
-               ->get();
-           $title = $queryBrand.'-'.$queryCategory.'-'.$queryUnit;
-        //not empty brand  and category and description
-       }elseif($queryBrand != 'na' && $queryCategory != 'na' && $queryDescription != 'na' && $queryUnit =='na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('brand',$queryBrand)
-               ->where('description',$queryDescription)
-               ->where('category',$queryCategory)
-               ->get();
-           $title = $queryBrand.'-'.$queryCategory.'-'.$queryDescription;
-       //not empty category  and description and unit
-       }elseif($queryBrand =='na' && $queryCategory != 'na' && $queryDescription != 'na' && $queryUnit !='na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('category',$queryCategory)
-               ->where('description',$queryDescription)
-               ->where('unit',$queryUnit)
-               ->get();
-           $title = $queryDescription.'-'.$queryDescription.'-'.$queryUnit;
-        //not empty all
-       }elseif($queryBrand != 'na' && $queryCategory !='na' && $queryDescription != 'na' && $queryUnit !='na'){
-           $products = Product::orderBy('brand')
-               ->orderBy('category')
-               ->orderBy('description')
-               ->orderBy('unit')
-               ->when($stock, function ($query) use ($stock) {
-                   return $query->whereIn($this->queryString(), $stock);
-               })
-               ->where('brand',$queryBrand)
-               ->where('description',$queryDescription)
-               ->where('category',$queryCategory)
-               ->where('unit',$queryUnit)
-               ->get();
-           $title = $queryBrand.'-'.$queryDescription.'-'.$queryDescription.'-'.$queryUnit;
        }
-
         $data = ['data'=>$products,'title'=>$title,'warehouse'=>$request->warehouse];
         $pdf = PDF::loadView('pdf.stocklist',$data)->setPaper('a4');
         return @$pdf->stream();

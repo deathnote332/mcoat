@@ -53,18 +53,7 @@
                                     <option value="{{ $val->category }}">{{ $val->category }}</option>
                                 @endforeach
                             </select>
-                            <select class="form-control" id="description1" name="description">
-                                <option selected disabled>Choose Description</option>
-                                @foreach( \App\Product::select('description')->distinct()->orderBy('description','asc')->get() as $key=>$val)
-                                    <option value="{{ $val->description }}">{{ $val->description }}</option>
-                                @endforeach
-                            </select>
-                            <select class="form-control" id="unit1" name="unit">
-                                <option selected disabled>Choose Unit</option>
-                                @foreach( \App\Product::select('unit')->distinct()->orderBy('unit','asc')->get() as $key=>$val)
-                                    <option value="{{ $val->unit }}">{{ $val->unit }}</option>
-                                @endforeach
-                            </select>
+
                             <select class="form-control" id="stocks-type" name="stocks">
                                 <option selected disabled>Choose stocks range</option>
                                 <option value="0"> OUT OF STOCKS</option>
@@ -203,9 +192,9 @@
             var path = '';
             if(category == 'Choose Category') {
 
-                path= BASEURL+'/pricelist/'+ brand;
+                path= BASEURL+'/pricelist?brand='+ brand;
             }else{
-                path= BASEURL+'/pricelist/'+ brand +'/' + category;
+                path= BASEURL+'/pricelist?brand='+ brand +'&category=' + category;
             }
 
             window.open(path);
@@ -228,24 +217,20 @@
             confirmButtonText: 'Okay',
             closeOnConfirm: false
         }).then(function () {
-            if(brand == 'Choose Brand'){
-                brand = 'na'
-            }
-            if(category == 'Choose Category'){
-                category = 'na'
-            }if(description == 'Choose Description'){
-                description = 'na'
-            }if(unit == 'Choose Unit'){
-                unit = 'na'
-            }
-                var path = BASEURL+'/stocklist/'+ $('#warehouse').val() +'/'+stock+'/'+brand+'/'+category+'/'+description+'/'+unit;
-                window.open(path);
 
-                swal({
-                    title: "",
-                    text: "Stock report successfully generated",
-                    type:"success"
-                })
+            var path=BASEURL+'/stocklist/'+ $('#warehouse').val()+'?'
+            if(brand != 'Choose Brand'){
+                path += '&brand='+brand
+            }
+            if(category != 'Choose Category'){
+                path += '&category='+category
+            }
+           window.open(path);
+            swal({
+                title: "",
+                text: "Stock report successfully generated",
+                type:"success"
+            })
 
         });
 
