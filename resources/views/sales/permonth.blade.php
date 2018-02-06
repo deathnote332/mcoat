@@ -182,7 +182,7 @@
                 }
 
                 $loss = 0;
-                if($total > $cash_total){
+                if($_total > $cash_total){
                     $loss = $cash_total - $_total;
                 }else{
                     $loss =0;
