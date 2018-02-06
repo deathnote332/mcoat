@@ -176,18 +176,13 @@
 
 
                 $excess = 0;
-                if($_total < $cash_total){
-                    $excess = $cash_total - $_total;
-                }else{
-                    $excess =0;
-                }
-
                 $loss = 0;
                 if($_total > $cash_total){
-                    $loss = $cash_total - $_total;
+                    $excess = $cash_total - $_total;
                 }else{
-                    $loss =0;
+                    $loss = $cash_total - $_total;
                 }
+
 
 
             }
