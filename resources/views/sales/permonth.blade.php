@@ -172,6 +172,23 @@
 
                 $cash_total = ($thousand * 1000) + ($fivehundred * 500) + ($hundred * 100) + ($fifty * 50) + ($twenty * 20) + $coins;
 
+                $_total = ($with_receipt_total + $without_receipt_total + $credit_total ) - $expense_total;
+
+
+                $excess = 0;
+                if($_total < $cash_total){
+                    $excess = $cash_total - $_total;
+                }else{
+                    $excess =0;
+                }
+
+                $loss = 0;
+                if($_total > $cash_total){
+                    $loss = $cash_total - $_total;
+                }else{
+                    $loss =0;
+                }
+
 
             }
 
@@ -212,20 +229,31 @@
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td>{{ 'P '.number_format($cash_total,2) }}></td>
+                        <td>{{ 'P '.number_format($_total,2) }}</td>
                     </tr>
                     <tr>
                         <td>CASH COMPUTATION</td>
-                        <td></td>
+                        <td>{{ 'P '.number_format($cash_total,2) }}</td>
                     </tr>
                     <tr>
                         <td>EXCESS</td>
                         <td>
+                            @if($excess == 0)
+                                {{ 'P '.number_format($excess,2) }}
+                            @else
+                                <b>{{ 'P '.number_format($excess,2) }}</b>
+                            @endif
                         </td>
                     </tr>
                     <tr>
                         <td>LOSS</td>
                         <td>
+                            @if($loss == 0)
+                                {{ 'P '.number_format($loss,2) }}
+                            @else
+                                <b style="color: red">{{ 'P '.number_format($loss,2) }}</b>
+                            @endif
+
                         </td>
                     </tr>
                     <tr>
