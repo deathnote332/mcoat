@@ -178,7 +178,7 @@
                 $excess = 0;
                 $loss = 0;
                 if($_total > $cash_total){
-                    $excess = $cash_total - $_total;
+                    $excess =  $_total - $cash_total;
                 }else{
                     $loss = $cash_total - $_total;
                 }
@@ -224,7 +224,7 @@
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td>{{ 'P '.number_format($_total,2) }}</td>
+                        <td><b>{{ 'P '.number_format($_total,2) }}</b></td>
                     </tr>
                     <tr>
                         <td>CASH COMPUTATION</td>
