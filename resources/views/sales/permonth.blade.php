@@ -227,7 +227,7 @@
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td><b>{{'P '.number_format($total,2)  }}</b></td>
+                        <td><b>{{'P '.number_format($_total,2)  }}</b></td>
                     </tr>
                     <tr>
                         <td>CASH COMPUTATION</td>
