@@ -137,7 +137,7 @@
 
                 //total
 
-                $total = $with_receipt_total + $without_receipt_total + $credit_total + $expense_total;
+
 
                 //cash computation
 
@@ -171,6 +171,7 @@
                 }
 
                 $cash_total = ($thousand * 1000) + ($fivehundred * 500) + ($hundred * 100) + ($fifty * 50) + ($twenty * 20) + $coins;
+                $total = $with_receipt_total + $without_receipt_total + $credit_total + $expense_total;
 
 
                 $excess = 0;
