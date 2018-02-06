@@ -172,6 +172,7 @@
 
                 $cash_total = ($thousand * 1000) + ($fivehundred * 500) + ($hundred * 100) + ($fifty * 50) + ($twenty * 20) + $coins;
 
+                dd($cash_total);
             }
 
         ?>
@@ -211,7 +212,7 @@
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td><b></b></td>
+                        <td><b>{{  }}</b></td>
                     </tr>
                     <tr>
                         <td>CASH COMPUTATION</td>
