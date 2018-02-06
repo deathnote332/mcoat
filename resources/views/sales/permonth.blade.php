@@ -174,6 +174,20 @@
                 $cash_total = ($thousand * 1000) + ($fivehundred * 500) + ($hundred * 100) + ($fifty * 50) + ($twenty * 20) + $coins;
 
 
+                $excess = 0;
+                if($total < $cash_total){
+                    $excess = $cash_total - $total;
+                }else{
+                    $excess =0;
+                }
+
+                $loss = 0;
+                if($total > $cash_total){
+                    $loss = $cash_total - $total;
+                }else{
+                    $loss =0;
+                }
+
             }
 
         ?>
@@ -222,20 +236,20 @@
                     <tr>
                         <td>EXCESS</td>
                         <td>
-                            @if($total < $cash_total)
-                                <b>{{ 'P '.number_format(($cash_total - $total),2) }}</b>
+                            @if($excess == 0)
+                                {{ 'P '.number_format($excess,2) }}
                             @else
-                                {{ 'P '.number_format((0),2) }}
+                                <b>{{ 'P '.number_format($excess,2) }}</b>
                             @endif
                         </td>
                     </tr>
                     <tr>
                         <td>LOSS</td>
                         <td>
-                            @if($total > $cash_total)
-                                <b style="color: red">{{ 'P '.number_format(($total- $cash_total),2) }}</b>
-                                @else
-                                {{ 'P '.number_format((0),2) }}
+                            @if($loss == 0)
+                                {{ 'P '.number_format($loss,2) }}
+                            @else
+                                <b style="color: red">{{ 'P '.number_format($loss,2) }}</b>
                             @endif
                         </td>
                     </tr>
