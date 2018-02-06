@@ -215,7 +215,7 @@
                     </tr>
                     <tr>
                         <td>CASH COMPUTATION</td>
-                        <td>{{ 'P '.number_format($cash_total,2) }}</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>EXCESS</td>
