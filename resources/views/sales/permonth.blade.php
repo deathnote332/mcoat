@@ -171,19 +171,19 @@
                 }
 
                 $cash_total = ($thousand * 1000) + ($fivehundred * 500) + ($hundred * 100) + ($fifty * 50) + ($twenty * 20) + $coins;
-                $total = $with_receipt_total + $without_receipt_total + $credit_total + $expense_total;
+                $_total = $with_receipt_total + $without_receipt_total + $credit_total + $expense_total;
 
 
                 $excess = 0;
-                if($total < $cash_total){
-                    $excess = $cash_total - $total;
+                if($_total < $cash_total){
+                    $excess = $cash_total - $_total;
                 }else{
                     $excess =0;
                 }
 
                 $loss = 0;
                 if($total > $cash_total){
-                    $loss = $cash_total - $total;
+                    $loss = $cash_total - $_total;
                 }else{
                     $loss =0;
                 }
