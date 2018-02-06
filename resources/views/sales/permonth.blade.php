@@ -102,7 +102,6 @@
             $without_receipt_total = 0;
             $credit_total = 0;
             $expense_total = 0;
-            $total = 0;
             if($datas != null){
 
                 $data = json_decode($datas->data,TRUE);
@@ -141,7 +140,7 @@
                 $total = $with_receipt_total + $without_receipt_total + $credit_total + $expense_total;
 
                 //cash computation
-                $cash_total = 0;
+
                 $thousand = 0;
                 $fivehundred = 0;
                 $hundred = 0;
