@@ -72,22 +72,6 @@
                     <div class="panel-heading">
                         <div class="row">
 
-                            <?php
-                            $total = 0;
-                            $bank_depo = 0;
-                            $taken = 0;
-                            $expense = 0;
-
-                            $total_sales = \App\MonthSales::where('branch_id',$branch->id)->where(DB::raw('MONTH(_date)'),$i)->where(DB::raw('YEAR(_date)'),2018)->get();
-
-                            foreach ($total_sales as $key=>$data_val){
-                                $total  = $total + json_decode($data_val->data,TRUE)['total_amount'];
-                                $bank_depo  = $bank_depo + json_decode($data_val->data,TRUE)['deposit_amount'];
-                                $taken  = $taken + json_decode($data_val->data,TRUE)['taken_amount'];
-                                $expense  = $expense + json_decode($data_val->data,TRUE)['expenses_amount'];
-                            }
-                            ?>
-
                             <div class="col-md-12">
                                 <h3>{{ date('F', mktime(0, 0, 0, $i, 1)) }}</h3>
                                <table width="100%">
@@ -95,19 +79,19 @@
                                         <tr>
                                             <td><div>Total Sales</div></td>
 
-                                            <td>{{'P '.number_format($total,2)}}</td>
+                                            <td>{{'P '.number_format(100,2)}}</td>
                                         </tr>
                                         <tr>
                                             <td><div>Total Bank Deposit</div></td>
-                                            <td>{{'P '.number_format($bank_depo,2)}}</td>
+                                            <td>{{'P '.number_format(100,2)}}</td>
                                         </tr>
                                         <tr>
                                             <td><div>Total Taken</div></td>
-                                            <td>{{'P '.number_format($taken,2)}}</td>
+                                            <td>{{'P '.number_format(100,2)}}</td>
                                         </tr>
                                         <tr>
                                             <td><div>Total Expenses</div></td>
-                                            <td>{{'P '.number_format($expense,2)}}</td>
+                                            <td>{{'P '.number_format(100,2)}}</td>
                                         </tr>
                                    </tbody>
                                </table>

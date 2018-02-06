@@ -142,8 +142,10 @@ return array(
                 $theme->asset()->usePath()->add('raphael.min.js', 'js/raphael.min.js');
                 $theme->asset()->usePath()->add('morris.min.js', 'js/morris.min.js');
 
-                $theme->asset()->usePath()->add('jquery.steps.js', 'js/jquery.steps.js');
-                $theme->asset()->usePath()->add('jquery.steps.min.js', 'js/jquery.steps.min.js');
+                $theme->asset()->usePath()->add('jquery-steps.min.js', 'js/jquery-steps.min.js');
+                $theme->asset()->usePath()->add('jquery-steps.css', 'css/jquery-steps.css');
+
+                $theme->asset()->usePath()->add('jquery.easyPaginate.js', 'js/jquery.easyPaginate.js');
 
 
 

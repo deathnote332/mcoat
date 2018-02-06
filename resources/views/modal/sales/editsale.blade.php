@@ -83,7 +83,7 @@
         display: inline-block;
         text-align: right;
     }
-    
+
     .wizard.vertical>.actions>ul>li {
         margin: 0 0 0 1em;
         display: inline-block;
@@ -125,6 +125,37 @@
         padding: 10px;
         font-weight: 600;
     }
+
+
+    /*steps*/
+
+    #steps{
+        padding-bottom: 20px;
+    }
+
+    .step-steps{
+        width: 30%;
+        float: left;
+        display: block !important;
+    }
+
+    .step-app > .step-content{
+        width: 65%;
+        float: left;
+        border: none;
+    }
+
+    .step-footer{
+        position: absolute;
+        bottom: 0;
+        right:30px;
+    }
+
+
+    .step-app > .step-steps > li > a{
+        padding: 15px;
+        font-size: 14px;
+    }
 </style>
 <!-- Modal -->
 <div class="modal fade" id="edit-day-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -148,7 +179,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    <h5 class="modal-title" id="myModalLabel">DATE: <strong> Jan 1, 2018</strong></h5>
+                    <h5 class="modal-title" id="myModalLabel">DATE: <strong id="_date"> Jan 1, 2018</strong></h5>
 
                 </div>
 
@@ -157,164 +188,159 @@
             <form id="daily-edit-sale">
                 <div class="modal-body">
                     <div id="steps">
-                        <h3>With Receipt</h3>
-                        <section>
-                            <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
-                                <button type="button" class="btn btn-primary">Add more</button>
-                            </div>
-                            @for($i=1;$i<=5;$i++)
-
+                        <div class="step-app clearfix" >
+                            <ul class="step-steps clearfix">
+                                <li><a href="#step1">1. With Receipt</a></li>
+                                <li><a href="#step2">2. Without Receipt</a></li>
+                                <li><a href="#step3">3. Credit Collection</a></li>
+                                <li><a href="#step4">4. Expenses</a></li>
+                                <li><a href="#step5">5. Cash Breakdown</a></li>
+                                <li><a href="#step6">6. Taken</a></li>
+                            </ul>
+                            <div class="step-content clearfix">
+                                <div class="step-tab-panel" id="step1">
+                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                        <button type="button" class="btn btn-primary" id="add-w-rec">Add more</button>
+                                    </div>
                                     <div class="row margin_top">
+
                                         <div class="col-md-1 ">
-                                            <div class="number-ctr">{{$i}}.</div>
+                                            <div class="number-ctr">1.</div>
                                         </div>
                                         <div class="col-md-6">
 
-                                            <input type="text" class="form-control" name="rec_no" placeholder="Receipt no.">
+                                            <input type="text" class="form-control" name="with_receipt[0][rec_no]" placeholder="Receipt no.">
                                         </div>
                                         <div class="col-md-5">
-                                            <input type="text" class="form-control" name="rec_no" placeholder="Amount">
+                                            <input type="text" class="form-control" name="with_receipt[0][rec_amount]" placeholder="Amount">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="step-tab-panel" id="step2">
+                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                        <button type="button" class="btn btn-primary" id="add-wo-rec">Add more</button>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-1">
+                                            <div class="number-ctr">1.</div>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <input type="text" class="form-control" name="without_receipt[0][amount]" placeholder="Amount">
                                         </div>
                                     </div>
-                                @endfor
+                                </div>
+                                <div class="step-tab-panel" id="step3">
+                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                        <button type="button" class="btn btn-primary" id="add-credit">Add more</button>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-1">
+                                            <div class="number-ctr">1.</div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="credit[0][company]" placeholder="Company">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="credit[0][bank]" placeholder="Bank Number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" name="credit[0][amount]" placeholder="Amount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-tab-panel" id="step4">
+                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                        <button type="button" class="btn btn-primary" id="add-expense">Add more</button>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-1">
+                                            <div class="number-ctr">1.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" name="expense[0][details]" placeholder="Details">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" name="expense[0][amount]" placeholder="Amount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-tab-panel" id="step5">
+                                    <div class="row margin_top">
+                                        <div class="col-md-2">
+                                            <div class="number-ctr">1000*</div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="amount_1000" placeholder="Pieces">
+                                        </div>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-2">
+                                            <div class="number-ctr">500*</div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="amount_500" placeholder="Pieces">
+                                        </div>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-2">
+                                            <div class="number-ctr">100*</div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="amount_100" placeholder="Pieces">
+                                        </div>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-2">
+                                            <div class="number-ctr">50*</div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="amount_50" placeholder="Pieces">
+                                        </div>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-2">
+                                            <div class="number-ctr">20*</div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="amount_20" placeholder="Pieces">
+                                        </div>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-2">
+                                            <div class=" number-ctr">Coins* </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" name="amount_coins" placeholder="Amount">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        </section>
-                        <h3>Without Receipt</h3>
-                        <section>
-                            <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
-                                <button type="button" class="btn btn-primary">Add more</button>
-                            </div>
+                                <div class="step-tab-panel" id="step6">
+                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                        <button type="button" class="btn btn-primary" id="add-taken">Add more</button>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-1 ">
+                                            <div class="number-ctr">1.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" name="taken[0][name]" placeholder="Name">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" name="taken[0][amount]" placeholder="Amount">
+                                        </div>
+                                    </div>
+                                </div>
 
-                            @for($i=1;$i<=5;$i++)
-
-                                <div class="row margin_top">
-                                    <div class="col-md-1 number-ctr">
-                                        <span>{{$i}}.</span>
-                                    </div>
-                                    <div class="col-md-11">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                    </div>
-                                </div>
-                            @endfor
-                        </section>
-                        <h3>Credit Collection</h3>
-                        <section>
-                            <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
-                                <button type="button" class="btn btn-primary">Add more</button>
                             </div>
-
-                            @for($i=1;$i<=5;$i++)
-
-                                <div class="row margin_top">
-                                    <div class="col-md-1 number-ctr">
-                                        <span>{{$i}}.</span>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Company">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Bank Number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                    </div>
-                                </div>
-                            @endfor
-                        </section>
-                        <h3>Expenses</h3>
-                        <section>
-                            <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
-                                <button type="button" class="btn btn-primary">Add more</button>
+                            <div class="step-footer clearfix">
+                                <button data-direction="prev">Previous</button>
+                                <button data-direction="next">Next</button>
+                                <button data-direction="finish">Finish</button>
                             </div>
-
-                            @for($i=1;$i<=5;$i++)
-
-                                <div class="row margin_top">
-                                    <div class="col-md-1 number-ctr">
-                                        <span>{{$i}}.</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Details">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                    </div>
-                                </div>
-                            @endfor
-                        </section>
-                        <h3>Cash Breakdown</h3>
-                        <section>
-                            <div class="row margin_top">
-                                <div class="col-md-1 number-ctr">
-                                    <span>1000*</span>
-                                </div>
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                </div>
-                            </div>
-                            <div class="row margin_top">
-                                <div class="col-md-1 number-ctr">
-                                    <span>500*</span>
-                                </div>
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                </div>
-                            </div>
-                            <div class="row margin_top">
-                                <div class="col-md-1 number-ctr">
-                                    <span>100*</span>
-                                </div>
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                </div>
-                            </div>
-                            <div class="row margin_top">
-                                <div class="col-md-1 number-ctr">
-                                    <span>50*</span>
-                                </div>
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                </div>
-                            </div>
-                            <div class="row margin_top">
-                                <div class="col-md-1 number-ctr">
-                                    <span>20*</span>
-                                </div>
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                </div>
-                            </div>
-                            <div class="row margin_top">
-                                <div class="col-md-1 number-ctr">
-                                    <span>Coins*</span>
-                                </div>
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                </div>
-                            </div>
-                        </section>
-                        <h3>Taken List</h3>
-                        <section>
-                            <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
-                                <button type="button" class="btn btn-primary">Add more</button>
-                            </div>
-                            @for($i=1;$i<=5;$i++)
-
-                                <div class="row margin_top">
-                                    <div class="col-md-1 number-ctr">
-                                        <span>{{$i}}.</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Name">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <input type="text" class="form-control" name="rec_no" placeholder="Amount">
-                                    </div>
-                                </div>
-                            @endfor
-                        </section>
+                        </div>
                     </div>
-
                 </div>
             </form>
 
@@ -326,16 +352,121 @@
 <!-- /.modal -->
 <script>
     $(document).ready(function () {
-        $("#steps").steps({
-            headerTag: "h3",
-            bodyTag: "section",
-            stepsOrientation: "vertical",
-            enableAllSteps: true,
-            onFinished: function (event, currentIndex)
-            {
 
-                alert()
+        $("#steps").steps({
+            onInit: function () {
+
+
+
+
+            },
+            onFinish: function () {
+                saveDailyAdmin($('#_date').text())
             }
         });
+
+
+        $('.close').on('click',function () {
+            $("#steps").steps().destroy;
+        })
+
+
+
+
+        function saveDailyAdmin(day) {
+            var BASEURL = $('#baseURL').val();
+
+            swal.queue([{
+                title: 'Are you sure',
+                text: "You want to save this record.",
+                type:'warning',
+                showLoaderOnConfirm: true,
+                showCancelButton: true,
+                allowOutsideClick: false,
+                closeOnConfirm: false,
+                confirmButtonText: 'Okay',
+                confirmButtonColor: "#DD6B55",
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        var data_save = $('#daily-edit-sale').serializeArray();
+                        data_save.push({ name : "_token", value: $('meta[name="csrf_token"]').attr('content')})
+                        data_save.push({ name : "_date", value: day })
+                        data_save.push({ name : "branch_id", value: $('#branch_id').val() })
+                        $.ajax({
+                            url:BASEURL+"/admin/editsale",
+                            type:'POST',
+                            data: data_save,
+                            success: function(data){
+                                swal.insertQueueStep(data)
+                                resolve()
+                                $('#edit-day-modal').modal('hide')
+                            }
+                        });
+                    })
+                }
+            }])
+        }
+
+
+        //add with receipt
+        $('body').delegate('#add-w-rec','click',function () {
+
+
+            var ctr = $('#step1').find('.margin_top').length + 1
+
+            $('#step1').append('<div class="row margin_top">' +
+                '<div class="col-md-1 ">' +
+                '<div class="number-ctr">'+ ctr +'.</div>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                '<input type="text" class="form-control" name="with_receipt['+ (ctr - 1)+'][rec_no]" placeholder="Receipt no."></div>' +
+                '<div class="col-md-5">' +
+                '<input type="text" class="form-control" name="with_receipt['+ (ctr - 1)+'][rec_amount]" placeholder="Amount"></div>' +
+                '</div>');
+        })
+        //add wo receipt
+        $('body').delegate('#add-wo-rec','click',function () {
+            var ctr = $('#step2').find('.margin_top').length + 1
+            $('#step2').append('<div class="row margin_top">' +
+                '<div class="col-md-1">' +
+                '<div class="number-ctr">'+ ctr +'.</div></div>' +
+                '<div class="col-md-11">' +
+                '<input type="text" class="form-control" name="without_receipt['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '</div>')
+        })
+        //add credit
+        $('body').delegate('#add-credit','click',function () {
+            var ctr = $('#step3').find('.margin_top').length + 1
+            $('#step3').append('<div class="row margin_top">' +
+                '<div class="col-md-1">' +
+                '<div class="number-ctr">' + ctr +'.</div></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][company]" placeholder="Company"></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][bank]" placeholder="Bank Number"></div>' +
+                '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '</div>')
+        })
+        //add expense
+        $('body').delegate('#add-expense','click',function () {
+            var ctr = $('#step4').find('.margin_top').length + 1
+            $('#step4').append('<div class="row margin_top">' +
+                '<div class="col-md-1 "><div class="number-ctr">' + ctr +'.</div></div>' +
+                '<div class="col-md-6"><input type="text" class="form-control" name="expense['+ (ctr - 1)+'][details]" placeholder="Details"></div>' +
+                '<div class="col-md-5"><input type="text" class="form-control" name="expense['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '</div>')
+
+        })
+        //add taken
+        $('body').delegate('#add-taken','click',function () {
+            var ctr = $('#step6').find('.margin_top').length + 1
+            $('#step6').append('<div class="row margin_top">' +
+                '<div class="col-md-1"><div class="number-ctr">'+ctr+'.</div></div>' +
+                '<div class="col-md-6"><input type="text" class="form-control" name="taken['+ (ctr - 1)+'][name]" placeholder="Name"></div>' +
+                '<div class="col-md-5"><input type="text" class="form-control" name="taken['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '</div>')
+        })
+
+
+
+
     })
 </script>
