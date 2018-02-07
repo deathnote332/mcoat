@@ -36,7 +36,6 @@
                         <div class="row">
 
 
-
                             <?php
                             $total = 0;
                             $bank_depo = 0;

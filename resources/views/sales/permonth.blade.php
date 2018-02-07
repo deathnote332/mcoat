@@ -2,7 +2,11 @@
 <style>
 
 
-
+    h4{
+        margin: 0;
+        font-weight: 600;
+        font-size: 14px;
+    }
 
     h1{
         text-align:  center;
@@ -102,6 +106,11 @@
             $without_receipt_total = 0;
             $credit_total = 0;
             $expense_total = 0;
+            $_total = 0;
+            $cash_total = 0;
+            $excess = 0;
+            $loss = 0;
+
             if($datas != null){
 
                 $data = json_decode($datas->data,TRUE);
@@ -147,7 +156,7 @@
                 $fifty = 0;
                 $twenty = 0;
                 $coins = 0;
-                if($data['amount_1000'] != null){
+                if($data['amount_1000'] != null || $data['amount_1000'] != ''){
                     $thousand = ($data['amount_1000'] == '' ? 0 : $data['amount_1000']);
 
                 }
@@ -170,32 +179,31 @@
                     $coins = ($data['amount_coins'] == '' ? 0 : $data['amount_coins']);
                 }
 
-                $cash_total = ($thousand * 1000) + ($fivehundred * 500) + ($hundred * 100) + ($fifty * 50) + ($twenty * 20) + $coins;
 
                 $_total = ($with_receipt_total + $without_receipt_total + $credit_total ) - $expense_total;
 
+                $cash_total = ($thousand * 1000) + ($fivehundred * 500) + ($hundred * 100) + ($fifty * 50) + ($twenty * 20) + $coins;
 
-                $excess = 0;
-                $loss = 0;
+
                 if($_total > $cash_total){
-                    $excess =  $_total - $cash_total;
-                }else{
                     $loss = $cash_total - $_total;
-                }
+                }else{
 
+                    $excess = $cash_total- $_total ;
+                }
 
 
             }
 
         ?>
-        <div class="col-md-6 date-sales">
+        <div class="col-md-4 date-sales">
 
             <div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <h4>{{date('F', mktime(0, 0, 0, $month, 1))}} {{$i}}, {{$year}} </h4>
 
                 </div>
-                <div class="col-md-4 text-right">
+                <div class="col-md-6 text-right">
                     <button class="btn btn-warning" id="edit-modal" data-data="{{ ($datas != '') ? $datas->data :'' }}" data-_date="{{$_date}}" data-year="{{ $year }}" data-month="{{ $month }}" data-day="{{ $i }}"
                     >Edit</button>
                     <button class="btn btn-primary">View</button>
@@ -224,7 +232,7 @@
                     </tr>
                     <tr>
                         <td>TOTAL</td>
-                        <td><b>{{ 'P '.number_format($_total,2) }}</b></td>
+                        <td>{{ 'P '.number_format($_total,2) }}</td>
                     </tr>
                     <tr>
                         <td>CASH COMPUTATION</td>
@@ -236,7 +244,7 @@
                             @if($excess == 0)
                                 {{ 'P '.number_format($excess,2) }}
                             @else
-                                <b>{{ 'P '.number_format($excess,2) }}</b>
+                                <b style="color: blue">{{ 'P '.number_format($excess,2) }}</b>
                             @endif
                         </td>
                     </tr>
@@ -248,13 +256,9 @@
                             @else
                                 <b style="color: red">{{ 'P '.number_format($loss,2) }}</b>
                             @endif
-
                         </td>
                     </tr>
-                    <tr>
-                        <td>TOTAL BALANCE</td>
-                        <td>100</td>
-                    </tr>
+
                     </tbody>
                 </table>
 
@@ -268,7 +272,7 @@
 
         $('#paginate').easyPaginate({
             paginateElement: 'div.date-sales',
-            elementsPerPage: 6,
+            elementsPerPage: 12,
         });
 
 
@@ -289,14 +293,14 @@
             $("#steps").steps().destroy
 
 
-
-
-
         })
 
 
         $('#back').on('click',function () {
+            var BASEURL = $('#baseURL').val();
+
             if($('#user_type').val() == 1){
+
                 window.location = BASEURL + '/admin/branch/' + $('#branch_id').val()
             }else{
                 window.location = BASEURL + '/user/sales'
@@ -406,12 +410,25 @@
 
             })
 
+            if(json['return'] != null){
+                $('#step5').find('.margin_top').remove()
+            }
+            $.each(json['return'],function (index,value){
+
+                $('#step5').append('<div class="row margin_top">' +
+                    '<div class="col-md-1 "><div class="number-ctr">' + ( index + 1) +'.</div></div>' +
+                    '<div class="col-md-6"><input type="text" class="form-control" name="return['+ index+'][name]" placeholder="Name" value="'+ value['details'] +'"></div>' +
+                    '<div class="col-md-5"><input type="text" class="form-control" name="return['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
+                    '</div>')
+
+            })
+
             if(json['taken'] != null){
-                $('#step6').find('.margin_top').remove()
+                $('#step7').find('.margin_top').remove()
             }
             $.each(json['taken'],function (index,value){
 
-                $('#step6').append('<div class="row margin_top">' +
+                $('#step7').append('<div class="row margin_top">' +
                     '<div class="col-md-1"><div class="number-ctr">'+ (index + 1) +'.</div></div>' +
                     '<div class="col-md-6"><input type="text" class="form-control" name="taken['+ index +'][name]" placeholder="Name" value="'+ value['name'] +'"></div>' +
                     '<div class="col-md-5"><input type="text" class="form-control" name="taken['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
@@ -458,9 +475,16 @@
                 '<div class="col-md-5"><input type="text" class="form-control" name="expense[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
+            $('#step5').find('.margin_top').remove()
+            $('#step5').append('<div class="row margin_top">' +
+                '<div class="col-md-1 "><div class="number-ctr">1.</div></div>' +
+                '<div class="col-md-6"><input type="text" class="form-control" name="return[0][name]" placeholder="a" value=""></div>' +
+                '<div class="col-md-5"><input type="text" class="form-control" name="return[0][amount]" placeholder="Amount" value=""></div>' +
+                '</div>')
 
-            $('#step6').find('.margin_top').remove()
-            $('#step6').append('<div class="row margin_top">' +
+
+            $('#step7').find('.margin_top').remove()
+            $('#step7').append('<div class="row margin_top">' +
                 '<div class="col-md-1"><div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="taken[0][name]" placeholder="Name" value=""></div>' +
                 '<div class="col-md-5"><input type="text" class="form-control" name="taken[0][amount]" placeholder="Amount" value=""></div>' +

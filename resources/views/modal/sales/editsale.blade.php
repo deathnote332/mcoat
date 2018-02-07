@@ -1,117 +1,5 @@
 <style>
-    .steps{
-        float: left;
-        width: 30%;
-    }
 
-    .content{
-        display: inline;
-        float: left;
-        margin: 0 2.5% .5em 2.5%;
-        width: 65%;
-    }
-
-
-    .wizard ul, .tabcontrol ul {
-        list-style: none!important;
-        padding: 0;
-        margin: 0;
-    }
-
-
-    .wizard.vertical>.steps>ul>li {
-        float: none;
-        width: 100%;
-    }
-
-
-
-    .wizard>.steps .disabled a, .wizard>.steps .disabled a:hover, .wizard>.steps .disabled a:active {
-        background: #eee;
-        color: #aaa;
-        cursor: default;
-    }
-
-
-
-    .wizard>.steps .current a, .wizard>.steps .current a:hover, .wizard>.steps .current a:active {
-        background: #2184be;
-        color: #fff;
-        cursor: default;
-    }
-
-    .wizard>.steps .done a, .wizard>.steps .done a:hover, .wizard>.steps .done a:active {
-        background: #9dc8e2;
-        color: #fff;
-    }
-
-
-
-    .wizard>.steps a, .wizard>.steps a:hover, .wizard>.steps a:active {
-        display: block;
-        width: auto;
-        margin: 0 .5em .5em;
-        padding: 1em 1em;
-        text-decoration: none;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
-
-
-
-
-
-    .wizard>.steps .current-info, .tabcontrol>.steps .current-info {
-        position: absolute;
-        left: -999em;
-    }
-    .number {
-        font-size: 1.429em;
-    }
-
-    .wizard.vertical>.actions {
-        display: inline;
-        float: right;
-        margin: 0 2.5%;
-        width: 95%;
-        position: relative;
-        text-align: right;
-    }
-
-    .wizard>.actions>ul {
-        display: inline-block;
-        text-align: right;
-    }
-
-    .wizard.vertical>.actions>ul>li {
-        margin: 0 0 0 1em;
-        display: inline-block;
-    }
-
-    .wizard>.content>.title, .tabcontrol>.content>.title {
-        position: absolute;
-        left: -999em;
-    }
-
-    .wizard>.actions a, .wizard>.actions a:hover, .wizard>.actions a:active {
-        background: #2184be;
-        color: #fff;
-        display: block;
-        padding: .5em 1em;
-        text-decoration: none;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
-
-
-
-
-    .wizard>.actions .disabled a, .wizard>.actions .disabled a:hover, .wizard>.actions .disabled a:active {
-        background: #eee;
-        color: #aaa;
-    }
 
     .margin_top{
         margin-top: 8px;
@@ -194,8 +82,9 @@
                                 <li><a href="#step2">2. Without Receipt</a></li>
                                 <li><a href="#step3">3. Credit Collection</a></li>
                                 <li><a href="#step4">4. Expenses</a></li>
-                                <li><a href="#step5">5. Cash Breakdown</a></li>
-                                <li><a href="#step6">6. Taken</a></li>
+                                <li><a href="#step5">5. Item Returns</a></li>
+                                <li><a href="#step6">6. Cash Breakdown</a></li>
+                                <li><a href="#step7">7. Taken</a></li>
                             </ul>
                             <div class="step-content clearfix">
                                 <div class="step-tab-panel" id="step1">
@@ -266,6 +155,22 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step5">
+                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                        <button type="button" class="btn btn-primary" id="add-return">Add more</button>
+                                    </div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-1">
+                                            <div class="number-ctr">1.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" name="return[0][name]" placeholder="Name">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" name="return[0][amount]" placeholder="Amount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="step-tab-panel" id="step6">
                                     <div class="row margin_top">
                                         <div class="col-md-2">
                                             <div class="number-ctr">1000*</div>
@@ -316,7 +221,7 @@
                                     </div>
                                 </div>
 
-                                <div class="step-tab-panel" id="step6">
+                                <div class="step-tab-panel" id="step7">
                                     <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-taken">Add more</button>
                                     </div>
@@ -455,10 +360,22 @@
                 '</div>')
 
         })
+
+        //add return
+        $('body').delegate('#add-return','click',function () {
+            var ctr = $('#step5').find('.margin_top').length + 1
+            $('#step5').append('<div class="row margin_top">' +
+                '<div class="col-md-1 "><div class="number-ctr">' + ctr +'.</div></div>' +
+                '<div class="col-md-6"><input type="text" class="form-control" name="return['+ (ctr - 1)+'][name]" placeholder="Name"></div>' +
+                '<div class="col-md-5"><input type="text" class="form-control" name="return['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '</div>')
+
+        })
+
         //add taken
         $('body').delegate('#add-taken','click',function () {
-            var ctr = $('#step6').find('.margin_top').length + 1
-            $('#step6').append('<div class="row margin_top">' +
+            var ctr = $('#step7').find('.margin_top').length + 1
+            $('#step7').append('<div class="row margin_top">' +
                 '<div class="col-md-1"><div class="number-ctr">'+ctr+'.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="taken['+ (ctr - 1)+'][name]" placeholder="Name"></div>' +
                 '<div class="col-md-5"><input type="text" class="form-control" name="taken['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
