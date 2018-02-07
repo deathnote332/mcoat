@@ -37,81 +37,67 @@
         margin-bottom: 20px !important;
     }
 
+    #year-next-prev div{
+        display: inline-block;
+    }
+    #previous-month,#next-month{
+        cursor: pointer;
+        font-size: 18px;
+        padding: 10px 20px;
+        color: #286090;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
         <a id="back"><h3><span> << Back </span></h3></a>
     </div>
-    <div class="col-lg-12 text-center">
-        <h1 class="page-header">{{ $branch->name }} <span class="year">2018</span> </h1>
+
+
+    <div class="col-lg-12 text-center" id="year-next-prev">
+        <div id="previous-month"> <i class="fa fa-angle-double-left"></i> PREVIOUS </div>
+        <div><h1 class="page-header">{{ $branch->name }} <span class="year">2018</span> </h1></div>
+        <div id="next-month"> NEXT <i class="fa fa-angle-double-right"></i>  </div>
+        <input  type="hidden" id="branch" value=" {{ $branch->id }}" />
     </div>
     <!-- /.col-lg-12 -->
 </div>
 <div class="card-container">
-
     <div class="row">
-        @for($i=1;$i<= date('m') ;$i++)
-            <div class="col-md-4 table-computation">
-                <div class="col-md-6">
-                    <h3>{{ date('F', mktime(0, 0, 0, $i, 1)) }}</h3>
-                </div>
-
-                <div class="col-md-6 text-right">
-                    <button type="button" class="btn btn-primary view-details" data-month="{{ $i }}" data-branch="{{ $branch->id }}">View all</button>
-                </div>
-
-                <table width="100%" >
-                    <tbody>
-                    <tr >
-                        <td>WITH RECEIPT</td>
-                        <td>{{ 'P '.number_format(1000000,2) }} (+)</td>
-                    </tr>
-                    <tr>
-                        <td>WITHOUT RECEIPT</td>
-                        <td>{{ 'P '.number_format(0,2) }} (+)</td>
-                    </tr>
-                    <tr>
-                        <td>CREDIT COLLECTION</td>
-                        <td>{{ 'P '.number_format(0,2) }} (+)</td>
-                    </tr>
-                    <tr>
-                        <td>EXPENSES</td>
-                        <td>{{ 'P '.number_format(0,2) }} (-)</td>
-                    </tr>
-                    <tr>
-                        <td>TOTAL</td>
-                        <td>{{ 'P '.number_format(0,2) }}</td>
-                    </tr>
-                    <tr>
-                        <td>CASH COMPUTATION</td>
-                        <td>{{ 'P '.number_format(0,2) }}</td>
-                    </tr>
-                    <tr>
-                        <td>EXCESS</td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>LOSS</td>
-                        <td>
-
-                        </td>
-                    </tr>
-
-                    </tbody>
-
-                </table>
-            </div>
-        @endfor
     </div>
-</div>
-
 <script>
 
     var BASEURL = $('#baseURL').val();
 
     $(document).ready(function () {
+
+        loadMonths()
+
+        var current_date = $('.year').text();
+        var now = new Date(current_date);
+
+        var date_now = new Date()
+
+
+        $('#previous-month').click(function(){
+
+            if($('.year').text() > 2014){
+                var past = now.setFullYear(now.getFullYear() -1);
+                $('.year').text(now.getFullYear());
+                loadMonths()
+            }
+        });
+
+
+        $('#next-month').click(function(){
+            if(($('.year').text() < date_now.getFullYear()) ){
+                var future = now.setFullYear(now.getFullYear() +1);
+                $('.year').text(now.getFullYear());
+
+                loadMonths()
+            }
+
+        });
+
 
         $('body').delegate('#back','click',function () {
             window.location = BASEURL + '/admin/branchsales'
@@ -119,9 +105,29 @@
 
         $('body').delegate('.view-details','click',function () {
 
-
             window.location = '/admin/sales/'+ $(this).data('branch') +'/'+$(this).data('month') +'/'+$('.year').text()
         })
+
+
+        function  loadMonths() {
+            $.ajax({
+                url:BASEURL+'/admin/ajaxsale',
+                type:'POST',
+                data: {
+                    _token: $('meta[name="csrf_token"]').attr('content'),
+                    branch: $('#branch').val(),
+                    year: $('.year').text(),
+                },
+                success: function(data){
+                    $('.card-container .row').html(data)
+                }
+            });
+
+
+
+        }
+        
+
 
         var sales = $('#sales-list').DataTable({
             ajax: BASEURL + '/monthlysale',
@@ -144,5 +150,5 @@
             ],
 
         });
-    });d
+    });
 </script>

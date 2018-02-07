@@ -28,9 +28,6 @@
                             $total_sales = \App\MonthSales::where('branch_id',$val->id)->where(DB::raw('YEAR(_date)'),2018)->get();
 
                             ?>
-                            <div>
-                                {{$total}}
-                            </div>
                         </div>
                     </div>
                 </div>

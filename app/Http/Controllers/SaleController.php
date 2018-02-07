@@ -107,4 +107,27 @@ class SaleController extends Controller
 
     }
 
+
+    public function ajaxSalesMonth(Request $request){
+
+
+        if($request->year == date('Y')){
+            $month_count = date('m');
+        }else{
+            if($request->year > date('Y')){
+                $month_count = 0;
+                 abort(503);
+            }elseif($request->year < date('Y')){
+                $month_count = 12;
+            }
+        }
+
+        $data_total = [
+            'branch'=>$request->branch,
+            'year'=>$request->year,
+            'month_count'=>$month_count,
+        ];
+
+        return view('ajax.sales-month',$data_total);
+    }
 }

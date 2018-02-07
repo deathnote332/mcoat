@@ -79,6 +79,8 @@ Route::group(['prefix'=>'admin','middleware' => 'isAdmin'], function(){
 
     Route::post('/editsale', 'SaleController@editDailySale');
 
+    Route::post('/ajaxsale', 'SaleController@ajaxSalesMonth');
+
 });
 
 
