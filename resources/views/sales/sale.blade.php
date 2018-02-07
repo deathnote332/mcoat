@@ -67,6 +67,14 @@
 
     }
 
+    .loader-container{
+        background: #fff;
+        z-index: 999;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+
+    }
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
@@ -87,9 +95,12 @@
     <!-- /.col-lg-12 -->
 </div>
 <div class="card-container">
-    <div class="loader">
+    <div class="loader-container">
+        <div class="loader">
 
+        </div>
     </div>
+
     <div class="row">
 
     </div>
@@ -139,7 +150,7 @@
 
 
         function  loadMonths() {
-            $('.loader').fadeIn()
+            $('.loader-container').fadeIn()
             $.ajax({
                 url:BASEURL+'/admin/ajaxsale',
                 type:'POST',
@@ -149,7 +160,7 @@
                     year: $('.year').text(),
                 },
                 success: function(data){
-                    $('.loader').fadeOut()
+                    $('.loader-container').fadeOut()
                     $('.card-container .row').html(data)
                 }
             });
