@@ -46,6 +46,31 @@
         padding: 10px 20px;
         color: #286090;
     }
+    .card-container{
+        position: relative;
+    }
+
+    .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+        position: absolute;
+        z-index: 999;
+        right: 0;
+        left: 0;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
@@ -62,7 +87,11 @@
     <!-- /.col-lg-12 -->
 </div>
 <div class="card-container">
+    <div class="loader">
+
+    </div>
     <div class="row">
+
     </div>
 <script>
 
@@ -110,6 +139,7 @@
 
 
         function  loadMonths() {
+            $('.loader').fadeIn()
             $.ajax({
                 url:BASEURL+'/admin/ajaxsale',
                 type:'POST',
@@ -119,6 +149,7 @@
                     year: $('.year').text(),
                 },
                 success: function(data){
+                    $('.loader').fadeOut()
                     $('.card-container .row').html(data)
                 }
             });
