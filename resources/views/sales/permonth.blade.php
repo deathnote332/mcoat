@@ -391,9 +391,10 @@
                 $('#step3').append('<div class="row margin_top">' +
                     '<div class="col-md-1">' +
                     '<div class="number-ctr">' + ( index + 1) +'.</div></div>' +
-                    '<div class="col-md-4"><input type="text" class="form-control" name="credit['+ index +'][company]" placeholder="Company" value="'+ value['company'] +'"></div>' +
-                    '<div class="col-md-4"><input type="text" class="form-control" name="credit['+ index +'][bank]" placeholder="Bank Number" value="'+ value['bank'] +'"></div>' +
-                    '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
+                    '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][company]" placeholder="Company" value="'+ value['company'] +'"></div>' +
+                    '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][bank_name]" placeholder="Bank Name" value="'+ value['bank_name'] +'"></div>' +
+                    '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][bank]" placeholder="Bank Number" value="'+ value['bank'] +'"></div>' +
+                    '<div class="col-md-2"><input type="text" class="form-control" name="credit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
             })
 
@@ -417,7 +418,7 @@
 
                 $('#step5').append('<div class="row margin_top">' +
                     '<div class="col-md-1 "><div class="number-ctr">' + ( index + 1) +'.</div></div>' +
-                    '<div class="col-md-6"><input type="text" class="form-control" name="return['+ index+'][name]" placeholder="Name" value="'+ value['details'] +'"></div>' +
+                    '<div class="col-md-6"><input type="text" class="form-control" name="return['+ index+'][name]" placeholder="Name" value="'+ value['name'] +'"></div>' +
                     '<div class="col-md-5"><input type="text" class="form-control" name="return['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
                     '</div>')
 
@@ -462,9 +463,10 @@
             $('#step3').append('<div class="row margin_top">' +
                 '<div class="col-md-1">' +
                 '<div class="number-ctr">1.</div></div>' +
-                '<div class="col-md-4"><input type="text" class="form-control" name="credit[0][company]" placeholder="Company" value=""></div>' +
-                '<div class="col-md-4"><input type="text" class="form-control" name="credit[0][bank]" placeholder="Bank Number" value=""></div>' +
-                '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][amount]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][company]" placeholder="Company" value=""></div>' +
+                '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][bank_name]" placeholder="Bank Name" value=""></div>' +
+                '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][bank]" placeholder="Bank Number" value=""></div>' +
+                '<div class="col-md-2"><input type="text" class="form-control" name="credit[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
 

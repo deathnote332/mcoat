@@ -40,6 +40,7 @@
     }
 
 
+
     .step-app > .step-steps > li > a{
         padding: 15px;
         font-size: 14px;
@@ -127,13 +128,16 @@
                                         <div class="col-md-1">
                                             <div class="number-ctr">1.</div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control" name="credit[0][company]" placeholder="Company">
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control" name="credit[0][bank]" placeholder="Bank Number">
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" name="credit[0][bank_name]" placeholder="Bank Name">
                                         </div>
                                         <div class="col-md-3">
+                                            <input type="text" class="form-control" name="credit[0][bank]" placeholder="Bank Number">
+                                        </div>
+                                        <div class="col-md-2">
                                             <input type="text" class="form-control" name="credit[0][amount]" placeholder="Amount">
                                         </div>
                                     </div>
@@ -240,9 +244,9 @@
 
                             </div>
                             <div class="step-footer clearfix">
-                                <button data-direction="prev">Previous</button>
-                                <button data-direction="next">Next</button>
-                                <button data-direction="finish">Finish</button>
+                                <button data-direction="prev" class="btn btn-primary">Previous</button>
+                                <button data-direction="next" class="btn btn-primary">Next</button>
+                                <button data-direction="finish" class="btn btn-primary">Finish</button>
                             </div>
                         </div>
                     </div>
@@ -267,6 +271,7 @@
             },
             onFinish: function () {
                 saveDailyAdmin($('#_date').text())
+
             }
         });
 
@@ -305,6 +310,7 @@
                                 swal.insertQueueStep(data)
                                 resolve()
                                 $('#edit-day-modal').modal('hide')
+                                location.reload()
                             }
                         });
                     })
@@ -345,9 +351,10 @@
             $('#step3').append('<div class="row margin_top">' +
                 '<div class="col-md-1">' +
                 '<div class="number-ctr">' + ctr +'.</div></div>' +
-                '<div class="col-md-4"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][company]" placeholder="Company"></div>' +
-                '<div class="col-md-4"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][bank]" placeholder="Bank Number"></div>' +
-                '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][company]" placeholder="Company"></div>' +
+                '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][bank_name]" placeholder="Bank Name"></div>' +
+                '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][bank]" placeholder="Bank Number"></div>' +
+                '<div class="col-md-2"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
         })
         //add expense
