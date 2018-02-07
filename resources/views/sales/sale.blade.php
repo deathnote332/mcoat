@@ -51,6 +51,17 @@
     }
 
     .loader {
+        position: absolute;
+        z-index: 999;
+        height: 100%;
+        width: 100%;
+        background: #fff;
+
+    }
+
+    .loader:before{
+        content: '';
+        z-index: 999;
         border: 5px solid #f3f3f3;
         border-top: 5px solid #3498db;
         border-radius: 50%;
@@ -58,21 +69,11 @@
         height: 50px;
         animation: spin 2s linear infinite;
         position: absolute;
-        z-index: 999;
-        right: 0;
-        left: 0;
         margin: auto;
-        top: 0;
+        right: 0;
         bottom: 0;
-
-    }
-
-    .loader-container{
-        background: #fff;
-        z-index: 999;
-        height: 100%;
-        width: 100%;
-        position: absolute;
+        top:0;
+        left:0;
 
     }
     @keyframes spin {
@@ -95,11 +96,9 @@
     <!-- /.col-lg-12 -->
 </div>
 <div class="card-container">
-    <div class="loader-container">
         <div class="loader">
 
         </div>
-    </div>
 
     <div class="row">
 
@@ -150,7 +149,7 @@
 
 
         function  loadMonths() {
-            $('.loader-container').fadeIn()
+            $('.loader').fadeIn()
             $.ajax({
                 url:BASEURL+'/admin/ajaxsale',
                 type:'POST',
@@ -160,7 +159,7 @@
                     year: $('.year').text(),
                 },
                 success: function(data){
-                    $('.loader-container').fadeOut()
+                    $('.loader').fadeOut()
                     $('.card-container .row').html(data)
                 }
             });
