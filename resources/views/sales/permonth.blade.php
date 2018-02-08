@@ -356,7 +356,9 @@
             if(json['with_receipt'] != null){
                 $('#step1').find('.margin_top').remove()
             }
+            var w_total = 0
             $.each(json['with_receipt'],function (index,value){
+                w_total = (w_total + parseFloat(value['rec_amount']))
                 $('[name="with_receipt[][rec_no]"]').eq(index).val(value)
                 $('#step1').append('<div class="row margin_top">' +
                     '<div class="col-md-1 ">' +
@@ -365,21 +367,30 @@
                     '<div class="col-md-6">' +
                     '<input type="text" class="form-control" name="with_receipt['+ index + '][rec_no]" placeholder="Receipt no." value="'+ value['rec_no'] +'"></div>' +
                     '<div class="col-md-5">' +
-                    '<input type="text" class="form-control" name="with_receipt['+ index +'][rec_amount]" placeholder="Amount" value="' + value['rec_amount'] +'"></div>' +
+                    '<input type="text" id="w-amount" class="form-control" name="with_receipt['+ index +'][rec_amount]" placeholder="Amount" value="' + value['rec_amount'] +'"></div>' +
                     '</div>');
+
+                $('#step1').find('.total').text('P '+w_total)
+
+
             })
+
 
             if(json['without_receipt'] != null){
                 $('#step2').find('.margin_top').remove()
             }
+
+            var wo_total = 0
             $.each(json['without_receipt'],function (index,value){
 
+                wo_total = (wo_total + parseFloat(value['amount']))
                 $('#step2').append('<div class="row margin_top">' +
                     '<div class="col-md-1">' +
                     '<div class="number-ctr">'+ (index + 1) +'.</div></div>' +
                     '<div class="col-md-11">' +
-                    '<input type="text" class="form-control" name="without_receipt['+ index+'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
+                    '<input type="text" id="wo-amount" class="form-control" name="without_receipt['+ index+'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
+                $('#step2').find('.total').text('P '+wo_total)
 
 
             })
@@ -394,7 +405,7 @@
                     '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][company]" placeholder="Company" value="'+ value['company'] +'"></div>' +
                     '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][bank_name]" placeholder="Bank Name" value="'+ value['bank_name'] +'"></div>' +
                     '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][bank]" placeholder="Bank Number" value="'+ value['bank'] +'"></div>' +
-                    '<div class="col-md-2"><input type="text" class="form-control" name="credit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
+                    '<div class="col-md-2"><input type="text" id="credit-amount" class="form-control" name="credit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
             })
 
@@ -406,7 +417,7 @@
                 $('#step4').append('<div class="row margin_top">' +
                     '<div class="col-md-1 "><div class="number-ctr">' + ( index + 1) +'.</div></div>' +
                     '<div class="col-md-6"><input type="text" class="form-control" name="expense['+ index+'][details]" placeholder="Details" value="'+ value['details'] +'"></div>' +
-                    '<div class="col-md-5"><input type="text" class="form-control" name="expense['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
+                    '<div class="col-md-5"><input type="text" id="expense-amount" class="form-control" name="expense['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
                     '</div>')
 
             })
@@ -419,7 +430,7 @@
                 $('#step5').append('<div class="row margin_top">' +
                     '<div class="col-md-1 "><div class="number-ctr">' + ( index + 1) +'.</div></div>' +
                     '<div class="col-md-6"><input type="text" class="form-control" name="return['+ index+'][name]" placeholder="Name" value="'+ value['name'] +'"></div>' +
-                    '<div class="col-md-5"><input type="text" class="form-control" name="return['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
+                    '<div class="col-md-5"><input type="text" id="return-amount" class="form-control" name="return['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
                     '</div>')
 
             })
@@ -432,7 +443,7 @@
                 $('#step7').append('<div class="row margin_top">' +
                     '<div class="col-md-1"><div class="number-ctr">'+ (index + 1) +'.</div></div>' +
                     '<div class="col-md-6"><input type="text" class="form-control" name="taken['+ index +'][name]" placeholder="Name" value="'+ value['name'] +'"></div>' +
-                    '<div class="col-md-5"><input type="text" class="form-control" name="taken['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
+                    '<div class="col-md-5"><input type="text" id="taken-amount" class="form-control" name="taken['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
 
             })
@@ -446,7 +457,7 @@
                 '<div class="col-md-6">' +
                 '<input type="text" class="form-control" name="with_receipt[0][rec_no]" placeholder="Receipt no." value=""></div>' +
                 '<div class="col-md-5">' +
-                '<input type="text" class="form-control" name="with_receipt[0][rec_amount]" placeholder="Amount" value=""></div>' +
+                '<input type="text" id="w-amount" class="form-control" name="with_receipt[0][rec_amount]" placeholder="Amount" value=""></div>' +
                 '</div>');
 
 
@@ -455,7 +466,7 @@
                 '<div class="col-md-1">' +
                 '<div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-11">' +
-                '<input type="text" class="form-control" name="without_receipt[0][amount]" placeholder="Amount" value=""></div>' +
+                '<input type="text" id="wo-amount" class="form-control" name="without_receipt[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
 
@@ -466,7 +477,7 @@
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][company]" placeholder="Company" value=""></div>' +
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][bank_name]" placeholder="Bank Name" value=""></div>' +
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][bank]" placeholder="Bank Number" value=""></div>' +
-                '<div class="col-md-2"><input type="text" class="form-control" name="credit[0][amount]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-2"><input type="text" id="credit-amount" class="form-control" name="credit[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
 
@@ -474,14 +485,14 @@
             $('#step4').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="expense[0][details]" placeholder="Details" value=""></div>' +
-                '<div class="col-md-5"><input type="text" class="form-control" name="expense[0][amount]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-5"><input type="text" id="expense-amount" class="form-control" name="expense[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
             $('#step5').find('.margin_top').remove()
             $('#step5').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="return[0][name]" placeholder="Name" value=""></div>' +
-                '<div class="col-md-5"><input type="text" class="form-control" name="return[0][amount]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-5"><input type="text" id="return-amount" class="form-control" name="return[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
 
@@ -489,10 +500,15 @@
             $('#step7').append('<div class="row margin_top">' +
                 '<div class="col-md-1"><div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="taken[0][name]" placeholder="Name" value=""></div>' +
-                '<div class="col-md-5"><input type="text" class="form-control" name="taken[0][amount]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-5"><input type="text" id="taken-amount" class="form-control" name="taken[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
         }
+
+
+        //numeric input
+        $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
 
     }
 

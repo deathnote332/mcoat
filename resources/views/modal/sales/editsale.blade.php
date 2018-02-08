@@ -89,7 +89,8 @@
                             </ul>
                             <div class="step-content clearfix">
                                 <div class="step-tab-panel" id="step1">
-                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6 margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-w-rec">Add more</button>
                                     </div>
                                     <div class="row margin_top">
@@ -108,7 +109,9 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step2">
-                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+
+                                    <div class="col-md-6 margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-wo-rec">Add more</button>
                                     </div>
                                     <div class="row margin_top">
@@ -262,11 +265,11 @@
 <script>
     $(document).ready(function () {
 
+
+
+
         $("#steps").steps({
             onInit: function () {
-
-
-
 
             },
             onFinish: function () {
@@ -332,8 +335,13 @@
                 '<div class="col-md-6">' +
                 '<input type="text" class="form-control" name="with_receipt['+ (ctr - 1)+'][rec_no]" placeholder="Receipt no."></div>' +
                 '<div class="col-md-5">' +
-                '<input type="text" class="form-control" name="with_receipt['+ (ctr - 1)+'][rec_amount]" placeholder="Amount"></div>' +
+                '<input type="text" id="w-amount" class="form-control" name="with_receipt['+ (ctr - 1)+'][rec_amount]" placeholder="Amount"></div>' +
                 '</div>');
+
+
+            //numeric input
+            $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
         })
         //add wo receipt
         $('body').delegate('#add-wo-rec','click',function () {
@@ -342,8 +350,11 @@
                 '<div class="col-md-1">' +
                 '<div class="number-ctr">'+ ctr +'.</div></div>' +
                 '<div class="col-md-11">' +
-                '<input type="text" class="form-control" name="without_receipt['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '<input type="text" class="form-control" id="wo-amount" name="without_receipt['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+            //numeric input
+            $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
         })
         //add credit
         $('body').delegate('#add-credit','click',function () {
@@ -354,8 +365,11 @@
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][company]" placeholder="Company"></div>' +
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][bank_name]" placeholder="Bank Name"></div>' +
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][bank]" placeholder="Bank Number"></div>' +
-                '<div class="col-md-2"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '<div class="col-md-2"><input type="text" id="credit-amount" class="form-control" name="credit['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+            //numeric input
+            $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
         })
         //add expense
         $('body').delegate('#add-expense','click',function () {
@@ -363,8 +377,11 @@
             $('#step4').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">' + ctr +'.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="expense['+ (ctr - 1)+'][details]" placeholder="Details"></div>' +
-                '<div class="col-md-5"><input type="text" class="form-control" name="expense['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '<div class="col-md-5"><input type="text" id="expense-amount" class="form-control" name="expense['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+            //numeric input
+            $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
 
         })
 
@@ -374,8 +391,11 @@
             $('#step5').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">' + ctr +'.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="return['+ (ctr - 1)+'][name]" placeholder="Name"></div>' +
-                '<div class="col-md-5"><input type="text" class="form-control" name="return['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '<div class="col-md-5"><input type="text" id="return-amount" class="form-control" name="return['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+            //numeric input
+            $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
 
         })
 
@@ -385,10 +405,12 @@
             $('#step7').append('<div class="row margin_top">' +
                 '<div class="col-md-1"><div class="number-ctr">'+ctr+'.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="taken['+ (ctr - 1)+'][name]" placeholder="Name"></div>' +
-                '<div class="col-md-5"><input type="text" class="form-control" name="taken['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
+                '<div class="col-md-5"><input type="text" id="taken-amount" class="form-control" name="taken['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
-        })
+            //numeric input
+            $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
+        })
 
 
 
