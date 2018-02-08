@@ -480,7 +480,7 @@
             $('#step5').find('.margin_top').remove()
             $('#step5').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">1.</div></div>' +
-                '<div class="col-md-6"><input type="text" class="form-control" name="return[0][name]" placeholder="a" value=""></div>' +
+                '<div class="col-md-6"><input type="text" class="form-control" name="return[0][name]" placeholder="Name" value=""></div>' +
                 '<div class="col-md-5"><input type="text" class="form-control" name="return[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
 
