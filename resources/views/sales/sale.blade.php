@@ -1,10 +1,5 @@
 {!! Theme::asset()->usePath()->add('products','/css/web/products.css') !!}
 <style>
-    table{
-        border: 1px solid;
-        margin-bottom: 40px;
-
-    }
 
     table tbody{
         padding: 15px;
@@ -16,7 +11,6 @@
 
     table tbody tr td:first-child{
         font-weight: 600;
-        border-bottom: 1px dashed red;
     }
     table tbody tr td:nth-child(2){
         text-align: center;
@@ -79,6 +73,19 @@
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+    }
+
+    .table-computation{
+        border: 1px solid #000;
+        margin: 10px;
+        padding: 20px;
+        position: relative;
+    }
+
+    .view-details{
+        position: absolute;
+        top:0;
+        right: 0;
     }
 </style>
 <div class="row">

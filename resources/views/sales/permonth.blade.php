@@ -357,9 +357,9 @@
                 $('#step1').find('.margin_top').remove()
             }
             var w_total = 0
+
             $.each(json['with_receipt'],function (index,value){
-                w_total = (w_total + parseFloat(value['rec_amount']))
-                $('[name="with_receipt[][rec_no]"]').eq(index).val(value)
+                w_total = w_total + (value['rec_amount'] == '' ? 0 : parseFloat(value['rec_amount']))
                 $('#step1').append('<div class="row margin_top">' +
                     '<div class="col-md-1 ">' +
                     '<div class="number-ctr">'+ (index + 1) +'.</div>' +
@@ -371,9 +371,20 @@
                     '</div>');
 
                 $('#step1').find('.total').text('P '+w_total)
-
-
             })
+            //auto increment
+            $.each($('#step1 div:nth-child(2) input'),function (index,value){
+                if(index != 0){
+                    $(this).val(parseInt($('#step1 div:nth-child(2) input:nth-child(1)').val()) + index)
+                }
+            })
+//            //WITH REC TOTAL
+            var w_total = 0
+//            $.each($('#step1 div div:nth-child(3) input'),function (index,value){
+//                w_total = w_total + parseInt(($(this).val() == '') ? 0 : $(this).val())
+//                $('#step1').find('.total').text('P '+w_total)
+//            })
+
 
 
             if(json['without_receipt'] != null){
@@ -383,7 +394,7 @@
             var wo_total = 0
             $.each(json['without_receipt'],function (index,value){
 
-                wo_total = (wo_total + parseFloat(value['amount']))
+                wo_total = wo_total + (value['amount'] == '' ? 0 : parseFloat(value['amount']))
                 $('#step2').append('<div class="row margin_top">' +
                     '<div class="col-md-1">' +
                     '<div class="number-ctr">'+ (index + 1) +'.</div></div>' +
@@ -398,7 +409,10 @@
             if(json['credit'] != null){
                 $('#step3').find('.margin_top').remove()
             }
+            var credit_total = 0
             $.each(json['credit'],function (index,value){
+                credit_total = credit_total + (value['amount'] == '' ? 0 : parseFloat(value['amount']))
+
                 $('#step3').append('<div class="row margin_top">' +
                     '<div class="col-md-1">' +
                     '<div class="number-ctr">' + ( index + 1) +'.</div></div>' +
@@ -407,25 +421,34 @@
                     '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ index +'][bank]" placeholder="Bank Number" value="'+ value['bank'] +'"></div>' +
                     '<div class="col-md-2"><input type="text" id="credit-amount" class="form-control" name="credit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
+                $('#step3').find('.total').text('P '+credit_total)
+
             })
 
             if(json['expense'] != null){
                 $('#step4').find('.margin_top').remove()
             }
+            var expense = 0
+
             $.each(json['expense'],function (index,value){
+                expense = expense + (value['amount'] == '' ? 0 : parseFloat(value['amount']))
 
                 $('#step4').append('<div class="row margin_top">' +
                     '<div class="col-md-1 "><div class="number-ctr">' + ( index + 1) +'.</div></div>' +
                     '<div class="col-md-6"><input type="text" class="form-control" name="expense['+ index+'][details]" placeholder="Details" value="'+ value['details'] +'"></div>' +
                     '<div class="col-md-5"><input type="text" id="expense-amount" class="form-control" name="expense['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
                     '</div>')
+                $('#step4').find('.total').text('P '+expense)
+
 
             })
 
             if(json['return'] != null){
                 $('#step5').find('.margin_top').remove()
             }
+            var _return = 0
             $.each(json['return'],function (index,value){
+                _return = _return + (value['amount'] == '' ? 0 : parseFloat(value['amount']))
 
                 $('#step5').append('<div class="row margin_top">' +
                     '<div class="col-md-1 "><div class="number-ctr">' + ( index + 1) +'.</div></div>' +
@@ -433,20 +456,40 @@
                     '<div class="col-md-5"><input type="text" id="return-amount" class="form-control" name="return['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
                     '</div>')
 
+                $('#step5').find('.total').text('P '+_return)
+
+
             })
 
             if(json['taken'] != null){
                 $('#step7').find('.margin_top').remove()
             }
+
+            var taken = 0
             $.each(json['taken'],function (index,value){
+                taken = taken + (value['amount'] == '' ? 0 : parseFloat(value['amount']))
 
                 $('#step7').append('<div class="row margin_top">' +
                     '<div class="col-md-1"><div class="number-ctr">'+ (index + 1) +'.</div></div>' +
                     '<div class="col-md-6"><input type="text" class="form-control" name="taken['+ index +'][name]" placeholder="Name" value="'+ value['name'] +'"></div>' +
                     '<div class="col-md-5"><input type="text" id="taken-amount" class="form-control" name="taken['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
+                $('#step7').find('.total').text('P '+taken)
 
             })
+
+            //total cash
+            var _1000 = json['amount_1000'] * 1000
+            var _500 = json['amount_500'] * 500
+            var _100 = json['amount_100'] * 100
+            var _50 = json['amount_50'] * 50
+            var _20 = json['amount_20'] * 20
+            var _coins = json['amount_coins']
+            var cash = parseFloat(_1000) + parseFloat(_500) + parseFloat(_100) +parseFloat( _50) + parseFloat(_20) + parseFloat(_coins)
+            $('#step6').find('.total').text('P '+ cash)
+
+
+
         }else {
 
             $('#step1').find('.margin_top').remove()

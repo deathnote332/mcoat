@@ -124,7 +124,9 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step3">
-                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+
+                                    <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-credit">Add more</button>
                                     </div>
                                     <div class="row margin_top">
@@ -146,7 +148,8 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step4">
-                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-expense">Add more</button>
                                     </div>
                                     <div class="row margin_top">
@@ -162,7 +165,9 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step5">
-                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+
+                                    <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-return">Add more</button>
                                     </div>
                                     <div class="row margin_top">
@@ -178,6 +183,10 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4>Total: <span class="total">123</span></h4></div>
+                                    </div>
                                     <div class="row margin_top">
                                         <div class="col-md-2">
                                             <div class="number-ctr">1000*</div>
@@ -229,7 +238,9 @@
                                 </div>
 
                                 <div class="step-tab-panel" id="step7">
-                                    <div class="col-md-6 col-md-offset-6 margin_bottom text-right">
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+
+                                    <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-taken">Add more</button>
                                     </div>
                                     <div class="row margin_top">
@@ -338,6 +349,11 @@
                 '<input type="text" id="w-amount" class="form-control" name="with_receipt['+ (ctr - 1)+'][rec_amount]" placeholder="Amount"></div>' +
                 '</div>');
 
+            $.each($('#step1 div:nth-child(2) input'),function (index,value){
+                if(index != 0){
+                    $(this).val(parseInt($('#step1 div:nth-child(2) input:nth-child(1)').val()) + index)
+                }
+            })
 
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
@@ -352,6 +368,7 @@
                 '<div class="col-md-11">' +
                 '<input type="text" class="form-control" id="wo-amount" name="without_receipt['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 

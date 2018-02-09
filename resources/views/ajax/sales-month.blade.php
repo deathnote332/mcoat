@@ -105,60 +105,48 @@
     ?>
 
     <div class="col-md-4 table-computation">
-        <div class="col-md-6">
-            <h3>{{ date('F', mktime(0, 0, 0, $i, 1)) }}</h3>
+        <div class="text-center" style="padding-top: 10px">
+            <h5 style="font-weight: 600;text-transform: uppercase">{{\App\Branches::find($branch)->name}} MONTHLY SALES REPORT</h5>
+        </div>
+        <div class="text-center">
+            <h4>{{ date('F', mktime(0, 0, 0, $i, 1)) }} {{$year}}</h4>
         </div>
 
-        <div class="col-md-6 text-right">
+        <div class="">
             <button type="button" class="btn btn-primary view-details" data-month="{{ $i }}" data-branch="{{ $branch }}">View all</button>
         </div>
 
         <table width="100%" >
             <tbody>
             <tr >
-                <td>WITH RECEIPT</td>
-                <td>{{ 'P '.number_format($with_receipt_total,2) }} (+)</td>
-            </tr>
-            <tr>
-                <td>WITHOUT RECEIPT</td>
-                <td>{{ 'P '.number_format($without_receipt_total,2) }} (+)</td>
+                <td>TOTAL SALES</td>
+                <td></span>{{ 'P '.number_format(($with_receipt_total + $without_receipt_total),2) }}</td>
             </tr>
             <tr>
                 <td>CREDIT COLLECTION</td>
-                <td>{{ 'P '.number_format($credit_total,2) }} (+)</td>
+                <td>{{ 'P '.number_format($credit_total,2) }}</td>
+            </tr>
+            <tr>
+                <td>FOR DEPOSIT</td>
+                <td>{{ 'P '.number_format(0,2) }}</td>
             </tr>
             <tr>
                 <td>EXPENSES</td>
-                <td>{{ 'P '.number_format($expense_total,2) }} (-)</td>
+                <td>{{ 'P '.number_format($expense_total,2) }}</td>
             </tr>
             <tr>
-                <td>TOTAL</td>
-                <td>{{ 'P '.number_format($_total,2) }}</td>
+                <td>PURCHASE ORDER</td>
+                <td>{{ 'P '.number_format(0,2) }} (+)</td>
             </tr>
             <tr>
-                <td>CASH COMPUTATION</td>
-                <td>{{ 'P '.number_format($cash_total,2) }}</td>
+                <td>STOCK IN</td>
+                <td>{{ 'P '.number_format(0,2) }}</td>
             </tr>
             <tr>
-                <td>EXCESS</td>
-                <td>
-                    @if($excess == 0)
-                        {{ 'P '.number_format($excess,2) }}
-                    @else
-                        <b style="color: blue">{{ 'P '.number_format($excess,2) }}</b>
-                    @endif
-                </td>
+                <td>STOCK OUT</td>
+                <td>{{ 'P '.number_format(0,2) }}</td>
             </tr>
-            <tr>
-                <td>LOSS</td>
-                <td>
-                    @if($loss == 0)
-                        {{ 'P '.number_format($loss,2) }}
-                    @else
-                        <b style="color: red">{{ 'P '.number_format($loss,2) }}</b>
-                    @endif
-                </td>
-            </tr>
+
             </tbody>
         </table>
     </div>
