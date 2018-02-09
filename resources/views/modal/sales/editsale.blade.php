@@ -431,5 +431,124 @@
 
 
 
+        //keypress
+
+        $('body').delegate('#step1 div div:nth-child(3) input','input',function () {
+            var w_total = 0
+            $.each($('#step1 div div:nth-child(3) input'),function (index,value){
+                w_total = w_total + parseInt(($(this).val() == '') ? 0 : $(this).val())
+                $('#step1').find('.total').text('P '+w_total)
+            })
+        })
+
+        $('body').delegate('#step2 div div:nth-child(2) input','input',function () {
+            var w_total = 0
+            $.each($('#step2 div div:nth-child(2) input'),function (index,value){
+                w_total = w_total + parseInt(($(this).val() == '') ? 0 : $(this).val())
+                $('#step2').find('.total').text('P '+w_total)
+            })
+        })
+
+        $('body').delegate('#step3 div div:nth-child(5) input','input',function () {
+            var w_total = 0
+            $.each($('#step3 div div:nth-child(5) input'),function (index,value){
+                w_total = w_total + parseInt(($(this).val() == '') ? 0 : $(this).val())
+                $('#step3').find('.total').text('P '+w_total)
+            })
+        })
+
+
+        $('body').delegate('#step4 div div:nth-child(3) input','input',function () {
+            var w_total = 0
+            $.each($('#step4 div div:nth-child(3) input'),function (index,value){
+                w_total = w_total + parseInt(($(this).val() == '') ? 0 : $(this).val())
+                $('#step4').find('.total').text('P '+w_total)
+            })
+        })
+
+
+        $('body').delegate('#step5 div div:nth-child(3) input','input',function () {
+            var w_total = 0
+            $.each($('#step5 div div:nth-child(3) input'),function (index,value){
+                w_total = w_total + parseInt(($(this).val() == '') ? 0 : $(this).val())
+                $('#step5').find('.total').text('P '+w_total)
+            })
+        })
+
+        $('body').delegate('#step7 div div:nth-child(3) input','input',function () {
+            var w_total = 0
+            $.each($('#step7 div div:nth-child(3) input'),function (index,value){
+                w_total = w_total + parseInt(($(this).val() == '') ? 0 : $(this).val())
+                $('#step7').find('.total').text('P '+w_total)
+            })
+        })
+
+
+
+        //cash
+        $('[name="amount_1000"]').on('input',function () {
+            var _1000 = $(this).val() * 1000
+            var _500 = $('[name="amount_500"]').val() * 500
+            var _100 = $('[name="amount_100"]').val() * 100
+            var _50 = $('[name="amount_50"]').val() * 50
+            var _20 = $('[name="amount_20"]').val() * 20
+            var _coins = $('[name="amount_coins"]').val()
+            var cash = parseFloat(_1000) + parseFloat(_500) + parseFloat(_100) +parseFloat( _50) + parseFloat(_20) + parseFloat(_coins)
+            $('#step6').find('.total').text('P '+ cash)
+        })
+        $('[name="amount_500"]').on('input',function () {
+            var _1000 = $('[name="amount_1000"]').val() * 1000
+            var _500 = $(this).val() * 500
+            var _100 = $('[name="amount_100"]').val() * 100
+            var _50 = $('[name="amount_50"]').val() * 50
+            var _20 = $('[name="amount_20"]').val() * 20
+            var _coins = $('[name="amount_coins"]').val()
+            var cash = parseFloat(_1000) + parseFloat(_500) + parseFloat(_100) +parseFloat( _50) + parseFloat(_20) + parseFloat(_coins)
+            $('#step6').find('.total').text('P '+ cash)
+        })
+        $('[name="amount_100"]').on('input',function () {
+            var _1000 = $('[name="amount_1000"]').val() * 1000
+            var _500 = $('[name="amount_500"]').val() * 500
+            var _100 = $(this).val() * 100
+            var _50 = $('[name="amount_50"]').val() * 50
+            var _20 = $('[name="amount_20"]').val() * 20
+            var _coins = $('[name="amount_coins"]').val()
+            var cash = parseFloat(_1000) + parseFloat(_500) + parseFloat(_100) +parseFloat( _50) + parseFloat(_20) + parseFloat(_coins)
+            $('#step6').find('.total').text('P '+ cash)
+        })
+        $('[name="amount_50"]').on('input',function () {
+            var _1000 = $('[name="amount_1000"]').val() * 1000
+            var _500 = $('[name="amount_500"]').val() * 500
+            var _100 = $('[name="amount_100"]').val() * 100
+            var _50 = $(this).val() * 50
+            var _20 = $('[name="amount_20"]').val() * 20
+            var _coins = $('[name="amount_coins"]').val()
+            var cash = parseFloat(_1000) + parseFloat(_500) + parseFloat(_100) +parseFloat( _50) + parseFloat(_20) + parseFloat(_coins)
+            $('#step6').find('.total').text('P '+ cash)
+        })
+
+        $('[name="amount_20"]').on('input',function () {
+            var _1000 = $('[name="amount_1000"]').val() * 1000
+            var _500 = $('[name="amount_500"]').val() * 500
+            var _100 = $('[name="amount_100"]').val() * 100
+            var _50 = $('[name="amount_50"]').val() * 50
+            var _20 = $(this).val() * 20
+            var _coins = $('[name="amount_coins"]').val()
+            var cash = parseFloat(_1000) + parseFloat(_500) + parseFloat(_100) +parseFloat( _50) + parseFloat(_20) + parseFloat(_coins)
+            $('#step6').find('.total').text('P '+ cash)
+        })
+
+        $('[name="amount_coins"]').on('input',function () {
+            var _1000 = $('[name="amount_1000"]').val() * 1000
+            var _500 = $('[name="amount_500"]').val() * 500
+            var _100 = $('[name="amount_100"]').val() * 100
+            var _50 = $('[name="amount_50"]').val() * 50
+            var _20 = $('[name="amount_20"]').val() * 20
+            var _coins = $('[name="amount_coins"]').val()
+            var cash = parseFloat(_1000) + parseFloat(_500) + parseFloat(_100) +parseFloat( _50) + parseFloat(_20) + parseFloat(_coins)
+            $('#step6').find('.total').text('P '+ cash)
+        })
+
+
     })
 </script>

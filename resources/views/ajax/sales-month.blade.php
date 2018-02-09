@@ -136,7 +136,7 @@
             </tr>
             <tr>
                 <td>PURCHASE ORDER</td>
-                <td>{{ 'P '.number_format(0,2) }} (+)</td>
+                <td>{{ 'P '.number_format(0,2) }}</td>
             </tr>
             <tr>
                 <td>STOCK IN</td>
