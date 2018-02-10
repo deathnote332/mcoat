@@ -89,6 +89,8 @@
     </div>
     <div class="col-md-12">
         <h1>{{ \App\Branches::find($branch)->name }} - {{date('F', mktime(0, 0, 0, $month, 1))}} {{$year}}  Sales</h1>
+        <input type="hidden" id="branch" value="{{ \App\Branches::find($branch)->name }}">
+        <input type="hidden" id="address" value="{{ \App\Branches::find($branch)->address }}">
     </div>
 </row>
 <input type="hidden" id="user_type" value="{{ Auth::user()->user_type }}">
@@ -281,9 +283,8 @@
             $('#daily-edit-sale')[0].reset()
             var _date = $(this).data('year') +'-'+$(this).data('month')+'-'+$(this).data('day')
             $('#_date').text($(this).data('_date'))
-
-
-
+            $('#_branch').text($('#branch').val())
+            $('#_address').text($('#address').val())
 
             parseData($(this).data('data'))
 

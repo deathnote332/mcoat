@@ -60,11 +60,11 @@
 
                 </div>
                 <div class="col-md-12">
-                    <h5 class="modal-title" id="myModalLabel">BRANCH: <strong> CDJ PASIG</strong></h5>
+                    <h5 class="modal-title" id="myModalLabel">BRANCH: <strong id="_branch"> CDJ PASIG</strong></h5>
 
                 </div>
                 <div class="col-md-8">
-                    <h5 class="modal-title" id="myModalLabel">ADDRESS: <strong> 108 R. Jabson St. Bambang, Pasig City</strong></h5>
+                    <h5 class="modal-title" id="myModalLabel">ADDRESS: <strong id="_address"> 108 R. Jabson St. Bambang, Pasig City</strong></h5>
 
                 </div>
                 <div class="col-md-4">
@@ -89,7 +89,7 @@
                             </ul>
                             <div class="step-content clearfix">
                                 <div class="step-tab-panel" id="step1">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
                                     <div class="col-md-6 margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-w-rec">Add more</button>
                                     </div>
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step2">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
 
                                     <div class="col-md-6 margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-wo-rec">Add more</button>
@@ -124,7 +124,7 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step3">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
 
                                     <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-credit">Add more</button>
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step4">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
                                     <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-expense">Add more</button>
                                     </div>
@@ -165,7 +165,7 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step5">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
 
                                     <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-return">Add more</button>
@@ -185,7 +185,7 @@
                                 <div class="step-tab-panel" id="step6">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h4>Total: <span class="total">123</span></h4></div>
+                                            <h4>Total: <span class="total">0</span></h4></div>
                                     </div>
                                     <div class="row margin_top">
                                         <div class="col-md-2">
@@ -238,7 +238,7 @@
                                 </div>
 
                                 <div class="step-tab-panel" id="step7">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">123</span></h4></div>
+                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
 
                                     <div class="col-md-6  margin_bottom text-right">
                                         <button type="button" class="btn btn-primary" id="add-taken">Add more</button>
