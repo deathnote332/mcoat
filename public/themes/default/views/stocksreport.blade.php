@@ -218,7 +218,7 @@
             closeOnConfirm: false
         }).then(function () {
 
-            var path=BASEURL+'/stocklist/'+ $('#warehouse').val()+'?'
+            var path=BASEURL+'/stocklist/'+ $('#warehouse').val()+'?stock=' + $('#stocks-type').val()
             if(brand != 'Choose Brand'){
                 path += '&brand='+brand
             }
