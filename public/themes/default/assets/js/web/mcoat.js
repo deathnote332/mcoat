@@ -1,7 +1,6 @@
 $('document').ready(function(){
     var BASEURL = $('#baseURL').val();
 
-    alert(BASEURL)
     var product = $('#mcoat-list').DataTable({
         ajax: BASEURL + '/getProducts',
         order: [],
