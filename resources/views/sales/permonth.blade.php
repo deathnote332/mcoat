@@ -354,6 +354,7 @@
                 $('[name="'+name+'"]').val(value)
             })
 
+
             if(json['with_receipt'] != null){
                 $('#step1').find('.margin_top').remove()
             }
@@ -373,12 +374,12 @@
 
                 $('#step1').find('.total').text('P '+w_total)
             })
-            //auto increment
-            $.each($('#step1 div:nth-child(2) input'),function (index,value){
-                if(index != 0){
-                    $(this).val(parseInt($('#step1 div:nth-child(2) input:nth-child(1)').val()) + index)
-                }
-            })
+//            <div class="col-md-6 margin_bottom text-right">
+//                <button type="button" class="btn btn-primary" id="add-w-rec">Add more</button>
+//            </div>
+            //adding plus to last child
+            $('#step1 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-w-rec">Add more</button></div>')
+//
 //            //WITH REC TOTAL
             var w_total = 0
 //            $.each($('#step1 div div:nth-child(3) input'),function (index,value){
@@ -407,6 +408,9 @@
 
             })
 
+            $('#step2 div.row.margin_top:last-child div:nth-child(2)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-wo-rec">Add more</button></div>')
+
+
             if(json['credit'] != null){
                 $('#step3').find('.margin_top').remove()
             }
@@ -423,8 +427,9 @@
                     '<div class="col-md-2"><input type="text" id="credit-amount" class="form-control" name="credit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
                 $('#step3').find('.total').text('P '+credit_total)
-
             })
+            $('#step3 div.row.margin_top:last-child div:nth-child(5)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-credit">Add more</button></div>')
+
 
             if(json['expense'] != null){
                 $('#step4').find('.margin_top').remove()
@@ -440,9 +445,9 @@
                     '<div class="col-md-5"><input type="text" id="expense-amount" class="form-control" name="expense['+ index +'][amount]" placeholder="Amount" value="' + value['amount'] +'"></div>' +
                     '</div>')
                 $('#step4').find('.total').text('P '+expense)
-
-
             })
+            $('#step4 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-expense">Add more</button></div>')
+
 
             if(json['return'] != null){
                 $('#step5').find('.margin_top').remove()
@@ -458,9 +463,9 @@
                     '</div>')
 
                 $('#step5').find('.total').text('P '+_return)
-
-
             })
+            $('#step5 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-return">Add more</button></div>')
+
 
             if(json['taken'] != null){
                 $('#step7').find('.margin_top').remove()
@@ -476,8 +481,26 @@
                     '<div class="col-md-5"><input type="text" id="taken-amount" class="form-control" name="taken['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
                 $('#step7').find('.total').text('P '+taken)
-
             })
+            $('#step7 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-taken">Add more</button></div>')
+
+            if(json['deposit'] != null){
+                $('#step8').find('.margin_top').remove()
+            }
+            var deposit = 0
+            $.each(json['deposit'],function (index,value){
+                deposit = deposit + (value['amount'] == '' ? 0 : parseFloat(value['amount']))
+                $('#step8').append('<div class="row margin_top">' +
+                    '<div class="col-md-1"><div class="number-ctr">'+ (index + 1) +'.</div></div>' +
+                    '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ index +'][bank_name]" placeholder="Name" value="'+ value['bank_name'] +'"></div>' +
+                    '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ index +'][bank_number]" placeholder="Amount" value="'+ value['bank_number'] +'"></div>' +
+                    '<div class="col-md-3"><input type="text" id="deposit-amount" class="form-control" name="deposit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
+                    '</div>')
+                $('#step8').find('.total').text('P '+deposit)
+            })
+            $('#step8 div.row.margin_top:last-child div:nth-child(4)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-deposit">Add more</button></div>')
+
+
 
             //total cash
             var _1000 = json['amount_1000'] * 1000
@@ -492,6 +515,7 @@
 
 
         }else {
+            $('#step1').find('.total').text('P 0')
 
             $('#step1').find('.margin_top').remove()
             $('#step1').append('<div class="row margin_top">' +
@@ -503,7 +527,10 @@
                 '<div class="col-md-5">' +
                 '<input type="text" id="w-amount" class="form-control" name="with_receipt[0][rec_amount]" placeholder="Amount" value=""></div>' +
                 '</div>');
+            $('#step1 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-w-rec">Add more</button></div>')
 
+
+            $('#step2').find('.total').text('P 0')
 
             $('#step2').find('.margin_top').remove()
             $('#step2').append('<div class="row margin_top">' +
@@ -512,8 +539,9 @@
                 '<div class="col-md-11">' +
                 '<input type="text" id="wo-amount" class="form-control" name="without_receipt[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
+            $('#step2 div.row.margin_top:last-child div:nth-child(2)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-wo-rec">Add more</button></div>')
 
-
+            $('#step3').find('.total').text('P 0')
             $('#step3').find('.margin_top').remove()
             $('#step3').append('<div class="row margin_top">' +
                 '<div class="col-md-1">' +
@@ -523,29 +551,51 @@
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit[0][bank]" placeholder="Bank Number" value=""></div>' +
                 '<div class="col-md-2"><input type="text" id="credit-amount" class="form-control" name="credit[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
+            $('#step3 div.row.margin_top:last-child div:nth-child(5)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-credit">Add more</button></div>')
 
 
+            $('#step4').find('.total').text('P 0')
             $('#step4').find('.margin_top').remove()
             $('#step4').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="expense[0][details]" placeholder="Details" value=""></div>' +
                 '<div class="col-md-5"><input type="text" id="expense-amount" class="form-control" name="expense[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
+            $('#step4 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-expense">Add more</button></div>')
 
+            $('#step5').find('.total').text('P 0')
             $('#step5').find('.margin_top').remove()
             $('#step5').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="return[0][name]" placeholder="Name" value=""></div>' +
                 '<div class="col-md-5"><input type="text" id="return-amount" class="form-control" name="return[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
+            $('#step5 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-return">Add more</button></div>')
 
 
+            $('#step7').find('.total').text('P 0')
             $('#step7').find('.margin_top').remove()
             $('#step7').append('<div class="row margin_top">' +
                 '<div class="col-md-1"><div class="number-ctr">1.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="taken[0][name]" placeholder="Name" value=""></div>' +
                 '<div class="col-md-5"><input type="text" id="taken-amount" class="form-control" name="taken[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
+            $('#step7 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-taken">Add more</button></div>')
+
+            $('#step8').find('.total').text('P 0')
+            $('#step8').find('.margin_top').remove()
+
+            $('#step8').append('<div class="row margin_top">' +
+                '<div class="col-md-1"><div class="number-ctr">1.</div></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="deposit[0][bank_name]" placeholder="Name" value=""></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="deposit[0][bank_number]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-3"><input type="text" id="deposit-amount" class="form-control" name="deposit[0][amount]" placeholder="Amount" value=""></div>' +
+                '</div>')
+            $('#step8 div.row.margin_top:last-child div:nth-child(4)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-deposit">Add more</button></div>')
+
+
+            $('#step6').find('.total').text('P 0')
+
 
         }
 

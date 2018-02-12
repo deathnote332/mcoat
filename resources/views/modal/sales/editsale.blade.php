@@ -18,7 +18,7 @@
     /*steps*/
 
     #steps{
-        padding-bottom: 20px;
+        padding-bottom: 50px;
     }
 
     .step-steps{
@@ -86,13 +86,12 @@
                                 <li><a href="#step5">5. Item Returns</a></li>
                                 <li><a href="#step6">6. Cash Breakdown</a></li>
                                 <li><a href="#step7">7. Taken</a></li>
+                                <li><a href="#step8">8. Bank Depost</a></li>
                             </ul>
                             <div class="step-content clearfix">
                                 <div class="step-tab-panel" id="step1">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
-                                    <div class="col-md-6 margin_bottom text-right">
-                                        <button type="button" class="btn btn-primary" id="add-w-rec">Add more</button>
-                                    </div>
+                                    <div class="col-md-12 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
+
                                     <div class="row margin_top">
 
                                         <div class="col-md-1 ">
@@ -109,11 +108,8 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step2">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
+                                    <div class="col-md-12 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
 
-                                    <div class="col-md-6 margin_bottom text-right">
-                                        <button type="button" class="btn btn-primary" id="add-wo-rec">Add more</button>
-                                    </div>
                                     <div class="row margin_top">
                                         <div class="col-md-1">
                                             <div class="number-ctr">1.</div>
@@ -124,11 +120,7 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step3">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
-
-                                    <div class="col-md-6  margin_bottom text-right">
-                                        <button type="button" class="btn btn-primary" id="add-credit">Add more</button>
-                                    </div>
+                                    <div class="col-md-12 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
                                     <div class="row margin_top">
                                         <div class="col-md-1">
                                             <div class="number-ctr">1.</div>
@@ -148,10 +140,7 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step4">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
-                                    <div class="col-md-6  margin_bottom text-right">
-                                        <button type="button" class="btn btn-primary" id="add-expense">Add more</button>
-                                    </div>
+                                    <div class="col-md-12 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
                                     <div class="row margin_top">
                                         <div class="col-md-1">
                                             <div class="number-ctr">1.</div>
@@ -165,11 +154,7 @@
                                     </div>
                                 </div>
                                 <div class="step-tab-panel" id="step5">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
-
-                                    <div class="col-md-6  margin_bottom text-right">
-                                        <button type="button" class="btn btn-primary" id="add-return">Add more</button>
-                                    </div>
+                                    <div class="col-md-12 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
                                     <div class="row margin_top">
                                         <div class="col-md-1">
                                             <div class="number-ctr">1.</div>
@@ -238,11 +223,8 @@
                                 </div>
 
                                 <div class="step-tab-panel" id="step7">
-                                    <div class="col-md-6 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
+                                    <div class="col-md-12 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
 
-                                    <div class="col-md-6  margin_bottom text-right">
-                                        <button type="button" class="btn btn-primary" id="add-taken">Add more</button>
-                                    </div>
                                     <div class="row margin_top">
                                         <div class="col-md-1 ">
                                             <div class="number-ctr">1.</div>
@@ -256,6 +238,23 @@
                                     </div>
                                 </div>
 
+                                <div class="step-tab-panel" id="step8">
+                                    <div class="col-md-12 margin_bottom"><h4>Total: <span class="total">0</span></h4></div>
+                                    <div class="row margin_top">
+                                        <div class="col-md-1">
+                                            <div class="number-ctr">1.</div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="deposit[0][bank_name]" placeholder="Bank Name">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" name="deposit[0][bank_number]" placeholder="Bank Number">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" name="deposit[0][amount]" placeholder="Amount">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="step-footer clearfix">
                                 <button data-direction="prev" class="btn btn-primary">Previous</button>
@@ -337,7 +336,7 @@
         $('body').delegate('#add-w-rec','click',function () {
 
 
-            var ctr = $('#step1').find('.margin_top').length + 1
+            var ctr = $('#step1').find('.row.margin_top').length + 1
 
             $('#step1').append('<div class="row margin_top">' +
                 '<div class="col-md-1 ">' +
@@ -349,11 +348,15 @@
                 '<input type="text" id="w-amount" class="form-control" name="with_receipt['+ (ctr - 1)+'][rec_amount]" placeholder="Amount"></div>' +
                 '</div>');
 
-            $.each($('#step1 div:nth-child(2) input'),function (index,value){
+            $.each($('#step1 div.col-md-6 input'),function (index,value){
                 if(index != 0){
-                    $(this).val(parseInt($('#step1 div:nth-child(2) input:nth-child(1)').val()) + index)
+                    $(this).val(parseInt(($('#step1 div.col-md-6 input:nth-child(1)').val() == '') ? 0 : $('#step1 div.col-md-6 input:nth-child(1)').val()) + index)
                 }
             })
+
+            $(this).remove()
+
+            $('#step1 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-w-rec">Add more</button></div>')
 
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
@@ -361,7 +364,8 @@
         })
         //add wo receipt
         $('body').delegate('#add-wo-rec','click',function () {
-            var ctr = $('#step2').find('.margin_top').length + 1
+
+            var ctr = $('#step2').find('.row.margin_top').length + 1
             $('#step2').append('<div class="row margin_top">' +
                 '<div class="col-md-1">' +
                 '<div class="number-ctr">'+ ctr +'.</div></div>' +
@@ -369,13 +373,17 @@
                 '<input type="text" class="form-control" id="wo-amount" name="without_receipt['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
 
+            $(this).remove()
+            $('#step2 div.row.margin_top:last-child div:nth-child(2)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-wo-rec">Add more</button></div>')
+
+
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
         })
         //add credit
         $('body').delegate('#add-credit','click',function () {
-            var ctr = $('#step3').find('.margin_top').length + 1
+            var ctr = $('#step3').find('.row.margin_top').length + 1
             $('#step3').append('<div class="row margin_top">' +
                 '<div class="col-md-1">' +
                 '<div class="number-ctr">' + ctr +'.</div></div>' +
@@ -384,18 +392,25 @@
                 '<div class="col-md-3"><input type="text" class="form-control" name="credit['+ (ctr - 1)+'][bank]" placeholder="Bank Number"></div>' +
                 '<div class="col-md-2"><input type="text" id="credit-amount" class="form-control" name="credit['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+            $(this).remove()
+            $('#step3 div.row.margin_top:last-child div:nth-child(5)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-credit">Add more</button></div>')
+
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
 
         })
         //add expense
         $('body').delegate('#add-expense','click',function () {
-            var ctr = $('#step4').find('.margin_top').length + 1
+            var ctr = $('#step4').find('.row.margin_top').length + 1
             $('#step4').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">' + ctr +'.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="expense['+ (ctr - 1)+'][details]" placeholder="Details"></div>' +
                 '<div class="col-md-5"><input type="text" id="expense-amount" class="form-control" name="expense['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+            $(this).remove()
+            $('#step4 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-expense">Add more</button></div>')
+
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
@@ -404,12 +419,16 @@
 
         //add return
         $('body').delegate('#add-return','click',function () {
-            var ctr = $('#step5').find('.margin_top').length + 1
+            var ctr = $('#step5').find('.row.margin_top').length + 1
             $('#step5').append('<div class="row margin_top">' +
                 '<div class="col-md-1 "><div class="number-ctr">' + ctr +'.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="return['+ (ctr - 1)+'][name]" placeholder="Name"></div>' +
                 '<div class="col-md-5"><input type="text" id="return-amount" class="form-control" name="return['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+
+            $(this).remove()
+            $('#step5 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-return">Add more</button></div>')
+
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
@@ -418,18 +437,39 @@
 
         //add taken
         $('body').delegate('#add-taken','click',function () {
-            var ctr = $('#step7').find('.margin_top').length + 1
+            var ctr = $('#step7').find('.row.margin_top').length + 1
             $('#step7').append('<div class="row margin_top">' +
                 '<div class="col-md-1"><div class="number-ctr">'+ctr+'.</div></div>' +
                 '<div class="col-md-6"><input type="text" class="form-control" name="taken['+ (ctr - 1)+'][name]" placeholder="Name"></div>' +
                 '<div class="col-md-5"><input type="text" id="taken-amount" class="form-control" name="taken['+ (ctr - 1)+'][amount]" placeholder="Amount"></div>' +
                 '</div>')
+            $(this).remove()
+            $('#step7 div.row.margin_top:last-child div:nth-child(3)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-taken">Add more</button></div>')
+
+
             //numeric input
             $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
 
         })
 
+        //add deposit
+        $('body').delegate('#add-deposit','click',function () {
+            var ctr = $('#step8').find('.row.margin_top').length + 1
 
+            $('#step8').append('<div class="row margin_top">' +
+                '<div class="col-md-1"><div class="number-ctr">'+ ctr +'.</div></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ (ctr -1) +'][bank_name]" placeholder="Name" value=""></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ (ctr -1) +'][bank_number]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-3"><input type="text" id="deposit-amount" class="form-control" name="deposit['+ (ctr - 1) +'][amount]" placeholder="Amount" value=""></div>' +
+                '</div>')
+            $(this).remove()
+            $('#step8 div.row.margin_top:last-child div:nth-child(4)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-deposit">Add more</button></div>')
+
+
+            //numeric input
+            $('#taken-amount,#return-amount,#expense-amount,#credit-amount,#w-amount,#wo-amount').on('keydown', function(e){-1!==$.inArray(e.keyCode,[46,8,9,27,13,110,190])||/65|67|86|88/.test(e.keyCode)&&(!0===e.ctrlKey||!0===e.metaKey)||35<=e.keyCode&&40>=e.keyCode||(e.shiftKey||48>e.keyCode||57<e.keyCode)&&(96>e.keyCode||105<e.keyCode)&&e.preventDefault()});
+
+        })
 
         //keypress
 
