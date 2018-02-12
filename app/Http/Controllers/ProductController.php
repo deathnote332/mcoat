@@ -35,49 +35,52 @@ class ProductController extends Controller
     public function getProducts(Request $request)
     {
 
-        $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->where('status',1);
-        return Datatables::of($products)
-            ->addColumn('brand', function ($data) use ($request){
-                return $data->brand;
-            })
-            ->addColumn('category', function ($data) use ($request){
-                return $data->category;
-            })
-            ->addColumn('description', function ($data) use ($request){
-                return $data->description;
-            })
-            ->addColumn('code', function ($data) use ($request){
-                return $data->code;
-            })
-            ->addColumn('unit', function ($data) use ($request){
-                return $data->unit;
-            })
-            ->addColumn('quantity', function ($data) use ($request){
-                return $data->quantity;
-            })
-            ->addColumn('quantity_1', function ($data) use ($request){
-                return $data->quantity_1;
-            })
-            ->addColumn('unit_price', function ($data) use ($request){
-                return 'P '.number_format($data->unit_price , 2);
-            })
-            ->addColumn('action', function ($data) use ($request){
-                $add_to_cart = '<label id="add-to-cart" class="alert alert-info" data-id="'.$data->id.'" data-brand="'.$data->brand.'"
-                        data-category="'.$data->category.'" data-code="'.$data->code.'" data-description="'.$data->description.'" data-quantity="'.$data->quantity.'" data-quantity_1="'.$data->quantity_1.'" data-unit_price="'.number_format($data->unit_price, 2).'"
-                        data-unit="'.$data->unit.'">Add to Cart</label>';
+        $products = Product::orderBy('brand','asc')->orderBy('category','asc')->orderBy('description','asc')->orderBy('code','asc')->orderBy('unit','asc')->where('status',1)->get();
+        return ['data'=>$products];
 
-                return $add_to_cart;
 
-            })
-            ->addColumn('action_1', function ($data) use ($request){
-                $update = '<label id="add-to-cart" class="alert alert-info" data-id="'.$data->id.'" data-brand="'.$data->brand.'"
-                        data-category="'.$data->category.'" data-code="'.$data->code.'" data-description="'.$data->description.'" data-quantity="'.$data->quantity.'" data-quantity_1="'.$data->quantity_1.'" data-unit_price="'.number_format($data->unit_price, 2).'"
-                        data-unit="'.$data->unit.'">Update</label>';
-                $delete = "<label id='delete' class='alert alert-danger' data-id='$data->id' >Delete</label>";
-                return $update.$delete;
-            })
-
-            ->make(true);
+        //        return Datatables::of($products)
+//            ->addColumn('brand', function ($data) use ($request){
+//                return $data->brand;
+//            })
+//            ->addColumn('category', function ($data) use ($request){
+//                return $data->category;
+//            })
+//            ->addColumn('description', function ($data) use ($request){
+//                return $data->description;
+//            })
+//            ->addColumn('code', function ($data) use ($request){
+//                return $data->code;
+//            })
+//            ->addColumn('unit', function ($data) use ($request){
+//                return $data->unit;
+//            })
+//            ->addColumn('quantity', function ($data) use ($request){
+//                return $data->quantity;
+//            })
+//            ->addColumn('quantity_1', function ($data) use ($request){
+//                return $data->quantity_1;
+//            })
+//            ->addColumn('unit_price', function ($data) use ($request){
+//                return 'P '.number_format($data->unit_price , 2);
+//            })
+//            ->addColumn('action', function ($data) use ($request){
+//                $add_to_cart = '<label id="add-to-cart" class="alert alert-info" data-id="'.$data->id.'" data-brand="'.$data->brand.'"
+//                        data-category="'.$data->category.'" data-code="'.$data->code.'" data-description="'.$data->description.'" data-quantity="'.$data->quantity.'" data-quantity_1="'.$data->quantity_1.'" data-unit_price="'.number_format($data->unit_price, 2).'"
+//                        data-unit="'.$data->unit.'">Add to Cart</label>';
+//
+//                return $add_to_cart;
+//
+//            })
+//            ->addColumn('action_1', function ($data) use ($request){
+//                $update = '<label id="add-to-cart" class="alert alert-info" data-id="'.$data->id.'" data-brand="'.$data->brand.'"
+//                        data-category="'.$data->category.'" data-code="'.$data->code.'" data-description="'.$data->description.'" data-quantity="'.$data->quantity.'" data-quantity_1="'.$data->quantity_1.'" data-unit_price="'.number_format($data->unit_price, 2).'"
+//                        data-unit="'.$data->unit.'">Update</label>';
+//                $delete = "<label id='delete' class='alert alert-danger' data-id='$data->id' >Delete</label>";
+//                return $update.$delete;
+//            })
+//
+//            ->make(true);
 
     }
 

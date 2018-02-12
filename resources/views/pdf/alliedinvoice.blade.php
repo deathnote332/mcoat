@@ -241,7 +241,8 @@
 @for($i = 1;$i <= 3;$i++)
 
     <div class="header">
-        <h1>ALLIED PAINT COMMERCIAL & GENERAL MERCHANDISE</h1>
+        <h1>ALLIED PAINT COMMERCIAL & GENERAL MERCHANDISE {{ $i }}
+        </h1>
         <div class="sub-header">
             <h3>320 KM Caranglaan Dagupan Pangasinan</h3>
             <h3>Ludilyn De Jesus - Prop.</h3>

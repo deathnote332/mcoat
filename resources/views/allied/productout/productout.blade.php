@@ -182,7 +182,10 @@
                 { data: 'unit',"orderable": false },
                 { data: 'quantity_1',"orderable": false },
                 { data: 'unit_price',"orderable": false },
-                { data: 'action',"orderable": false }
+                { data: 'id',"orderable": false,
+                    "render": function ( data, type, row, meta ) {
+                        return  "<label id='add-to-cart' class='alert alert-info' data-id="+ row.id +" data-brand="+ row.brand+ " data-category="+ row.category +" data-code="+ row.code +" data-description="+ row.description+" data-quantity="+ row.quantity +" data-quantity_1=" + row.quantity_1 + " data-unit_price="+ row.unit_price +" data-unit="+ row.unit +">Add to Cart</label>"
+                    }}
             ],
             "createdRow": function ( row, data, index ) {
                 $('td', row).eq(7).find('#delete').remove();
