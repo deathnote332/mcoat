@@ -492,8 +492,8 @@
                 deposit = deposit + (value['amount'] == '' ? 0 : parseFloat(value['amount']))
                 $('#step8').append('<div class="row margin_top">' +
                     '<div class="col-md-1"><div class="number-ctr">'+ (index + 1) +'.</div></div>' +
-                    '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ index +'][bank_name]" placeholder="Name" value="'+ value['bank_name'] +'"></div>' +
-                    '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ index +'][bank_number]" placeholder="Amount" value="'+ value['bank_number'] +'"></div>' +
+                    '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ index +'][bank_name]" placeholder="Bank Name" value="'+ value['bank_name'] +'"></div>' +
+                    '<div class="col-md-4"><input type="text" class="form-control" name="deposit['+ index +'][bank_number]" placeholder="Bank Number" value="'+ value['bank_number'] +'"></div>' +
                     '<div class="col-md-3"><input type="text" id="deposit-amount" class="form-control" name="deposit['+ index +'][amount]" placeholder="Amount" value="'+ value['amount'] +'"></div>' +
                     '</div>')
                 $('#step8').find('.total').text('P '+deposit)
@@ -587,8 +587,8 @@
 
             $('#step8').append('<div class="row margin_top">' +
                 '<div class="col-md-1"><div class="number-ctr">1.</div></div>' +
-                '<div class="col-md-4"><input type="text" class="form-control" name="deposit[0][bank_name]" placeholder="Name" value=""></div>' +
-                '<div class="col-md-4"><input type="text" class="form-control" name="deposit[0][bank_number]" placeholder="Amount" value=""></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="deposit[0][bank_name]" placeholder="Bank Name" value=""></div>' +
+                '<div class="col-md-4"><input type="text" class="form-control" name="deposit[0][bank_number]" placeholder="Bank Number" value=""></div>' +
                 '<div class="col-md-3"><input type="text" id="deposit-amount" class="form-control" name="deposit[0][amount]" placeholder="Amount" value=""></div>' +
                 '</div>')
             $('#step8 div.row.margin_top:last-child div:nth-child(4)').append('<div class="margin_top text-right"><button type="button" class="btn btn-primary" id="add-deposit">Add more</button></div>')
