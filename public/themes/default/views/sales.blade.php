@@ -1,6 +1,6 @@
 <style>
     .huge{
-        font-size: 20px;
+        font-size: 18px !important;
     }
 </style>
 <div class="row">
