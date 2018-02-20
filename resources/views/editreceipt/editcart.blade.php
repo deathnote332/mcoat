@@ -184,7 +184,7 @@
                 { data: 'temp_qty',"orderable": false },
                 { data: 'unit_price',"orderable": false },
                 { data: 'total',"orderable": false },
-                { data: 'action',"orderable": false }
+                { data: 'action',"orderable": false}
             ],
 
 
