@@ -124,7 +124,7 @@
                         <div class="col-md-6 col-xs-6">
                             <div class="form-group" id="quantity">
                                 <label>Current quantity</label>
-                                <p class="form-control-static" id="current_qty">Test</p>
+                                <p class="form-control-static" id="current_qty">Test Print</p>
 
                             </div>
                         </div>
